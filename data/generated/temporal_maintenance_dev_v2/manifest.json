@@ -1,0 +1,32 @@
+{
+  "dataset_id": "temporal_maintenance_dev_v2",
+  "counts": {
+    "assets": 96,
+    "targets": 48,
+    "chains": 192,
+    "evidence": 1575,
+    "queries": 1152,
+    "intents": 576
+  },
+  "input_hashes": {
+    "D:\\electric-project\\scripts\\temporal_maintenance_dataset_v2_lib.py": "244ed3c8856ac3f02bf6aeca82e48e02bf1617754a7fbdcbbe75107aa8c52c76",
+    "D:\\electric-project\\plans\\时序运维资料与案例设计_v1\\设计卡_审阅专用.json": "934214b915cddb72fccf2f4771178918f1ff2e0a442631c79298e3aca77e1f9a",
+    "D:\\electric-project\\plans\\时序运维数据v2生成协议.md": "5ff898487da762a4a60b3068d0b97175bac8c52b35b5fdf927baf02216e58ade",
+    "D:\\electric-project\\configs\\temporal_maintenance_dev_v2.json": "1df55e5ee90e2816ddb5e120407126af7cac597cdd73c42e78a88138121cdc2a",
+    "D:\\electric-project\\scripts\\build_temporal_maintenance_dev_v2.py": "4543fe4d3b13055975011e225a659cc8708f330d7c1c88d3f1641e42c9dc7208"
+  },
+  "output_hashes": {
+    "assets.json": "434b2c70a0ba4859e1088df74f1678c1b80177fef9a4bc60f874f18ae8a698c9",
+    "evaluation\\chains.jsonl": "78ed0c8c905635658d2ee0a1e5a88720c0f2bec964788026c85dfd819355af9f",
+    "evaluation\\gold.jsonl": "19146aaea880d20ab60eff5e5c453945cbd69e7a380d2bf93b333bc2406d03ad",
+    "evaluation\\split_groups.json": "dec07d630842393f5f244e2f8c4c11a79444873b5c144e89d04f5380d2383459",
+    "evidence.jsonl": "40eaf3f0a9f113fd062c353b95e1d232ea88326e3889fd8270452aac5a006be6",
+    "provenance.json": "80e60cb47fd95149b21117df69faef63ddee395d5d44cb5c0d321d565b3b5e60",
+    "queries.jsonl": "27e8cb5eb877ecf9a608b8059bbfa2218f6c07fc2dae6506a6297a1718de06f4",
+    "README.md": "4577597e2bcc086d69ea24ba9d5c5cf718e9e29c80d22f54a4d259969c6027e3",
+    "store.sqlite": "5ff42d45276a555a5499fcfb37c65b847d5f52b4bab22b465605b252843842d0",
+    "summary.json": "e7ff854c0f7e0c6061f4aee5c195f7367c8d94feb57efcf51d2784aaef928896"
+  },
+  "gold_isolation": "evaluation files excluded from retrieval SQLite",
+  "split": "dev"
+}

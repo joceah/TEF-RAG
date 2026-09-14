@@ -19,19 +19,20 @@ v5.1 已完成 exhaustive exact-search 归因：12 个 set-mode 查询中 Beam �
 5. 查询 profile、记录角色和关系投影均在检索前生成；检索侧不读 gold。
 6. Scoped Hybrid、Scoped Latest、v5、TA-RAG 和 TG-RAG 使用逐题相同的 8/12 条候选范围与 Top-5。
 7. 59 个检索结果/完成文件在 gold-aware 评分前二次哈希封存。
-8. 全工作区历史回归为 150 项测试通过，旧 freeze 校验 `matched=true`；本 GitHub 精简包在 v5 handoff 时为 27 项，v5.1 当前为 32 项测试及 v5 烟测通过。
+8. 全工作区历史回归为 150 项测试通过，旧 freeze 校验 `matched=true`；本 GitHub 精简包在 v5 handoff 时为 27 项，v5.1 归档旧 v2 数据测试后当前为 41 项测试及 v5 烟测通过。
 9. v5.1 新增 exact set search、Beam-vs-Exact 逐题归因、结构诊断与 failure taxonomy；检索阶段不读 gold，离线诊断阶段才读取 gold/authoring，且没有调用 LLM。
 
 ## 数据与实验状态
 
-本仓库只带当前 v5 所需的小样本：
+本仓库现在保留两层数据，角色不能混用：
 
-- `data/generated/tef_v5_holdout_v3/`：4 个案例、48 条公开记录、16 个查询及冻结 gold。
+- `data/generated/tef_v5_holdout_v3/`：4 个案例、48 条公开记录、16 个查询及冻结 gold；只供 v5 复现和 v5.1 失败归因。
+- `data/generated/temporal_maintenance_dev_v2/`：48 台目标设备、192 条链、1,575 条证据和 1,152 个问题；配套 `provenance.json`、来源设计卡、生成配置/脚本/测试、统计报告和图均已归档，供后续扩充参考。
 - 任务分层：8 个 `complex_chain`、4 个 `cutoff_sensitive`、4 个 `latest_control`。
 - 候选范围：同资产，且 `event_time <= query_time`、`available_at <= query_time`；每题 8 或 12 条。
 - 数据状态：`self_generated_holdout_frozen_without_independent_review`。
 
-这 16 题以后只能作为已见数据和失败诊断材料，不能在调参后继续宣称是独立验证。
+两个数据集都不是现场真实工单。旧 v2 的公开资料只用于故障机理、记录结构和时间边界约束；逐项真实来源和许可状态见 `data/README.md` 与 `plans/时序运维资料与案例设计_v1/资料来源与适用边界.md`。这 16 题和旧 v2 都是已见数据，不能在调参后继续宣称是独立验证。
 
 ## 主要指标
 
@@ -77,8 +78,10 @@ TG-RAG 固定提交 `58a57e0bc173064fa0ad7ccf595cf6e266523619`。前 11 题各�
 
 1. 本文件。
 2. [`tef_rag_v5/DESIGN.md`](tef_rag_v5/DESIGN.md) 与 [`tef_rag_v5/retriever.py`](tef_rag_v5/retriever.py)。
-3. [`experiments/analyses/tef_v5_1_failure_attribution_v1/report.md`](experiments/analyses/tef_v5_1_failure_attribution_v1/report.md) 与 [`experiments/analyses/tef_v5_holdout_eval_v1/report_zh.md`](experiments/analyses/tef_v5_holdout_eval_v1/report_zh)。
+3. [`experiments/analyses/tef_v5_1_failure_attribution_v1/report.md`](experiments/analyses/tef_v5_1_failure_attribution_v1/report.md) 与 [`experiments/analyses/tef_v5_holdout_eval_v1/report_zh.md`](experiments/analyses/tef_v5_holdout_eval_v1/report_zh.md)。
 4. 需要改实现时再读 [`tests/test_tef_rag_v5.py`](tests/test_tef_rag_v5.py) 和 v1–v4 的直接依赖。
+
+数据生成扩充时，再读 [`data/README.md`](data/README.md)、[`experiments/analyses/temporal_maintenance_dataset_v2/report_zh.md`](experiments/analyses/temporal_maintenance_dataset_v2/report_zh.md) 和 [`plans/时序运维资料与案例设计_v1/资料来源与适用边界.md`](plans/时序运维资料与案例设计_v1/资料来源与适用边界.md)。项目背景见 `docs/project_background/`；初代论文见 `paper/TMC_RAG_ICRA_style_zh_v2.pdf`，但论文尚未同步 v5/v5.1。
 
 不要从旧 TMC 历史重新遍历项目，也不要运行旧 98 题。
 

@@ -1,0 +1,866 @@
+[
+  {
+    "asset_id": "SYN-BAT-001",
+    "kind": "battery",
+    "role": "target",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-BAT-001",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-001-N",
+    "kind": "battery",
+    "role": "context",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-BAT-001",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-002",
+    "kind": "battery",
+    "role": "target",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-BAT-002",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-002-N",
+    "kind": "battery",
+    "role": "context",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-BAT-002",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-003",
+    "kind": "battery",
+    "role": "target",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-BAT-003",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-003-N",
+    "kind": "battery",
+    "role": "context",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-BAT-003",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-004",
+    "kind": "battery",
+    "role": "target",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-BAT-004",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-004-N",
+    "kind": "battery",
+    "role": "context",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-BAT-004",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-005",
+    "kind": "battery",
+    "role": "target",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-BAT-005",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-005-N",
+    "kind": "battery",
+    "role": "context",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-BAT-005",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-006",
+    "kind": "battery",
+    "role": "target",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-BAT-006",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-006-N",
+    "kind": "battery",
+    "role": "context",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-BAT-006",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-007",
+    "kind": "battery",
+    "role": "target",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-BAT-007",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-007-N",
+    "kind": "battery",
+    "role": "context",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-BAT-007",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-008",
+    "kind": "battery",
+    "role": "target",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-BAT-008",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-008-N",
+    "kind": "battery",
+    "role": "context",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-BAT-008",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-009",
+    "kind": "battery",
+    "role": "target",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-BAT-009",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-009-N",
+    "kind": "battery",
+    "role": "context",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-BAT-009",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-010",
+    "kind": "battery",
+    "role": "target",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-BAT-010",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-010-N",
+    "kind": "battery",
+    "role": "context",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-BAT-010",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-011",
+    "kind": "battery",
+    "role": "target",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-BAT-011",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-011-N",
+    "kind": "battery",
+    "role": "context",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-BAT-011",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-012",
+    "kind": "battery",
+    "role": "target",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-BAT-012",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-012-N",
+    "kind": "battery",
+    "role": "context",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-BAT-012",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-013",
+    "kind": "battery",
+    "role": "target",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-BAT-013",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-013-N",
+    "kind": "battery",
+    "role": "context",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-BAT-013",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-014",
+    "kind": "battery",
+    "role": "target",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-BAT-014",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-014-N",
+    "kind": "battery",
+    "role": "context",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-BAT-014",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-015",
+    "kind": "battery",
+    "role": "target",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-BAT-015",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-015-N",
+    "kind": "battery",
+    "role": "context",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-BAT-015",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-016",
+    "kind": "battery",
+    "role": "target",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-BAT-016",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-016-N",
+    "kind": "battery",
+    "role": "context",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-BAT-016",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-017",
+    "kind": "battery",
+    "role": "target",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-BAT-017",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-017-N",
+    "kind": "battery",
+    "role": "context",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-BAT-017",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-018",
+    "kind": "battery",
+    "role": "target",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-BAT-018",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-BAT-018-N",
+    "kind": "battery",
+    "role": "context",
+    "model_scope": "合成-BAT",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-BAT-018",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-001",
+    "kind": "inverter",
+    "role": "target",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-PCS-001",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-001-N",
+    "kind": "inverter",
+    "role": "context",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-PCS-001",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-002",
+    "kind": "inverter",
+    "role": "target",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-PCS-002",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-002-N",
+    "kind": "inverter",
+    "role": "context",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-PCS-002",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-003",
+    "kind": "inverter",
+    "role": "target",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-PCS-003",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-003-N",
+    "kind": "inverter",
+    "role": "context",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-PCS-003",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-004",
+    "kind": "inverter",
+    "role": "target",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-PCS-004",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-004-N",
+    "kind": "inverter",
+    "role": "context",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-PCS-004",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-005",
+    "kind": "inverter",
+    "role": "target",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-PCS-005",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-005-N",
+    "kind": "inverter",
+    "role": "context",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-PCS-005",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-006",
+    "kind": "inverter",
+    "role": "target",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-PCS-006",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-006-N",
+    "kind": "inverter",
+    "role": "context",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-PCS-006",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-007",
+    "kind": "inverter",
+    "role": "target",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-PCS-007",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-007-N",
+    "kind": "inverter",
+    "role": "context",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-PCS-007",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-008",
+    "kind": "inverter",
+    "role": "target",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-PCS-008",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-008-N",
+    "kind": "inverter",
+    "role": "context",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-PCS-008",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-009",
+    "kind": "inverter",
+    "role": "target",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-PCS-009",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-009-N",
+    "kind": "inverter",
+    "role": "context",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-PCS-009",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-010",
+    "kind": "inverter",
+    "role": "target",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-PCS-010",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-010-N",
+    "kind": "inverter",
+    "role": "context",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-PCS-010",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-011",
+    "kind": "inverter",
+    "role": "target",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-PCS-011",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-011-N",
+    "kind": "inverter",
+    "role": "context",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-PCS-011",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-012",
+    "kind": "inverter",
+    "role": "target",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-PCS-012",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-012-N",
+    "kind": "inverter",
+    "role": "context",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-PCS-012",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-013",
+    "kind": "inverter",
+    "role": "target",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-PCS-013",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-013-N",
+    "kind": "inverter",
+    "role": "context",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-PCS-013",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-014",
+    "kind": "inverter",
+    "role": "target",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-PCS-014",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-014-N",
+    "kind": "inverter",
+    "role": "context",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-PCS-014",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-015",
+    "kind": "inverter",
+    "role": "target",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-PCS-015",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-015-N",
+    "kind": "inverter",
+    "role": "context",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-PCS-015",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-016",
+    "kind": "inverter",
+    "role": "target",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-PCS-016",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-016-N",
+    "kind": "inverter",
+    "role": "context",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-PCS-016",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-017",
+    "kind": "inverter",
+    "role": "target",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-PCS-017",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-017-N",
+    "kind": "inverter",
+    "role": "context",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-PCS-017",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-018",
+    "kind": "inverter",
+    "role": "target",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-PCS-018",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-PCS-018-N",
+    "kind": "inverter",
+    "role": "context",
+    "model_scope": "合成-PCS",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-PCS-018",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-CAB-001",
+    "kind": "cabinet",
+    "role": "target",
+    "model_scope": "配置A",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-CAB-001",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-CAB-001-N",
+    "kind": "cabinet",
+    "role": "context",
+    "model_scope": "配置A",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-CAB-001",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-CAB-002",
+    "kind": "cabinet",
+    "role": "target",
+    "model_scope": "配置B",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-CAB-002",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-CAB-002-N",
+    "kind": "cabinet",
+    "role": "context",
+    "model_scope": "配置B",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-CAB-002",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-CAB-003",
+    "kind": "cabinet",
+    "role": "target",
+    "model_scope": "配置A",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-CAB-003",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-CAB-003-N",
+    "kind": "cabinet",
+    "role": "context",
+    "model_scope": "配置A",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-CAB-003",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-CAB-004",
+    "kind": "cabinet",
+    "role": "target",
+    "model_scope": "配置B",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-CAB-004",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-CAB-004-N",
+    "kind": "cabinet",
+    "role": "context",
+    "model_scope": "配置B",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-CAB-004",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-CAB-005",
+    "kind": "cabinet",
+    "role": "target",
+    "model_scope": "配置A",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-CAB-005",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-CAB-005-N",
+    "kind": "cabinet",
+    "role": "context",
+    "model_scope": "配置A",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-CAB-005",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-CAB-006",
+    "kind": "cabinet",
+    "role": "target",
+    "model_scope": "配置B",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-CAB-006",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-CAB-006-N",
+    "kind": "cabinet",
+    "role": "context",
+    "model_scope": "配置B",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-CAB-006",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-CAB-007",
+    "kind": "cabinet",
+    "role": "target",
+    "model_scope": "配置A",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-CAB-007",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-CAB-007-N",
+    "kind": "cabinet",
+    "role": "context",
+    "model_scope": "配置A",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-CAB-007",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-CAB-008",
+    "kind": "cabinet",
+    "role": "target",
+    "model_scope": "配置B",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-CAB-008",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-CAB-008-N",
+    "kind": "cabinet",
+    "role": "context",
+    "model_scope": "配置B",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-CAB-008",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-CAB-009",
+    "kind": "cabinet",
+    "role": "target",
+    "model_scope": "配置A",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-CAB-009",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-CAB-009-N",
+    "kind": "cabinet",
+    "role": "context",
+    "model_scope": "配置A",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-CAB-009",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-CAB-010",
+    "kind": "cabinet",
+    "role": "target",
+    "model_scope": "配置B",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-CAB-010",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-CAB-010-N",
+    "kind": "cabinet",
+    "role": "context",
+    "model_scope": "配置B",
+    "site_id": "SYN-S01",
+    "split_group": "SYN-CAB-010",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-CAB-011",
+    "kind": "cabinet",
+    "role": "target",
+    "model_scope": "配置A",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-CAB-011",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-CAB-011-N",
+    "kind": "cabinet",
+    "role": "context",
+    "model_scope": "配置A",
+    "site_id": "SYN-S02",
+    "split_group": "SYN-CAB-011",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-CAB-012",
+    "kind": "cabinet",
+    "role": "target",
+    "model_scope": "配置B",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-CAB-012",
+    "is_synthetic": true
+  },
+  {
+    "asset_id": "SYN-CAB-012-N",
+    "kind": "cabinet",
+    "role": "context",
+    "model_scope": "配置B",
+    "site_id": "SYN-S03",
+    "split_group": "SYN-CAB-012",
+    "is_synthetic": true
+  }
+]

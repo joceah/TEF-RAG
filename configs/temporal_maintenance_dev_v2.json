@@ -1,0 +1,14 @@
+{
+  "dataset_id": "temporal_maintenance_dev_v2",
+  "split": "dev",
+  "seed": 20260912,
+  "instances_per_scenario": 12,
+  "targets_per_kind": {"battery": 18, "inverter": 18, "cabinet": 12},
+  "background_records_min": 1,
+  "background_records_max": 3,
+  "persistent_unknown_scenarios": ["C03", "C05", "C07", "C08", "C09", "C14", "C15", "C16"],
+  "persistent_unknown_instances": [2, 6, 10],
+  "scenario_review_path": "plans/时序运维资料与案例设计_v1/设计卡_审阅专用.json",
+  "author_approval": "2026-09-12 用户确认小样自然性和技术合理性通过，授权阶段2数据生成；不等于所有扩展样本已经人工审核或专家认证。",
+  "scope": "source-grounded synthetic dev; no model experiment; not field data"
+}

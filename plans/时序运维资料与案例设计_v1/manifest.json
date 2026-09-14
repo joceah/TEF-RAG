@@ -1,0 +1,25 @@
+{
+  "stage": "1_sources_and_case_design",
+  "status": "awaiting_author_case_review",
+  "date": "2026-09-12",
+  "counts": {
+    "cases": 16,
+    "records": 78,
+    "queries": 32,
+    "core_sources_reviewed": 10,
+    "pending_source_entries": 1
+  },
+  "artifact_hashes": {
+    "plans\\时序运维资料与案例设计_v1\\README.md": "8e7cd948636c624705edba8e5b88e0e4fa6772c61c4cd7a98559c3b7c2d99186",
+    "plans\\时序运维资料与案例设计_v1\\一致性检查结果.json": "26a95eb968985d0030ed96efbe4d74681c753fbe11119bd1d25a96aeccd207b7",
+    "plans\\时序运维资料与案例设计_v1\\事件链小样_16例.md": "1d731f5af91d3c6d021c7808f2eec71c41c38e1c181e743dec390981276745ed",
+    "plans\\时序运维资料与案例设计_v1\\审核与一致性检查.md": "bb8437e2855cee6f348563814daba38e18009fd6b9f6f2b7315f1af13ee97783",
+    "plans\\时序运维资料与案例设计_v1\\设计卡_审阅专用.json": "934214b915cddb72fccf2f4771178918f1ff2e0a442631c79298e3aca77e1f9a",
+    "plans\\时序运维资料与案例设计_v1\\资料来源与适用边界.md": "c880c2fb096f64e04ad2a089ea79e04b207b95090a3585c89e059a8ada8b53dd",
+    "plans\\时序运维数据设计_v2.md": "727dd481ba54e67e816d6b34589b6ed8615451a6d2164cafe9c36b5795f2ad97",
+    "plans\\时序RAG外部对照调研_v1.md": "1b34fa88244c2c24d34e62ab2145ba07d722f764b9df12b95102cacb37227d70"
+  },
+  "source_snapshot_policy": "URLs, titles, locators and access date recorded; no full webpage archive or remote-byte hashes claimed",
+  "frozen_experiment_files_modified": false,
+  "paid_model_calls": 0
+}
