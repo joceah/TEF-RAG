@@ -1,0 +1,27 @@
+{
+  "method": "TA-RAG pinned downstream no-event-interval compatibility run",
+  "official_commit": "9e5e28a9e7ddad7d6d022c4d3533dbca2aff03b9",
+  "query_id": "tefv5h-q-03-01",
+  "snapshot_key": "TEFV5H-03__b1d07225f417",
+  "semantic_question": "初始的树脂失效解释是如何被后续检查、替代线索和迟到证据更新并最终定案的？",
+  "temporal_parse": {
+    "rephrased_sentence": "初始的树脂失效解释是如何被后续检查、替代线索和迟到证据更新并最终定案的？",
+    "temporal_decomposition": []
+  },
+  "evidence_ids": [
+    "doc-7a4458fbe61fc556aa7aaf37",
+    "doc-6423c71e41f29d5bce341c3d",
+    "doc-f52855ce98c28f1d595d744b",
+    "doc-422e7171d76dbee0a7e9ef7f",
+    "doc-a990cb2a2b2666f1496d9949"
+  ],
+  "candidate_count": 12,
+  "gold_read": false,
+  "llm_requests": [],
+  "timing_seconds": {
+    "total": 0.006992816925048828,
+    "semantic": 0.006992816925048828,
+    "temporal_parser": 0.0,
+    "embedding": 0.006992816925048828
+  }
+}

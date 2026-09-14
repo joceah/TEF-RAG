@@ -1,0 +1,5 @@
+record_id: doc-392f3cb89960080b1b8e6430
+asset_id: TEFV5H-02
+event_time: 2026-02-01T08:00:00Z
+available_at: 2026-02-01T18:00:00Z
+content: TEFV5H-02，WO-C2201：35kV断路器储能超时告警：后台报储能超时，现场检查弹簧未储能，储能电机运转约12秒后停转，控制回路正常，无机械异响。

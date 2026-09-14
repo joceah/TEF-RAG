@@ -1,0 +1,5 @@
+record_id: doc-c3c3d69d76fd0ac6ae6b2c98
+asset_id: TEFV5H-01
+event_time: 2026-01-11T08:00:00Z
+available_at: 2026-01-11T18:00:00Z
+content: TEFV5H-01，WO-C2202：对GIS-2M-07气室密度继电器加热带进行例行检查，加热带电阻为120Ω，绝缘电阻大于100MΩ，供电电压220V正常，温控器动作正常。加热带工作正常，无异常。

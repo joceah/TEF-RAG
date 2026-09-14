@@ -1,0 +1,5 @@
+record_id: doc-061f61c14ae57247d6cd58ef
+asset_id: TEFV5H-02
+event_time: 2026-02-04T15:00:00Z
+available_at: 2026-02-10T09:00:00Z
+content: TEFV5H-02，WO-C2201：示波记录显示储能过程中控制回路电流在接点抖动瞬间有约200ms的断续，与限位开关抖动时间吻合，进一步支持抖动导致储能超时。

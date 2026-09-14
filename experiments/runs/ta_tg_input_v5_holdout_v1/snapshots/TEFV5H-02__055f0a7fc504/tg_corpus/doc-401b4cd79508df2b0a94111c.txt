@@ -1,0 +1,5 @@
+record_id: doc-401b4cd79508df2b0a94111c
+asset_id: TEFV5H-02
+event_time: 2026-02-06T08:00:00Z
+available_at: 2026-02-06T18:00:00Z
+content: TEFV5H-02，WO-C2201：调整限位开关位置并紧固，清洁接点，测量接触电阻小于50mΩ，随后进行3次储能操作，均正常。

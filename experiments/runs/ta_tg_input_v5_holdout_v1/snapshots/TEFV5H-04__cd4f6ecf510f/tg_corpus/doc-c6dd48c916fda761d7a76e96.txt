@@ -1,0 +1,5 @@
+record_id: doc-c6dd48c916fda761d7a76e96
+asset_id: TEFV5H-04
+event_time: 2026-08-12T08:00:00Z
+available_at: 2026-08-12T18:00:00Z
+content: TEFV5H-04，WO-C118：本工单已完成闭环审批，相关试验记录、参数修改记录及复测报告已归档至设备台账。无新增异常状态。

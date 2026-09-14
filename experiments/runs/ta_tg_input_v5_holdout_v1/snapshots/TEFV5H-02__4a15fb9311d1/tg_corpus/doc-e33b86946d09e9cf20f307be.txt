@@ -1,0 +1,5 @@
+record_id: doc-e33b86946d09e9cf20f307be
+asset_id: TEFV5H-02
+event_time: 2026-02-08T08:00:00Z
+available_at: 2026-02-08T18:00:00Z
+content: TEFV5H-02，WO-C2202：合闸线圈电阻例行测量，测得电阻值为98Ω，与出厂值100Ω偏差在允许范围内，结论为合格。

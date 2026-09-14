@@ -1,0 +1,62 @@
+{
+  "status": "retrieval_complete_gold_free",
+  "queries": 16,
+  "methods": [
+    "scoped_hybrid",
+    "scoped_latest",
+    "tef_v5"
+  ],
+  "top_k": 5,
+  "candidate_counts": [
+    8,
+    12
+  ],
+  "relations": 46,
+  "query_profile_modes": {
+    "latest": 4,
+    "set": 12
+  },
+  "gold_read": false,
+  "authoring_read": false,
+  "shared_candidate_ids_persisted": true,
+  "input_hashes": {
+    "scripts\\run_tef_v5_holdout_shared_v1.py": "8072bb80e17fe3cb3c343916718c0085d3a307bec53cbd72575eae1b9a760979",
+    "tef_rag_v5\\retriever.py": "84aa08bbf6328b1aac212e68270c6ce18edd02db303e24a393885fd40f3d41af",
+    "tef_rag_v5\\DESIGN.md": "187fd0e14f6673e4e0a6d711c173d32864e62912da449b53f9b1939bb91d20c0",
+    "baseline_adapters\\query_text_v2.py": "2e44b2d396bf6d24d72bd5caf8614936b939a202596b68ccb4767d5bf954a3fb",
+    "data\\generated\\tef_v5_holdout_v3\\manifest.json": "1797b9e0eac4cad8b366aa405501db6e7183d8c31b5ccfcfc964aca71e28afe0",
+    "data\\generated\\tef_v5_holdout_v3\\evidence.jsonl": "552c99ee95c9c8cb6e9768f42364cf3dae4e879d67b95961b7429d8da29ec9d4",
+    "data\\generated\\tef_v5_holdout_v3\\queries.jsonl": "dae96fd676353f216e9ee5b17708461ac389786912b5c756595b524c8b44e75d",
+    "data\\generated\\tef_v5_holdout_v3\\assets.json": "798881a8a46a9778cca10b63306dc1f395f15f77382fc990b95826e78e4a55e0",
+    "experiments\\analyses\\tef_v5_holdout_v3\\freeze_manifest.json": "82292c2101310612eea4112600c5c54bee0d2279ae2b24b6bdd48529883ec50c",
+    "plans\\TEF_RAG_v5_holdout_v3_投影与排名预登记.md": "cb13e7d7b560af1e8ad33f90bbd5db0625b0c1d59544a706006f9b5da2f3995a",
+    "experiments\\runs\\tef_v5_holdout_projections_v6\\preparation_complete.json": "245531c2cca2d866333940bb41d7d38da522800f0b906205f11463a03bd248a0",
+    "experiments\\runs\\tef_v5_holdout_projections_v6\\public_graphs\\TEFV5H-01.json": "b603682156100452231a62e38f2ca3bcaeff5cd75143238c43618eaa8e982596",
+    "experiments\\runs\\tef_v5_holdout_projections_v6\\public_graphs\\TEFV5H-02.json": "cc69543d5508e510364196e311d56c76af497606f3f8b214479db93a0751f7a6",
+    "experiments\\runs\\tef_v5_holdout_projections_v6\\public_graphs\\TEFV5H-03.json": "5e1660179d5d86d2bb7b0c6ef816fb7e9c50d49b82f333e8e3e7483a06cbab17",
+    "experiments\\runs\\tef_v5_holdout_projections_v6\\public_graphs\\TEFV5H-04.json": "24f180feaabdacb1707e84eb76b0fe26a045fddb102e78bff97dd50b224c4ea2",
+    "experiments\\runs\\tef_v5_holdout_projections_v6\\query_profiles\\TEFV5H-01.json": "a1bc526b8e37d2f0ec22b61e8a89eb46120d3e4f870fbc517c88f2e84c5dcf99",
+    "experiments\\runs\\tef_v5_holdout_projections_v6\\query_profiles\\TEFV5H-02.json": "810afe70a338ccb6d9e6de6cf85cd342476bfe85eb6f456264d364c393db9c1d",
+    "experiments\\runs\\tef_v5_holdout_projections_v6\\query_profiles\\TEFV5H-03.json": "5a962445ebd51a1ebe4dd9310b248fedef395c5f1a855512587751afc4ea8529",
+    "experiments\\runs\\tef_v5_holdout_projections_v6\\query_profiles\\TEFV5H-04.json": "c99bab85fab6742593e9a618f049d30b6b74809f74b39921036b004b54ed4f81"
+  },
+  "embedding_sha256": "091e0853159dc19923f3d42e7903475272eac6a3e9e05f720a52de4420351318",
+  "query_output_hashes": {
+    "tefv5h-q-01-00.json": "3d2ce1980af974577e2939c3d43257098ecd0af143f2b55ff34e7d52c9625ee4",
+    "tefv5h-q-01-01.json": "4ec36b70e5018c8efb2106c69034b8f6bfc15fe056b0c20ec0e23661be05c00f",
+    "tefv5h-q-01-02.json": "db754cc2316d549501c57e8ac616ebc8b028d8ae51d4525336d798a04accb777",
+    "tefv5h-q-01-03.json": "68b34ce3cb9d2002823dbf1164a75d562250d297f41955b06199b3a61ac35851",
+    "tefv5h-q-02-00.json": "88c6e62ccc135c8536e644b76e02012a1637f51ddcb593f0889a8b668298bb66",
+    "tefv5h-q-02-01.json": "0bc28653a849fc801982c9f9d13e4181cddf7cd44fd905aef5f595ea0ac40a0b",
+    "tefv5h-q-02-02.json": "49b0040302fd857b0e2e20a7b1add3eeaa1a25e9010903b14493233b46c26166",
+    "tefv5h-q-02-03.json": "d2dca053cfb961ac4314be64e70939c6060f57bd83747df361a22fca53d48787",
+    "tefv5h-q-03-00.json": "4af02b7e883a064a44a2b3455d1126af79225a460688a1386c89eb28d3972e68",
+    "tefv5h-q-03-01.json": "1fd55bff239d2a61c0508d099ca5a3e6114afb5fb9825a0eb8998405ad413cf1",
+    "tefv5h-q-03-02.json": "1646026108b74f72288f7d33fa556c6fed9047871d98a38e01c75bfaf74e7874",
+    "tefv5h-q-03-03.json": "44e5ca1d2cb3fcc1081b06c52bf7f8256e6b873954d0885e85e0c1c5381a5bae",
+    "tefv5h-q-04-00.json": "47fd261af0831ea8129ff36e780fa3f8ed7a0d2c60e030e8e18374239e2fadd2",
+    "tefv5h-q-04-01.json": "85a3dbcad63452c83d1853e011155215c6c97e529f2cd63f01622066b4ea646e",
+    "tefv5h-q-04-02.json": "d0001ffc272c9552f106d94b06dc23c64ec26c63d9c41ae7243a7599d82e32bd",
+    "tefv5h-q-04-03.json": "de12c6ae7a847694a0b7a8f49bbd2db7c2d6503c0a61e3a490a5622822b89f57"
+  }
+}

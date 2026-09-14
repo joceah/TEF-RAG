@@ -1,0 +1,175 @@
+{
+  "asset_id": "TEFV5H-03",
+  "roles": [
+    {
+      "id": "doc-15ab8acfd1e4653ae51c5449",
+      "role_scores": {
+        "action": 0.9,
+        "diagnostic_check": 0.5
+      },
+      "rationale": "执行排气、清洁及接插件处理，处理后读数恢复正常。"
+    },
+    {
+      "id": "doc-1a0d56a7d87ba518e14f7c38",
+      "role_scores": {
+        "observation": 0.4,
+        "verification": 0.9
+      },
+      "rationale": "额定无功负载下连续运行验证电导率稳定且液位正常。"
+    },
+    {
+      "id": "doc-285a37c2bfdb3fa736d95c39",
+      "role_scores": {
+        "hypothesis": 0.4,
+        "observation": 0.9
+      },
+      "rationale": "记录在线电导率高告警、压力流量正常及初步怀疑树脂性能下降。"
+    },
+    {
+      "id": "doc-350348e8ab5484ea8f6f0022",
+      "role_scores": {
+        "observation": 0.8,
+        "procedure": 0.3
+      },
+      "rationale": "例行循环泵振动检查，记录振动、压力、电流等正常。"
+    },
+    {
+      "id": "doc-422e7171d76dbee0a7e9ef7f",
+      "role_scores": {
+        "observation": 0.7,
+        "procedure": 0.4
+      },
+      "rationale": "例行风机滤网维护，记录压差并清洁更换密封条。"
+    },
+    {
+      "id": "doc-4f0ceac00e3de54094065a4e",
+      "role_scores": {
+        "observation": 0.4,
+        "verification": 0.8
+      },
+      "rationale": "复查校准记录并调取趋势确认电导率正常，但未做额定负载验证。"
+    },
+    {
+      "id": "doc-6423c71e41f29d5bce341c3d",
+      "role_scores": {
+        "hypothesis": 0.8,
+        "observation": 0.3
+      },
+      "rationale": "根据告警初步判断树脂可能失效并计划取样送检。"
+    },
+    {
+      "id": "doc-663e371863381a783d171046",
+      "role_scores": {
+        "procedure": 0.4,
+        "verification": 0.9
+      },
+      "rationale": "完成两点校准并短时运行验证电导率稳定无告警。"
+    },
+    {
+      "id": "doc-7a4458fbe61fc556aa7aaf37",
+      "role_scores": {
+        "closure": 0.9,
+        "context": 0.3
+      },
+      "rationale": "确认工单维护工作闭环、记录归档且设备恢复标准状态。"
+    },
+    {
+      "id": "doc-7c2ac34e8fb5407ebd7a3031",
+      "role_scores": {
+        "diagnostic_clue": 0.9,
+        "localization": 0.6
+      },
+      "rationale": "趋势分析发现波动与泵切换周期一致，怀疑流通池积气。"
+    },
+    {
+      "id": "doc-a990cb2a2b2666f1496d9949",
+      "role_scores": {
+        "diagnostic_clue": 0.9,
+        "observation": 0.5
+      },
+      "rationale": "导出原始趋势发现电导率波动与流通池液位强相关。"
+    },
+    {
+      "id": "doc-f52855ce98c28f1d595d744b",
+      "role_scores": {
+        "diagnostic_check": 0.8,
+        "diagnostic_clue": 0.7
+      },
+      "rationale": "实验室检测与在线读数显著差异，并发现波动与流量相关。"
+    }
+  ],
+  "relations": [
+    {
+      "prior_id": "doc-15ab8acfd1e4653ae51c5449",
+      "update_id": "doc-1a0d56a7d87ba518e14f7c38",
+      "update_relation": "verifies",
+      "confidence": 0.9,
+      "rationale": "7月10日额定无功负载下连续运行验证电导率稳定且流通池液位正常，验证了7月5日排气清洁处理的有效性。"
+    },
+    {
+      "prior_id": "doc-15ab8acfd1e4653ae51c5449",
+      "update_id": "doc-663e371863381a783d171046",
+      "update_relation": "follows",
+      "confidence": 0.9,
+      "rationale": "7月6日完成排气清洁与接插件处理后进行校准和短时运行验证，是处理后的后续验证步骤。"
+    },
+    {
+      "prior_id": "doc-1a0d56a7d87ba518e14f7c38",
+      "update_id": "doc-7a4458fbe61fc556aa7aaf37",
+      "update_relation": "follows",
+      "confidence": 0.9,
+      "rationale": "7月12日确认工单闭环，所有检查处理及验证记录归档，是验证后的收尾步骤。"
+    },
+    {
+      "prior_id": "doc-285a37c2bfdb3fa736d95c39",
+      "update_id": "doc-6423c71e41f29d5bce341c3d",
+      "update_relation": "follows",
+      "confidence": 0.9,
+      "rationale": "7月2日记录基于7月1日高告警及波动现象，初步判断树脂失效并安排取样，属于同一工单下的后续跟进。"
+    },
+    {
+      "prior_id": "doc-4f0ceac00e3de54094065a4e",
+      "update_id": "doc-1a0d56a7d87ba518e14f7c38",
+      "update_relation": "follows",
+      "confidence": 0.9,
+      "rationale": "7月10日在额定无功负载下进行连续运行验证，完成7月7日尚未进行的负载验证，是后续验证步骤。"
+    },
+    {
+      "prior_id": "doc-6423c71e41f29d5bce341c3d",
+      "update_id": "doc-f52855ce98c28f1d595d744b",
+      "update_relation": "follows",
+      "confidence": 0.9,
+      "rationale": "7月3日实验室检测针对7月2日取样，结果与在线电导率差异显著，使树脂失效解释减弱，是后续检测步骤。"
+    },
+    {
+      "prior_id": "doc-663e371863381a783d171046",
+      "update_id": "doc-4f0ceac00e3de54094065a4e",
+      "update_relation": "follows",
+      "confidence": 0.9,
+      "rationale": "7月7日复查校准记录并调取趋势，确认7月6日校准有效且运行正常，是后续复查。"
+    },
+    {
+      "prior_id": "doc-7c2ac34e8fb5407ebd7a3031",
+      "update_id": "doc-a990cb2a2b2666f1496d9949",
+      "update_relation": "supports",
+      "confidence": 0.9,
+      "rationale": "7月4日15:00导出的趋势文件分析发现电导率波动与流通池液位强相关，支持了同日08:00怀疑积气的判断。"
+    },
+    {
+      "prior_id": "doc-f52855ce98c28f1d595d744b",
+      "update_id": "doc-7c2ac34e8fb5407ebd7a3031",
+      "update_relation": "follows",
+      "confidence": 0.9,
+      "rationale": "7月4日调取趋势发现波动与流量相关，并检查传感器安装位置，怀疑积气，是在实验室结果后的进一步排查。"
+    }
+  ],
+  "role_schema_repaired_once": false,
+  "relation_schema_repaired_once": true,
+  "deterministically_dropped_edges": [
+    {
+      "prior_id": "doc-7c2ac34e8fb5407ebd7a3031",
+      "update_id": "doc-15ab8acfd1e4653ae51c5449",
+      "update_relation": "follows"
+    }
+  ]
+}

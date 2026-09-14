@@ -1,0 +1,17 @@
+{
+  "method": "TG-RAG pinned local retrieval with domain, CPU, and source-recovery compatibility adapters",
+  "official_commit": "58a57e0bc173064fa0ad7ccf595cf6e266523619",
+  "query_id": "tefv5h-q-01-03",
+  "snapshot_key": "TEFV5H-01__e6f6dfbeed52",
+  "semantic_question": "截止时最新一条业务记录是什么？",
+  "evidence_ids": [
+    "doc-212c856313f45e18fc835abc",
+    "doc-4bf722a69208813714c3e754",
+    "doc-61db8c996e09d2c34c03bd47",
+    "doc-252ff3db660fee0b084479eb",
+    "doc-e2d8a223c34c34890d8fe282"
+  ],
+  "raw_unique_source_count": 5,
+  "candidate_count": 12,
+  "gold_read": false
+}

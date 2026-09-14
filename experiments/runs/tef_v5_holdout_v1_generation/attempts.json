@@ -1,0 +1,24 @@
+{
+  "status": "failed_preserved",
+  "dataset_output_created": false,
+  "attempts": [
+    {
+      "stage": "sandboxed_generation",
+      "result": "provider_network_failure",
+      "model_response_cached": false
+    },
+    {
+      "stage": "network_enabled_generation_and_single_repair",
+      "result": "deterministic_schema_validation_failed",
+      "reason": "update_relation contained natural-language descriptions instead of the registered relation enum; registered edges were therefore absent",
+      "model_responses": 2,
+      "usage": {
+        "prompt_tokens": 7376,
+        "completion_tokens": 6102,
+        "total_tokens": 13478
+      }
+    }
+  ],
+  "ranking_run": false,
+  "gold_scoring_run": false
+}

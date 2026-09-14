@@ -1,0 +1,5 @@
+record_id: doc-1265cc5d3c83d32ea9974ea2
+asset_id: TEFV5H-04
+event_time: 2026-08-03T08:00:00Z
+available_at: 2026-08-03T18:00:00Z
+content: TEFV5H-04，WO-C118：初步分析认为切换时间超标可能由静态开关晶闸管老化或触发板硬件故障引起。计划对静态开关模块进行更换前的专项检查，并准备备品。

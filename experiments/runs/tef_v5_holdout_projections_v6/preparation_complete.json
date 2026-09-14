@@ -1,0 +1,43 @@
+{
+  "status": "complete",
+  "assets": 4,
+  "records": 48,
+  "queries": 16,
+  "relations": 46,
+  "gold_read": false,
+  "authoring_read": false,
+  "query_record_projection_isolation": true,
+  "deterministic_public_field_and_time_filter": true,
+  "dropped_edges": 2,
+  "selected_usage": {
+    "responses": 12,
+    "total_tokens": 31075
+  },
+  "new_model_responses": 0,
+  "input_hashes": {
+    "scripts\\prepare_tef_v5_holdout_projections_v6.py": "6410d853844efe502001e7478aef43f206353272317c115d6f14e6b89f9906a5",
+    "data\\generated\\tef_v5_holdout_v3\\evidence.jsonl": "552c99ee95c9c8cb6e9768f42364cf3dae4e879d67b95961b7429d8da29ec9d4",
+    "data\\generated\\tef_v5_holdout_v3\\queries.jsonl": "dae96fd676353f216e9ee5b17708461ac389786912b5c756595b524c8b44e75d",
+    "experiments\\analyses\\tef_v5_holdout_v3\\freeze_manifest.json": "82292c2101310612eea4112600c5c54bee0d2279ae2b24b6bdd48529883ec50c",
+    "plans\\TEF_RAG_v5_holdout投影_v6_时间方向确定性过滤.md": "58c4b6a5762ffb9bbb8e2dea8a9cae09d0f048b131c51adb24b52b1ba2ca6f01",
+    "experiments\\runs\\tef_v5_holdout_projections_v5\\public_graphs\\TEFV5H-01.json": "b603682156100452231a62e38f2ca3bcaeff5cd75143238c43618eaa8e982596",
+    "experiments\\runs\\tef_v5_holdout_projections_v5\\query_profiles\\TEFV5H-01.json": "a1bc526b8e37d2f0ec22b61e8a89eb46120d3e4f870fbc517c88f2e84c5dcf99",
+    "experiments\\runs\\tef_v5_holdout_projections_v5\\public_graphs\\TEFV5H-02.json": "cc69543d5508e510364196e311d56c76af497606f3f8b214479db93a0751f7a6",
+    "experiments\\runs\\tef_v5_holdout_projections_v5\\query_profiles\\TEFV5H-02.json": "810afe70a338ccb6d9e6de6cf85cd342476bfe85eb6f456264d364c393db9c1d",
+    "experiments\\runs\\tef_v5_holdout_projections_v5\\public_graphs\\TEFV5H-03.json": "5e1660179d5d86d2bb7b0c6ef816fb7e9c50d49b82f333e8e3e7483a06cbab17",
+    "experiments\\runs\\tef_v5_holdout_projections_v5\\query_profiles\\TEFV5H-03.json": "5a962445ebd51a1ebe4dd9310b248fedef395c5f1a855512587751afc4ea8529",
+    "experiments\\runs\\tef_v5_holdout_projections_v5\\query_profiles\\TEFV5H-04.json": "c99bab85fab6742593e9a618f049d30b6b74809f74b39921036b004b54ed4f81",
+    "experiments\\runs\\tef_v5_holdout_projections_v5\\api_cache\\03c8068909cca06bee75e3715f394719764c287ef0cf893ade95e2a9f12d34f1.json": "24b365d6a773f5b09fcfcaf20aaff6921466e1de4662b3cf58eae075d0b1f127",
+    "experiments\\runs\\tef_v5_holdout_projections_v5\\api_cache\\6c44f1b28815b701203bd628421b3ca3d86815eb5f3a04782e4f9326bcaa4e3f.json": "50f476836edd3aeee916803202b6c87d695775ad4a0a5665a78e4c6c2854bf1a"
+  },
+  "projection_hashes": {
+    "public_graphs\\TEFV5H-01.json": "b603682156100452231a62e38f2ca3bcaeff5cd75143238c43618eaa8e982596",
+    "public_graphs\\TEFV5H-02.json": "cc69543d5508e510364196e311d56c76af497606f3f8b214479db93a0751f7a6",
+    "public_graphs\\TEFV5H-03.json": "5e1660179d5d86d2bb7b0c6ef816fb7e9c50d49b82f333e8e3e7483a06cbab17",
+    "public_graphs\\TEFV5H-04.json": "24f180feaabdacb1707e84eb76b0fe26a045fddb102e78bff97dd50b224c4ea2",
+    "query_profiles\\TEFV5H-01.json": "a1bc526b8e37d2f0ec22b61e8a89eb46120d3e4f870fbc517c88f2e84c5dcf99",
+    "query_profiles\\TEFV5H-02.json": "810afe70a338ccb6d9e6de6cf85cd342476bfe85eb6f456264d364c393db9c1d",
+    "query_profiles\\TEFV5H-03.json": "5a962445ebd51a1ebe4dd9310b248fedef395c5f1a855512587751afc4ea8529",
+    "query_profiles\\TEFV5H-04.json": "c99bab85fab6742593e9a618f049d30b6b74809f74b39921036b004b54ed4f81"
+  }
+}

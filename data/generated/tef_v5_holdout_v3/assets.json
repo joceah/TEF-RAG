@@ -1,0 +1,18 @@
+[
+  {
+    "asset_id": "TEFV5H-01",
+    "model_scope": "GIS-GAS-DENSITY-MONITORING"
+  },
+  {
+    "asset_id": "TEFV5H-02",
+    "model_scope": "MV-BREAKER-ENERGY-STORAGE"
+  },
+  {
+    "asset_id": "TEFV5H-03",
+    "model_scope": "SVG-VALVE-COOLING-WATER"
+  },
+  {
+    "asset_id": "TEFV5H-04",
+    "model_scope": "SUBSTATION-UPS-TRANSFER"
+  }
+]

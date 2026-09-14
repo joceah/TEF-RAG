@@ -1,0 +1,14 @@
+{
+  "status": "failed_preserved",
+  "dataset_output_created": false,
+  "failure": "TEFV5H-04 old procedure had valid_from=null after the allowed single repair",
+  "cases_passing_before_failure": 3,
+  "model_responses": 5,
+  "usage": {
+    "prompt_tokens": 14163,
+    "completion_tokens": 16520,
+    "total_tokens": 30683
+  },
+  "ranking_run": false,
+  "gold_scoring_run": false
+}

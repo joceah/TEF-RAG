@@ -1,0 +1,255 @@
+{
+  "query_id": "tefv5h-q-04-01",
+  "candidate_count": 12,
+  "candidate_ids": [
+    "doc-01187a399b2a9aacfe6af1a1",
+    "doc-1265cc5d3c83d32ea9974ea2",
+    "doc-3c624fba691ba80ac5a9a785",
+    "doc-50a8cf0db078350769d8573b",
+    "doc-51b0e556e5960f3691ce1cdd",
+    "doc-661e3a443b0145f0efee1d9d",
+    "doc-775bc3345312097a3137ea20",
+    "doc-c6dd48c916fda761d7a76e96",
+    "doc-c7389ca5eb847c65f095edb2",
+    "doc-cf4c9af07c5af68f3c19465a",
+    "doc-d2e659581a752a71c33861bf",
+    "doc-ee76fbcfef0dfcc309d55642"
+  ],
+  "methods": {
+    "scoped_hybrid": {
+      "evidence_ids": [
+        "doc-661e3a443b0145f0efee1d9d",
+        "doc-c7389ca5eb847c65f095edb2",
+        "doc-cf4c9af07c5af68f3c19465a",
+        "doc-c6dd48c916fda761d7a76e96",
+        "doc-d2e659581a752a71c33861bf"
+      ]
+    },
+    "scoped_latest": {
+      "evidence_ids": [
+        "doc-c6dd48c916fda761d7a76e96",
+        "doc-51b0e556e5960f3691ce1cdd",
+        "doc-d2e659581a752a71c33861bf",
+        "doc-cf4c9af07c5af68f3c19465a",
+        "doc-661e3a443b0145f0efee1d9d"
+      ]
+    },
+    "tef_v5": {
+      "evidence_ids": [
+        "doc-661e3a443b0145f0efee1d9d",
+        "doc-c7389ca5eb847c65f095edb2",
+        "doc-cf4c9af07c5af68f3c19465a",
+        "doc-d2e659581a752a71c33861bf",
+        "doc-c6dd48c916fda761d7a76e96"
+      ],
+      "trace": [
+        {
+          "rank": 1,
+          "selected_id": "doc-661e3a443b0145f0efee1d9d",
+          "set_after": [
+            "doc-661e3a443b0145f0efee1d9d"
+          ],
+          "marginal_components": {
+            "semantic": 0.09000000000000001,
+            "chain": 0.0,
+            "role": 0.09230769230769231,
+            "redundancy": 0.0,
+            "total": 0.18230769230769234
+          },
+          "set_score_after": 0.18230769230769234,
+          "activated_relations": []
+        },
+        {
+          "rank": 2,
+          "selected_id": "doc-c7389ca5eb847c65f095edb2",
+          "set_after": [
+            "doc-661e3a443b0145f0efee1d9d",
+            "doc-c7389ca5eb847c65f095edb2"
+          ],
+          "marginal_components": {
+            "semantic": 0.08480058158147478,
+            "chain": 0.0,
+            "role": 0.06923076923076923,
+            "redundancy": -0.0012195121951219514,
+            "total": 0.15281183861712205
+          },
+          "set_score_after": 0.3351195309248144,
+          "activated_relations": []
+        },
+        {
+          "rank": 3,
+          "selected_id": "doc-cf4c9af07c5af68f3c19465a",
+          "set_after": [
+            "doc-661e3a443b0145f0efee1d9d",
+            "doc-c7389ca5eb847c65f095edb2",
+            "doc-cf4c9af07c5af68f3c19465a"
+          ],
+          "marginal_components": {
+            "semantic": 0.08445688655116498,
+            "chain": 0.06378354131343937,
+            "role": 0.0,
+            "redundancy": -0.007220895046982004,
+            "total": 0.14101953281762236
+          },
+          "set_score_after": 0.47613906374243675,
+          "activated_relations": [
+            {
+              "source_id": "doc-c7389ca5eb847c65f095edb2",
+              "target_id": "doc-cf4c9af07c5af68f3c19465a",
+              "prior_id": "doc-c7389ca5eb847c65f095edb2",
+              "update_id": "doc-cf4c9af07c5af68f3c19465a",
+              "relation": "supersedes",
+              "update_relation": "supersedes",
+              "clock": "available_at",
+              "confidence": 0.95,
+              "endpoint_relevance_gate": 0.9522541887473479,
+              "query_demand": 0.42857142857142855,
+              "effective_edge_utility": 0.38770349113284874
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "selected_id": "doc-d2e659581a752a71c33861bf",
+          "set_after": [
+            "doc-661e3a443b0145f0efee1d9d",
+            "doc-c7389ca5eb847c65f095edb2",
+            "doc-cf4c9af07c5af68f3c19465a",
+            "doc-d2e659581a752a71c33861bf"
+          ],
+          "marginal_components": {
+            "semantic": 0.06365147180745834,
+            "chain": 0.03123275002076649,
+            "role": 0.006153846153846149,
+            "redundancy": -0.004549778342013281,
+            "total": 0.09648828964005773
+          },
+          "set_score_after": 0.5726273533824945,
+          "activated_relations": [
+            {
+              "source_id": "doc-661e3a443b0145f0efee1d9d",
+              "target_id": "doc-d2e659581a752a71c33861bf",
+              "prior_id": "doc-661e3a443b0145f0efee1d9d",
+              "update_id": "doc-d2e659581a752a71c33861bf",
+              "relation": "follows",
+              "update_relation": "follows",
+              "clock": "event_time",
+              "confidence": 0.85,
+              "endpoint_relevance_gate": 0.875094772302258,
+              "query_demand": 0.23809523809523808,
+              "effective_edge_utility": 0.1771025134421236
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "selected_id": "doc-c6dd48c916fda761d7a76e96",
+          "set_after": [
+            "doc-661e3a443b0145f0efee1d9d",
+            "doc-c7389ca5eb847c65f095edb2",
+            "doc-cf4c9af07c5af68f3c19465a",
+            "doc-d2e659581a752a71c33861bf",
+            "doc-c6dd48c916fda761d7a76e96"
+          ],
+          "marginal_components": {
+            "semantic": 0.06459045199679997,
+            "chain": 0.0,
+            "role": 0.03076923076923077,
+            "redundancy": -0.0021968619194425634,
+            "total": 0.09316282084658811
+          },
+          "set_score_after": 0.6657901742290826,
+          "activated_relations": []
+        }
+      ],
+      "query_scope": {
+        "orders": [],
+        "windows": [],
+        "procedure": true,
+        "compare": true,
+        "latest": false,
+        "wanted_roles": [
+          "recovery",
+          "observation"
+        ],
+        "assumptions": []
+      },
+      "query_profile": {
+        "selection_mode": "set",
+        "role_demands": {
+          "closure": 0.15384615384615385,
+          "observation": 0.1923076923076923,
+          "procedure": 0.34615384615384615,
+          "verification": 0.3076923076923077
+        },
+        "relation_demands": {
+          "follows": 0.23809523809523808,
+          "supersedes": 0.42857142857142855,
+          "verifies": 0.3333333333333333
+        }
+      },
+      "profile_source": "argument",
+      "candidate_count": 12,
+      "candidate_policy": "same_asset_and_event_available_by_query_time",
+      "status": "ok",
+      "objective": "query_conditioned_set",
+      "selector": "query_conditioned_set_beam_v5",
+      "selected_edges": [
+        {
+          "source_id": "doc-661e3a443b0145f0efee1d9d",
+          "target_id": "doc-d2e659581a752a71c33861bf",
+          "prior_id": "doc-661e3a443b0145f0efee1d9d",
+          "update_id": "doc-d2e659581a752a71c33861bf",
+          "relation": "follows",
+          "update_relation": "follows",
+          "clock": "event_time",
+          "confidence": 0.85,
+          "endpoint_relevance_gate": 0.875094772302258,
+          "query_demand": 0.23809523809523808,
+          "effective_edge_utility": 0.1771025134421236
+        },
+        {
+          "source_id": "doc-c7389ca5eb847c65f095edb2",
+          "target_id": "doc-cf4c9af07c5af68f3c19465a",
+          "prior_id": "doc-c7389ca5eb847c65f095edb2",
+          "update_id": "doc-cf4c9af07c5af68f3c19465a",
+          "relation": "supersedes",
+          "update_relation": "supersedes",
+          "clock": "available_at",
+          "confidence": 0.95,
+          "endpoint_relevance_gate": 0.9522541887473479,
+          "query_demand": 0.42857142857142855,
+          "effective_edge_utility": 0.38770349113284874
+        }
+      ],
+      "rejected_edges": [],
+      "characters": 447,
+      "score_components": {
+        "semantic": 0.3874993919368981,
+        "chain": 0.09501629133420586,
+        "role": 0.19846153846153847,
+        "redundancy": -0.0151870475035598,
+        "total": 0.6657901742290826
+      },
+      "raw_score_components": {
+        "semantic": 0.8611097598597734,
+        "chain": 0.38006516533682344,
+        "role": 0.9923076923076923,
+        "redundancy": 0.151870475035598
+      },
+      "set_weights": {
+        "semantic": 0.45,
+        "chain": 0.25,
+        "role": 0.2,
+        "redundancy": 0.1
+      },
+      "edge_relevance_floor": 0.2,
+      "relation_schema": "prior_update_v3",
+      "relation_semantics": "update_relation describes update_id relative to prior_id; traversal is prior-to-update",
+      "edge_clock_policy": {
+        "process": "event_time",
+        "knowledge_update": "available_at"
+      }
+    }
+  }
+}

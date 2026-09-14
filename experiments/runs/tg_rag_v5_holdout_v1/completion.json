@@ -1,0 +1,20 @@
+{
+  "snapshots": 8,
+  "queries": 16,
+  "documents_across_snapshots": 80,
+  "official_commit": "58a57e0bc173064fa0ad7ccf595cf6e266523619",
+  "gold_read": false,
+  "exact_token_usage_available": false,
+  "snapshot_completion_hashes": {
+    "TEFV5H-01__e6f6dfbeed52": "6b90e4d193601fe8b8b98086e481550c98d488bc3f508b6814e70485621b0481",
+    "TEFV5H-01__9caf8c54d7d7": "a88272d99030fb3225c76a0d967c3aced0f23592129ea8923f4e1a7e4a3c20f8",
+    "TEFV5H-02__4a15fb9311d1": "51a363ab3c936a54172d102e1d8cde4895bab80bda8ebbf0ebc82d09132c88aa",
+    "TEFV5H-02__055f0a7fc504": "fa5c67fc50b2dd7a020aab0640c2198380f4b75a5bbebebe31544329ea19fb34",
+    "TEFV5H-03__b1d07225f417": "ce282bd13805cf626cea0b820e58fbf7077b90a3eb30d143e916873860a7555d",
+    "TEFV5H-03__6b40f96272f4": "d0dd2fce37f9431a7da771d82fa18fb0bb0000b1e2136d7b1ab8ecf6a4efbf90",
+    "TEFV5H-04__cd4f6ecf510f": "e8ba202cee3c98452b9e547dd3f469e9021ac3d4b585015d512ee5c2b2e537e7",
+    "TEFV5H-04__98f3835ab24e": "b79925c575c3037f8bb8553525889031dabd5ce261118c1f03c82aa18366f0ce"
+  },
+  "dataset": "tef_v5_holdout_v3",
+  "wrapper_sha256": "29d39cdc6000c1d1d3141b069f3ce863c40d99d87006d950805cb80b806f7ae6"
+}

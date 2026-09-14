@@ -1,0 +1,17 @@
+{
+  "method": "TG-RAG pinned local retrieval with domain, CPU, and source-recovery compatibility adapters",
+  "official_commit": "58a57e0bc173064fa0ad7ccf595cf6e266523619",
+  "query_id": "tefv5h-q-03-01",
+  "snapshot_key": "TEFV5H-03__b1d07225f417",
+  "semantic_question": "初始的树脂失效解释是如何被后续检查、替代线索和迟到证据更新并最终定案的？",
+  "evidence_ids": [
+    "doc-6423c71e41f29d5bce341c3d",
+    "doc-285a37c2bfdb3fa736d95c39",
+    "doc-a990cb2a2b2666f1496d9949",
+    "doc-f52855ce98c28f1d595d744b",
+    "doc-15ab8acfd1e4653ae51c5449"
+  ],
+  "raw_unique_source_count": 5,
+  "candidate_count": 12,
+  "gold_read": false
+}

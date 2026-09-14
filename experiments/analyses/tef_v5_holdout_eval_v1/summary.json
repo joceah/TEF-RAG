@@ -1,0 +1,262 @@
+[
+  {
+    "field": "all",
+    "value": "all",
+    "method": "scoped_hybrid",
+    "evaluation_status": "valid_primary",
+    "queries": 16,
+    "complete_queries": 8,
+    "metrics": {
+      "group_recall_at_5": 0.775,
+      "complete_at_5": 0.5,
+      "binary_ndcg_at_5": 0.7757170665332971
+    }
+  },
+  {
+    "field": "all",
+    "value": "all",
+    "method": "scoped_latest",
+    "evaluation_status": "valid_primary",
+    "queries": 16,
+    "complete_queries": 4,
+    "metrics": {
+      "group_recall_at_5": 0.525,
+      "complete_at_5": 0.25,
+      "binary_ndcg_at_5": 0.47518069520932876
+    }
+  },
+  {
+    "field": "all",
+    "value": "all",
+    "method": "tef_v5",
+    "evaluation_status": "valid_primary",
+    "queries": 16,
+    "complete_queries": 6,
+    "metrics": {
+      "group_recall_at_5": 0.790625,
+      "complete_at_5": 0.375,
+      "binary_ndcg_at_5": 0.7968237939650424
+    }
+  },
+  {
+    "field": "all",
+    "value": "all",
+    "method": "ta_rag_no_event_interval_compat",
+    "evaluation_status": "valid_primary",
+    "queries": 16,
+    "complete_queries": 5,
+    "metrics": {
+      "group_recall_at_5": 0.696875,
+      "complete_at_5": 0.3125,
+      "binary_ndcg_at_5": 0.6420428416714973
+    }
+  },
+  {
+    "field": "all",
+    "value": "all",
+    "method": "tg_rag_official_compat",
+    "evaluation_status": "invalid_external_failure",
+    "queries": 16,
+    "complete_queries": 4,
+    "metrics": {
+      "group_recall_at_5": 0.496875,
+      "complete_at_5": 0.25,
+      "binary_ndcg_at_5": 0.4236486600748877
+    }
+  },
+  {
+    "field": "task",
+    "value": "complex_chain",
+    "method": "scoped_hybrid",
+    "evaluation_status": "valid_primary",
+    "queries": 8,
+    "complete_queries": 2,
+    "metrics": {
+      "group_recall_at_5": 0.675,
+      "complete_at_5": 0.25,
+      "binary_ndcg_at_5": 0.6840939236680389
+    }
+  },
+  {
+    "field": "task",
+    "value": "complex_chain",
+    "method": "scoped_latest",
+    "evaluation_status": "valid_primary",
+    "queries": 8,
+    "complete_queries": 0,
+    "metrics": {
+      "group_recall_at_5": 0.26875,
+      "complete_at_5": 0.0,
+      "binary_ndcg_at_5": 0.21267473724407876
+    }
+  },
+  {
+    "field": "task",
+    "value": "complex_chain",
+    "method": "tef_v5",
+    "evaluation_status": "valid_primary",
+    "queries": 8,
+    "complete_queries": 1,
+    "metrics": {
+      "group_recall_at_5": 0.675,
+      "complete_at_5": 0.125,
+      "binary_ndcg_at_5": 0.7074299262530539
+    }
+  },
+  {
+    "field": "task",
+    "value": "complex_chain",
+    "method": "ta_rag_no_event_interval_compat",
+    "evaluation_status": "valid_primary",
+    "queries": 8,
+    "complete_queries": 0,
+    "metrics": {
+      "group_recall_at_5": 0.51875,
+      "complete_at_5": 0.0,
+      "binary_ndcg_at_5": 0.49279930871854416
+    }
+  },
+  {
+    "field": "task",
+    "value": "complex_chain",
+    "method": "tg_rag_official_compat",
+    "evaluation_status": "invalid_external_failure",
+    "queries": 8,
+    "complete_queries": 0,
+    "metrics": {
+      "group_recall_at_5": 0.39999999999999997,
+      "complete_at_5": 0.0,
+      "binary_ndcg_at_5": 0.42219190379976035
+    }
+  },
+  {
+    "field": "task",
+    "value": "cutoff_sensitive",
+    "method": "scoped_hybrid",
+    "evaluation_status": "valid_primary",
+    "queries": 4,
+    "complete_queries": 2,
+    "metrics": {
+      "group_recall_at_5": 0.75,
+      "complete_at_5": 0.5,
+      "binary_ndcg_at_5": 0.7346804187971105
+    }
+  },
+  {
+    "field": "task",
+    "value": "cutoff_sensitive",
+    "method": "scoped_latest",
+    "evaluation_status": "valid_primary",
+    "queries": 4,
+    "complete_queries": 0,
+    "metrics": {
+      "group_recall_at_5": 0.5625,
+      "complete_at_5": 0.0,
+      "binary_ndcg_at_5": 0.4753733063491575
+    }
+  },
+  {
+    "field": "task",
+    "value": "cutoff_sensitive",
+    "method": "tef_v5",
+    "evaluation_status": "valid_primary",
+    "queries": 4,
+    "complete_queries": 1,
+    "metrics": {
+      "group_recall_at_5": 0.8125,
+      "complete_at_5": 0.25,
+      "binary_ndcg_at_5": 0.7724353233540618
+    }
+  },
+  {
+    "field": "task",
+    "value": "cutoff_sensitive",
+    "method": "ta_rag_no_event_interval_compat",
+    "evaluation_status": "valid_primary",
+    "queries": 4,
+    "complete_queries": 1,
+    "metrics": {
+      "group_recall_at_5": 0.75,
+      "complete_at_5": 0.25,
+      "binary_ndcg_at_5": 0.6748403108560365
+    }
+  },
+  {
+    "field": "task",
+    "value": "cutoff_sensitive",
+    "method": "tg_rag_official_compat",
+    "evaluation_status": "invalid_external_failure",
+    "queries": 4,
+    "complete_queries": 1,
+    "metrics": {
+      "group_recall_at_5": 0.4375,
+      "complete_at_5": 0.25,
+      "binary_ndcg_at_5": 0.36754169318168195
+    }
+  },
+  {
+    "field": "task",
+    "value": "latest_control",
+    "method": "scoped_hybrid",
+    "evaluation_status": "valid_primary",
+    "queries": 4,
+    "complete_queries": 4,
+    "metrics": {
+      "group_recall_at_5": 1.0,
+      "complete_at_5": 1.0,
+      "binary_ndcg_at_5": 1.0
+    }
+  },
+  {
+    "field": "task",
+    "value": "latest_control",
+    "method": "scoped_latest",
+    "evaluation_status": "valid_primary",
+    "queries": 4,
+    "complete_queries": 4,
+    "metrics": {
+      "group_recall_at_5": 1.0,
+      "complete_at_5": 1.0,
+      "binary_ndcg_at_5": 1.0
+    }
+  },
+  {
+    "field": "task",
+    "value": "latest_control",
+    "method": "tef_v5",
+    "evaluation_status": "valid_primary",
+    "queries": 4,
+    "complete_queries": 4,
+    "metrics": {
+      "group_recall_at_5": 1.0,
+      "complete_at_5": 1.0,
+      "binary_ndcg_at_5": 1.0
+    }
+  },
+  {
+    "field": "task",
+    "value": "latest_control",
+    "method": "ta_rag_no_event_interval_compat",
+    "evaluation_status": "valid_primary",
+    "queries": 4,
+    "complete_queries": 4,
+    "metrics": {
+      "group_recall_at_5": 1.0,
+      "complete_at_5": 1.0,
+      "binary_ndcg_at_5": 0.9077324383928644
+    }
+  },
+  {
+    "field": "task",
+    "value": "latest_control",
+    "method": "tg_rag_official_compat",
+    "evaluation_status": "invalid_external_failure",
+    "queries": 4,
+    "complete_queries": 3,
+    "metrics": {
+      "group_recall_at_5": 0.75,
+      "complete_at_5": 0.75,
+      "binary_ndcg_at_5": 0.4826691395183483
+    }
+  }
+]

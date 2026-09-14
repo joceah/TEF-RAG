@@ -1,0 +1,27 @@
+{
+  "method": "TA-RAG pinned downstream no-event-interval compatibility run",
+  "official_commit": "9e5e28a9e7ddad7d6d022c4d3533dbca2aff03b9",
+  "query_id": "tefv5h-q-01-01",
+  "snapshot_key": "TEFV5H-01__e6f6dfbeed52",
+  "semantic_question": "最初怀疑气体泄漏，后来如何被检查、替代线索和迟到证据更新，并最终定案？",
+  "temporal_parse": {
+    "rephrased_sentence": "最初怀疑气体泄漏，后来如何被检查、替代线索和迟到证据更新，并最终定案？",
+    "temporal_decomposition": []
+  },
+  "evidence_ids": [
+    "doc-61db8c996e09d2c34c03bd47",
+    "doc-40bde0ad506bd05025a447b0",
+    "doc-fd2503f929e2abd9022bd786",
+    "doc-212c856313f45e18fc835abc",
+    "doc-4bf722a69208813714c3e754"
+  ],
+  "candidate_count": 12,
+  "gold_read": false,
+  "llm_requests": [],
+  "timing_seconds": {
+    "total": 0.00700068473815918,
+    "semantic": 0.00700068473815918,
+    "temporal_parser": 0.0,
+    "embedding": 0.00700068473815918
+  }
+}

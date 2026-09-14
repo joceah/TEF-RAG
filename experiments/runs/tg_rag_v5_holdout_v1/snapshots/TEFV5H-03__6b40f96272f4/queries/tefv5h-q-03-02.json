@@ -1,0 +1,11 @@
+{
+  "method": "TG-RAG pinned local retrieval with domain, CPU, and source-recovery compatibility adapters",
+  "official_commit": "58a57e0bc173064fa0ad7ccf595cf6e266523619",
+  "query_id": "tefv5h-q-03-02",
+  "snapshot_key": "TEFV5H-03__6b40f96272f4",
+  "semantic_question": "在迟到更新入库前，关于SVG阀冷系统电导率异常，哪些是已确认事实、哪些是阶段性判断、哪些仍不能确认？",
+  "evidence_ids": [],
+  "raw_unique_source_count": 0,
+  "candidate_count": 8,
+  "gold_read": false
+}

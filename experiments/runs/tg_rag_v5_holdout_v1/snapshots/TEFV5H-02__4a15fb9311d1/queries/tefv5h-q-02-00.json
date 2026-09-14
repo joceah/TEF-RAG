@@ -1,0 +1,17 @@
+{
+  "method": "TG-RAG pinned local retrieval with domain, CPU, and source-recovery compatibility adapters",
+  "official_commit": "58a57e0bc173064fa0ad7ccf595cf6e266523619",
+  "query_id": "tefv5h-q-02-00",
+  "snapshot_key": "TEFV5H-02__4a15fb9311d1",
+  "semantic_question": "从首次储能超时告警到最终验证，关键判断和操作是什么？",
+  "evidence_ids": [
+    "doc-c4052c7ebe2dc22264f37fda",
+    "doc-e33b86946d09e9cf20f307be",
+    "doc-0d5dc6a72b244b8ac68901b7",
+    "doc-392f3cb89960080b1b8e6430",
+    "doc-d99c3b22322fd1f2054c72bb"
+  ],
+  "raw_unique_source_count": 5,
+  "candidate_count": 12,
+  "gold_read": false
+}

@@ -1,0 +1,289 @@
+{
+  "query_id": "tefv5h-q-04-00",
+  "candidate_count": 12,
+  "candidate_ids": [
+    "doc-01187a399b2a9aacfe6af1a1",
+    "doc-1265cc5d3c83d32ea9974ea2",
+    "doc-3c624fba691ba80ac5a9a785",
+    "doc-50a8cf0db078350769d8573b",
+    "doc-51b0e556e5960f3691ce1cdd",
+    "doc-661e3a443b0145f0efee1d9d",
+    "doc-775bc3345312097a3137ea20",
+    "doc-c6dd48c916fda761d7a76e96",
+    "doc-c7389ca5eb847c65f095edb2",
+    "doc-cf4c9af07c5af68f3c19465a",
+    "doc-d2e659581a752a71c33861bf",
+    "doc-ee76fbcfef0dfcc309d55642"
+  ],
+  "methods": {
+    "scoped_hybrid": {
+      "evidence_ids": [
+        "doc-cf4c9af07c5af68f3c19465a",
+        "doc-c7389ca5eb847c65f095edb2",
+        "doc-d2e659581a752a71c33861bf",
+        "doc-50a8cf0db078350769d8573b",
+        "doc-775bc3345312097a3137ea20"
+      ]
+    },
+    "scoped_latest": {
+      "evidence_ids": [
+        "doc-c6dd48c916fda761d7a76e96",
+        "doc-51b0e556e5960f3691ce1cdd",
+        "doc-d2e659581a752a71c33861bf",
+        "doc-cf4c9af07c5af68f3c19465a",
+        "doc-661e3a443b0145f0efee1d9d"
+      ]
+    },
+    "tef_v5": {
+      "evidence_ids": [
+        "doc-cf4c9af07c5af68f3c19465a",
+        "doc-d2e659581a752a71c33861bf",
+        "doc-775bc3345312097a3137ea20",
+        "doc-c7389ca5eb847c65f095edb2",
+        "doc-50a8cf0db078350769d8573b"
+      ],
+      "trace": [
+        {
+          "rank": 1,
+          "selected_id": "doc-cf4c9af07c5af68f3c19465a",
+          "set_after": [
+            "doc-cf4c9af07c5af68f3c19465a"
+          ],
+          "marginal_components": {
+            "semantic": 0.09000000000000001,
+            "chain": 0.0,
+            "role": 0.02258064516129032,
+            "redundancy": 0.0,
+            "total": 0.11258064516129034
+          },
+          "set_score_after": 0.11258064516129034,
+          "activated_relations": []
+        },
+        {
+          "rank": 2,
+          "selected_id": "doc-d2e659581a752a71c33861bf",
+          "set_after": [
+            "doc-cf4c9af07c5af68f3c19465a",
+            "doc-d2e659581a752a71c33861bf"
+          ],
+          "marginal_components": {
+            "semantic": 0.06184408253352501,
+            "chain": 0.0,
+            "role": 0.0464516129032258,
+            "redundancy": -0.0011926605504587158,
+            "total": 0.1071030348862921
+          },
+          "set_score_after": 0.21968368004758243,
+          "activated_relations": []
+        },
+        {
+          "rank": 3,
+          "selected_id": "doc-775bc3345312097a3137ea20",
+          "set_after": [
+            "doc-cf4c9af07c5af68f3c19465a",
+            "doc-d2e659581a752a71c33861bf",
+            "doc-775bc3345312097a3137ea20"
+          ],
+          "marginal_components": {
+            "semantic": 0.0600692478243757,
+            "chain": 0.02295252064332676,
+            "role": 0.023483870967741932,
+            "redundancy": -0.0015504807692307693,
+            "total": 0.10495515866621363
+          },
+          "set_score_after": 0.32463883871379606,
+          "activated_relations": [
+            {
+              "source_id": "doc-775bc3345312097a3137ea20",
+              "target_id": "doc-d2e659581a752a71c33861bf",
+              "prior_id": "doc-775bc3345312097a3137ea20",
+              "update_id": "doc-d2e659581a752a71c33861bf",
+              "relation": "follows",
+              "update_relation": "follows",
+              "clock": "event_time",
+              "confidence": 0.8,
+              "endpoint_relevance_gate": 0.7417950841855819,
+              "query_demand": 0.20512820512820515,
+              "effective_edge_utility": 0.1217304753535314
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "selected_id": "doc-c7389ca5eb847c65f095edb2",
+          "set_after": [
+            "doc-cf4c9af07c5af68f3c19465a",
+            "doc-d2e659581a752a71c33861bf",
+            "doc-775bc3345312097a3137ea20",
+            "doc-c7389ca5eb847c65f095edb2"
+          ],
+          "marginal_components": {
+            "semantic": 0.07970376025339065,
+            "chain": 0.019091470074980476,
+            "role": 0.0,
+            "redundancy": -0.008133178556352892,
+            "total": 0.09066205177201825
+          },
+          "set_score_after": 0.4153008904858143,
+          "activated_relations": [
+            {
+              "source_id": "doc-c7389ca5eb847c65f095edb2",
+              "target_id": "doc-cf4c9af07c5af68f3c19465a",
+              "prior_id": "doc-c7389ca5eb847c65f095edb2",
+              "update_id": "doc-cf4c9af07c5af68f3c19465a",
+              "relation": "supersedes",
+              "update_relation": "supersedes",
+              "clock": "available_at",
+              "confidence": 0.95,
+              "endpoint_relevance_gate": 0.953141054051827,
+              "query_demand": 0.12820512820512822,
+              "effective_edge_utility": 0.11608769248067126
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "selected_id": "doc-50a8cf0db078350769d8573b",
+          "set_after": [
+            "doc-cf4c9af07c5af68f3c19465a",
+            "doc-d2e659581a752a71c33861bf",
+            "doc-775bc3345312097a3137ea20",
+            "doc-c7389ca5eb847c65f095edb2",
+            "doc-50a8cf0db078350769d8573b"
+          ],
+          "marginal_components": {
+            "semantic": 0.06036434219560988,
+            "chain": 0.01801104104652295,
+            "role": 0.0010322580645161367,
+            "redundancy": -0.004654702102803738,
+            "total": 0.07475293920384518
+          },
+          "set_score_after": 0.4900538296896595,
+          "activated_relations": [
+            {
+              "source_id": "doc-50a8cf0db078350769d8573b",
+              "target_id": "doc-d2e659581a752a71c33861bf",
+              "prior_id": "doc-50a8cf0db078350769d8573b",
+              "update_id": "doc-d2e659581a752a71c33861bf",
+              "relation": "resolves",
+              "update_relation": "resolves",
+              "clock": "event_time",
+              "confidence": 0.85,
+              "endpoint_relevance_gate": 0.7431194532882514,
+              "query_demand": 0.15384615384615385,
+              "effective_edge_utility": 0.09717715927615594
+            }
+          ]
+        }
+      ],
+      "query_scope": {
+        "orders": [],
+        "windows": [],
+        "procedure": true,
+        "compare": false,
+        "latest": false,
+        "wanted_roles": [
+          "recovery"
+        ],
+        "assumptions": []
+      },
+      "query_profile": {
+        "selection_mode": "set",
+        "role_demands": {
+          "action": 0.12903225806451613,
+          "closure": 0.08064516129032258,
+          "diagnostic_check": 0.1129032258064516,
+          "diagnostic_clue": 0.0967741935483871,
+          "hypothesis": 0.0967741935483871,
+          "localization": 0.1129032258064516,
+          "observation": 0.12903225806451613,
+          "procedure": 0.1129032258064516,
+          "verification": 0.12903225806451613
+        },
+        "relation_demands": {
+          "follows": 0.20512820512820515,
+          "resolves": 0.15384615384615385,
+          "same_process": 0.1794871794871795,
+          "supersedes": 0.12820512820512822,
+          "supports": 0.15384615384615385,
+          "verifies": 0.1794871794871795
+        }
+      },
+      "profile_source": "argument",
+      "candidate_count": 12,
+      "candidate_policy": "same_asset_and_event_available_by_query_time",
+      "status": "ok",
+      "objective": "query_conditioned_set",
+      "selector": "query_conditioned_set_beam_v5",
+      "selected_edges": [
+        {
+          "source_id": "doc-50a8cf0db078350769d8573b",
+          "target_id": "doc-d2e659581a752a71c33861bf",
+          "prior_id": "doc-50a8cf0db078350769d8573b",
+          "update_id": "doc-d2e659581a752a71c33861bf",
+          "relation": "resolves",
+          "update_relation": "resolves",
+          "clock": "event_time",
+          "confidence": 0.85,
+          "endpoint_relevance_gate": 0.7431194532882514,
+          "query_demand": 0.15384615384615385,
+          "effective_edge_utility": 0.09717715927615594
+        },
+        {
+          "source_id": "doc-775bc3345312097a3137ea20",
+          "target_id": "doc-d2e659581a752a71c33861bf",
+          "prior_id": "doc-775bc3345312097a3137ea20",
+          "update_id": "doc-d2e659581a752a71c33861bf",
+          "relation": "follows",
+          "update_relation": "follows",
+          "clock": "event_time",
+          "confidence": 0.8,
+          "endpoint_relevance_gate": 0.7417950841855819,
+          "query_demand": 0.20512820512820515,
+          "effective_edge_utility": 0.1217304753535314
+        },
+        {
+          "source_id": "doc-c7389ca5eb847c65f095edb2",
+          "target_id": "doc-cf4c9af07c5af68f3c19465a",
+          "prior_id": "doc-c7389ca5eb847c65f095edb2",
+          "update_id": "doc-cf4c9af07c5af68f3c19465a",
+          "relation": "supersedes",
+          "update_relation": "supersedes",
+          "clock": "available_at",
+          "confidence": 0.95,
+          "endpoint_relevance_gate": 0.953141054051827,
+          "query_demand": 0.12820512820512822,
+          "effective_edge_utility": 0.11608769248067126
+        }
+      ],
+      "rejected_edges": [],
+      "characters": 535,
+      "score_components": {
+        "semantic": 0.35198143280690125,
+        "chain": 0.06005503176483019,
+        "role": 0.0935483870967742,
+        "redundancy": -0.015531021978846114,
+        "total": 0.4900538296896595
+      },
+      "raw_score_components": {
+        "semantic": 0.7821809617931139,
+        "chain": 0.24022012705932075,
+        "role": 0.46774193548387094,
+        "redundancy": 0.15531021978846113
+      },
+      "set_weights": {
+        "semantic": 0.45,
+        "chain": 0.25,
+        "role": 0.2,
+        "redundancy": 0.1
+      },
+      "edge_relevance_floor": 0.2,
+      "relation_schema": "prior_update_v3",
+      "relation_semantics": "update_relation describes update_id relative to prior_id; traversal is prior-to-update",
+      "edge_clock_policy": {
+        "process": "event_time",
+        "knowledge_update": "available_at"
+      }
+    }
+  }
+}

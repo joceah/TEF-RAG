@@ -1,0 +1,5 @@
+record_id: doc-422e7171d76dbee0a7e9ef7f
+asset_id: TEFV5H-03
+event_time: 2026-07-11T08:00:00Z
+available_at: 2026-07-11T18:00:00Z
+content: TEFV5H-03，WO-C3103：2026-07-11 08:00，按例行计划对阀厅风机滤网进行维护。检查A组风机滤网压差85 Pa，B组92 Pa，均低于更换阈值150 Pa。清洁滤网表面灰尘，更换B组滤网密封条。风机运行电流正常，风量满足要求。

@@ -1,0 +1,27 @@
+{
+  "method": "TA-RAG pinned downstream no-event-interval compatibility run",
+  "official_commit": "9e5e28a9e7ddad7d6d022c4d3533dbca2aff03b9",
+  "query_id": "tefv5h-q-02-01",
+  "snapshot_key": "TEFV5H-02__4a15fb9311d1",
+  "semantic_question": "初始的机械卡涩假设是如何被检查、替代线索和迟到证据更新并最终定案的？",
+  "temporal_parse": {
+    "rephrased_sentence": "初始的机械卡涩假设是如何被检查、替代线索和迟到证据更新并最终定案的？",
+    "temporal_decomposition": []
+  },
+  "evidence_ids": [
+    "doc-ef3e68c5a9cff2da701a3c45",
+    "doc-70413365049d0e21a1375124",
+    "doc-d99c3b22322fd1f2054c72bb",
+    "doc-5a3c6720ebe838f88763fb31",
+    "doc-401b4cd79508df2b0a94111c"
+  ],
+  "candidate_count": 12,
+  "gold_read": false,
+  "llm_requests": [],
+  "timing_seconds": {
+    "total": 0.007002353668212891,
+    "semantic": 0.006000995635986328,
+    "temporal_parser": 0.0,
+    "embedding": 0.006000995635986328
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "query_id": "tefv5h-q-03-03",
+  "candidate_count": 12,
+  "candidate_ids": [
+    "doc-15ab8acfd1e4653ae51c5449",
+    "doc-1a0d56a7d87ba518e14f7c38",
+    "doc-285a37c2bfdb3fa736d95c39",
+    "doc-350348e8ab5484ea8f6f0022",
+    "doc-422e7171d76dbee0a7e9ef7f",
+    "doc-4f0ceac00e3de54094065a4e",
+    "doc-6423c71e41f29d5bce341c3d",
+    "doc-663e371863381a783d171046",
+    "doc-7a4458fbe61fc556aa7aaf37",
+    "doc-7c2ac34e8fb5407ebd7a3031",
+    "doc-a990cb2a2b2666f1496d9949",
+    "doc-f52855ce98c28f1d595d744b"
+  ],
+  "methods": {
+    "scoped_hybrid": {
+      "evidence_ids": [
+        "doc-7a4458fbe61fc556aa7aaf37",
+        "doc-4f0ceac00e3de54094065a4e",
+        "doc-a990cb2a2b2666f1496d9949",
+        "doc-7c2ac34e8fb5407ebd7a3031",
+        "doc-663e371863381a783d171046"
+      ]
+    },
+    "scoped_latest": {
+      "evidence_ids": [
+        "doc-7a4458fbe61fc556aa7aaf37",
+        "doc-422e7171d76dbee0a7e9ef7f",
+        "doc-1a0d56a7d87ba518e14f7c38",
+        "doc-350348e8ab5484ea8f6f0022",
+        "doc-4f0ceac00e3de54094065a4e"
+      ]
+    },
+    "tef_v5": {
+      "evidence_ids": [
+        "doc-7a4458fbe61fc556aa7aaf37",
+        "doc-422e7171d76dbee0a7e9ef7f",
+        "doc-1a0d56a7d87ba518e14f7c38",
+        "doc-350348e8ab5484ea8f6f0022",
+        "doc-4f0ceac00e3de54094065a4e"
+      ],
+      "trace": [
+        {
+          "rank": 1,
+          "selected_id": "doc-7a4458fbe61fc556aa7aaf37",
+          "set_after": [
+            "doc-7a4458fbe61fc556aa7aaf37"
+          ],
+          "reason": "query_profile_latest_recency",
+          "activated_relations": []
+        },
+        {
+          "rank": 2,
+          "selected_id": "doc-422e7171d76dbee0a7e9ef7f",
+          "set_after": [
+            "doc-7a4458fbe61fc556aa7aaf37",
+            "doc-422e7171d76dbee0a7e9ef7f"
+          ],
+          "reason": "query_profile_latest_recency",
+          "activated_relations": []
+        },
+        {
+          "rank": 3,
+          "selected_id": "doc-1a0d56a7d87ba518e14f7c38",
+          "set_after": [
+            "doc-7a4458fbe61fc556aa7aaf37",
+            "doc-422e7171d76dbee0a7e9ef7f",
+            "doc-1a0d56a7d87ba518e14f7c38"
+          ],
+          "reason": "query_profile_latest_recency",
+          "activated_relations": []
+        },
+        {
+          "rank": 4,
+          "selected_id": "doc-350348e8ab5484ea8f6f0022",
+          "set_after": [
+            "doc-7a4458fbe61fc556aa7aaf37",
+            "doc-422e7171d76dbee0a7e9ef7f",
+            "doc-1a0d56a7d87ba518e14f7c38",
+            "doc-350348e8ab5484ea8f6f0022"
+          ],
+          "reason": "query_profile_latest_recency",
+          "activated_relations": []
+        },
+        {
+          "rank": 5,
+          "selected_id": "doc-4f0ceac00e3de54094065a4e",
+          "set_after": [
+            "doc-7a4458fbe61fc556aa7aaf37",
+            "doc-422e7171d76dbee0a7e9ef7f",
+            "doc-1a0d56a7d87ba518e14f7c38",
+            "doc-350348e8ab5484ea8f6f0022",
+            "doc-4f0ceac00e3de54094065a4e"
+          ],
+          "reason": "query_profile_latest_recency",
+          "activated_relations": []
+        }
+      ],
+      "query_scope": {
+        "orders": [],
+        "windows": [],
+        "procedure": false,
+        "compare": false,
+        "latest": true,
+        "wanted_roles": [],
+        "assumptions": []
+      },
+      "query_profile": {
+        "selection_mode": "latest",
+        "role_demands": {},
+        "relation_demands": {}
+      },
+      "profile_source": "argument",
+      "candidate_count": 12,
+      "candidate_policy": "same_asset_and_event_available_by_query_time",
+      "status": "ok",
+      "objective": "latest",
+      "selector": "query_profile_recency_control_v5",
+      "selected_edges": [],
+      "rejected_edges": [],
+      "characters": 733,
+      "relation_schema": "prior_update_v3"
+    }
+  }
+}

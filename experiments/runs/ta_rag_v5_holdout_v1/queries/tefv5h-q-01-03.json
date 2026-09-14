@@ -1,0 +1,27 @@
+{
+  "method": "TA-RAG pinned downstream no-event-interval compatibility run",
+  "official_commit": "9e5e28a9e7ddad7d6d022c4d3533dbca2aff03b9",
+  "query_id": "tefv5h-q-01-03",
+  "snapshot_key": "TEFV5H-01__e6f6dfbeed52",
+  "semantic_question": "截止时最新一条业务记录是什么？",
+  "temporal_parse": {
+    "rephrased_sentence": "截止时最新一条业务记录是什么？",
+    "temporal_decomposition": []
+  },
+  "evidence_ids": [
+    "doc-212c856313f45e18fc835abc",
+    "doc-61db8c996e09d2c34c03bd47",
+    "doc-40bde0ad506bd05025a447b0",
+    "doc-10efe92ff6bdf6390f93eae4",
+    "doc-4bf722a69208813714c3e754"
+  ],
+  "candidate_count": 12,
+  "gold_read": false,
+  "llm_requests": [],
+  "timing_seconds": {
+    "total": 0.004996776580810547,
+    "semantic": 0.004996776580810547,
+    "temporal_parser": 0.0,
+    "embedding": 0.004996776580810547
+  }
+}

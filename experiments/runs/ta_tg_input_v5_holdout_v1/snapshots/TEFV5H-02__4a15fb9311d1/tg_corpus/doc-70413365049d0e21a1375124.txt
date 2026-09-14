@@ -1,0 +1,5 @@
+record_id: doc-70413365049d0e21a1375124
+asset_id: TEFV5H-02
+event_time: 2026-02-07T08:00:00Z
+available_at: 2026-02-07T18:00:00Z
+content: TEFV5H-02，WO-C2201：进行早期少量储能循环验证，连续操作5次，储能时间均在8-9秒，无超时告警，接点状态稳定。

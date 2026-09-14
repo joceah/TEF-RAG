@@ -1,0 +1,73 @@
+{
+  "asset_id": "TEFV5H-01",
+  "profiles": [
+    {
+      "query_id": "tefv5h-q-01-00",
+      "selection_mode": "set",
+      "role_demands": {
+        "action": 0.9,
+        "closure": 0.6,
+        "diagnostic_check": 0.8,
+        "diagnostic_clue": 0.7,
+        "hypothesis": 0.7,
+        "observation": 0.9,
+        "verification": 0.9
+      },
+      "relation_demands": {
+        "follows": 0.9,
+        "resolves": 0.6,
+        "same_process": 0.8,
+        "supports": 0.6,
+        "verifies": 0.7
+      },
+      "rationale": "需要完整缺陷处理过程，涵盖从告警观察到最终验证的各阶段证据，并按时间顺序和过程关联组织。"
+    },
+    {
+      "query_id": "tefv5h-q-01-01",
+      "selection_mode": "set",
+      "role_demands": {
+        "closure": 0.6,
+        "diagnostic_check": 0.8,
+        "diagnostic_clue": 0.9,
+        "hypothesis": 0.9,
+        "observation": 0.8,
+        "verification": 0.7
+      },
+      "relation_demands": {
+        "follows": 0.8,
+        "refutes": 0.8,
+        "resolves": 0.7,
+        "supersedes": 0.8,
+        "supports": 0.8
+      },
+      "rationale": "需要解释假设如何被检查、替代线索和迟到证据更新，并最终定案，强调证据间的支持、反驳和取代关系。"
+    },
+    {
+      "query_id": "tefv5h-q-01-02",
+      "selection_mode": "set",
+      "role_demands": {
+        "context": 0.5,
+        "diagnostic_check": 0.7,
+        "diagnostic_clue": 0.7,
+        "hypothesis": 0.8,
+        "observation": 0.9,
+        "verification": 0.6
+      },
+      "relation_demands": {
+        "follows": 0.7,
+        "refutes": 0.6,
+        "supersedes": 0.6,
+        "supports": 0.7
+      },
+      "rationale": "需要区分已确认事实、阶段性判断和未确认内容，依赖观察、假设、检查等证据及其支持或反驳关系。"
+    },
+    {
+      "query_id": "tefv5h-q-01-03",
+      "selection_mode": "latest",
+      "role_demands": {},
+      "relation_demands": {},
+      "rationale": "明确要求截止时最新一条业务记录，只需返回最新单条记录。"
+    }
+  ],
+  "schema_repaired_once": false
+}

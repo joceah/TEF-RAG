@@ -1,0 +1,201 @@
+{
+  "asset_id": "TEFV5H-04",
+  "roles": [
+    {
+      "id": "doc-01187a399b2a9aacfe6af1a1",
+      "role_scores": {
+        "diagnostic_clue": 0.8,
+        "localization": 1.0
+      },
+      "rationale": "发现同步窗口配置18ms超出手册要求，定位为配置偏差。"
+    },
+    {
+      "id": "doc-1265cc5d3c83d32ea9974ea2",
+      "role_scores": {
+        "hypothesis": 1.0
+      },
+      "rationale": "初步分析认为可能由晶闸管老化或触发板硬件故障引起。"
+    },
+    {
+      "id": "doc-3c624fba691ba80ac5a9a785",
+      "role_scores": {
+        "diagnostic_check": 1.0,
+        "observation": 0.8
+      },
+      "rationale": "对晶闸管、触发板及门极驱动点检，结果均在合格范围。"
+    },
+    {
+      "id": "doc-50a8cf0db078350769d8573b",
+      "role_scores": {
+        "diagnostic_clue": 0.7,
+        "observation": 1.0
+      },
+      "rationale": "记录三次切换实测时间均超旧版判据，并记录负载电压跌落。"
+    },
+    {
+      "id": "doc-51b0e556e5960f3691ce1cdd",
+      "role_scores": {
+        "context": 0.5,
+        "observation": 1.0
+      },
+      "rationale": "WO-C121蓄电池组例行巡检，记录电压、内阻及外观状态正常。"
+    },
+    {
+      "id": "doc-661e3a443b0145f0efee1d9d",
+      "role_scores": {
+        "observation": 0.8,
+        "verification": 1.0
+      },
+      "rationale": "参数恢复后复测三次切换时间，按旧版20ms判据均合格。"
+    },
+    {
+      "id": "doc-775bc3345312097a3137ea20",
+      "role_scores": {
+        "diagnostic_clue": 1.0,
+        "observation": 0.8
+      },
+      "rationale": "录波分析显示切换等待约19ms，支持同步窗口配置偏差为主因。"
+    },
+    {
+      "id": "doc-c6dd48c916fda761d7a76e96",
+      "role_scores": {
+        "closure": 1.0
+      },
+      "rationale": "工单完成闭环审批，相关记录归档，无新增异常。"
+    },
+    {
+      "id": "doc-c7389ca5eb847c65f095edb2",
+      "role_scores": {
+        "context": 0.6,
+        "procedure": 1.0
+      },
+      "rationale": "旧版旁路切换试验规程，给出20ms判据及适用截止时间。"
+    },
+    {
+      "id": "doc-cf4c9af07c5af68f3c19465a",
+      "role_scores": {
+        "context": 0.6,
+        "procedure": 1.0
+      },
+      "rationale": "新版旁路切换试验规程，给出15ms判据及生效时间。"
+    },
+    {
+      "id": "doc-d2e659581a752a71c33861bf",
+      "role_scores": {
+        "observation": 0.8,
+        "verification": 1.0
+      },
+      "rationale": "按新版15ms判据连续五次复测，全部合格。"
+    },
+    {
+      "id": "doc-ee76fbcfef0dfcc309d55642",
+      "role_scores": {
+        "action": 1.0
+      },
+      "rationale": "经批准将同步窗口参数由18ms恢复为10ms并保存记录。"
+    }
+  ],
+  "relations": [
+    {
+      "prior_id": "doc-01187a399b2a9aacfe6af1a1",
+      "update_id": "doc-ee76fbcfef0dfcc309d55642",
+      "update_relation": "follows",
+      "confidence": 0.9,
+      "rationale": "同一工单WO-C118中，参数恢复记录紧随配置偏差定位记录之后，执行了同步窗口参数修改。"
+    },
+    {
+      "prior_id": "doc-1265cc5d3c83d32ea9974ea2",
+      "update_id": "doc-3c624fba691ba80ac5a9a785",
+      "update_relation": "follows",
+      "confidence": 0.9,
+      "rationale": "同一工单WO-C118中，专项点检记录紧随初步分析记录之后，执行了计划中的静态开关模块检查。"
+    },
+    {
+      "prior_id": "doc-1265cc5d3c83d32ea9974ea2",
+      "update_id": "doc-3c624fba691ba80ac5a9a785",
+      "update_relation": "refutes",
+      "confidence": 0.85,
+      "rationale": "点检未发现硬件故障证据，削弱了初步分析中晶闸管老化或触发板硬件故障的假设。"
+    },
+    {
+      "prior_id": "doc-3c624fba691ba80ac5a9a785",
+      "update_id": "doc-01187a399b2a9aacfe6af1a1",
+      "update_relation": "follows",
+      "confidence": 0.9,
+      "rationale": "同一工单WO-C118中，参数核对记录紧随硬件点检记录之后，在排除硬件故障后定位到同步窗口配置偏差。"
+    },
+    {
+      "prior_id": "doc-3c624fba691ba80ac5a9a785",
+      "update_id": "doc-775bc3345312097a3137ea20",
+      "update_relation": "supports",
+      "confidence": 0.8,
+      "rationale": "录波中未发现晶闸管异常关断或触发丢失，支持硬件点检未发现故障的结论。"
+    },
+    {
+      "prior_id": "doc-50a8cf0db078350769d8573b",
+      "update_id": "doc-1265cc5d3c83d32ea9974ea2",
+      "update_relation": "follows",
+      "confidence": 0.9,
+      "rationale": "同一工单WO-C118中，初步分析记录紧随季度旁路切换试验记录之后，针对试验超标结果展开原因分析。"
+    },
+    {
+      "prior_id": "doc-50a8cf0db078350769d8573b",
+      "update_id": "doc-661e3a443b0145f0efee1d9d",
+      "update_relation": "resolves",
+      "confidence": 0.85,
+      "rationale": "参数恢复后复测切换时间均合格，解决了首次试验中切换时间超标的问题。"
+    },
+    {
+      "prior_id": "doc-50a8cf0db078350769d8573b",
+      "update_id": "doc-c6dd48c916fda761d7a76e96",
+      "update_relation": "follows",
+      "confidence": 0.85,
+      "rationale": "同一工单WO-C118中，闭环审批记录紧随所有试验与处理记录之后，完成工单归档。"
+    },
+    {
+      "prior_id": "doc-50a8cf0db078350769d8573b",
+      "update_id": "doc-d2e659581a752a71c33861bf",
+      "update_relation": "resolves",
+      "confidence": 0.85,
+      "rationale": "按新版判据充分复测全部合格，最终解决了切换时间超标问题。"
+    },
+    {
+      "prior_id": "doc-661e3a443b0145f0efee1d9d",
+      "update_id": "doc-d2e659581a752a71c33861bf",
+      "update_relation": "follows",
+      "confidence": 0.85,
+      "rationale": "同一工单WO-C118中，按新版判据的充分复测记录紧随旧版判据复测记录之后，进一步验证设备状态。"
+    },
+    {
+      "prior_id": "doc-775bc3345312097a3137ea20",
+      "update_id": "doc-d2e659581a752a71c33861bf",
+      "update_relation": "follows",
+      "confidence": 0.8,
+      "rationale": "同一工单WO-C118中，新版判据复测记录紧随录波分析记录之后，录波分析为后续复测提供依据。"
+    },
+    {
+      "prior_id": "doc-c7389ca5eb847c65f095edb2",
+      "update_id": "doc-cf4c9af07c5af68f3c19465a",
+      "update_relation": "supersedes",
+      "confidence": 0.95,
+      "rationale": "新版规程将切换时间判据由旧版20ms改为15ms，并明确自2026-08-08生效且不追溯，取代旧版判据。"
+    },
+    {
+      "prior_id": "doc-ee76fbcfef0dfcc309d55642",
+      "update_id": "doc-661e3a443b0145f0efee1d9d",
+      "update_relation": "follows",
+      "confidence": 0.9,
+      "rationale": "同一工单WO-C118中，复测记录紧随参数恢复记录之后，验证参数修改效果。"
+    }
+  ],
+  "role_schema_repaired_once": false,
+  "relation_schema_repaired_once": true,
+  "deterministically_dropped_edges": [
+    {
+      "prior_id": "doc-01187a399b2a9aacfe6af1a1",
+      "update_id": "doc-775bc3345312097a3137ea20",
+      "update_relation": "verifies",
+      "reason": "backward_event_time"
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "asset_id": "TEFV5H-03",
+  "profiles": [
+    {
+      "query_id": "tefv5h-q-03-00",
+      "selection_mode": "set",
+      "role_demands": {
+        "action": 0.8,
+        "closure": 0.6,
+        "diagnostic_check": 0.8,
+        "diagnostic_clue": 0.7,
+        "localization": 0.7,
+        "observation": 0.9,
+        "verification": 0.8
+      },
+      "relation_demands": {
+        "follows": 0.8,
+        "resolves": 0.6,
+        "same_process": 0.7,
+        "supports": 0.6,
+        "verifies": 0.7
+      },
+      "rationale": "需要覆盖从告警到验证的完整处理链条，包含观察、检查、线索、定位、操作与验证等互补阶段，并以时序和过程关系串联。"
+    },
+    {
+      "query_id": "tefv5h-q-03-01",
+      "selection_mode": "set",
+      "role_demands": {
+        "closure": 0.6,
+        "diagnostic_check": 0.8,
+        "diagnostic_clue": 0.8,
+        "hypothesis": 0.9,
+        "localization": 0.7,
+        "observation": 0.6
+      },
+      "relation_demands": {
+        "follows": 0.6,
+        "refutes": 0.7,
+        "resolves": 0.6,
+        "supersedes": 0.9,
+        "supports": 0.7
+      },
+      "rationale": "需要呈现初始解释被后续检查、替代线索和迟到证据更新并最终定案的过程，强调假设、检查、线索与更新关系。"
+    },
+    {
+      "query_id": "tefv5h-q-03-02",
+      "selection_mode": "set",
+      "role_demands": {
+        "context": 0.6,
+        "diagnostic_check": 0.7,
+        "diagnostic_clue": 0.7,
+        "hypothesis": 0.8,
+        "observation": 0.9
+      },
+      "relation_demands": {
+        "follows": 0.6,
+        "refutes": 0.6,
+        "same_process": 0.6,
+        "supports": 0.7
+      },
+      "rationale": "需要区分已确认事实、阶段性判断和未确认内容，依赖观察、假设、检查与线索等角色及支持或反驳关系。"
+    },
+    {
+      "query_id": "tefv5h-q-03-03",
+      "selection_mode": "latest",
+      "role_demands": {},
+      "relation_demands": {},
+      "rationale": "问题明确要求截至当前的最新一条业务记录，只需返回最新单条记录。"
+    }
+  ],
+  "schema_repaired_once": false
+}

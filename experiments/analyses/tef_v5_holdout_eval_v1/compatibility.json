@@ -1,0 +1,26 @@
+{
+  "ta_rag": {
+    "evaluation_status": "valid_primary_with_disclosed_compatibility_branch",
+    "official_commit": "9e5e28a9e7ddad7d6d022c4d3533dbca2aff03b9",
+    "temporal_mechanism_activated": false,
+    "official_llm_parser_succeeded": false,
+    "retrieval_branch": "official no-temporal-decomposition full semantic search",
+    "new_llm_requests": 0
+  },
+  "tg_rag": {
+    "evaluation_status": "invalid_external_failure",
+    "official_commit": "58a57e0bc173064fa0ad7ccf595cf6e266523619",
+    "failure": "provider_http_402_insufficient_balance",
+    "failed_query_ids": [
+      "tefv5h-q-03-02",
+      "tefv5h-q-04-00",
+      "tefv5h-q-04-01",
+      "tefv5h-q-04-02",
+      "tefv5h-q-04-03"
+    ],
+    "source_recovery_rate": 0.6875,
+    "top5_slot_fill_rate": 0.6875,
+    "exact_token_usage_available": false,
+    "included_in_primary_pairwise_comparison": false
+  }
+}

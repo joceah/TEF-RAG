@@ -1,0 +1,17 @@
+{
+  "method": "TG-RAG pinned local retrieval with domain, CPU, and source-recovery compatibility adapters",
+  "official_commit": "58a57e0bc173064fa0ad7ccf595cf6e266523619",
+  "query_id": "tefv5h-q-02-02",
+  "snapshot_key": "TEFV5H-02__055f0a7fc504",
+  "semantic_question": "在迟到更新入库前，哪些是已确认事实、哪些是阶段性判断、哪些仍不能确认？",
+  "evidence_ids": [
+    "doc-70413365049d0e21a1375124",
+    "doc-ef3e68c5a9cff2da701a3c45",
+    "doc-392f3cb89960080b1b8e6430",
+    "doc-d99c3b22322fd1f2054c72bb",
+    "doc-0d5dc6a72b244b8ac68901b7"
+  ],
+  "raw_unique_source_count": 5,
+  "candidate_count": 8,
+  "gold_read": false
+}

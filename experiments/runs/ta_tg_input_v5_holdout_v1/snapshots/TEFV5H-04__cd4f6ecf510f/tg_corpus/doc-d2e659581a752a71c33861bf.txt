@@ -1,0 +1,5 @@
+record_id: doc-d2e659581a752a71c33861bf
+asset_id: TEFV5H-04
+event_time: 2026-08-10T08:00:00Z
+available_at: 2026-08-10T18:00:00Z
+content: TEFV5H-04，WO-C118：按新版15ms判据进行充分复测，连续进行五次旁路切换，切换时间分别为12ms、13ms、11ms、12ms和14ms，全部不大于15ms，判定合格。复测期间负载电压跌落小于5%，设备运行正常。

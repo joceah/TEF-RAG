@@ -1,0 +1,5 @@
+record_id: doc-01187a399b2a9aacfe6af1a1
+asset_id: TEFV5H-04
+event_time: 2026-08-05T08:00:00Z
+available_at: 2026-08-05T18:00:00Z
+content: TEFV5H-04，WO-C118：核对静态开关同步窗口参数，发现同步窗口配置为18ms，而设备技术手册要求为8ms至12ms。当前配置导致切换等待时间延长，与实测27ms至31ms的切换时间吻合。定位为同步窗口配置偏差。

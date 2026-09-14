@@ -1,0 +1,175 @@
+{
+  "asset_id": "TEFV5H-01",
+  "roles": [
+    {
+      "id": "doc-10efe92ff6bdf6390f93eae4",
+      "role_scores": {
+        "diagnostic_clue": 0.9,
+        "hypothesis": 0.6
+      },
+      "rationale": "SOE与温度趋势表明远传回路间歇性接触不良而非泄漏，属关键线索与假设修正。"
+    },
+    {
+      "id": "doc-212c856313f45e18fc835abc",
+      "role_scores": {
+        "closure": 0.9,
+        "context": 0.4
+      },
+      "rationale": "记录归档、工单关闭且无新增异常，属闭环与背景。"
+    },
+    {
+      "id": "doc-252ff3db660fee0b084479eb",
+      "role_scores": {
+        "diagnostic_check": 0.8,
+        "diagnostic_clue": 0.7
+      },
+      "rationale": "核对温度补偿参数、输出电流及供电，发现偏差超精度并怀疑回路接触电阻，属检查与线索。"
+    },
+    {
+      "id": "doc-3ba7dac19be393385ef58851",
+      "role_scores": {
+        "observation": 0.5,
+        "verification": 0.9
+      },
+      "rationale": "跨温度周期验证远传与就地偏差不超过0.01MPa且无跳变，属验证与观察。"
+    },
+    {
+      "id": "doc-40bde0ad506bd05025a447b0",
+      "role_scores": {
+        "diagnostic_check": 0.7,
+        "observation": 0.5
+      },
+      "rationale": "对相邻气室例行密封检查未发现泄漏，属检查与观察。"
+    },
+    {
+      "id": "doc-4bf722a69208813714c3e754",
+      "role_scores": {
+        "diagnostic_clue": 0.6,
+        "observation": 0.9
+      },
+      "rationale": "记录远传密度低告警、就地与远传偏差及外观检查结果，属现场观察与线索。"
+    },
+    {
+      "id": "doc-61db8c996e09d2c34c03bd47",
+      "role_scores": {
+        "context": 0.4,
+        "hypothesis": 0.9
+      },
+      "rationale": "初步判断可能存在SF6泄漏并查阅补气记录，属假设与背景。"
+    },
+    {
+      "id": "doc-c3c3d69d76fd0ac6ae6b2c98",
+      "role_scores": {
+        "diagnostic_check": 0.7,
+        "observation": 0.5
+      },
+      "rationale": "检查密度继电器加热带电阻、绝缘及供电正常，属检查与观察。"
+    },
+    {
+      "id": "doc-c842b344ebbb2923977eedcc",
+      "role_scores": {
+        "observation": 0.5,
+        "verification": 0.8
+      },
+      "rationale": "静态核对远传与就地一致，检查端子无松动，属验证与观察。"
+    },
+    {
+      "id": "doc-e2d8a223c34c34890d8fe282",
+      "role_scores": {
+        "diagnostic_check": 0.8,
+        "diagnostic_clue": 0.8
+      },
+      "rationale": "扰动试验使远传值跳变并测得回路电阻偏高，属诊断检查与关键线索。"
+    },
+    {
+      "id": "doc-eb72c3ad25ea7ba25393c1e2",
+      "role_scores": {
+        "action": 0.9,
+        "verification": 0.6
+      },
+      "rationale": "清洁紧固端子并重新压接，处理后远传值恢复一致，属处理动作与初步验证。"
+    },
+    {
+      "id": "doc-fd2503f929e2abd9022bd786",
+      "role_scores": {
+        "diagnostic_check": 0.9,
+        "observation": 0.5
+      },
+      "rationale": "检漏未发现泄漏点，记录就地与远传读数，属诊断检查与观察。"
+    }
+  ],
+  "relations": [
+    {
+      "prior_id": "doc-252ff3db660fee0b084479eb",
+      "update_id": "doc-e2d8a223c34c34890d8fe282",
+      "update_relation": "follows",
+      "confidence": 0.9,
+      "rationale": "基于前日对远传回路接触电阻异常的怀疑，次日进行扰动试验并测量回路电阻，确认端子接触不良。"
+    },
+    {
+      "prior_id": "doc-3ba7dac19be393385ef58851",
+      "update_id": "doc-212c856313f45e18fc835abc",
+      "update_relation": "follows",
+      "confidence": 0.9,
+      "rationale": "验证完成后次日进行工作闭环，归档记录并关闭工单WO-C2201。"
+    },
+    {
+      "prior_id": "doc-4bf722a69208813714c3e754",
+      "update_id": "doc-61db8c996e09d2c34c03bd47",
+      "update_relation": "follows",
+      "confidence": 0.9,
+      "rationale": "次日记录基于前日远传密度低告警及就地与远传偏差，初步判断可能存在SF6泄漏并安排检漏，属于同一工单的后续处理。"
+    },
+    {
+      "prior_id": "doc-61db8c996e09d2c34c03bd47",
+      "update_id": "doc-fd2503f929e2abd9022bd786",
+      "update_relation": "follows",
+      "confidence": 0.9,
+      "rationale": "按前日计划使用SF6定性检漏仪对GIS-2M-07气室进行检漏，未发现泄漏点，是对泄漏假设的后续排查。"
+    },
+    {
+      "prior_id": "doc-c842b344ebbb2923977eedcc",
+      "update_id": "doc-10efe92ff6bdf6390f93eae4",
+      "update_relation": "supports",
+      "confidence": 0.8,
+      "rationale": "SOE记录显示远传信号瞬时跳变且未随温度补偿正常变化，支持此前远传回路间歇性接触不良的判断，而非气体泄漏。"
+    },
+    {
+      "prior_id": "doc-c842b344ebbb2923977eedcc",
+      "update_id": "doc-3ba7dac19be393385ef58851",
+      "update_relation": "verifies",
+      "confidence": 0.8,
+      "rationale": "跨温度周期验证结果验证了此前静态核对后需继续观察的稳定性。"
+    },
+    {
+      "prior_id": "doc-e2d8a223c34c34890d8fe282",
+      "update_id": "doc-eb72c3ad25ea7ba25393c1e2",
+      "update_relation": "follows",
+      "confidence": 0.9,
+      "rationale": "根据前日判断的端子接触不良，次日对端子排进行清洁、紧固和重新压接，处理后远传值恢复与就地一致。"
+    },
+    {
+      "prior_id": "doc-eb72c3ad25ea7ba25393c1e2",
+      "update_id": "doc-3ba7dac19be393385ef58851",
+      "update_relation": "verifies",
+      "confidence": 0.9,
+      "rationale": "跨温度周期验证显示远传密度值稳定且与就地一致，验证了端子处理后回路稳定。"
+    },
+    {
+      "prior_id": "doc-eb72c3ad25ea7ba25393c1e2",
+      "update_id": "doc-c842b344ebbb2923977eedcc",
+      "update_relation": "follows",
+      "confidence": 0.9,
+      "rationale": "端子处理后次日进行静态核对，确认远传与就地密度值一致，并继续观察温度变化周期。"
+    },
+    {
+      "prior_id": "doc-fd2503f929e2abd9022bd786",
+      "update_id": "doc-252ff3db660fee0b084479eb",
+      "update_relation": "follows",
+      "confidence": 0.9,
+      "rationale": "检漏未发现泄漏后，次日进一步排查远传回路，核对温度补偿参数并怀疑远传回路接触电阻异常。"
+    }
+  ],
+  "role_schema_repaired_once": false,
+  "relation_schema_repaired_once": false
+}

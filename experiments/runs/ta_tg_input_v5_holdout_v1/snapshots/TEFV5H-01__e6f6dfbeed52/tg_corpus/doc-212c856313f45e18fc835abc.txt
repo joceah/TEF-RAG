@@ -1,0 +1,5 @@
+record_id: doc-212c856313f45e18fc835abc
+asset_id: TEFV5H-01
+event_time: 2026-01-12T08:00:00Z
+available_at: 2026-01-12T18:00:00Z
+content: TEFV5H-01，WO-C2201：工作闭环：检修记录已归档，相关试验报告、SOE记录及验证数据已存入设备档案。工单WO-C2201已关闭，无新增异常状态。

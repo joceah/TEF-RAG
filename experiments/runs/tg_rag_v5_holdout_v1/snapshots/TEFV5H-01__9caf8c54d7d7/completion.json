@@ -1,0 +1,29 @@
+{
+  "snapshot_key": "TEFV5H-01__9caf8c54d7d7",
+  "documents": 8,
+  "queries": 1,
+  "source_counts": {
+    "tefv5h-q-01-02": 5
+  },
+  "llm_cache_entries_after_build_and_queries": 28,
+  "exact_token_usage_available": false,
+  "official_commit": "58a57e0bc173064fa0ad7ccf595cf6e266523619",
+  "gold_read": false,
+  "authoring_read": false,
+  "input_hashes": {
+    "scripts\\run_tg_rag_complex_v2.py": "c464936423578087eba0b1feed3d6da8e6f8d6ab0cd8300ea43ebc37170db869",
+    "experiments\\runs\\ta_tg_input_v5_holdout_v1\\manifest.json": "9122005ea365f3db55f52a4e75248c40c959aebc4b53ab2e3ec395d806c09e30",
+    "experiments\\runs\\ta_tg_input_v5_holdout_v1\\snapshot_mapping.json": "22895006d5cdb6c65054b81066d9185dfd41f62f2e94e801737f40e5119b67f7",
+    "experiments\\runs\\ta_tg_input_v5_holdout_v1\\queries.jsonl": "a34f573623c6632c3d53103a8ff0d56ec96fd732b5414d5417ca9f1cbfb56b3e",
+    "experiments\\analyses\\tef_v5_holdout_v3\\freeze_manifest.json": "82292c2101310612eea4112600c5c54bee0d2279ae2b24b6bdd48529883ec50c",
+    "plans\\TEF_RAG_v5_holdout_v3_投影与排名预登记.md": "cb13e7d7b560af1e8ad33f90bbd5db0625b0c1d59544a706006f9b5da2f3995a",
+    "plans\\TG_RAG复杂链领域适配_v1_补充.md": "fe992d994f08d00df4a6f1ac270d26efe91591c9c6a9b3682396df8baf608d45",
+    "plans\\TG_RAG来源恢复_v2_补充.md": "5e4edf0fb12a0268b9157f604d185bc1c29ff6fa67aede15423b6bcdc1d0c860",
+    "plans\\复杂链知识截止文本规范化_v2_补充.md": "d86f6d7f1db5a7b6b1e64f45b656eef9db2b356729fdd63005d722dc6a0fdaf9",
+    "baseline_adapters\\query_text_v2.py": "2e44b2d396bf6d24d72bd5caf8614936b939a202596b68ccb4767d5bf954a3fb",
+    "baseline_adapters\\tg_rag_source_v2.py": "488f1abb0e6b8b08deb3a5460234cd166cb83cf8295c56f742846a1767515ac0"
+  },
+  "query_output_hashes": {
+    "tefv5h-q-01-02.json": "e67dea1cf33039f75d98fd485173f5385f1419b73d268dcd30be5d460578a084"
+  }
+}

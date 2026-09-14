@@ -1,0 +1,138 @@
+{
+  "TEFV5H-01__e6f6dfbeed52": {
+    "asset_id": "TEFV5H-01",
+    "query_time": "2026-01-13T12:00:00Z",
+    "visible_record_ids": [
+      "doc-10efe92ff6bdf6390f93eae4",
+      "doc-212c856313f45e18fc835abc",
+      "doc-252ff3db660fee0b084479eb",
+      "doc-3ba7dac19be393385ef58851",
+      "doc-40bde0ad506bd05025a447b0",
+      "doc-4bf722a69208813714c3e754",
+      "doc-61db8c996e09d2c34c03bd47",
+      "doc-c3c3d69d76fd0ac6ae6b2c98",
+      "doc-c842b344ebbb2923977eedcc",
+      "doc-e2d8a223c34c34890d8fe282",
+      "doc-eb72c3ad25ea7ba25393c1e2",
+      "doc-fd2503f929e2abd9022bd786"
+    ],
+    "candidate_count": 12
+  },
+  "TEFV5H-01__9caf8c54d7d7": {
+    "asset_id": "TEFV5H-01",
+    "query_time": "2026-01-09T23:00:00Z",
+    "visible_record_ids": [
+      "doc-252ff3db660fee0b084479eb",
+      "doc-40bde0ad506bd05025a447b0",
+      "doc-4bf722a69208813714c3e754",
+      "doc-61db8c996e09d2c34c03bd47",
+      "doc-c842b344ebbb2923977eedcc",
+      "doc-e2d8a223c34c34890d8fe282",
+      "doc-eb72c3ad25ea7ba25393c1e2",
+      "doc-fd2503f929e2abd9022bd786"
+    ],
+    "candidate_count": 8
+  },
+  "TEFV5H-02__4a15fb9311d1": {
+    "asset_id": "TEFV5H-02",
+    "query_time": "2026-02-13T12:00:00Z",
+    "visible_record_ids": [
+      "doc-061f61c14ae57247d6cd58ef",
+      "doc-0d5dc6a72b244b8ac68901b7",
+      "doc-0ffbe07b84dabff94674e1e5",
+      "doc-392f3cb89960080b1b8e6430",
+      "doc-401b4cd79508df2b0a94111c",
+      "doc-5a3c6720ebe838f88763fb31",
+      "doc-70413365049d0e21a1375124",
+      "doc-c4052c7ebe2dc22264f37fda",
+      "doc-ce776af7d7f837c41b37223c",
+      "doc-d99c3b22322fd1f2054c72bb",
+      "doc-e33b86946d09e9cf20f307be",
+      "doc-ef3e68c5a9cff2da701a3c45"
+    ],
+    "candidate_count": 12
+  },
+  "TEFV5H-02__055f0a7fc504": {
+    "asset_id": "TEFV5H-02",
+    "query_time": "2026-02-09T23:00:00Z",
+    "visible_record_ids": [
+      "doc-0d5dc6a72b244b8ac68901b7",
+      "doc-392f3cb89960080b1b8e6430",
+      "doc-401b4cd79508df2b0a94111c",
+      "doc-70413365049d0e21a1375124",
+      "doc-c4052c7ebe2dc22264f37fda",
+      "doc-d99c3b22322fd1f2054c72bb",
+      "doc-e33b86946d09e9cf20f307be",
+      "doc-ef3e68c5a9cff2da701a3c45"
+    ],
+    "candidate_count": 8
+  },
+  "TEFV5H-03__b1d07225f417": {
+    "asset_id": "TEFV5H-03",
+    "query_time": "2026-07-13T12:00:00Z",
+    "visible_record_ids": [
+      "doc-15ab8acfd1e4653ae51c5449",
+      "doc-1a0d56a7d87ba518e14f7c38",
+      "doc-285a37c2bfdb3fa736d95c39",
+      "doc-350348e8ab5484ea8f6f0022",
+      "doc-422e7171d76dbee0a7e9ef7f",
+      "doc-4f0ceac00e3de54094065a4e",
+      "doc-6423c71e41f29d5bce341c3d",
+      "doc-663e371863381a783d171046",
+      "doc-7a4458fbe61fc556aa7aaf37",
+      "doc-7c2ac34e8fb5407ebd7a3031",
+      "doc-a990cb2a2b2666f1496d9949",
+      "doc-f52855ce98c28f1d595d744b"
+    ],
+    "candidate_count": 12
+  },
+  "TEFV5H-03__6b40f96272f4": {
+    "asset_id": "TEFV5H-03",
+    "query_time": "2026-07-09T23:00:00Z",
+    "visible_record_ids": [
+      "doc-15ab8acfd1e4653ae51c5449",
+      "doc-285a37c2bfdb3fa736d95c39",
+      "doc-350348e8ab5484ea8f6f0022",
+      "doc-4f0ceac00e3de54094065a4e",
+      "doc-6423c71e41f29d5bce341c3d",
+      "doc-663e371863381a783d171046",
+      "doc-7c2ac34e8fb5407ebd7a3031",
+      "doc-f52855ce98c28f1d595d744b"
+    ],
+    "candidate_count": 8
+  },
+  "TEFV5H-04__cd4f6ecf510f": {
+    "asset_id": "TEFV5H-04",
+    "query_time": "2026-08-13T12:00:00Z",
+    "visible_record_ids": [
+      "doc-01187a399b2a9aacfe6af1a1",
+      "doc-1265cc5d3c83d32ea9974ea2",
+      "doc-3c624fba691ba80ac5a9a785",
+      "doc-50a8cf0db078350769d8573b",
+      "doc-51b0e556e5960f3691ce1cdd",
+      "doc-661e3a443b0145f0efee1d9d",
+      "doc-775bc3345312097a3137ea20",
+      "doc-c6dd48c916fda761d7a76e96",
+      "doc-c7389ca5eb847c65f095edb2",
+      "doc-cf4c9af07c5af68f3c19465a",
+      "doc-d2e659581a752a71c33861bf",
+      "doc-ee76fbcfef0dfcc309d55642"
+    ],
+    "candidate_count": 12
+  },
+  "TEFV5H-04__98f3835ab24e": {
+    "asset_id": "TEFV5H-04",
+    "query_time": "2026-08-09T23:00:00Z",
+    "visible_record_ids": [
+      "doc-01187a399b2a9aacfe6af1a1",
+      "doc-1265cc5d3c83d32ea9974ea2",
+      "doc-3c624fba691ba80ac5a9a785",
+      "doc-50a8cf0db078350769d8573b",
+      "doc-661e3a443b0145f0efee1d9d",
+      "doc-c7389ca5eb847c65f095edb2",
+      "doc-cf4c9af07c5af68f3c19465a",
+      "doc-ee76fbcfef0dfcc309d55642"
+    ],
+    "candidate_count": 8
+  }
+}

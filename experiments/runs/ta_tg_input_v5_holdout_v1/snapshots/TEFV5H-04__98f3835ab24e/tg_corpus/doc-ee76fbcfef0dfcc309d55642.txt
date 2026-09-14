@@ -1,0 +1,5 @@
+record_id: doc-ee76fbcfef0dfcc309d55642
+asset_id: TEFV5H-04
+event_time: 2026-08-06T08:00:00Z
+available_at: 2026-08-06T18:00:00Z
+content: TEFV5H-04，WO-C118：经批准将同步窗口参数由18ms恢复为10ms，并保存修改前后参数记录。恢复后设备自检通过，静态开关无报警。

@@ -1,0 +1,218 @@
+[
+  {
+    "corpus_uid": "doc-4bf722a69208813714c3e754",
+    "chunk_number": 0,
+    "chunk_text": "TEFV5H-01，WO-C2201：监控后台报110kV GIS 2号母线气室（间隔编号GIS-2M-07）远传密度值低告警，显示0.42MPa（额定0.50MPa，报警阈值0.45MPa）。现场就地密度表指示0.49MPa，两者偏差0.07MPa。环境温度6℃，负荷电流320A。检查远传密度变送器外观无异常，接线盒无进水痕迹。已记录告警并通知检修班组。",
+    "chunk_time_info": [
+      {
+        "event_time_interval": {
+          "begin": "2026-01-01T08:00:00Z",
+          "end": "2026-01-01T08:00:01Z"
+        }
+      }
+    ],
+    "new_background": {
+      "begin": "2026-01-01T08:00:00Z",
+      "end": "2026-01-01T08:00:01Z",
+      "estimate_doc_create_date": "2026-01-01T08:00:00Z"
+    }
+  },
+  {
+    "corpus_uid": "doc-61db8c996e09d2c34c03bd47",
+    "chunk_number": 0,
+    "chunk_text": "TEFV5H-01，WO-C2201：根据远传密度低告警及就地与远传偏差，初步判断GIS-2M-07气室可能存在SF6气体泄漏。计划安排检漏及压力复核。查阅该气室上次补气记录为2025年6月，补气量0.8kg，年泄漏率估算约0.5%，未超注意值。",
+    "chunk_time_info": [
+      {
+        "event_time_interval": {
+          "begin": "2026-01-02T08:00:00Z",
+          "end": "2026-01-02T08:00:01Z"
+        }
+      }
+    ],
+    "new_background": {
+      "begin": "2026-01-02T08:00:00Z",
+      "end": "2026-01-02T08:00:01Z",
+      "estimate_doc_create_date": "2026-01-02T08:00:00Z"
+    }
+  },
+  {
+    "corpus_uid": "doc-fd2503f929e2abd9022bd786",
+    "chunk_number": 0,
+    "chunk_text": "TEFV5H-01，WO-C2201：使用SF6定性检漏仪对GIS-2M-07气室所有法兰、阀门、密度继电器接口进行检漏，未发现泄漏点，背景值0ppm。就地密度表读数0.49MPa，与昨日一致。远传值仍为0.42MPa。检查气室压力表接头无渗漏。泄漏假设证据不足，需进一步排查远传回路。",
+    "chunk_time_info": [
+      {
+        "event_time_interval": {
+          "begin": "2026-01-03T08:00:00Z",
+          "end": "2026-01-03T08:00:01Z"
+        }
+      }
+    ],
+    "new_background": {
+      "begin": "2026-01-03T08:00:00Z",
+      "end": "2026-01-03T08:00:01Z",
+      "estimate_doc_create_date": "2026-01-03T08:00:00Z"
+    }
+  },
+  {
+    "corpus_uid": "doc-252ff3db660fee0b084479eb",
+    "chunk_number": 0,
+    "chunk_text": "TEFV5H-01，WO-C2201：核对远传密度变送器温度补偿参数，当前温度补偿系数为0.0035/℃，与出厂报告一致。但远传通道输出电流为14.2mA，对应0.42MPa；就地密度表经温度补偿后折算20℃值为0.495MPa。两者偏差0.075MPa，超出变送器精度0.5%FS。检查变送器供电电压24.1V正常，怀疑远传回路接触电阻异常。",
+    "chunk_time_info": [
+      {
+        "event_time_interval": {
+          "begin": "2026-01-04T08:00:00Z",
+          "end": "2026-01-04T08:00:01Z"
+        }
+      }
+    ],
+    "new_background": {
+      "begin": "2026-01-04T08:00:00Z",
+      "end": "2026-01-04T08:00:01Z",
+      "estimate_doc_create_date": "2026-01-04T08:00:00Z"
+    }
+  },
+  {
+    "corpus_uid": "doc-e2d8a223c34c34890d8fe282",
+    "chunk_number": 0,
+    "chunk_text": "TEFV5H-01，WO-C2201：在远传密度变送器端子排处进行扰动试验：轻拉A+、B-信号线，远传值从0.42MPa跳变至0.47MPa，再恢复至0.42MPa。测量回路电阻，A+端子至变送器间电阻为2.3Ω，明显高于正常值0.5Ω。判断端子接触不良导致信号衰减。已标记该端子排待处理。",
+    "chunk_time_info": [
+      {
+        "event_time_interval": {
+          "begin": "2026-01-05T08:00:00Z",
+          "end": "2026-01-05T08:00:01Z"
+        }
+      }
+    ],
+    "new_background": {
+      "begin": "2026-01-05T08:00:00Z",
+      "end": "2026-01-05T08:00:01Z",
+      "estimate_doc_create_date": "2026-01-05T08:00:00Z"
+    }
+  },
+  {
+    "corpus_uid": "doc-eb72c3ad25ea7ba25393c1e2",
+    "chunk_number": 0,
+    "chunk_text": "TEFV5H-01，WO-C2201：对远传密度变送器端子排A+、B-及屏蔽线进行清洁、紧固，重新压接A+端子。处理后测量回路电阻为0.4Ω，远传值恢复至0.49MPa，与就地密度表0.49MPa一致。变送器输出电流20.0mA，对应0.49MPa。工作完成，待跨温度周期验证。",
+    "chunk_time_info": [
+      {
+        "event_time_interval": {
+          "begin": "2026-01-06T08:00:00Z",
+          "end": "2026-01-06T08:00:01Z"
+        }
+      }
+    ],
+    "new_background": {
+      "begin": "2026-01-06T08:00:00Z",
+      "end": "2026-01-06T08:00:01Z",
+      "estimate_doc_create_date": "2026-01-06T08:00:00Z"
+    }
+  },
+  {
+    "corpus_uid": "doc-c842b344ebbb2923977eedcc",
+    "chunk_number": 0,
+    "chunk_text": "TEFV5H-01，WO-C2201：静态核对：远传密度值0.49MPa，就地密度表0.49MPa，偏差0.00MPa。环境温度8℃，负荷电流280A。检查端子排无松动，信号线绝缘正常。当前状态正常，但尚未经历明显温度变化周期，需继续观察。",
+    "chunk_time_info": [
+      {
+        "event_time_interval": {
+          "begin": "2026-01-07T08:00:00Z",
+          "end": "2026-01-07T08:00:01Z"
+        }
+      }
+    ],
+    "new_background": {
+      "begin": "2026-01-07T08:00:00Z",
+      "end": "2026-01-07T08:00:01Z",
+      "estimate_doc_create_date": "2026-01-07T08:00:00Z"
+    }
+  },
+  {
+    "corpus_uid": "doc-40bde0ad506bd05025a447b0",
+    "chunk_number": 0,
+    "chunk_text": "TEFV5H-01，WO-C2202：对相邻GIS-2M-08气室进行例行密封检查，使用检漏仪检测法兰、阀门及密度继电器接口，未发现泄漏，背景值0ppm。就地密度表读数0.50MPa，远传值0.50MPa，一致。该气室无异常。",
+    "chunk_time_info": [
+      {
+        "event_time_interval": {
+          "begin": "2026-01-08T08:00:00Z",
+          "end": "2026-01-08T08:00:01Z"
+        }
+      }
+    ],
+    "new_background": {
+      "begin": "2026-01-08T08:00:00Z",
+      "end": "2026-01-08T08:00:01Z",
+      "estimate_doc_create_date": "2026-01-08T08:00:00Z"
+    }
+  },
+  {
+    "corpus_uid": "doc-10efe92ff6bdf6390f93eae4",
+    "chunk_number": 0,
+    "chunk_text": "TEFV5H-01，WO-C2201：调取SOE记录：2026-01-04 15:00:00至15:02:00，GIS-2M-07远传密度信号出现3次瞬时跳变，每次持续约2秒，值在0.42MPa至0.47MPa之间波动。同时段温度趋势记录显示气室温度从7℃升至9℃，远传值未随温度补偿正常变化。该SOE与温度趋势表明远传回路存在间歇性接触不良，而非气体泄漏。",
+    "chunk_time_info": [
+      {
+        "event_time_interval": {
+          "begin": "2026-01-04T15:00:00Z",
+          "end": "2026-01-04T15:00:01Z"
+        }
+      }
+    ],
+    "new_background": {
+      "begin": "2026-01-04T15:00:00Z",
+      "end": "2026-01-04T15:00:01Z",
+      "estimate_doc_create_date": "2026-01-04T15:00:00Z"
+    }
+  },
+  {
+    "corpus_uid": "doc-3ba7dac19be393385ef58851",
+    "chunk_number": 0,
+    "chunk_text": "TEFV5H-01，WO-C2201：跨温度周期验证：环境温度从6℃升至18℃，负荷电流从320A降至200A。远传密度值随温度补偿后稳定在0.49MPa至0.50MPa之间，就地密度表读数0.49MPa至0.50MPa，两者偏差不超过0.01MPa。远传通道输出电流20.0mA至20.4mA，无跳变。验证端子处理后回路稳定。",
+    "chunk_time_info": [
+      {
+        "event_time_interval": {
+          "begin": "2026-01-10T08:00:00Z",
+          "end": "2026-01-10T08:00:01Z"
+        }
+      }
+    ],
+    "new_background": {
+      "begin": "2026-01-10T08:00:00Z",
+      "end": "2026-01-10T08:00:01Z",
+      "estimate_doc_create_date": "2026-01-10T08:00:00Z"
+    }
+  },
+  {
+    "corpus_uid": "doc-c3c3d69d76fd0ac6ae6b2c98",
+    "chunk_number": 0,
+    "chunk_text": "TEFV5H-01，WO-C2202：对GIS-2M-07气室密度继电器加热带进行例行检查，加热带电阻为120Ω，绝缘电阻大于100MΩ，供电电压220V正常，温控器动作正常。加热带工作正常，无异常。",
+    "chunk_time_info": [
+      {
+        "event_time_interval": {
+          "begin": "2026-01-11T08:00:00Z",
+          "end": "2026-01-11T08:00:01Z"
+        }
+      }
+    ],
+    "new_background": {
+      "begin": "2026-01-11T08:00:00Z",
+      "end": "2026-01-11T08:00:01Z",
+      "estimate_doc_create_date": "2026-01-11T08:00:00Z"
+    }
+  },
+  {
+    "corpus_uid": "doc-212c856313f45e18fc835abc",
+    "chunk_number": 0,
+    "chunk_text": "TEFV5H-01，WO-C2201：工作闭环：检修记录已归档，相关试验报告、SOE记录及验证数据已存入设备档案。工单WO-C2201已关闭，无新增异常状态。",
+    "chunk_time_info": [
+      {
+        "event_time_interval": {
+          "begin": "2026-01-12T08:00:00Z",
+          "end": "2026-01-12T08:00:01Z"
+        }
+      }
+    ],
+    "new_background": {
+      "begin": "2026-01-12T08:00:00Z",
+      "end": "2026-01-12T08:00:01Z",
+      "estimate_doc_create_date": "2026-01-12T08:00:00Z"
+    }
+  }
+]

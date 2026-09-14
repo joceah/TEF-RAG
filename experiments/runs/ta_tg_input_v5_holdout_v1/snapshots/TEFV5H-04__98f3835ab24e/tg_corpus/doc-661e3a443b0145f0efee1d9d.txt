@@ -1,0 +1,5 @@
+record_id: doc-661e3a443b0145f0efee1d9d
+asset_id: TEFV5H-04
+event_time: 2026-08-07T08:00:00Z
+available_at: 2026-08-07T18:00:00Z
+content: TEFV5H-04，WO-C118：参数恢复后进行旁路切换复测，三次切换时间分别为16ms、17ms和15ms。按旧版20ms判据，三次结果均合格。
