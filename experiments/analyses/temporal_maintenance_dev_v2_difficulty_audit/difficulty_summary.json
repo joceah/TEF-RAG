@@ -1,0 +1,172 @@
+{
+  "dataset": "temporal_maintenance_dev_v2",
+  "audit_scope": "DIAGNOSTIC ONLY",
+  "queries": 1152,
+  "intents": 576,
+  "label_distribution": {
+    "RECENCY_ONLY": {
+      "count": 956,
+      "percent": 82.99
+    },
+    "MULTI_EPISODE_DISAMBIGUATION": {
+      "count": 144,
+      "percent": 12.5
+    },
+    "CUTOFF_SENSITIVE": {
+      "count": 768,
+      "percent": 66.67
+    },
+    "LATE_ARRIVING_EVIDENCE": {
+      "count": 96,
+      "percent": 8.33
+    },
+    "SUPERSEDED_DIAGNOSIS": {
+      "count": 192,
+      "percent": 16.67
+    },
+    "PROCEDURE_VERSIONING": {
+      "count": 96,
+      "percent": 8.33
+    },
+    "CROSS_SOURCE_REQUIRED": {
+      "count": 96,
+      "percent": 8.33
+    },
+    "SIMILAR_SYMPTOM_DIFFERENT_CAUSE": {
+      "count": 96,
+      "percent": 8.33
+    },
+    "PERSISTENT_UNCERTAINTY": {
+      "count": 96,
+      "percent": 8.33
+    }
+  },
+  "average_labels_per_query": 2.204861111111111,
+  "recency_solvable_at_5": {
+    "count": 956,
+    "percent": 82.99
+  },
+  "temporal_recency_solvable_at_5": {
+    "count": 572,
+    "percent": 74.48
+  },
+  "temporal_hard_any": {
+    "count": 768,
+    "percent": 100.0,
+    "definition": "temporal query with at least one non-RECENCY_ONLY label"
+  },
+  "temporal_hard_not_recency_solvable": {
+    "count": 196,
+    "percent": 25.52,
+    "definition": "temporal query with a structural temporal label whose necessary evidence is not covered by Latest-5"
+  },
+  "task_distribution": {
+    "ordinary": {
+      "RECENCY_ONLY": {
+        "count": 384,
+        "percent": 100.0
+      },
+      "MULTI_EPISODE_DISAMBIGUATION": {
+        "count": 0,
+        "percent": 0.0
+      },
+      "CUTOFF_SENSITIVE": {
+        "count": 0,
+        "percent": 0.0
+      },
+      "LATE_ARRIVING_EVIDENCE": {
+        "count": 0,
+        "percent": 0.0
+      },
+      "SUPERSEDED_DIAGNOSIS": {
+        "count": 0,
+        "percent": 0.0
+      },
+      "PROCEDURE_VERSIONING": {
+        "count": 0,
+        "percent": 0.0
+      },
+      "CROSS_SOURCE_REQUIRED": {
+        "count": 0,
+        "percent": 0.0
+      },
+      "SIMILAR_SYMPTOM_DIFFERENT_CAUSE": {
+        "count": 0,
+        "percent": 0.0
+      },
+      "PERSISTENT_UNCERTAINTY": {
+        "count": 0,
+        "percent": 0.0
+      }
+    },
+    "temporal": {
+      "RECENCY_ONLY": {
+        "count": 572,
+        "percent": 74.48
+      },
+      "MULTI_EPISODE_DISAMBIGUATION": {
+        "count": 144,
+        "percent": 18.75
+      },
+      "CUTOFF_SENSITIVE": {
+        "count": 768,
+        "percent": 100.0
+      },
+      "LATE_ARRIVING_EVIDENCE": {
+        "count": 96,
+        "percent": 12.5
+      },
+      "SUPERSEDED_DIAGNOSIS": {
+        "count": 192,
+        "percent": 25.0
+      },
+      "PROCEDURE_VERSIONING": {
+        "count": 96,
+        "percent": 12.5
+      },
+      "CROSS_SOURCE_REQUIRED": {
+        "count": 96,
+        "percent": 12.5
+      },
+      "SIMILAR_SYMPTOM_DIFFERENT_CAUSE": {
+        "count": 96,
+        "percent": 12.5
+      },
+      "PERSISTENT_UNCERTAINTY": {
+        "count": 96,
+        "percent": 12.5
+      }
+    }
+  },
+  "cooccurrence": {
+    "RECENCY_ONLY|CUTOFF_SENSITIVE": 572,
+    "CUTOFF_SENSITIVE|SUPERSEDED_DIAGNOSIS": 192,
+    "RECENCY_ONLY|SUPERSEDED_DIAGNOSIS": 176,
+    "MULTI_EPISODE_DISAMBIGUATION|CUTOFF_SENSITIVE": 144,
+    "CUTOFF_SENSITIVE|SIMILAR_SYMPTOM_DIFFERENT_CAUSE": 96,
+    "RECENCY_ONLY|MULTI_EPISODE_DISAMBIGUATION": 96,
+    "CUTOFF_SENSITIVE|LATE_ARRIVING_EVIDENCE": 96,
+    "CUTOFF_SENSITIVE|PROCEDURE_VERSIONING": 96,
+    "CUTOFF_SENSITIVE|CROSS_SOURCE_REQUIRED": 96,
+    "PROCEDURE_VERSIONING|CROSS_SOURCE_REQUIRED": 96,
+    "CUTOFF_SENSITIVE|PERSISTENT_UNCERTAINTY": 96,
+    "RECENCY_ONLY|LATE_ARRIVING_EVIDENCE": 94,
+    "RECENCY_ONLY|PERSISTENT_UNCERTAINTY": 90,
+    "RECENCY_ONLY|SIMILAR_SYMPTOM_DIFFERENT_CAUSE": 62,
+    "SUPERSEDED_DIAGNOSIS|PERSISTENT_UNCERTAINTY": 48,
+    "LATE_ARRIVING_EVIDENCE|PERSISTENT_UNCERTAINTY": 24,
+    "SIMILAR_SYMPTOM_DIFFERENT_CAUSE|PERSISTENT_UNCERTAINTY": 24
+  },
+  "method_mapping": {
+    "latest_device": "Latest",
+    "bm25_visible": "BM25",
+    "hybrid_device": "Hybrid",
+    "tmc_v2": "TEF (frozen TMC-RAG-v2 run)"
+  },
+  "notes": [
+    "Gold, authoring chains, and relevance judgments were used only for offline audit/evaluation.",
+    "RECENCY_ONLY and recency_solvable_at_5 may coexist with temporal labels; the former denotes structural coverage by newest records, not absence of temporal wording.",
+    "The dataset's full-coverage frozen main-method run is named tmc_v2; it is reported as TEF with an explicit alias rather than silently renamed.",
+    "Counts include two deterministic phrasings per intent; there are 576 intents, so query rows are not independent samples."
+  ]
+}
