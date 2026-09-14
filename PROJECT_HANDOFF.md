@@ -1,12 +1,14 @@
 # TEF-RAG 项目交接
 
-更新时间：2026-09-14；当前实现：TEF-RAG v5。
+更新时间：2026-09-14；当前阶段：TEF-RAG v5.1 Failure Attribution（v5 objective 未改动）。
 
 ## 一页结论
 
 TEF-RAG v5 已完成一个通用、query-conditioned、集合级时序证据选择器。它直接联合优化语义相关性、有向更新链覆盖、新证据角色边际增益和集合冗余，修复了 v4 的路径前缀截断及 trace 与最终结果不一致问题。
 
 工程机制已经验证；研究优势尚未成立。新冻结 holdout 的复杂链 8 题中，v5 与 Scoped Hybrid 的 Group Recall@5 都是 0.6750，v5 的 nDCG 高 0.0233，但 Complete@5 从 0.2500 降至 0.1250。预登记的优势条件没有满足。
+
+v5.1 已完成 exhaustive exact-search 归因：12 个 set-mode 查询中 Beam 与 Exact 集合完全一致，match rate 为 1.0000，mean/max objective gap 均为 0；复杂链 Recall / nDCG / Complete 仍同为 0.6750 / 0.7074 / 0.1250。当前 seen diagnostic 上没有搜索近似导致下降的证据，主要问题转向现有 objective/profile/role/relation projection 对 coherent evidence flow 的表达。
 
 ## 已完成
 
@@ -17,7 +19,8 @@ TEF-RAG v5 已完成一个通用、query-conditioned、集合级时序证据选�
 5. 查询 profile、记录角色和关系投影均在检索前生成；检索侧不读 gold。
 6. Scoped Hybrid、Scoped Latest、v5、TA-RAG 和 TG-RAG 使用逐题相同的 8/12 条候选范围与 Top-5。
 7. 59 个检索结果/完成文件在 gold-aware 评分前二次哈希封存。
-8. 全工作区回归为 150 项测试通过，旧 freeze 校验 `matched=true`；本 GitHub 精简包独立运行 27 项相关测试及 v5 烟测通过。
+8. 全工作区历史回归为 150 项测试通过，旧 freeze 校验 `matched=true`；本 GitHub 精简包在 v5 handoff 时为 27 项，v5.1 当前为 32 项测试及 v5 烟测通过。
+9. v5.1 新增 exact set search、Beam-vs-Exact 逐题归因、结构诊断与 failure taxonomy；检索阶段不读 gold，离线诊断阶段才读取 gold/authoring，且没有调用 LLM。
 
 ## 数据与实验状态
 
@@ -40,6 +43,16 @@ TEF-RAG v5 已完成一个通用、query-conditioned、集合级时序证据选�
 | TA-RAG 兼容运行 | 0.6969 / 0.6420 / 0.3125 | 0.5188 / 0.4928 / 0.0000 |
 
 核心负面结论：集合目标改善了部分证据顺序与截止题覆盖，但没有提高复杂链平均 Recall，也降低了完整证据集合命中率。不要把全部 16 题上的小幅均值提升解释为通用优势。
+
+## TEF-RAG v5.1 Failure Attribution
+
+- 实现：`tef_rag_v5/exact_search.py` 逐一枚举相同候选池中所有可行 Top-k 集合；Beam 与 Exact 共享 `QueryConditionedSetEvidenceRetrieverV5._score_set`，没有复制 objective。
+- 稳定性：Exact tie-break 为 total objective、semantic component、排序后的 record IDs；返回顺序再按相同 prefix-score 语义确定。
+- 搜索结论：12/12 个 set-mode 查询 Beam 等于 Exact，objective gap 全为 0；10 个 Beam Complete 失败在 Exact 下全部持续，0 个由 Exact 修复。10 题都存在可行的 gold-complete Top-5，但 Exact optimum 对这些完整集合的 objective 平均高 0.0693（此比较只供离线诊断），直接说明当前 objective 更偏好不完整集合。
+- 结构诊断：Exact 失败中 2 题表现为 role-complete but flow-incomplete，9 题表现为 relation-rich but flow-incomplete。taxonomy 是确定性规则生成的诊断候选，不是独立人工确认的因果真值。
+- bridge/flow 边界：数据没有 canonical per-query gold chain edge list，因此 `required_bridge_miss_rate` 使用 projected-gold induced graph 的 articulation points，`flow_completion_rate` 使用该图的非单节点连通块；两者均是保守、projection-conditioned 指标。
+- 结果入口：`experiments/analyses/tef_v5_1_failure_attribution_v1/report.md`、`results.json`、`per_query.csv`。
+- 数据声明：这是 seen diagnostic set，只用于 failure attribution 和模型开发，不得作为新的 unbiased holdout 结果。
 
 ## 外部基线状态
 
@@ -64,13 +77,13 @@ TG-RAG 固定提交 `58a57e0bc173064fa0ad7ccf595cf6e266523619`。前 11 题各�
 
 1. 本文件。
 2. [`tef_rag_v5/DESIGN.md`](tef_rag_v5/DESIGN.md) 与 [`tef_rag_v5/retriever.py`](tef_rag_v5/retriever.py)。
-3. [`experiments/analyses/tef_v5_holdout_eval_v1/report_zh.md`](experiments/analyses/tef_v5_holdout_eval_v1/report_zh)。
+3. [`experiments/analyses/tef_v5_1_failure_attribution_v1/report.md`](experiments/analyses/tef_v5_1_failure_attribution_v1/report.md) 与 [`experiments/analyses/tef_v5_holdout_eval_v1/report_zh.md`](experiments/analyses/tef_v5_holdout_eval_v1/report_zh)。
 4. 需要改实现时再读 [`tests/test_tef_rag_v5.py`](tests/test_tef_rag_v5.py) 和 v1–v4 的直接依赖。
 
 不要从旧 TMC 历史重新遍历项目，也不要运行旧 98 题。
 
 ## 下一步边界
 
-若继续开发，先用本 holdout 做失败归因，解释为什么角色/链覆盖提高了排序却没有提高 Complete；随后写新预登记并另建独立数据。不得回调当前权重、profile、关系或 gold 后继续把这 16 题当优势验证。
+若继续开发，先预登记 closure-/flow-completion-aware v6 objective 的定义与成功判据，再建立独立数据验证。可以保留 Exact 作为小候选池 oracle 和持续 search-gap 审计，但当前证据不支持优先扩大 Beam。不得回调当前权重、profile、关系或 gold 后继续把这 16 题当优势验证。
 
 最终回答生成评价是独立未完成任务，不应混入当前检索指标。论文也尚未因 v5 更新。

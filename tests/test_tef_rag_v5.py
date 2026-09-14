@@ -46,6 +46,101 @@ def profile(roles=None, relations=None, mode="set"):
 
 
 class QueryConditionedSetEvidenceV5Tests(unittest.TestCase):
+    def test_exact_search_finds_hand_checked_optimum(self):
+        records = [record(letter, index + 1) for index, letter in enumerate("abcde")]
+        retriever = engine(records, top_k=3)
+        result = retriever.retrieve(
+            query(),
+            {"a": 1.0, "b": 0.8, "c": 0.6, "d": 0.2, "e": 0.0},
+            query_profile=profile(),
+            search_strategy="exact",
+        )
+
+        self.assertEqual(set(result["evidence_ids"]), {"a", "b", "c"})
+        self.assertEqual(result["search_diagnostics"]["evaluated_sets"], 10)
+
+    def test_beam_and_exact_share_identical_score_semantics(self):
+        records = [record("a", 1), record("b", 2), record("c", 3), record("d", 4)]
+        retriever = engine(records, top_k=3, beam_width=64)
+        kwargs = {
+            "query_profile": profile(roles={"observation": 1.0}),
+            "relevance": {item["id"]: 0.5 for item in records},
+        }
+
+        beam = retriever.retrieve(query(), search_strategy="beam", **kwargs)
+        exact = retriever.retrieve(query(), search_strategy="exact", **kwargs)
+
+        self.assertEqual(set(beam["evidence_ids"]), set(exact["evidence_ids"]))
+        self.assertEqual(beam["score_components"], exact["score_components"])
+        self.assertEqual(beam["raw_score_components"], exact["raw_score_components"])
+
+    def test_exact_search_is_deterministic(self):
+        records = [record("c", 3), record("a", 1), record("b", 2), record("d", 4)]
+        retriever = engine(records, top_k=2)
+        kwargs = {
+            "query_profile": profile(),
+            "search_strategy": "exact",
+        }
+        first = retriever.retrieve(query(), {item["id"]: 0.5 for item in records}, **kwargs)
+        second = retriever.retrieve(query(), {item["id"]: 0.5 for item in records}, **kwargs)
+
+        self.assertEqual(first, second)
+        self.assertEqual(first["evidence_ids"], ["a", "b"])
+
+    def test_exact_preserves_visibility_budget_pool_and_top_k(self):
+        records = [
+            record("large", 1, "x" * 20),
+            record("a", 2, "aa"),
+            record("b", 3, "bb"),
+            record("future", 4, "ff", available_day=21),
+        ]
+        result = engine(records, top_k=2, budget=4).retrieve(
+            query(),
+            {"large": 100.0, "a": 0.5, "b": 0.4, "future": 200.0},
+            query_profile=profile(),
+            search_strategy="exact",
+        )
+
+        self.assertEqual(set(result["evidence_ids"]), {"a", "b"})
+        self.assertEqual(len(result["evidence_ids"]), 2)
+        self.assertEqual(result["candidate_count"], 3)
+        self.assertEqual(result["characters"], 4)
+
+    def test_complementarity_chain_exact_recovers_global_set(self):
+        records = [
+            record("a", 1),
+            record("b", 2),
+            record("c", 3),
+            record("d", 4),
+            record("e", 5),
+        ]
+        roles = {
+            "a": {"role": "observation"},
+            "b": {"role": "diagnosis"},
+            "c": {"role": "verification"},
+            "d": {"role": "observation"},
+            "e": {"role": "observation"},
+        }
+        relations = [
+            {"prior_id": "a", "update_id": "b", "update_relation": "follows", "confidence": 1.0},
+            {"prior_id": "b", "update_id": "c", "update_relation": "follows", "confidence": 1.0},
+        ]
+        retriever = engine(records, relations, roles=roles, top_k=3, beam_width=1)
+        kwargs = {
+            "relevance": {"a": 0.6, "b": 0.0, "c": 0.6, "d": 0.7, "e": 0.65},
+            "query_profile": profile(
+                roles={"observation": 1.0, "diagnosis": 1.0, "verification": 1.0},
+                relations={"follows": 1.0},
+            ),
+        }
+
+        exact = retriever.retrieve(query(), search_strategy="exact", **kwargs)
+        beam = retriever.retrieve(query(), search_strategy="beam", **kwargs)
+
+        self.assertEqual(set(exact["evidence_ids"]), {"a", "b", "c"})
+        self.assertGreater(exact["score_components"]["total"], beam["score_components"]["total"])
+        self.assertNotEqual(set(beam["evidence_ids"]), {"a", "b", "c"})
+
     def test_query_profile_changes_selection_without_changing_candidates_or_relevance(self):
         records = [record("diagnosis", 1), record("verification", 2)]
         roles = {

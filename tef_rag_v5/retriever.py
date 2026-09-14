@@ -15,6 +15,8 @@ from tef_rag_v2.retriever import KNOWLEDGE_RELATIONS, PROCESS_RELATIONS, knowled
 from tef_rag_v4 import NeutralScopeEvidenceFlowRetrieverV4
 from tmc_rag_v3.retriever import dt
 
+from .exact_search import exact_set_search
+
 
 SET_WEIGHTS = {
     "semantic": 0.45,
@@ -245,6 +247,21 @@ class QueryConditionedSetEvidenceRetrieverV5(NeutralScopeEvidenceFlowRetrieverV4
         components["total"] = sum(components.values())
         return components
 
+    def _score_set(self, selected, node_scores, edges, profile, redundancy_scores):
+        """Single scoring implementation shared by beam and exact search."""
+
+        raw = self._raw_components(
+            selected,
+            node_scores,
+            edges,
+            profile,
+            redundancy_scores,
+        )
+        return {
+            **self._weighted_components(raw),
+            "raw": raw,
+        }
+
     @staticmethod
     def _state_better(candidate, incumbent):
         if candidate["prefix_scores"] != incumbent["prefix_scores"]:
@@ -302,6 +319,14 @@ class QueryConditionedSetEvidenceRetrieverV5(NeutralScopeEvidenceFlowRetrieverV4
                 state["sequence"],
             ),
         )[0]
+
+    def _exact_search(self, candidates, evaluate):
+        return exact_set_search(
+            candidates,
+            top_k=self.top_k,
+            budget=self.budget,
+            score_set=evaluate,
+        )
 
     def _serialise_edge(self, edge, node_scores, relation_demands):
         prior_gate = EDGE_RELEVANCE_FLOOR + (1.0 - EDGE_RELEVANCE_FLOOR) * node_scores[edge["prior_id"]]
@@ -390,7 +415,10 @@ class QueryConditionedSetEvidenceRetrieverV5(NeutralScopeEvidenceFlowRetrieverV4
         relation_scores=None,
         query_profile=None,
         redundancy_scores=None,
+        search_strategy="beam",
     ):
+        if search_strategy not in ("beam", "exact"):
+            raise ValueError("search_strategy must be 'beam' or 'exact'")
         profile, profile_source = _query_profile(query, query_profile)
         parsed, candidates = self.base.scope(query)
         if profile["selection_mode"] == "latest":
@@ -410,7 +438,7 @@ class QueryConditionedSetEvidenceRetrieverV5(NeutralScopeEvidenceFlowRetrieverV4
                 "candidate_policy": "same_asset_and_event_available_by_query_time",
                 "status": "no_visible_match",
                 "objective": "query_conditioned_set",
-                "selector": "query_conditioned_set_beam_v5",
+                "selector": f"query_conditioned_set_{search_strategy}_v5",
                 "selected_edges": [],
                 "rejected_edges": [],
                 "characters": 0,
@@ -427,20 +455,19 @@ class QueryConditionedSetEvidenceRetrieverV5(NeutralScopeEvidenceFlowRetrieverV4
         def evaluate(sequence):
             key = frozenset(sequence)
             if key not in cache:
-                raw = self._raw_components(
+                cache[key] = self._score_set(
                     key,
                     node_scores,
                     edges,
                     profile,
                     redundancy_scores,
                 )
-                cache[key] = {
-                    **self._weighted_components(raw),
-                    "raw": raw,
-                }
             return cache[key]
 
-        best = self._search(candidates, evaluate)
+        if search_strategy == "exact":
+            best = self._exact_search(candidates, evaluate)
+        else:
+            best = self._search(candidates, evaluate)
         sequence = list(best["sequence"])
         final = evaluate(tuple(sequence))
         selected_set = frozenset(sequence)
@@ -459,10 +486,10 @@ class QueryConditionedSetEvidenceRetrieverV5(NeutralScopeEvidenceFlowRetrieverV4
             "candidate_policy": "same_asset_and_event_available_by_query_time",
             "status": "ok",
             "objective": "query_conditioned_set",
-            "selector": "query_conditioned_set_beam_v5",
+            "selector": f"query_conditioned_set_{search_strategy}_v5",
             "selected_edges": selected_edges,
             "rejected_edges": rejected,
-            "characters": best["used"],
+            "characters": best.get("used", best.get("characters", 0)),
             "score_components": {
                 key: final[key]
                 for key in ("semantic", "chain", "role", "redundancy", "total")
@@ -473,4 +500,12 @@ class QueryConditionedSetEvidenceRetrieverV5(NeutralScopeEvidenceFlowRetrieverV4
             "relation_schema": "prior_update_v3",
             "relation_semantics": "update_relation describes update_id relative to prior_id; traversal is prior-to-update",
             "edge_clock_policy": {"process": "event_time", "knowledge_update": "available_at"},
+            "search_strategy": search_strategy,
+            "search_diagnostics": {
+                "evaluated_sets": best.get("evaluated_sets"),
+                "tie_break": best.get(
+                    "tie_break",
+                    "total_objective_desc,prefix_objectives_desc,selection_sequence_asc",
+                ),
+            },
         }

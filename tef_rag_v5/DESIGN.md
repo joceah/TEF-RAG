@@ -41,6 +41,14 @@ v5 对集合做确定性 beam search。每层只增加一个实际候选节点�
 2. 方向链奖励只在 prior 与 update 都实际入选后激活；query-agnostic 的 `follows` 还要经过 query profile、端点相关性和集合冗余共同约束。
 3. trace 每个条目对应一个真实入选节点，记录该步各目标分量的边际变化、当步激活且两端均已入选的边，以及精确的 `set_after`。不再记录未进入最终结果的整条路径。
 
+## v5.1 Exact search 诊断
+
+`search_strategy="exact"` 在完全相同的可见候选池、profile、role/relation projection、权重和字符预算上枚举所有可行 Top-k 组合。Beam 与 Exact 都只调用 `_score_set`，Exact 不读取 gold，也不加入 heuristic。若字符预算使 Top-k 不可行，则与 Beam 一样选择最大可行深度。
+
+Exact 的集合 tie-break 依次为 total objective、semantic component、按字典序排序的 record IDs；集合内返回顺序按 prefix objective 最大化并以 sequence 字典序稳定化。冻结 seen diagnostic 的 12 个 set-mode 查询中，Beam/Exact set match rate 为 1.0000，mean/max objective gap 均为 0；复杂链 Complete@5 都是 0.1250。10 个不完整查询都存在可行的 gold-complete Top-5，但 Exact optimum 的 objective 均更高，平均 margin 为 0.0693（gold-dependent、仅离线诊断）。因此这批小候选池的失败不能归因于 beam approximation，现有 objective 确实偏好这些不完整集合。
+
+完整逐题证据和结构指标见 `experiments/analyses/tef_v5_1_failure_attribution_v1/`。其中 gold-dependent bridge、flow 和 taxonomy 只存在于离线诊断脚本，不进入 retriever。
+
 ## 创新边界
 
 这是一个待验证的工程设计，不在本阶段宣称论文创新或优势。集合覆盖、饱和收益、冗余惩罚和 beam search 都是常见思想；这里的研究问题仅是：把 query-only 证据需求、双时间有向更新边和实际 Top-k 集合放进同一个可审计目标，是否能修复已观察到的选择失配。
