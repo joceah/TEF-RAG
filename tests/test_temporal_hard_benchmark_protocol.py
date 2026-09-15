@@ -172,13 +172,39 @@ class TemporalHardBenchmarkProtocolTests(unittest.TestCase):
         self.assertTrue(telemetry["numerical_anomaly_not_temporal_hard_query"])
         self.assertTrue(telemetry["source_backed_values_must_not_be_conflated_with_modeling_choices"])
 
+    def test_ambient_and_cell_temperature_are_separate(self):
+        telemetry = self.config["telemetry_constraints"]
+        envelope = telemetry["source_backed_envelope"]
+        scope = telemetry["temperature_variable_scope"]
+        self.assertEqual(envelope["ambient_charge_temperature_c"], [0, 60])
+        self.assertEqual(envelope["ambient_discharge_temperature_c"], [-30, 60])
+        self.assertTrue(scope["source_backed_temperature_is_ambient"])
+        self.assertTrue(scope["cell_temperature_is_separate_telemetry_variable"])
+        self.assertTrue(scope["cell_temperature_must_not_be_validated_against_ambient_envelope_directly"])
+        self.assertTrue(scope["cell_temperature_outside_modeling_band_is_not_automatically_data_quality_anomaly"])
+        self.assertNotIn("cell_temperature_hard_max", str(telemetry))
+
+    def test_normalized_p_rate_is_not_current(self):
+        modeling = self.config["telemetry_constraints"]["benchmark_modeling_choices"]
+        self.assertEqual(modeling["routine_normalized_p_rate_max"], 0.5)
+        self.assertEqual(modeling["high_load_normalized_p_rate_range"], [0.5, 1.0])
+        self.assertTrue(modeling["p_rate_must_not_be_numerically_mapped_to_amperes"])
+        self.assertNotIn("routine_abs_rate_p_max", modeling)
+        self.assertNotIn("high_load_abs_rate_p_range", modeling)
+        self.assertNotIn("|I| <= 0.5P", self.markdown)
+        self.assertNotIn("routine current", self.markdown)
+
     def test_review_policy_is_ai_assisted_not_expert_claim(self):
         review = self.config["review_protocol"]
         self.assertFalse(review["claim_expert_reviewed"])
         self.assertFalse(review["claim_field_certified"])
         self.assertTrue(review["all_chains_deterministic_validation"])
         self.assertTrue(review["all_chains_ai_semantic_review"])
-        self.assertTrue(review["validation_and_test_second_independent_ai_review"])
+        self.assertTrue(review["validation_and_test_second_blind_ai_review_pass"])
+        self.assertTrue(review["second_pass_cannot_see_first_verdict_before_judgment"])
+        self.assertTrue(review["second_pass_cannot_see_first_reasoning_before_judgment"])
+        self.assertTrue(review["second_pass_must_produce_own_verdict_and_reasoning_before_comparison"])
+        self.assertNotIn("validation_and_test_second_independent_ai_review", review)
         self.assertTrue(review["unresolved_not_allowed_in_validation_or_test"])
         self.assertIn("AI-assisted", review["paper_label"])
 
@@ -188,6 +214,28 @@ class TemporalHardBenchmarkProtocolTests(unittest.TestCase):
         self.assertTrue(policy["test_gold_sha256_required"])
         self.assertTrue(policy["primary_test_only_after_v6_architecture_objective_weights_and_baselines_frozen"])
         self.assertTrue(policy["test_rerun_after_bugfix_requires_audit_log"])
+
+    def test_sealed_test_review_policy(self):
+        sealed = self.config["sealed_test_review"]
+        self.assertTrue(sealed["enabled"])
+        self.assertTrue(sealed["gold_and_flow_visible_only_inside_sealed_review"])
+        self.assertTrue(sealed["item_level_review_reasoning_hidden_from_algorithm_development"])
+        self.assertTrue(sealed["algorithm_development_receives_aggregate_qc_only"])
+        self.assertTrue(sealed["unresolved_items_repaired_before_final_hash"])
+        self.assertTrue(sealed["final_test_artifact_rehashed_after_repairs"])
+        self.assertTrue(sealed["target_method_not_evaluated_before_final_seal"])
+
+    def test_public_source_registry_is_versioned_and_strict(self):
+        sources = self.config["public_sources"]
+        self.assertGreaterEqual(len(sources), 5)
+        required_fields = {"name", "vendor_or_institution", "version_or_date", "access_date", "supports", "url"}
+        self.assertTrue(all(required_fields <= set(source) for source in sources))
+        names = " ".join(source["name"] for source in sources)
+        for identity in ("V1.1", "V3.3", "REPT", "RWTH"):
+            self.assertIn(identity, names)
+        rwth = next(source for source in sources if "RWTH" in source["name"])
+        self.assertEqual(rwth["supports"], ["one_second_resolution_BESS_field_data"])
+        self.assertFalse(any("lfp" in support.lower() for support in rwth["supports"]))
 
     def test_no_results_or_generation_exist(self):
         self.assertFalse(self.config["data_generation"]["performed"])

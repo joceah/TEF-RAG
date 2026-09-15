@@ -116,6 +116,7 @@ def validate(config, markdown):
     telemetry = config.get("telemetry_constraints", {})
     reference = telemetry.get("reference_system", {})
     envelope = telemetry.get("source_backed_envelope", {})
+    temperature_scope = telemetry.get("temperature_variable_scope", {})
     modeling = telemetry.get("benchmark_modeling_choices", {})
     sampling = telemetry.get("sampling", {})
     anomaly = telemetry.get("gross_data_quality_anomaly_policy", {})
@@ -124,7 +125,16 @@ def validate(config, markdown):
     require(envelope.get("operating_voltage_v_t_lte_0c") == [2.0, 3.65], "T<=0C voltage envelope mismatch")
     require(envelope.get("ambient_charge_temperature_c") == [0, 60], "charge temperature envelope mismatch")
     require(envelope.get("ambient_discharge_temperature_c") == [-30, 60], "discharge temperature envelope mismatch")
+    require(temperature_scope.get("source_backed_temperature_is_ambient") is True, "source-backed temperature must be ambient")
+    require(temperature_scope.get("cell_temperature_is_separate_telemetry_variable") is True, "cell temperature must be a separate telemetry variable")
+    require(temperature_scope.get("cell_temperature_must_not_be_validated_against_ambient_envelope_directly") is True, "cell temperature must not be validated directly against ambient limits")
+    require(temperature_scope.get("cell_temperature_outside_modeling_band_is_not_automatically_data_quality_anomaly") is True, "cell temperature outside modeling bands must not automatically be dirty data")
+    require("cell_temperature_hard_max" not in json.dumps(telemetry), "ambient limits must not become a cell-temperature hard maximum")
     require(modeling.get("normal_soc_percent") == [10, 90], "normal SOC modeling window mismatch")
+    require(modeling.get("routine_normalized_p_rate_max") == 0.5, "routine normalized P-rate must be 0.5P")
+    require(modeling.get("high_load_normalized_p_rate_range") == [0.5, 1.0], "high-load normalized P-rate range mismatch")
+    require(modeling.get("p_rate_must_not_be_numerically_mapped_to_amperes") is True, "P-rate must not be mapped numerically to amperes")
+    require("routine_abs_rate_p_max" not in modeling and "high_load_abs_rate_p_range" not in modeling, "legacy ambiguous P-rate fields are prohibited")
     require(modeling.get("normal_cell_temperature_c") == [15, 35], "normal temperature modeling band mismatch")
     require(modeling.get("elevated_cell_temperature_c") == [35, 45], "elevated temperature modeling band mismatch")
     require(modeling.get("fault_event_trend_temperature_c") == [45, 55], "fault trend temperature band mismatch")
@@ -140,13 +150,25 @@ def validate(config, markdown):
     require(review.get("claim_expert_reviewed") is False and review.get("claim_field_certified") is False, "benchmark must not claim expert/field certification")
     require(review.get("all_chains_deterministic_validation") is True, "all chains need deterministic validation")
     require(review.get("all_chains_ai_semantic_review") is True, "all chains need AI-assisted semantic review")
-    require(review.get("validation_and_test_second_independent_ai_review") is True, "validation/test need second review")
+    require(review.get("validation_and_test_second_blind_ai_review_pass") is True, "validation/test need a second blind AI review pass")
+    require(review.get("second_pass_cannot_see_first_verdict_before_judgment") is True, "second pass must not see first verdict before judgment")
+    require(review.get("second_pass_cannot_see_first_reasoning_before_judgment") is True, "second pass must not see first reasoning before judgment")
+    require(review.get("second_pass_must_produce_own_verdict_and_reasoning_before_comparison") is True, "second pass must judge before comparison")
+    require("validation_and_test_second_independent_ai_review" not in review, "protocol must not claim independent AI review")
     require(review.get("unresolved_not_allowed_in_validation_or_test") is True, "unresolved review items cannot enter validation/test")
 
     access = config.get("evaluation_access_policy", {})
     require(access.get("test_gold_public_branch_before_primary_evaluation") is False, "test gold must stay off public development branch before primary evaluation")
     require(access.get("test_gold_sha256_required") is True, "test gold SHA256 freeze required")
     require(access.get("primary_test_only_after_v6_architecture_objective_weights_and_baselines_frozen") is True, "primary test must wait for method freeze")
+    sealed = config.get("sealed_test_review", {})
+    require(sealed.get("enabled") is True, "sealed test review must be enabled")
+    require(sealed.get("gold_and_flow_visible_only_inside_sealed_review") is True, "test gold/flow must remain inside sealed review")
+    require(sealed.get("item_level_review_reasoning_hidden_from_algorithm_development") is True, "item-level test review reasoning must be hidden from algorithm development")
+    require(sealed.get("algorithm_development_receives_aggregate_qc_only") is True, "algorithm development must receive aggregate test QC only")
+    require(sealed.get("unresolved_items_repaired_before_final_hash") is True, "unresolved test items must be repaired before final hash")
+    require(sealed.get("final_test_artifact_rehashed_after_repairs") is True, "final test artifact must be rehashed after repairs")
+    require(sealed.get("target_method_not_evaluated_before_final_seal") is True, "target method must not run before final seal")
 
     restrictions = config.get("diagnostic_only_restrictions", {})
     require(restrictions.get("old_196_subset_is_not_new_test"), "old 196 subset restriction missing")
@@ -154,7 +176,19 @@ def validate(config, markdown):
     require(config.get("data_generation", {}).get("sample_counts_specified") is True, "sample counts must be specified")
     require(config.get("data_generation", {}).get("numeric_generation_policy_specified") is True, "numeric generation policy must be specified")
     require(config.get("multi_step_policy", {}).get("implementation_in_this_protocol_round") is False, "multi-step retrieval must remain unimplemented")
-    require(len(config.get("public_sources", [])) >= 3, "public source registry must contain at least three entries")
+    sources = config.get("public_sources", [])
+    require(len(sources) >= 5, "public source registry must contain at least five entries")
+    source_fields = {"name", "vendor_or_institution", "version_or_date", "access_date", "supports", "url"}
+    require(all(source_fields <= set(source) for source in sources), "each public source must have identity/version/access/support fields")
+    rwth_sources = [source for source in sources if "RWTH" in source.get("name", "")]
+    require(len(rwth_sources) == 1, "exactly one RWTH source entry required")
+    if rwth_sources:
+        rwth_supports = rwth_sources[0].get("supports", [])
+        require(rwth_supports == ["one_second_resolution_BESS_field_data"], "RWTH may support only one-second BESS field-data precedent")
+        require(not any("lfp" in claim.lower() for claim in rwth_supports), "RWTH must not support LFP-specific claims")
+
+    for forbidden_phrase in ("routine current", "|I| <= 0.5P"):
+        require(forbidden_phrase not in markdown, f"markdown contains dimensionally invalid P-rate wording: {forbidden_phrase}")
 
     for phrase in (
         "DRAFT FOR USER REVIEW", "NOT YET FROZEN", "NO DATA GENERATED FROM THIS PROTOCOL YET",
@@ -162,6 +196,7 @@ def validate(config, markdown):
         "RECENCY_SOLVABLE_AT_5", "Complete@5 = 1, FlowComplete@5 = 0", "required_flow_edges",
         "allowed_endpoint_pairs", "全局一致", "同一个 group 在所有相连 edge 中必须复用同一个 evidence",
         "280 Ah-class", "0.02%", "public-source-grounded, AI-assisted reviewed synthetic benchmark",
+        "ambient temperature", "normalized P-rate", "second blind AI review", "sealed evaluator/review workflow",
         "event_time", "available_at", "scenario_family_id", "template_family_id", "V1", "V2", "V3"
     ):
         require(phrase in markdown, f"markdown missing: {phrase}")

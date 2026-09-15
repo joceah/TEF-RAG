@@ -14,7 +14,7 @@ v5.2 完成 Profile / Roles / Relations 的 2×2×2 exact counterfactual：CCC �
 
 新 benchmark protocol 已完成 FlowComplete 全局一致性修订，并进一步指定正式规模与执行参数：`400 chains / 1200 primary intents / 2400 query rows / 100 assets`；Realistic/Challenge 各 200 chains；split 为 60/20/20；Challenge 为 160 single-primary + 40 compositional-hard；major stratum 以 20 primary chains / 60 intents 为门槛且 recency-solvable ceiling 为 0.50。Telemetry 采用 280Ah-class LFP reference system，并严格区分公开资料支撑的 physical envelope 与 benchmark modeling choices。Protocol 仍保持 `DRAFT_FOR_REVIEW`，未生成任何正式 benchmark 数据。
 
-由于项目没有可用储能运维领域专家，审核协议明确禁止宣称 expert-reviewed / field-certified。正式 benchmark 采用 100% deterministic validation + 100% public-source-grounded AI-assisted semantic review；validation/test 再进行第二轮独立 AI review。未解决条目标记 `REVIEW_UNRESOLVED`，不得进入 validation/test。该限制必须在论文中披露。
+Source audit 的 4 个 freeze blockers 已修复：ambient/cell temperature 与 P-rate/current 已严格分离；validation/test 第二轮改为 blind AI review；test gold/flow/reviewer reasoning 进入 sealed workflow，算法开发只接收 aggregate QC。项目仍禁止宣称 expert-reviewed / field-certified；未解决条目标记 `REVIEW_UNRESOLVED`。
 
 ## 已完成
 
@@ -93,7 +93,7 @@ TG-RAG 固定提交 `58a57e0bc173064fa0ad7ccf595cf6e266523619`。前 11 题各�
 
 ## 下一步边界
 
-Protocol 的关键定义与此前 DRAFT 参数现已指定，但整体状态仍是 `DRAFT_FOR_REVIEW`。下一步只做最终一致性/source audit 与用户确认；确认后用独立 commit 标记 `FROZEN BEFORE DATA GENERATION`，再开始正式 benchmark 生成。当前仍不得实现 v6，也不得根据目标算法结果改变 benchmark 构造规则。
+Protocol 的关键定义与此前 DRAFT 参数现已指定，source audit 的 4 个 blockers 已解决，但整体状态仍是 `DRAFT_FOR_REVIEW`。下一步是用户批准；批准后再用独立 commit 标记 `FROZEN BEFORE DATA GENERATION`。当前仍不得生成 benchmark、实现 v6，或根据目标算法结果改变 benchmark 构造规则。
 
 审核阶段采用 public-source-grounded AI-assisted review，而不是领域专家认证。任何物理/规程事实若公开资料不足，应标记不确定或作为 modeling choice，不得伪装成现场标准。
 

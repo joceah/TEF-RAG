@@ -179,3 +179,14 @@ Before changing protocol status to `FROZEN BEFORE DATA GENERATION`, apply and re
 4. sealed test-gold review workflow.
 
 After these corrections pass the protocol validator/tests, the protocol is suitable for a final user freeze decision. This audit itself does **not** authorize data generation or v6 implementation.
+
+## CORRECTION STATUS
+
+以下 4 个 freeze blockers 已按本 audit 要求修复：
+
+1. ambient temperature 与 cell temperature 已分离；
+2. P-rate 与 current 语义已分离；
+3. 第二轮审核已改为 blind AI review；
+4. test gold/canonical flow 已纳入 sealed review workflow。
+
+**RESOLVED — see branch history.** Protocol 仍为 `DRAFT_FOR_REVIEW`；本状态不构成 Freeze、数据生成或 v6 实现授权。

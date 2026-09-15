@@ -207,11 +207,20 @@
       "ambient_charge_temperature_c": [0, 60],
       "ambient_discharge_temperature_c": [-30, 60]
     },
+    "temperature_variable_scope": {
+      "source_backed_temperature_is_ambient": true,
+      "cell_temperature_is_separate_telemetry_variable": true,
+      "cell_temperature_must_not_be_validated_against_ambient_envelope_directly": true,
+      "cell_temperature_outside_modeling_band_is_not_automatically_data_quality_anomaly": true,
+      "cell_temperature_plausibility_requires_authored_scenario_thermal_context_source_evidence_and_continuity": true
+    },
     "benchmark_modeling_choices": {
       "normal_soc_percent": [10, 90],
-      "routine_abs_rate_p_max": 0.5,
-      "high_load_abs_rate_p_range": [0.5, 1.0],
+      "routine_normalized_p_rate_max": 0.5,
+      "high_load_normalized_p_rate_range": [0.5, 1.0],
       "above_1p_is_not_normal_sustained_operation": true,
+      "synthetic_current_amperes_derivation": "derive_from_authored_power_and_voltage_using_I_equals_P_over_V_or_separate_explicit_current_model",
+      "p_rate_must_not_be_numerically_mapped_to_amperes": true,
       "normal_cell_temperature_c": [15, 35],
       "elevated_cell_temperature_c": [35, 45],
       "fault_event_trend_temperature_c": [45, 55],
@@ -269,7 +278,12 @@
     "paper_label": "public-source-grounded, AI-assisted reviewed synthetic benchmark",
     "all_chains_deterministic_validation": true,
     "all_chains_ai_semantic_review": true,
-    "validation_and_test_second_independent_ai_review": true,
+    "validation_and_test_second_blind_ai_review_pass": true,
+    "second_pass_cannot_see_first_verdict_before_judgment": true,
+    "second_pass_cannot_see_first_reasoning_before_judgment": true,
+    "second_pass_may_read": ["authored_chain", "public_sources", "protocol", "gold_and_canonical_flow", "necessary_context"],
+    "second_pass_must_produce_own_verdict_and_reasoning_before_comparison": true,
+    "review_artifact_identity_fields": ["reviewer_model", "reviewer_version", "review_pass_id"],
     "unresolved_label": "REVIEW_UNRESOLVED",
     "unresolved_not_allowed_in_validation_or_test": true,
     "resolution_methods": ["additional_public_source_research", "correct_authored_logic", "regenerate_by_preregistered_rules"],
@@ -285,6 +299,17 @@
     "primary_test_only_after_v6_architecture_objective_weights_and_baselines_frozen": true,
     "test_rerun_after_bugfix_requires_audit_log": true
   },
+  "sealed_test_review": {
+    "enabled": true,
+    "gold_and_flow_visible_only_inside_sealed_review": true,
+    "item_level_review_reasoning_hidden_from_algorithm_development": true,
+    "algorithm_development_receives_aggregate_qc_only": true,
+    "aggregate_qc_fields": ["total_test_chains", "passed_count", "unresolved_count", "source_audit_pass_fail", "artifact_hashes", "schema_validation_status"],
+    "unresolved_items_repaired_before_final_hash": true,
+    "final_test_artifact_rehashed_after_repairs": true,
+    "target_method_not_evaluated_before_final_seal": true,
+    "workflow_order": ["generate_test_authored_chains", "deterministic_validation", "first_ai_semantic_review", "second_blind_ai_review", "repair_or_regenerate_unresolved", "final_test_artifact", "sha256", "seal", "freeze_v6_architecture_objective_weights_and_baselines", "primary_test_evaluation"]
+  },
   "multi_step_policy": {
     "implementation_in_this_protocol_round": false,
     "candidate_tags": ["long_span", "multi_episode", "revision_history"],
@@ -298,17 +323,42 @@
   },
   "public_sources": [
     {
-      "name": "HiTHIUM ESS Cell 280 Ah datasheet",
-      "supports": ["LFP", "280Ah", "3.2V_nominal", "operating_voltage", "charge_temperature", "discharge_temperature"],
+      "name": "HiTHIUM V1.1 ESS Cell 280 Ah EU English datasheet",
+      "vendor_or_institution": "HiTHIUM",
+      "version_or_date": "V1.1 / 2023-06-12",
+      "access_date": "2026-09-15",
+      "supports": ["LFP", "280Ah", "3.2V_nominal", "operating_voltage", "ambient_charge_temperature", "ambient_discharge_temperature", "1P_max_continuous_charge_discharge_rate"],
       "url": "https://hithium.com/fileadmin/ns_theme_hithium/pdf/HiTHIUM_Data-Sheet_ESS-Cell280Ah_V1-1_EU_EN_230612.pdf"
     },
     {
+      "name": "HiTHIUM V3.3 280 Ah Chinese datasheet",
+      "vendor_or_institution": "HiTHIUM",
+      "version_or_date": "20240918 V3.3",
+      "access_date": "2026-09-15",
+      "supports": ["LFP", "280Ah", "3.2V_nominal", "operating_voltage", "ambient_charge_temperature", "ambient_discharge_temperature", "0.5P_standard_charge_discharge_rate"],
+      "url": "https://cn.hithium.com/bocupload/2024/11/14/17315688038239mc70h.pdf"
+    },
+    {
       "name": "HiTHIUM cell product page",
-      "supports": ["280Ah_LFP", "temperature_range"],
+      "vendor_or_institution": "HiTHIUM",
+      "version_or_date": "current product page accessed 2026-09-15",
+      "access_date": "2026-09-15",
+      "supports": ["current_product_identity", "280Ah_LFP_product_context"],
       "url": "https://www.hithium.com/products/1.html"
     },
     {
+      "name": "REPT BATTERO energy-storage brochure",
+      "vendor_or_institution": "REPT BATTERO",
+      "version_or_date": "2025",
+      "access_date": "2026-09-15",
+      "supports": ["280Ah", "3.2V_nominal", "2.50_to_3.65V_stationary_LFP_corroboration"],
+      "url": "https://www.reptbattero.com/wp-content/uploads/2025/10/REPT-BATTERO-ENERGY-STORAGE-PROMOTIONAL-2510.pdf"
+    },
+    {
       "name": "RWTH Aachen M5BAT Battery Unit Pb1 2017-2025",
+      "vendor_or_institution": "RWTH Aachen University",
+      "version_or_date": "dataset 2017-2025 / record published 2026",
+      "access_date": "2026-09-15",
       "supports": ["one_second_resolution_BESS_field_data"],
       "doi": "10.18154/RWTH-2026-06637",
       "url": "https://publications.rwth-aachen.de/record/1038622"

@@ -249,20 +249,22 @@ Benchmark v1 以 280 Ah-class 方形 LFP 储能电芯为 reference system。公�
 - ambient charging range：`0–60°C`；
 - ambient discharging range：`-30–60°C`。
 
-这些数值只作为 synthetic telemetry 的参考 envelope，不替代具体电站 BMS 保护阈值，也不能当作安全操作建议。
+这些数值只作为 synthetic telemetry 的参考 envelope，不替代具体电站 BMS 保护阈值，也不能当作安全操作建议。公开来源中的温度范围明确是 **ambient temperature**；`cell_temperature` 是独立 telemetry variable，deterministic validator 不得把 cell sensor value 直接与 ambient envelope 比较。
 
 ### 17.2 Benchmark modeling choices
 
 以下参数属于本 benchmark 的可复现实验设计，而不是行业统一标准：
 
 - normal synthetic SOC window：`10–90%`；
-- routine current：`|I| <= 0.5P`；
-- high-load/high-charge episode：`0.5P < |I| <= 1.0P`；
+- routine normalized charge/discharge P-rate：`normalized P-rate <= 0.5P`；
+- high-load/high-charge episode：`0.5P < normalized P-rate <= 1.0P`；
 - `>1.0P` 不作为正常持续状态，仅能在明确 transient/abnormal authored scenario 中使用；
 - normal synthetic cell-temperature band：`15–35°C`；
 - elevated but physically plausible：`35–45°C`；
 - fault/event trend generation band：`45–55°C`；
-- `>55°C` 只允许出现在明确高温事件；超出公开 reference envelope 的值默认首先按 data-quality anomaly 处理，除非 authored scenario 有明确来源依据。
+- `>55°C` 只允许出现在明确高温事件。Cell temperature 超出 modeling band 不等于自动 dirty data，尤其不能因为 `cell_temperature > 60°C` 就套用 ambient datasheet threshold 判为 data-quality anomaly；应结合 authored scenario、thermal event context、source-backed evidence 与 continuity/trend 判断。明显不可能的值仍可标为 data-quality anomaly，但必须有独立于 ambient threshold 的依据。
+
+P-rate 是 normalized power/energy rate，不是安培电流。若后续需要生成 synthetic current in amperes，必须由 authored electrical model（例如 `I = P / V`）推导，或另行定义清楚的 C-rate/current model；禁止把 `0.5P` 直接映射成任何 ampere 数值。HiTHIUM V3.3 的 standard charge/discharge rate `0.5P / 0.5P` 与 V1.1 的 max continuous charge/discharge rate `1P` 都是 manufacturer/version-specific specifications，不是所有 LFP 储能电芯的统一行业标准。
 
 ### 17.3 Sampling 与 RAG evidence
 
@@ -311,7 +313,9 @@ Benchmark v1 以 280 Ah-class 方形 LFP 储能电芯为 reference system。公�
 - required_groups 与 canonical flow 是否与 authored scenario 一致；
 - hard sample 是否确实要求 temporal evidence flow，而非仅靠 recency。
 
-所有 validation/test chains 进行第二轮独立 review；若两轮判断冲突或证据不足，标记 `REVIEW_UNRESOLVED`，在解决前不得进入 validation/test。解决方式只能是进一步查公开资料、修正 authored logic，或按预登记规则重新生成；不得根据目标算法表现决定保留/删除。
+所有 validation/test chains 进行第二轮 blind AI review pass，而不宣称 independent 或 expert review。第二轮 reviewer 在形成判断前看不到第一轮 verdict 和 reasoning；可以读取 authored chain、public sources、protocol、gold/canonical flow 与必要上下文，但必须先独立产出自己的 verdict/reasoning，之后才允许比较两轮结果。若使用不同 model/agent，review artifact 可记录 `reviewer_model`、`reviewer_version`、`review_pass_id`，但仍不得称为 expert review。
+
+若两轮判断冲突或证据不足，标记 `REVIEW_UNRESOLVED`，在解决前不得进入 validation/test。解决方式只能是进一步查公开资料、修正 authored logic，或按预登记规则重新生成；不得根据 TEF-RAG retrieval 表现决定保留/删除。
 
 ### 18.3 论文披露
 
@@ -325,15 +329,21 @@ Benchmark v1 以 280 Ah-class 方形 LFP 储能电芯为 reference system。公�
 
 Test gold/canonical flow 在生成后必须作为独立 evaluator artifact 保存并计算 SHA256；在正式 test evaluation 前，不应提交到公开开发分支。只有当 v6 architecture、objective、weights、baseline protocol 全部冻结后，才运行正式 primary test。
 
+Test semantic review 必须在 sealed evaluator/review workflow 内完成。主算法开发流程只能收到 aggregate QC：test chain 总数、passed/unresolved 数、source-audit pass/fail、artifact hashes 与 schema validation status；不得接收 per-item gold、required_groups、canonical flow、reviewer reasoning 或 failure interpretation。
+
+顺序固定为：生成 test authored chains → deterministic validation → first AI semantic review → second blind AI review → unresolved repair/regeneration → final test artifact → SHA256 → sealed → 冻结 v6 architecture/objective/weights/baselines → primary test evaluation。Unresolved 修复后必须重新生成 final hash；target method 在 final seal 前不得评价，禁止先看 test retrieval 结果再修改 test chain。
+
 若因为 evaluator/code bug 必须重跑 test，需要记录 bug 原因、修改内容、修改前后 commit，并明确该修复是否改变算法；不得根据 test outcome 继续调算法后仍把该 test 称为 untouched test。
 
 ## 20. 公开来源与“资料支撑 vs modeling choice”纪律
 
-当前 protocol-level 参考来源至少包括：
+机器可读 `public_sources` registry 为每条来源固定 `name`、`vendor_or_institution`、`version_or_date`、`access_date`、`supports`、`url`，有 DOI 时另记 `doi`。当前至少包括：
 
-1. HiTHIUM, `ESS Cell 280 Ah` datasheet：280 Ah、LFP、3.2 V nominal、T>0°C 时 2.50–3.65 V、T<=0°C 时 2.00–3.65 V、charge 0–60°C、discharge -30–60°C。官方公开 PDF：`https://hithium.com/fileadmin/ns_theme_hithium/pdf/HiTHIUM_Data-Sheet_ESS-Cell280Ah_V1-1_EU_EN_230612.pdf`。
-2. HiTHIUM product page / product materials：280Ah LFP 储能电芯及 -30–60°C discharge、0–60°C charge 等公开规格。`https://www.hithium.com/products/1.html`。
-3. RWTH Aachen University, `M5BAT Large-Scale Battery Storage System: Dataset for Battery Unit Pb1 2017–2025`, DOI `10.18154/RWTH-2026-06637`：连续 one-second-resolution BMS/BSC field data。`https://publications.rwth-aachen.de/record/1038622`。
+1. HiTHIUM V1.1 EU English datasheet：支持 280Ah/LFP/3.2V/voltage、ambient temperature 与 `1P` max continuous rate。
+2. HiTHIUM 20240918 V3.3 Chinese datasheet：支持相应产品规格与 `0.5P/0.5P` standard rate。
+3. HiTHIUM current product page：仅作当前产品 identity/context corroboration。
+4. REPT BATTERO 2025 energy-storage brochure：仅交叉印证 280Ah/3.2V/2.50–3.65V stationary-LFP reference choice。
+5. RWTH Aachen M5BAT dataset（DOI `10.18154/RWTH-2026-06637`）：仅支持 `one_second_resolution_BESS_field_data`；其记录对象为 lead-acid，绝不支持 LFP temperature、LFP voltage range 或 LFP sampling standard。
 
 文档和最终论文必须清楚区分：
 
