@@ -1,0 +1,37 @@
+{
+  "accepted_seed": 20260915,
+  "counts": {
+    "assets": 100,
+    "chains": 400,
+    "primary_intents": 1200,
+    "query_rows": 2400
+  },
+  "dataset_status": "UNREVIEWED_CANDIDATE",
+  "generation_attempt": 0,
+  "primary_difficulty_chain_counts": {
+    "CROSS_SOURCE_REQUIRED": 20,
+    "CUTOFF_SENSITIVE": 20,
+    "LATE_ARRIVING_EVIDENCE": 20,
+    "MULTI_EPISODE_DISAMBIGUATION": 20,
+    "PERSISTENT_UNCERTAINTY": 20,
+    "PROCEDURE_VERSIONING": 20,
+    "SIMILAR_SYMPTOM_DIFFERENT_CAUSE": 20,
+    "SUPERSEDED_DIAGNOSIS": 20
+  },
+  "review_status": "PENDING_AI_SEMANTIC_REVIEW",
+  "semantic_review_performed": false,
+  "split_chain_counts": {
+    "challenge": {
+      "development": 120,
+      "test": 40,
+      "validation": 40
+    },
+    "realistic": {
+      "development": 120,
+      "test": 40,
+      "validation": 40
+    }
+  },
+  "target_method_runs": 0,
+  "test_gold_public": false
+}

@@ -1,0 +1,68 @@
+[
+  {
+    "access_date": "2026-09-15",
+    "name": "HiTHIUM V1.1 ESS Cell 280 Ah EU English datasheet",
+    "supports": [
+      "LFP",
+      "280Ah",
+      "3.2V_nominal",
+      "operating_voltage",
+      "ambient_charge_temperature",
+      "ambient_discharge_temperature",
+      "1P_max_continuous_charge_discharge_rate"
+    ],
+    "url": "https://hithium.com/fileadmin/ns_theme_hithium/pdf/HiTHIUM_Data-Sheet_ESS-Cell280Ah_V1-1_EU_EN_230612.pdf",
+    "vendor_or_institution": "HiTHIUM",
+    "version_or_date": "V1.1 / 2023-06-12"
+  },
+  {
+    "access_date": "2026-09-15",
+    "name": "HiTHIUM V3.3 280 Ah Chinese datasheet",
+    "supports": [
+      "LFP",
+      "280Ah",
+      "3.2V_nominal",
+      "operating_voltage",
+      "ambient_charge_temperature",
+      "ambient_discharge_temperature",
+      "0.5P_standard_charge_discharge_rate"
+    ],
+    "url": "https://cn.hithium.com/bocupload/2024/11/14/17315688038239mc70h.pdf",
+    "vendor_or_institution": "HiTHIUM",
+    "version_or_date": "20240918 V3.3"
+  },
+  {
+    "access_date": "2026-09-15",
+    "name": "HiTHIUM cell product page",
+    "supports": [
+      "current_product_identity",
+      "280Ah_LFP_product_context"
+    ],
+    "url": "https://www.hithium.com/products/1.html",
+    "vendor_or_institution": "HiTHIUM",
+    "version_or_date": "current product page accessed 2026-09-15"
+  },
+  {
+    "access_date": "2026-09-15",
+    "name": "REPT BATTERO energy-storage brochure",
+    "supports": [
+      "280Ah",
+      "3.2V_nominal",
+      "2.50_to_3.65V_stationary_LFP_corroboration"
+    ],
+    "url": "https://www.reptbattero.com/wp-content/uploads/2025/10/REPT-BATTERO-ENERGY-STORAGE-PROMOTIONAL-2510.pdf",
+    "vendor_or_institution": "REPT BATTERO",
+    "version_or_date": "2025"
+  },
+  {
+    "access_date": "2026-09-15",
+    "doi": "10.18154/RWTH-2026-06637",
+    "name": "RWTH Aachen M5BAT Battery Unit Pb1 2017-2025",
+    "supports": [
+      "one_second_resolution_BESS_field_data"
+    ],
+    "url": "https://publications.rwth-aachen.de/record/1038622",
+    "vendor_or_institution": "RWTH Aachen University",
+    "version_or_date": "dataset 2017-2025 / record published 2026"
+  }
+]

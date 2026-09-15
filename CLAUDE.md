@@ -329,7 +329,7 @@ Relations 单独没有修复，只有和 oracle Profile 联合时才产生额外
 
 ## 6.1 当前状态：benchmark protocol 等待用户 review/freeze
 
-Benchmark Protocol 已获用户明确批准并正式冻结为 `FROZEN_BEFORE_DATA_GENERATION`；freeze commit 本身未生成数据。下一阶段仅在独立 data branch 上运行预注册 deterministic generator，生成 `UNREVIEWED_CANDIDATE`，不实现 v6。
+Benchmark Protocol 已冻结；独立 data branch 已生成并结构验证 `UNREVIEWED_CANDIDATE`。当前 review status 为 `PENDING_AI_SEMANTIC_REVIEW`，尚未实现或运行 v6。
 
 根据 v5.2，未来 v6 必须同时覆盖：
 

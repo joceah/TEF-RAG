@@ -1,0 +1,55 @@
+{
+  "generation_version": "tef_v6_benchmark_generator_v1",
+  "dataset_version": "tef_v6_temporal_hard_benchmark_v1",
+  "protocol_freeze_commit": "b0e6e004378e7d7f29cabece1efa6b2c30489e9b",
+  "base_random_seed": 20260915,
+  "maximum_attempts": 5,
+  "attempt_seeds": [20260915, 20260916, 20260917, 20260918, 20260919],
+  "whole_layer_regeneration_policy": "regenerate_entire_failed_challenge_layer_only",
+  "method_outcome_based_item_selection": false,
+  "target_counts": {
+    "authored_chains": 400,
+    "primary_intents": 1200,
+    "query_rows": 2400,
+    "target_assets": 100,
+    "chains_per_layer": 200,
+    "chains_by_split_per_layer": {"development": 120, "validation": 40, "test": 40}
+  },
+  "realistic_mixture": {
+    "routine_or_mostly_recency_solvable": {"total": 120, "development": 72, "validation": 24, "test": 24},
+    "single_temporal_complication": {"total": 50, "development": 30, "validation": 10, "test": 10},
+    "compound_temporal_hard": {"total": 30, "development": 18, "validation": 6, "test": 6}
+  },
+  "challenge_composition": {
+    "difficulties": ["MULTI_EPISODE_DISAMBIGUATION", "CUTOFF_SENSITIVE", "LATE_ARRIVING_EVIDENCE", "SUPERSEDED_DIAGNOSIS", "PROCEDURE_VERSIONING", "CROSS_SOURCE_REQUIRED", "SIMILAR_SYMPTOM_DIFFERENT_CAUSE", "PERSISTENT_UNCERTAINTY"],
+    "single_primary_per_difficulty": {"total": 20, "development": 12, "validation": 4, "test": 4},
+    "compositional": {"total": 40, "development": 24, "validation": 8, "test": 8, "labels_min": 2, "labels_max": 3}
+  },
+  "asset_counts": {
+    "realistic": 50,
+    "challenge": {"development": 30, "validation": 10, "test": 10}
+  },
+  "telemetry": {
+    "reference": {"chemistry": "LFP", "capacity_ah": 280, "nominal_voltage_v": 3.2},
+    "ambient_charge_temperature_c": [0, 60],
+    "ambient_discharge_temperature_c": [-30, 60],
+    "normal_soc_percent": [10, 90],
+    "routine_normalized_p_rate_max": 0.5,
+    "high_load_normalized_p_rate_range": [0.5, 1.0],
+    "cell_temperature_bands_c": {"normal": [15, 35], "elevated": [35, 45], "fault_event_trend": [45, 55]},
+    "raw_conceptual_cadence_seconds": 1,
+    "rag_evidence_cadence_seconds": 60,
+    "trend_windows_minutes": [5, 15, 60],
+    "gross_anomaly_target_raw_point_ratio": 0.0002,
+    "gross_anomaly_hard_cap_raw_point_ratio": 0.0005,
+    "gross_anomaly_chain_cap": 0.02
+  },
+  "gates": {
+    "challenge_recency_solvable_at_5_max": 0.4,
+    "challenge_latest5_complete_at_5_max": 0.4,
+    "major_stratum_recency_solvable_at_5_max": 0.5,
+    "top_k": 5
+  },
+  "dataset_status": "UNREVIEWED_CANDIDATE",
+  "review_status": "PENDING_AI_SEMANTIC_REVIEW"
+}

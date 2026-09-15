@@ -1,6 +1,6 @@
 # TEF-RAG 项目交接
 
-更新时间：2026-09-15；当前分支：`tef-rag-v6-benchmark-protocol`；当前阶段：Temporal-Hard Benchmark Protocol 已获用户批准并冻结为 `FROZEN_BEFORE_DATA_GENERATION`，本 freeze commit 尚未生成数据。
+更新时间：2026-09-15；当前分支：`tef-rag-v6-benchmark-data-v1`；Temporal-Hard Benchmark Protocol 已冻结，正式 candidate 已确定性生成并通过结构/gate 校验，等待 AI semantic review；尚未实现 v6。
 
 ## 一页结论
 
@@ -93,7 +93,7 @@ TG-RAG 固定提交 `58a57e0bc173064fa0ad7ccf595cf6e266523619`。前 11 题各�
 
 ## 下一步边界
 
-Protocol 已通过用户批准并以独立 commit Freeze。下一步从该 freeze commit 创建 `tef-rag-v6-benchmark-data-v1`，先预注册 deterministic generator，再生成 `UNREVIEWED_CANDIDATE`；仍不得实现 v6 或根据目标算法结果改变 benchmark 构造规则。
+Protocol freeze commit 为 `b0e6e004378e7d7f29cabece1efa6b2c30489e9b`。Data branch 已按预注册 seed `20260915` 生成 `400/1200/2400/100` 的 `UNREVIEWED_CANDIDATE`，deterministic gates 与 validator 均通过；test evaluator gold 仅保存在 gitignored sealed artifact。下一步是独立 semantic review workflow，不得开始 v6 或根据目标算法结果筛数据。
 
 审核阶段采用 public-source-grounded AI-assisted review，而不是领域专家认证。任何物理/规程事实若公开资料不足，应标记不确定或作为 modeling choice，不得伪装成现场标准。
 

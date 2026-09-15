@@ -1,0 +1,39 @@
+{
+  "challenge_query_rows": 1200,
+  "latest5_complete_at_5_rate": 0.10666666666666667,
+  "major_strata": {
+    "CROSS_SOURCE_REQUIRED": {
+      "query_rows": 120,
+      "recency_solvable_at_5_rate": 0.0
+    },
+    "CUTOFF_SENSITIVE": {
+      "query_rows": 120,
+      "recency_solvable_at_5_rate": 0.3333333333333333
+    },
+    "LATE_ARRIVING_EVIDENCE": {
+      "query_rows": 120,
+      "recency_solvable_at_5_rate": 0.3333333333333333
+    },
+    "MULTI_EPISODE_DISAMBIGUATION": {
+      "query_rows": 120,
+      "recency_solvable_at_5_rate": 0.0
+    },
+    "PERSISTENT_UNCERTAINTY": {
+      "query_rows": 120,
+      "recency_solvable_at_5_rate": 0.0
+    },
+    "PROCEDURE_VERSIONING": {
+      "query_rows": 120,
+      "recency_solvable_at_5_rate": 0.0
+    },
+    "SIMILAR_SYMPTOM_DIFFERENT_CAUSE": {
+      "query_rows": 120,
+      "recency_solvable_at_5_rate": 0.0
+    },
+    "SUPERSEDED_DIAGNOSIS": {
+      "query_rows": 120,
+      "recency_solvable_at_5_rate": 0.0
+    }
+  },
+  "recency_solvable_at_5_rate": 0.10666666666666667
+}
