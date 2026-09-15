@@ -329,7 +329,7 @@ Relations 单独没有修复，只有和 oracle Profile 联合时才产生额外
 
 ## 6.1 当前状态：benchmark protocol 等待用户 review/freeze
 
-v5.2 accounting 已正式收尾。`plans/TEF_RAG_v6_temporal_hard_benchmark_protocol_v1.md` 与对应 JSON config/validator 已进入 `DRAFT_FOR_REVIEW`，尚未冻结，也没有据此生成数据。下一步等待用户 review；只有用户明确批准后，才能在后续 commit 将其改为 `FROZEN BEFORE DATA GENERATION`。
+v5.2 accounting 已正式收尾。Benchmark Protocol Draft 已完成第二轮 definition refinement：Latest-5 difficulty 同时包含 structural `RECENCY_SOLVABLE_AT_5` gate 与 performance gate；`FlowComplete@5` 改为 group-aware canonical flow constraint；`scenario_family_id` / `template_family_id` isolation 与 Challenge Test exact asset-disjoint 已机器化；主 Markdown 已中文化。Protocol 仍为 `DRAFT_FOR_REVIEW`，尚未冻结，也没有据此生成数据。下一步等待用户最终 review；只有用户明确批准后，才能在后续 commit 将其改为 `FROZEN BEFORE DATA GENERATION`。
 
 根据 v5.2，未来 v6 必须同时覆盖：
 
@@ -342,7 +342,7 @@ v5.2 accounting 已正式收尾。`plans/TEF_RAG_v6_temporal_hard_benchmark_prot
 
 旧 audit 收尾已完成；protocol freeze 后的数据任务是：
 
-1. 在生成 / 评分前先写新的独立 temporal-hard benchmark protocol；
+1. 用户明确批准后，先将 protocol 独立 commit 为 `FROZEN BEFORE DATA GENERATION`；
 2. 在评估方法前预先定义 Latest-5 难度验收标准；
 3. 优先增加独立 scenario diversity，而不是继续堆模板 / paraphrase 数量；
 4. 对电压、电流、温度等数值生成规则加入合理范围、采样频率和极少量极端异常点约束；

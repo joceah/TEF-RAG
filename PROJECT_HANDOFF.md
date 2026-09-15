@@ -12,7 +12,7 @@ v5.1 已完成 exhaustive exact-search 归因：12 个 set-mode 查询中 Beam �
 
 v5.2 完成 Profile / Roles / Relations 的 2×2×2 exact counterfactual：CCC 为 0.7208 / 0.7291 / 0.1667，OOO 提升至 0.8625 / 0.8752 / 0.5000，gross repair 4、regression 0、net gain +4，但仍有 6/10 个可行 gold-complete 查询被 frozen objective 选成 incomplete。Oracle Roles 单独 gross repair 1、regression 1、net gain 0。结论是 projection error 与 objective misalignment 共存，后续两者都要处理。
 
-新 benchmark protocol 已形成 Markdown、JSON config、validator 和单元测试，但保持 `DRAFT_FOR_REVIEW`；未生成任何 benchmark 数据。2026-09-15 实测定向 unittest 为 6/6、3/3、5/5 通过，完整 pytest 为 55/55 通过，0 failed，0 skipped。
+新 benchmark protocol 已完成第二轮定义修订：structural/performance 双 Gate、group-aware FlowComplete、scenario/template family isolation 和 Challenge Test asset-disjoint 均已写入中文 Markdown、JSON、validator 和测试。状态保持 `DRAFT_FOR_REVIEW`，未生成任何 benchmark 数据。2026-09-15 实测定向 unittest 为 protocol 9/9、v5.2 6/6、difficulty audit 3/3 通过；完整 pytest 为 59/59 通过，0 failed，0 skipped。
 
 ## 已完成
 

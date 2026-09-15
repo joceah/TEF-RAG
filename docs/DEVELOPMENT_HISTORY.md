@@ -189,6 +189,8 @@ v5.1 的目标不是提出新算法，而是判断：
 
 完成双层 benchmark 预登记草案、机器可读 config、validator 与测试。草案围绕 canonical Temporal Evidence Flow，区分 telemetry 分布、运维事件结构与 RAG temporal difficulty，并预登记 split isolation、FlowComplete@5、Latest-5 `Complete@5 <= 0.40` 草案门槛、V1/V2/V3 规程版本和双时间规则。状态保持 `DRAFT_FOR_REVIEW`；未生成数据，等待用户 review/freeze。
 
+第二轮小修订加入 structural recency gate、group-aware `FlowComplete@5`，以及 scenario/template family 与 Challenge Test asset split isolation；主 protocol 同步中文化。状态仍未冻结。
+
 在 v5.2 与数据难度审计之后，已经确认两个研究瓶颈：
 
 1. **算法问题**：Search 基本被排除为主要原因；projection / representation error 与 objective misalignment 已确认共存。
