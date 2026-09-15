@@ -1,6 +1,6 @@
 # TEF-RAG 项目交接
 
-更新时间：2026-09-15；当前分支：`tef-rag-v6-benchmark-protocol`；当前阶段：v5.2 accounting 已收尾，Temporal-Hard Benchmark Protocol 为 `DRAFT_FOR_REVIEW`。
+更新时间：2026-09-15；当前分支：`tef-rag-v6-benchmark-protocol`；当前阶段：v5.2 accounting 已收尾，Temporal-Hard Benchmark Protocol 为 `DRAFT_FOR_REVIEW`，核心定义与原 DRAFT 参数均已给出确定方案，等待最终 freeze。
 
 ## 一页结论
 
@@ -12,7 +12,9 @@ v5.1 已完成 exhaustive exact-search 归因：12 个 set-mode 查询中 Beam �
 
 v5.2 完成 Profile / Roles / Relations 的 2×2×2 exact counterfactual：CCC 为 0.7208 / 0.7291 / 0.1667，OOO 提升至 0.8625 / 0.8752 / 0.5000，gross repair 4、regression 0、net gain +4，但仍有 6/10 个可行 gold-complete 查询被 frozen objective 选成 incomplete。Oracle Roles 单独 gross repair 1、regression 1、net gain 0。结论是 projection error 与 objective misalignment 共存，后续两者都要处理。
 
-新 benchmark protocol 已完成最后一轮 FlowComplete 技术修订：评价现要求存在能同时满足全部 required flow edges 的全局一致 group-to-evidence assignment；required groups 是 Complete 的 primary semantics，required nodes 仅作 optional diagnostic/provenance annotation。状态保持 `DRAFT_FOR_REVIEW`，未生成任何 benchmark 数据。测试结果见当前 test status。
+新 benchmark protocol 已完成 FlowComplete 全局一致性修订，并进一步指定正式规模与执行参数：`400 chains / 1200 primary intents / 2400 query rows / 100 assets`；Realistic/Challenge 各 200 chains；split 为 60/20/20；Challenge 为 160 single-primary + 40 compositional-hard；major stratum 以 20 primary chains / 60 intents 为门槛且 recency-solvable ceiling 为 0.50。Telemetry 采用 280Ah-class LFP reference system，并严格区分公开资料支撑的 physical envelope 与 benchmark modeling choices。Protocol 仍保持 `DRAFT_FOR_REVIEW`，未生成任何正式 benchmark 数据。
+
+由于项目没有可用储能运维领域专家，审核协议明确禁止宣称 expert-reviewed / field-certified。正式 benchmark 采用 100% deterministic validation + 100% public-source-grounded AI-assisted semantic review；validation/test 再进行第二轮独立 AI review。未解决条目标记 `REVIEW_UNRESOLVED`，不得进入 validation/test。该限制必须在论文中披露。
 
 ## 已完成
 
@@ -81,9 +83,9 @@ TG-RAG 固定提交 `58a57e0bc173064fa0ad7ccf595cf6e266523619`。前 11 题各�
 按以下最小范围阅读即可：
 
 1. 本文件。
-2. [`tef_rag_v5/DESIGN.md`](tef_rag_v5/DESIGN.md) 与 [`tef_rag_v5/retriever.py`](tef_rag_v5/retriever.py)。
-3. [`experiments/analyses/tef_v5_1_failure_attribution_v1/report.md`](experiments/analyses/tef_v5_1_failure_attribution_v1/report.md) 与 [`experiments/analyses/tef_v5_holdout_eval_v1/report_zh.md`](experiments/analyses/tef_v5_holdout_eval_v1/report_zh.md)。
-4. 需要改实现时再读 [`tests/test_tef_rag_v5.py`](tests/test_tef_rag_v5.py) 和 v1–v4 的直接依赖。
+2. [`plans/TEF_RAG_v6_temporal_hard_benchmark_protocol_v1.md`](plans/TEF_RAG_v6_temporal_hard_benchmark_protocol_v1.md) 与 [`configs/temporal_hard_benchmark_protocol_v1.json`](configs/temporal_hard_benchmark_protocol_v1.json)。
+3. [`tef_rag_v5/DESIGN.md`](tef_rag_v5/DESIGN.md) 与 [`tef_rag_v5/retriever.py`](tef_rag_v5/retriever.py)。
+4. [`experiments/analyses/tef_v5_1_failure_attribution_v1/report.md`](experiments/analyses/tef_v5_1_failure_attribution_v1/report.md) 与 [`experiments/analyses/tef_v5_holdout_eval_v1/report_zh.md`](experiments/analyses/tef_v5_holdout_eval_v1/report_zh.md)。
 
 数据生成扩充时，再读 [`data/README.md`](data/README.md)、[`experiments/analyses/temporal_maintenance_dataset_v2/report_zh.md`](experiments/analyses/temporal_maintenance_dataset_v2/report_zh.md) 和 [`plans/时序运维资料与案例设计_v1/资料来源与适用边界.md`](plans/时序运维资料与案例设计_v1/资料来源与适用边界.md)。项目背景见 `docs/project_background/`；初代论文见 `paper/TMC_RAG_ICRA_style_zh_v2.pdf`，但论文尚未同步 v5/v5.1。
 
@@ -91,6 +93,8 @@ TG-RAG 固定提交 `58a57e0bc173064fa0ad7ccf595cf6e266523619`。前 11 题各�
 
 ## 下一步边界
 
-下一步等待用户 review protocol，并确认样本量、difficulty 配比、telemetry 范围/频率/稀有异常比例、major stratum 定义及人工复核方案。用户明确批准后才能另行冻结和生成数据；当前不得实现 v6。可以保留 Exact 作为小候选池 oracle 和持续 search-gap 审计，但当前证据不支持优先扩大 Beam。
+Protocol 的关键定义与此前 DRAFT 参数现已指定，但整体状态仍是 `DRAFT_FOR_REVIEW`。下一步只做最终一致性/source audit 与用户确认；确认后用独立 commit 标记 `FROZEN BEFORE DATA GENERATION`，再开始正式 benchmark 生成。当前仍不得实现 v6，也不得根据目标算法结果改变 benchmark 构造规则。
+
+审核阶段采用 public-source-grounded AI-assisted review，而不是领域专家认证。任何物理/规程事实若公开资料不足，应标记不确定或作为 modeling choice，不得伪装成现场标准。
 
 最终回答生成评价是独立未完成任务，不应混入当前检索指标。论文也尚未因 v5 更新。
