@@ -43,6 +43,17 @@ class OracleAttributionV52Tests(unittest.TestCase):
         self.assertTrue(all(value == set(CONFIGURATIONS) for value in by_query.values()))
         self.assertEqual(self.results, run())
 
+    def test_complete_accounting_is_consistent_for_all_configurations(self):
+        for scope, table in self.results["summary"].items():
+            ccc_count = table["CCC"]["complete_count"]
+            for code, row in table.items():
+                self.assertEqual(
+                    row["net_complete_gain"],
+                    row["repaired_failures"] - row["regressed_successes"],
+                    (scope, code),
+                )
+                self.assertEqual(row["complete_count"] - ccc_count, row["net_complete_gain"], (scope, code))
+
     def test_frozen_retriever_and_exact_search_sources_are_unchanged(self):
         expected = {
             "tef_rag_v5/retriever.py": "28c0724544a4ccc661de1b7573a70ddac93b6d327d67a281b3cdd68241a2238f",

@@ -110,16 +110,22 @@ def build_inputs():
 
 def aggregate(rows, scope):
     selected = [row for row in rows if scope(row)]
-    return {
-        code: {
-            "queries": len([r for r in selected if r["configuration"] == code]),
-            "recall_at_5": sum(r["recall_at_5"] for r in selected if r["configuration"] == code) / (len(selected) / 8),
-            "ndcg_at_5": sum(r["ndcg_at_5"] for r in selected if r["configuration"] == code) / (len(selected) / 8),
-            "complete_at_5": sum(r["complete_at_5"] for r in selected if r["configuration"] == code) / (len(selected) / 8),
-            "repaired_failures": sum(r["complete_repaired"] for r in selected if r["configuration"] == code),
+    output = {}
+    for code in CONFIGURATIONS:
+        config_rows = [r for r in selected if r["configuration"] == code]
+        repaired = sum(r["complete_repaired"] for r in config_rows)
+        regressed = sum(r["complete_regressed"] for r in config_rows)
+        output[code] = {
+            "queries": len(config_rows),
+            "complete_count": sum(r["complete_at_5"] for r in config_rows),
+            "recall_at_5": sum(r["recall_at_5"] for r in config_rows) / len(config_rows),
+            "ndcg_at_5": sum(r["ndcg_at_5"] for r in config_rows) / len(config_rows),
+            "complete_at_5": sum(r["complete_at_5"] for r in config_rows) / len(config_rows),
+            "repaired_failures": repaired,
+            "regressed_successes": regressed,
+            "net_complete_gain": repaired - regressed,
         }
-        for code in CONFIGURATIONS
-    }
+    return output
 
 
 def run():
@@ -177,6 +183,7 @@ def run():
                 "complete_at_5": metric["complete_at_5"], "missing_gold_nodes": missing, "extra_nodes": extra,
                 "current_vs_oracle_selection_changed": set(result["evidence_ids"]) != set(baseline_selected or result["evidence_ids"]),
                 "complete_repaired": bool(metric["complete_at_5"] and not baseline_complete) if baseline_complete is not None else False,
+                "complete_regressed": bool(not metric["complete_at_5"] and baseline_complete) if baseline_complete is not None else False,
                 "oracle_profile_relation_fallback": bool(profile_oracle and op["relation_fallback_to_current"]),
                 "num_connected_components": structure["num_connected_components"],
                 "largest_component_ratio": structure["largest_connected_evidence_ratio"],
@@ -205,14 +212,14 @@ def write_outputs(results):
     (OUT / "results.json").write_text(json.dumps(results, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     fields = ["query_id", "case_id", "task", "candidate_count", "configuration", "profile", "roles", "relations",
               "selected_ids", "objective_total", "semantic", "chain", "role", "redundancy", "recall_at_5", "ndcg_at_5",
-              "complete_at_5", "missing_gold_nodes", "extra_nodes", "current_vs_oracle_selection_changed", "complete_repaired",
+              "complete_at_5", "missing_gold_nodes", "extra_nodes", "current_vs_oracle_selection_changed", "complete_repaired", "complete_regressed",
               "num_connected_components", "largest_component_ratio", "edge_count", "role_coverage", "oracle_profile_relation_fallback"]
     with (OUT / "per_query.csv").open("w", encoding="utf-8-sig", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=fields); writer.writeheader()
         for row in results["per_query"]:
             writer.writerow({k: json.dumps(row[k], ensure_ascii=False) if isinstance(row[k], list) else row[k] for k in fields})
     with (OUT / "configuration_summary.csv").open("w", encoding="utf-8-sig", newline="") as handle:
-        fields2 = ["scope", "configuration", "profile", "roles", "relations", "queries", "recall_at_5", "ndcg_at_5", "complete_at_5", "repaired_failures"]
+        fields2 = ["scope", "configuration", "profile", "roles", "relations", "queries", "complete_count", "recall_at_5", "ndcg_at_5", "complete_at_5", "repaired_failures", "regressed_successes", "net_complete_gain"]
         writer = csv.DictWriter(handle, fieldnames=fields2); writer.writeheader()
         for scope, table in results["summary"].items():
             for code, values in table.items():
@@ -222,14 +229,17 @@ def write_outputs(results):
 
 def render_report(results):
     def table(scope):
-        out = ["| Profile | Roles | Relations | Recall@5 | nDCG@5 | Complete@5 | repaired failures |",
-               "|---|---|---|---:|---:|---:|---:|"]
+        out = ["| Profile | Roles | Relations | Recall@5 | nDCG@5 | Complete@5 | repaired failures | regressed successes | net Complete gain |",
+               "|---|---|---|---:|---:|---:|---:|---:|---:|"]
         for code, row in results["summary"][scope].items():
-            out.append(f"| {'oracle' if code[0]=='O' else 'current'} | {'oracle' if code[1]=='O' else 'current'} | {'oracle' if code[2]=='O' else 'current'} | {row['recall_at_5']:.4f} | {row['ndcg_at_5']:.4f} | {row['complete_at_5']:.4f} | {row['repaired_failures']} |")
+            out.append(f"| {'oracle' if code[0]=='O' else 'current'} | {'oracle' if code[1]=='O' else 'current'} | {'oracle' if code[2]=='O' else 'current'} | {row['recall_at_5']:.4f} | {row['ndcg_at_5']:.4f} | {row['complete_at_5']:.4f} | {row['repaired_failures']} | {row['regressed_successes']} | {row['net_complete_gain']:+d} |")
         return "\n".join(out)
     all_s = results["summary"]["all_set_mode"]
     alone = {"Profile": all_s["OCC"], "Roles": all_s["COC"], "Relations": all_s["CCO"]}
-    repaired = ", ".join(f"{k} {v['repaired_failures']}" for k, v in alone.items())
+    accounting = ", ".join(
+        f"{k}: repaired {v['repaired_failures']}, regressed {v['regressed_successes']}, net {v['net_complete_gain']:+d}"
+        for k, v in alone.items()
+    )
     return f"""# TEF-RAG v5.2 Oracle Projection Attribution
 
 > {DIAGNOSTIC_WARNING}
@@ -250,10 +260,10 @@ Oracle roles use the explicit author-role prefix with probability 1. Oracle rela
 
 ## Attribution answers
 
-- Oracle Profile alone repairs {alone['Profile']['repaired_failures']} CCC failures.
-- Oracle Roles alone repairs {alone['Roles']['repaired_failures']} CCC failures.
-- Oracle Relations alone repairs {alone['Relations']['repaired_failures']} CCC failures.
-- Single-factor repairs: {repaired}. Compare the paired and OOO rows above for interactions.
+- Oracle Profile alone repairs {alone['Profile']['repaired_failures']} prior failure(s), regresses {alone['Profile']['regressed_successes']} prior success(es), net Complete gain {alone['Profile']['net_complete_gain']:+d}.
+- Oracle Roles alone repairs {alone['Roles']['repaired_failures']} prior failure(s), but also regresses {alone['Roles']['regressed_successes']} prior success(es), net Complete gain {alone['Roles']['net_complete_gain']:+d}.
+- Oracle Relations alone repairs {alone['Relations']['repaired_failures']} prior failure(s), regresses {alone['Relations']['regressed_successes']} prior success(es), net Complete gain {alone['Relations']['net_complete_gain']:+d}.
+- Single-factor gross/net accounting: {accounting}. Compare the paired and OOO rows above for interactions.
 - OOO leaves {results['ooo_residual_failures']} of {results['ccc_failures']} original incomplete queries incomplete: {', '.join(results['ooo_residual_query_ids']) or 'none'}.
 
 OOO residuals are direct evidence that a gold-complete Top-5 remains feasible while the frozen exact objective prefers an incomplete set under the strongest defensible authoring-derived representation. Thus residual failure is objective-misalignment evidence on this seen diagnostic set; it is not an independent validation result.
