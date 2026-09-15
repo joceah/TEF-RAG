@@ -6,29 +6,29 @@
 
 **NO DATA GENERATED FROM THIS PROTOCOL YET**
 
-## 1. Scope and research question
+## 1. 范围与研究问题
 
-This is a preregistration draft, not authorization to generate data. The benchmark evaluates whether a retrieval system can recover a coherent, current-task-supporting **Temporal Evidence Flow** for embodied maintenance planning in energy-storage power stations. Evidence must remain valid under hard device/entity, query-time, bitemporal visibility, model-scope, and procedure-version constraints.
+本文档是预登记草案，不授权生成数据。Benchmark 用于评价：面向储能电站具身运维任务规划，检索系统能否在设备/实体、query time、双时间可见性、model scope 和规程版本等硬约束下，恢复并选择 coherent、可审计、能够支撑当前任务的 **Temporal Evidence Flow**。
 
-The benchmark is not generic Temporal QA. Its target is selecting an auditable evidence set from procedures, work orders, maintenance history, state/trend evidence, alarms, inspections, corrections, predictions, and verification records, so downstream systems can construct structured work orders and dependency-aware action plans.
+它不是普通 Temporal QA。目标证据包括规程、工单、维护历史、状态/趋势、告警、检查、更正、预测和验证记录，并最终支持结构化工单和有依赖关系的动作计划。
 
-## 2. Three separate design layers
+## 2. 三个必须分开的设计层次
 
 ### 2.1 Numerical Telemetry Distribution
 
-Voltage, current, temperature, SOC, and any later user-approved telemetry ranges must be governed separately from event and RAG difficulty design. Normal observations must dominate. Extreme anomalous points or segments—implausible deviations, sensor faults, or communication/acquisition errors—must be rare and must never be inflated merely to make retrieval harder.
+电压、电流、温度、SOC 及后续经用户确认的 telemetry，其分布必须与事件结构、RAG 难度分开设计。正常观测占绝大多数；明显不合理偏离、传感器故障或通信/采集错误等极端异常点/片段必须很少，不能为了提高检索难度而增加其比例。
 
-`numerical anomaly != device fault != temporal-hard query`
+`数值异常 != 设备故障 != temporal-hard query`
 
-Actual physical ranges, sampling frequencies, and anomaly rates remain `DRAFT_FOR_REVIEW`; they must be supported by domain sources or expert review before freezing.
+实际物理范围、采样频率和稀有异常比例仍为 `DRAFT_FOR_REVIEW`，冻结前需由领域来源或专家审核支持。
 
 ### 2.2 Operation & Maintenance Event Structure
 
-Scenarios must use realistic business logic across state observation, alarm, diagnosis, work order, inspection, correction, reopen, supersession, procedure applicability, repair, verification, and persistent uncertainty. A chain may omit irrelevant stages; no fixed Observation→Diagnosis→Action→Verification template is required.
+场景应以真实业务逻辑组织 state observation、alarm、diagnosis、work order、inspection、correction、reopen、supersession、procedure applicability、repair、verification 和 persistent uncertainty。每条链只包含与任务有关的阶段，不强制套用 Observation→Diagnosis→Action→Verification 模板。
 
 ### 2.3 RAG Temporal Difficulty
 
-Difficulty labels may overlap and must be assigned from authored structure before target-method evaluation:
+难度标签允许重叠，必须在评价目标算法之前根据 authored structure 确定：
 
 - `MULTI_EPISODE_DISAMBIGUATION`
 - `CUTOFF_SENSITIVE`
@@ -39,100 +39,137 @@ Difficulty labels may overlap and must be assigned from authored structure befor
 - `SIMILAR_SYMPTOM_DIFFERENT_CAUSE`
 - `PERSISTENT_UNCERTAINTY`
 
-## 3. Two benchmark layers
+## 3. 双层 Benchmark
 
 ### 3.1 Realistic Distribution Set
 
-This layer estimates deployment-like stability. Telemetry is mostly normal, extreme numerical anomalies are rare, and temporal-hard tasks occur at a natural rather than artificially concentrated rate. It must not be used alone to claim superiority of a Temporal Evidence Flow mechanism.
+用于评价 deployment-like distribution 下的稳定性。Telemetry 大部分正常，极端数值异常很少，temporal-hard task 以自然比例出现。不能仅凭该层证明 Temporal Evidence Flow mechanism superiority。
 
 ### 3.2 Temporal-Hard Challenge Set
 
-This layer directly stresses multi-episode histories, late arrival, supersession, procedure versioning, cross-source dependency, similar symptoms with different causes, and persistent uncertainty. It raises structural task difficulty without raising the extreme telemetry anomaly rate. Challenge proportions and sample counts remain `DRAFT_FOR_REVIEW`.
+专门压力测试 multi-episode、late arrival、supersession、procedure versioning、cross-source dependency、similar symptom/different cause 和 persistent uncertainty。它只提高任务结构难度，不提高极端 telemetry 异常比例。Challenge 的类型配比和样本量仍为 `DRAFT_FOR_REVIEW`。
 
-## 4. Independence, splits, and paraphrases
+## 4. Split、family 与资产隔离
 
-The intended splits are `development`, `validation`, and `test`.
+预定 split 为 `development`、`validation`、`test`。每个案例必须包含 `scenario_family_id`、`template_family_id`、`asset_id`、`chain_id` 和 `intent_id`。
 
-- An authored chain cannot cross splits.
-- An intent and all its paraphrases must share a split.
-- Parameterized near-copies of one scenario template cannot be placed in development and test and then treated as independent evidence.
-- Test scenarios require independent event combinations, not only renamed assets or shifted dates.
-- Paraphrases may measure robustness, but do not constitute independent primary samples.
-- Primary sample units are independent intents/chains. Main uncertainty estimates and significance tests must cluster by `intent_id`, `chain_id`, and, where appropriate, `asset_id`.
+- 同一 `chain_id` 不能跨 split。
+- 同一 `intent_id` 及其所有 paraphrase 必须位于同一 split。
+- 同一 `scenario_family_id` 不得同时出现在 test 与 development/validation；Test scenario family 必须隔离。
+- 同一 `template_family_id` 禁止跨 development、validation、test。只改设备 ID、平移日期或轻微改变数值不构成独立 test case。
+- Temporal-Hard Challenge Test 的 target `asset_id` 必须与 Challenge development/validation exact asset-disjoint；设备型号或 model class 可以重复。
+- Realistic Distribution Set 不强制 exact asset-disjoint，但仍必须满足 chain、intent、scenario family 和 template family isolation。
+- Test 场景必须具有独立事件组合，不能只是参数化近复制。
+- Paraphrase 只用于 robustness，不作为独立 primary sample。主要统计以独立 intent/chain 为单位，并按 `intent_id`、`chain_id` 及适用时的 `asset_id` 聚类。
 
-## 5. Canonical task-support flow annotation
+## 5. `RECENCY_SOLVABLE_AT_5` 的确定性定义
 
-Every Challenge query must provide an author-defined `canonical_task_support_flow`, created before algorithm evaluation and never inferred backward from retrieval outputs. Its schema requires:
+对每个 query：
 
-- `required_nodes`
-- `required_groups`
-- `support_edges`
-- `update_edges`
-- `supersession_edges`
-- `prerequisite_edges`
-- `verification_edges`
+1. 只保留满足当前 query 全部硬约束的 evidence：target asset/entity 正确，`event_time <= query_time`，`available_at <= query_time`，procedure/model/version 在 query time 合法。
+2. 合法 evidence 按 `(event_time, available_at, evidence_id)` 降序排列；`evidence_id` 是 deterministic tie-break。
+3. 取最新 Top-5。
+4. 若该 Top-5 覆盖全部 `required_groups`，则 `recency_solvable_at_5 = true`，否则为 `false`。
 
-An edge list may be empty when that relation is genuinely absent, but the field must exist. Nodes and edges must be legal at the query cutoff. Authoring/gold annotations remain evaluator-only and cannot enter retrieval.
+这是“数据结构能否被 newest records 直接解决”的判据，不等同于 Latest baseline 的实际 Recall/Complete。
 
-## 6. Bitemporal and procedure-version requirements
+## 6. Latest-5 双重难度 Gate
 
-Every evidence record must distinguish `event_time` from `available_at`. Late-arrival scenarios may have `event_time << available_at`; paired cutoffs must include one after the event but before evidence arrival and another after arrival, producing different legal evidence flows.
+在任何目标算法比较之前，Challenge Set 必须同时通过两个互不混淆的 Gate。
 
-Procedure-version scenarios require V1, V2, and V3 with `valid_from`, `valid_to`, `supersedes`, `withdrawn_at`, and `model_scope`. Query cutoffs must cover each version's applicability period. In at least some scenarios, executable steps must materially differ across versions; cosmetic revision text is insufficient.
+### 6.1 Structural Difficulty Gate
 
-## 7. Evidence units and telemetry pipeline
+`Challenge Set overall RECENCY_SOLVABLE_AT_5 rate <= 0.40`
 
-The primary retrieval unit is an operation-semantic evidence record, not a mass of raw samples:
+它回答数据本身是否需要非平凡时间结构。
 
-`raw time series → statistics / detector / predictor → state snapshot / trend card / event evidence → RAG`
-
-Raw telemetry may support evidence generation and validation. Predictions such as SOH/RUL must come from identified professional models or authored evidence rather than free-form LLM invention.
-
-## 8. Metrics
-
-Primary retrieval metrics at the frozen `Top-k = 5` are:
-
-- `Recall@5`
-- `nDCG@5`
-- `Complete@5`
-- `FlowComplete@5`
-
-`FlowComplete@5` is 1 only when the selected Top-5 satisfies all required groups/nodes and all query-applicable required canonical flow edges; it is defined from authoring flow, never the evaluated model's projected graph. `edge_recall` and `flow_node_recall` are secondary diagnostics. Retrieval and downstream generation are reported separately.
-
-## 9. Baselines and fairness
-
-Required baselines are Latest, BM25, Hybrid, TMC-RAG-v2 as a historical engineering baseline, the frozen current TEF-RAG version, and relevant external baselines that can run correctly. All methods share Top-k, evidence corpus, query cutoff, and visibility constraints. An external method whose intended mechanism did not activate must be marked `compatibility run`, not presented as a complete reproduction.
-
-## 10. Latest-5 acceptance gate
-
-Before any target-algorithm comparison, run a structural Latest-5 audit on the Challenge Set. Draft acceptance requires:
+### 6.2 Baseline Performance Sanity Check
 
 `Challenge Set overall Latest-5 Complete@5 <= 0.40`
 
-No major difficulty stratum may be almost entirely solved because it is dominated by `RECENCY_ONLY` cases. The exact definition of “major stratum” and any additional per-stratum ceiling remain `DRAFT_FOR_REVIEW`.
+它回答实际 Latest baseline 是否表现过强。即使两个草案阈值目前同为 0.40，它们也是不同字段、不同概念。
 
-If generated data fail this gate, the dataset may be regenerated or expanded only through preregistered generation rules. Item-wise deletion or selection based on TEF-RAG success/failure is prohibited.
+主要 difficulty stratum 不能被 `RECENCY_ONLY` / `RECENCY_SOLVABLE_AT_5` 大量主导，但 `major_stratum_definition` 和 `major_stratum_recency_solvable_ceiling` 均保持 `DRAFT_FOR_REVIEW`，等待样本量与 difficulty 配比确定后再冻结。
 
-## 11. Multi-step retrieval boundary
+若生成后的数据未通过 Gate，只能按照预登记生成规则整体重新生成或扩充；禁止根据 TEF-RAG 或其他目标方法的逐题成功/失败筛选或删除样本。
 
-Queries may be tagged `long_span`, `multi_episode`, or `revision_history`. This round does not implement decomposition or multi-step retrieval. Adaptive Temporal Decomposition may be considered only after a frozen benchmark demonstrates systematic single-step failure.
+## 7. Group-aware Canonical Task-Support Flow
 
-## 12. Prohibited leakage and reinterpretation
+每个 Challenge query 必须具有在算法评价前定义的 `canonical_task_support_flow`，且不能根据检索输出反向构造。
 
-- The old 196-query hard subset remains a seen development diagnostic subset, never a new test.
-- Gold, authoring roles, canonical flows, and reference answers are evaluator-only.
-- No test filtering may depend on the observed outcome of TEF-RAG or another target method.
-- No v5 weight/objective change, v6 implementation, reranker, TreeRAG, or data generation is part of this protocol-drafting round.
+### 7.1 Required groups
 
-## 13. Freeze and execution gates
+每个 `required_group` 必须具有稳定的 `group_id` 和 `acceptable_evidence_ids`。例如 `G1 = [A1, A2]` 表示 A1 或 A2 任意一个都能满足该 evidence requirement。
 
-This draft may change after user review. A later explicit user approval and separate commit are required to change status to `FROZEN BEFORE DATA GENERATION`. Before freezing, the user must confirm at least:
+### 7.2 Required flow edges
 
-- dataset and per-layer sample sizes;
-- challenge difficulty proportions and combinations;
-- physical telemetry ranges, sampling frequencies, and rare-anomaly limits;
-- “major stratum” definition and any per-stratum Latest-5 ceiling;
-- human/domain review process and acceptance thresholds;
-- validation/test release and access policy.
+Primary flow constraint 使用 `required_flow_edges`。每条 edge 至少包含 `edge_id`、`from_group`、`to_group`、`relation_type` 和 `allowed_endpoint_pairs`。
 
-No benchmark data, query, telemetry, or post-generation result has been created under this draft.
+```json
+{
+  "edge_id": "E1",
+  "from_group": "G1",
+  "to_group": "G2",
+  "relation_type": "supports",
+  "allowed_endpoint_pairs": [["A1", "B2"], ["A2", "B1"]]
+}
+```
+
+虽然多个 evidence 均可分别满足 G1/G2，但只有 authoring 明确列出的 endpoint pair 才能构成 canonical flow edge。Node-level `support_edges`、`update_edges`、`supersession_edges`、`prerequisite_edges`、`verification_edges` 继续作为 authoring/diagnostic metadata 保留。
+
+## 8. `FlowComplete@5` 正式定义
+
+`FlowComplete@5 = 1` 当且仅当同时满足：
+
+1. `Complete@5 = 1`：Top-5 至少命中每个 required group 中的一条合法 evidence；
+2. 对每条 `required_flow_edge`，Top-5 在其 `from_group` 和 `to_group` 中选中的 evidence 至少存在一组 `(selected_from_node, selected_to_node)` 属于该 edge 的 `allowed_endpoint_pairs`。
+
+因此明确允许且必须能评价：`Complete@5 = 1, FlowComplete@5 = 0`。
+
+示例：G1=[A1,A2]，G2=[B1,B2]，合法 pair 只有 A1→B2、A2→B1。若模型选择 A1+B1，则两个 group 都已覆盖，Complete@5=1；但 A1→B1 不合法，所以 FlowComplete@5=0。这正是 FlowComplete 区别于元素覆盖完整性的意义。
+
+BM25、Latest、Hybrid 等 baseline 不需要预测 relation graph。离线 evaluator 只用 `retrieved evidence set + author-defined canonical_task_support_flow` 检查约束，因此所有 baseline 可公平评价。
+
+Primary metrics 为 `Recall@5`、`nDCG@5`、`Complete@5`、`FlowComplete@5`；`edge_recall` 和 `flow_node_recall` 仅作 secondary diagnostics。Retrieval 与 downstream generation 分开报告。
+
+## 9. 双时间与规程版本要求
+
+每条 evidence 必须区分 `event_time` 与 `available_at`。Late-arrival 场景允许 `event_time << available_at`；成对 cutoff 至少包含“事件已发生但 evidence 尚不可见”和“evidence 已到达”两个时点，并要求不同的合法 evidence flow。
+
+Procedure versioning 场景要求 V1、V2、V3，并包含 `valid_from`、`valid_to`、`supersedes`、`withdrawn_at`、`model_scope`。Query cutoff 覆盖每个版本适用期；至少部分场景的可执行步骤必须实质不同，不能只做文字修订。
+
+## 10. Evidence unit 与 telemetry pipeline
+
+RAG 的主要检索单元是有运维语义的 evidence record，而不是海量 raw samples：
+
+`raw time series → statistics / detector / predictor → state snapshot / trend card / event evidence → RAG`
+
+Raw telemetry 可用于生成和验证 evidence。SOH/RUL 等预测必须来自明确的专业模型或 authored evidence，不能由 LLM 自由臆造。
+
+## 11. Baseline 与公平性
+
+必须包含 Latest、BM25、Hybrid、TMC-RAG-v2 历史工程基线、当前冻结 TEF-RAG，以及能够正确运行的相关 external baseline。所有方法共享 Top-k、evidence corpus、query cutoff 和 visibility constraint。预期机制没有实际激活的外部方法必须标为 `compatibility run`，不能写成完整复现。
+
+## 12. Multi-step retrieval 边界
+
+Query 可以标记 `long_span`、`multi_episode`、`revision_history`。本轮不实现 decomposition 或 multi-step retrieval；只有冻结 benchmark 证明 single-step 系统性失败后，才考虑 Adaptive Temporal Decomposition。
+
+## 13. 泄漏与禁止事项
+
+- 旧 196-query hard subset 仍是 seen development diagnostic subset，绝不是新 test。
+- Gold、authoring roles、canonical flow 和 reference answer 只能由 evaluator 读取。
+- Test 选择不得依赖 TEF-RAG 或其他目标方法的结果。
+- 本轮不修改 v5 权重/objective，不实现 v6、reranker、TreeRAG，不生成 benchmark data/query/telemetry。
+
+## 14. Freeze 与执行 Gate
+
+本草案可在用户 review 后修改。只有用户明确批准，后续独立 commit 才能把状态改为 `FROZEN BEFORE DATA GENERATION`。冻结前仍需用户确认：
+
+- 两层数据集及各 split 的样本量；
+- Challenge difficulty 类型配比与组合；
+- telemetry 物理范围、采样频率和稀有异常比例；
+- `major_stratum_definition` 与 `major_stratum_recency_solvable_ceiling`；
+- 人工/领域审核流程与验收标准；
+- validation/test 发布和访问策略。
+
+当前没有依据本草案生成任何 benchmark data、query、telemetry 或 test result。

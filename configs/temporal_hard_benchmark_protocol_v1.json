@@ -26,29 +26,82 @@
     "chain_isolation": true,
     "intent_isolation": true,
     "paraphrases_share_split": true,
-    "parameterized_template_test_isolation": true,
+    "scenario_family_isolation": true,
+    "template_family_isolation": true,
+    "challenge_test_asset_disjoint": true,
+    "realistic_exact_asset_disjoint_required": false,
     "test_requires_independent_event_combinations": true,
     "primary_sampling_unit": "independent_intent_or_chain",
     "clustered_reporting_units": ["intent_id", "chain_id", "asset_id"]
   },
+  "required_metadata": [
+    "scenario_family_id",
+    "template_family_id",
+    "asset_id",
+    "chain_id",
+    "intent_id"
+  ],
   "latest5_acceptance": {
     "applies_before_algorithm_comparison": true,
-    "challenge_overall_complete_at_5_max": 0.4,
-    "major_strata_must_not_be_recency_dominated": true,
+    "recency_solvable_at_5_definition": {
+      "hard_constraints": [
+        "target_asset_or_entity",
+        "event_time_lte_query_time",
+        "available_at_lte_query_time",
+        "procedure_model_version_legal_at_query_time"
+      ],
+      "sort_key_descending": ["event_time", "available_at", "evidence_id"],
+      "top_k": 5,
+      "true_iff_all_required_groups_covered": true
+    },
+    "structural_gate": {
+      "challenge_recency_solvable_at_5_max": 0.4,
+      "status": "DRAFT_FOR_REVIEW"
+    },
+    "performance_gate": {
+      "challenge_latest5_complete_at_5_max": 0.4,
+      "status": "DRAFT_FOR_REVIEW"
+    },
+    "major_stratum_policy": {
+      "major_stratum_definition": "DRAFT_FOR_REVIEW",
+      "major_stratum_recency_solvable_ceiling": "DRAFT_FOR_REVIEW",
+      "must_not_be_recency_dominated": true
+    },
     "failure_action": "regenerate_or_expand_by_preregistered_rules_only",
     "prohibits_method_outcome_based_item_selection": true,
-    "threshold_status": "DRAFT_FOR_REVIEW"
+    "status": "DRAFT_FOR_REVIEW"
   },
   "required_annotations": {
     "canonical_task_support_flow": {
       "required_nodes": true,
-      "required_groups": true,
+      "required_groups": {
+        "required": true,
+        "item_schema": {
+          "required_fields": ["group_id", "acceptable_evidence_ids"]
+        }
+      },
+      "required_flow_edges": {
+        "required": true,
+        "item_schema": {
+          "required_fields": [
+            "edge_id",
+            "from_group",
+            "to_group",
+            "relation_type",
+            "allowed_endpoint_pairs"
+          ],
+          "allowed_endpoint_pairs_item_shape": ["from_evidence_id", "to_evidence_id"]
+        }
+      },
       "support_edges": true,
       "update_edges": true,
       "supersession_edges": true,
       "prerequisite_edges": true,
       "verification_edges": true,
-      "authored_before_method_evaluation": true
+      "authored_before_method_evaluation": true,
+      "flowcomplete_uses_retrieved_set_plus_author_flow": true,
+      "baseline_graph_prediction_required": false,
+      "complete_can_be_one_while_flowcomplete_is_zero": true
     }
   },
   "primary_metrics": ["Recall@5", "nDCG@5", "Complete@5", "FlowComplete@5"],
