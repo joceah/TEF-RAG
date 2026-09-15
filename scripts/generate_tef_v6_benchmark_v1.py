@@ -169,7 +169,9 @@ def generate(config, seed):
         for position in range(9):
             event_time = start + timedelta(hours=position)
             source_type = EVENT_TYPES[(global_index + position) % len(EVENT_TYPES)]
-            if "PROCEDURE_VERSIONING" in labels and position < 3:
+            if "PERSISTENT_UNCERTAINTY" in labels and position == 8:
+                source_type = "uncertainty"
+            elif "PROCEDURE_VERSIONING" in labels and position < 3:
                 source_type = "procedure_applicability"
             elif "CROSS_SOURCE_REQUIRED" in labels and position < 3:
                 source_type = ("state_observation", "diagnosis", "work_order")[position]
