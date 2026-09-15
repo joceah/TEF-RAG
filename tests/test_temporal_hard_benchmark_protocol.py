@@ -33,14 +33,49 @@ class TemporalHardBenchmarkProtocolTests(unittest.TestCase):
     def test_status_and_top_k(self):
         self.assertEqual(self.config["status"], "DRAFT_FOR_REVIEW")
         self.assertEqual(self.config["top_k"], 5)
+        self.assertFalse(self.config["data_generation"]["performed"])
 
-    def test_structural_and_performance_latest5_gates_are_separate(self):
+    def test_benchmark_scale_and_split(self):
+        scale = self.config["benchmark_scale"]
+        self.assertEqual(scale["total"], {
+            "authored_chains": 400,
+            "primary_intents": 1200,
+            "query_rows": 2400,
+            "target_assets": 100,
+        })
+        self.assertEqual(scale["per_chain_primary_intents"], 3)
+        self.assertEqual(scale["paraphrases_per_intent"], 2)
+        self.assertFalse(scale["paraphrases_are_independent_samples"])
+        for layer_name in ("realistic_distribution_set", "temporal_hard_challenge_set"):
+            layer = scale[layer_name]
+            self.assertEqual(layer["authored_chains"], 200)
+            self.assertEqual([layer["split"][x]["chains"] for x in ("development", "validation", "test")], [120, 40, 40])
+
+    def test_difficulty_composition(self):
+        composition = self.config["difficulty_composition"]
+        challenge = composition["challenge"]
+        self.assertEqual(challenge["single_primary_hard_chains"], 160)
+        self.assertEqual(challenge["primary_chains_per_difficulty"], 20)
+        self.assertEqual(challenge["primary_difficulty_split_per_type"], {"development": 12, "validation": 4, "test": 4})
+        self.assertEqual(challenge["compositional_hard_chains"], 40)
+        realistic = composition["realistic"]
+        self.assertEqual(realistic["routine_or_mostly_recency_solvable"]["chains"], 120)
+        self.assertEqual(realistic["single_temporal_complication"]["chains"], 50)
+        self.assertEqual(realistic["compound_temporal_hard"]["chains"], 30)
+
+    def test_structural_performance_and_major_stratum_gates(self):
         latest = self.config["latest5_acceptance"]
         self.assertEqual(latest["structural_gate"]["challenge_recency_solvable_at_5_max"], 0.4)
         self.assertEqual(latest["performance_gate"]["challenge_latest5_complete_at_5_max"], 0.4)
         self.assertIsNot(latest["structural_gate"], latest["performance_gate"])
-        self.assertEqual(latest["major_stratum_policy"]["major_stratum_definition"], "DRAFT_FOR_REVIEW")
-        self.assertEqual(latest["major_stratum_policy"]["major_stratum_recency_solvable_ceiling"], "DRAFT_FOR_REVIEW")
+        major = latest["major_stratum_policy"]
+        self.assertEqual(major["minimum_primary_chains_overall"], 20)
+        self.assertEqual(major["minimum_primary_intents_overall"], 60)
+        self.assertEqual(major["minimum_validation_chains"], 4)
+        self.assertEqual(major["minimum_validation_primary_intents"], 12)
+        self.assertEqual(major["minimum_test_chains"], 4)
+        self.assertEqual(major["minimum_test_primary_intents"], 12)
+        self.assertEqual(major["major_stratum_recency_solvable_ceiling"], 0.5)
 
     def test_canonical_flow_and_bitemporal_rules(self):
         flow = self.config["required_annotations"]["canonical_task_support_flow"]
@@ -101,22 +136,63 @@ class TemporalHardBenchmarkProtocolTests(unittest.TestCase):
         self.assertEqual(self.config["procedure_versioning_required"]["versions"], ["V1", "V2", "V3"])
         splits = self.config["split_rules"]
         self.assertTrue(splits["chain_isolation"] and splits["intent_isolation"] and splits["paraphrases_share_split"])
-
-    def test_family_and_asset_split_constraints(self):
-        splits = self.config["split_rules"]
         self.assertTrue(splits["scenario_family_isolation"])
         self.assertTrue(splits["template_family_isolation"])
         self.assertTrue(splits["challenge_test_asset_disjoint"])
+        self.assertTrue(splits["challenge_assets_disjoint_across_all_splits"])
+        self.assertTrue(splits["realistic_assets_disjoint_from_challenge_assets"])
         self.assertFalse(splits["realistic_exact_asset_disjoint_required"])
 
     def test_required_metadata_for_split_audit(self):
         self.assertTrue(REQUIRED_METADATA <= set(self.config["required_metadata"]))
 
-    def test_telemetry_is_separate_and_no_results_or_generation_exist(self):
+    def test_telemetry_reference_and_modeling_choices(self):
         telemetry = self.config["telemetry_constraints"]
+        reference = telemetry["reference_system"]
+        envelope = telemetry["source_backed_envelope"]
+        modeling = telemetry["benchmark_modeling_choices"]
+        sampling = telemetry["sampling"]
+        anomaly = telemetry["gross_data_quality_anomaly_policy"]
+        self.assertEqual((reference["chemistry"], reference["nominal_capacity_ah"], reference["nominal_voltage_v"]), ("LFP", 280, 3.2))
+        self.assertEqual(envelope["operating_voltage_v_t_gt_0c"], [2.5, 3.65])
+        self.assertEqual(envelope["operating_voltage_v_t_lte_0c"], [2.0, 3.65])
+        self.assertEqual(envelope["ambient_charge_temperature_c"], [0, 60])
+        self.assertEqual(envelope["ambient_discharge_temperature_c"], [-30, 60])
+        self.assertEqual(modeling["normal_soc_percent"], [10, 90])
+        self.assertEqual(modeling["normal_cell_temperature_c"], [15, 35])
+        self.assertEqual(modeling["elevated_cell_temperature_c"], [35, 45])
+        self.assertEqual(modeling["fault_event_trend_temperature_c"], [45, 55])
+        self.assertEqual(sampling["raw_telemetry_seconds"], 1)
+        self.assertEqual(sampling["rag_facing_evidence_seconds"], 60)
+        self.assertEqual(sampling["trend_windows_minutes"], [5, 15, 60])
+        self.assertEqual(anomaly["target_raw_point_ratio"], 0.0002)
+        self.assertEqual(anomaly["hard_cap_raw_point_ratio"], 0.0005)
+        self.assertEqual(anomaly["max_chain_ratio_with_gross_anomaly_segment"], 0.02)
         self.assertTrue(telemetry["numerical_anomaly_not_device_fault"])
         self.assertTrue(telemetry["numerical_anomaly_not_temporal_hard_query"])
+        self.assertTrue(telemetry["source_backed_values_must_not_be_conflated_with_modeling_choices"])
+
+    def test_review_policy_is_ai_assisted_not_expert_claim(self):
+        review = self.config["review_protocol"]
+        self.assertFalse(review["claim_expert_reviewed"])
+        self.assertFalse(review["claim_field_certified"])
+        self.assertTrue(review["all_chains_deterministic_validation"])
+        self.assertTrue(review["all_chains_ai_semantic_review"])
+        self.assertTrue(review["validation_and_test_second_independent_ai_review"])
+        self.assertTrue(review["unresolved_not_allowed_in_validation_or_test"])
+        self.assertIn("AI-assisted", review["paper_label"])
+
+    def test_test_access_policy(self):
+        policy = self.config["evaluation_access_policy"]
+        self.assertFalse(policy["test_gold_public_branch_before_primary_evaluation"])
+        self.assertTrue(policy["test_gold_sha256_required"])
+        self.assertTrue(policy["primary_test_only_after_v6_architecture_objective_weights_and_baselines_frozen"])
+        self.assertTrue(policy["test_rerun_after_bugfix_requires_audit_log"])
+
+    def test_no_results_or_generation_exist(self):
         self.assertFalse(self.config["data_generation"]["performed"])
+        self.assertTrue(self.config["data_generation"]["sample_counts_specified"])
+        self.assertTrue(self.config["data_generation"]["numeric_generation_policy_specified"])
         self.assertNotIn("observed_results", self.config)
         self.assertIn("NO DATA GENERATED FROM THIS PROTOCOL YET", self.markdown)
 
