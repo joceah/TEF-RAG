@@ -4,13 +4,48 @@
   "status_notice": [
     "DRAFT FOR USER REVIEW",
     "NOT YET FROZEN",
-    "NO DATA GENERATED FROM THIS PROTOCOL YET"
+    "NO DATA GENERATED FROM THIS PROTOCOL YET",
+    "FORMER DRAFT PARAMETERS ARE NOW SPECIFIED PENDING FINAL FREEZE"
   ],
   "top_k": 5,
   "benchmark_layers": [
     "REALISTIC_DISTRIBUTION_SET",
     "TEMPORAL_HARD_CHALLENGE_SET"
   ],
+  "benchmark_scale": {
+    "total": {
+      "authored_chains": 400,
+      "primary_intents": 1200,
+      "query_rows": 2400,
+      "target_assets": 100
+    },
+    "per_chain_primary_intents": 3,
+    "paraphrases_per_intent": 2,
+    "paraphrases_are_independent_samples": false,
+    "realistic_distribution_set": {
+      "authored_chains": 200,
+      "primary_intents": 600,
+      "query_rows": 1200,
+      "target_assets": 50,
+      "split": {
+        "development": {"chains": 120, "primary_intents": 360, "query_rows": 720},
+        "validation": {"chains": 40, "primary_intents": 120, "query_rows": 240},
+        "test": {"chains": 40, "primary_intents": 120, "query_rows": 240}
+      }
+    },
+    "temporal_hard_challenge_set": {
+      "authored_chains": 200,
+      "primary_intents": 600,
+      "query_rows": 1200,
+      "target_assets": 50,
+      "asset_split": {"development": 30, "validation": 10, "test": 10},
+      "split": {
+        "development": {"chains": 120, "primary_intents": 360, "query_rows": 720},
+        "validation": {"chains": 40, "primary_intents": 120, "query_rows": 240},
+        "test": {"chains": 40, "primary_intents": 120, "query_rows": 240}
+      }
+    }
+  },
   "difficulty_types": [
     "MULTI_EPISODE_DISAMBIGUATION",
     "CUTOFF_SENSITIVE",
@@ -21,6 +56,23 @@
     "SIMILAR_SYMPTOM_DIFFERENT_CAUSE",
     "PERSISTENT_UNCERTAINTY"
   ],
+  "difficulty_composition": {
+    "challenge": {
+      "single_primary_hard_chains": 160,
+      "primary_chains_per_difficulty": 20,
+      "primary_difficulty_split_per_type": {"development": 12, "validation": 4, "test": 4},
+      "compositional_hard_chains": 40,
+      "compositional_labels_per_chain_min": 2,
+      "compositional_labels_per_chain_max": 3,
+      "compositional_split": {"development": 24, "validation": 8, "test": 8}
+    },
+    "realistic": {
+      "label": "deployment_like_synthetic_mixture_not_real_incidence",
+      "routine_or_mostly_recency_solvable": {"chains": 120, "ratio": 0.60, "split": {"development": 72, "validation": 24, "test": 24}},
+      "single_temporal_complication": {"chains": 50, "ratio": 0.25, "split": {"development": 30, "validation": 10, "test": 10}},
+      "compound_temporal_hard": {"chains": 30, "ratio": 0.15, "split": {"development": 18, "validation": 6, "test": 6}}
+    }
+  },
   "split_names": ["development", "validation", "test"],
   "split_rules": {
     "chain_isolation": true,
@@ -29,7 +81,9 @@
     "scenario_family_isolation": true,
     "template_family_isolation": true,
     "challenge_test_asset_disjoint": true,
+    "challenge_assets_disjoint_across_all_splits": true,
     "realistic_exact_asset_disjoint_required": false,
+    "realistic_assets_disjoint_from_challenge_assets": true,
     "test_requires_independent_event_combinations": true,
     "primary_sampling_unit": "independent_intent_or_chain",
     "clustered_reporting_units": ["intent_id", "chain_id", "asset_id"]
@@ -56,20 +110,25 @@
     },
     "structural_gate": {
       "challenge_recency_solvable_at_5_max": 0.4,
-      "status": "DRAFT_FOR_REVIEW"
+      "status": "SPECIFIED_PENDING_FINAL_FREEZE"
     },
     "performance_gate": {
       "challenge_latest5_complete_at_5_max": 0.4,
-      "status": "DRAFT_FOR_REVIEW"
+      "status": "SPECIFIED_PENDING_FINAL_FREEZE"
     },
     "major_stratum_policy": {
-      "major_stratum_definition": "DRAFT_FOR_REVIEW",
-      "major_stratum_recency_solvable_ceiling": "DRAFT_FOR_REVIEW",
+      "minimum_primary_chains_overall": 20,
+      "minimum_primary_intents_overall": 60,
+      "minimum_validation_chains": 4,
+      "minimum_validation_primary_intents": 12,
+      "minimum_test_chains": 4,
+      "minimum_test_primary_intents": 12,
+      "major_stratum_recency_solvable_ceiling": 0.5,
       "must_not_be_recency_dominated": true
     },
     "failure_action": "regenerate_or_expand_by_preregistered_rules_only",
     "prohibits_method_outcome_based_item_selection": true,
-    "status": "DRAFT_FOR_REVIEW"
+    "status": "SPECIFIED_PENDING_FINAL_FREEZE"
   },
   "required_annotations": {
     "canonical_task_support_flow": {
@@ -136,14 +195,50 @@
     "inactive_external_mechanism_label": "compatibility run"
   },
   "telemetry_constraints": {
-    "signals": ["voltage", "current", "temperature", "SOC", "DRAFT_FOR_REVIEW_OTHER_NEEDED_TELEMETRY"],
+    "reference_system": {
+      "chemistry": "LFP",
+      "form_factor": "prismatic_stationary_ess_cell",
+      "nominal_capacity_ah": 280,
+      "nominal_voltage_v": 3.2
+    },
+    "source_backed_envelope": {
+      "operating_voltage_v_t_gt_0c": [2.5, 3.65],
+      "operating_voltage_v_t_lte_0c": [2.0, 3.65],
+      "ambient_charge_temperature_c": [0, 60],
+      "ambient_discharge_temperature_c": [-30, 60]
+    },
+    "benchmark_modeling_choices": {
+      "normal_soc_percent": [10, 90],
+      "routine_abs_rate_p_max": 0.5,
+      "high_load_abs_rate_p_range": [0.5, 1.0],
+      "above_1p_is_not_normal_sustained_operation": true,
+      "normal_cell_temperature_c": [15, 35],
+      "elevated_cell_temperature_c": [35, 45],
+      "fault_event_trend_temperature_c": [45, 55],
+      "above_55c_requires_explicit_high_temperature_event": true
+    },
+    "sampling": {
+      "raw_telemetry_seconds": 1,
+      "rag_facing_evidence_seconds": 60,
+      "trend_windows_minutes": [5, 15, 60],
+      "summary_fields": ["min", "max", "mean", "std", "slope", "last"],
+      "event_raw_window_minutes_each_side": 60,
+      "one_second_is_benchmark_choice_with_public_field_data_precedent_not_lfp_standard": true
+    },
+    "gross_data_quality_anomaly_policy": {
+      "target_raw_point_ratio": 0.0002,
+      "hard_cap_raw_point_ratio": 0.0005,
+      "max_chain_ratio_with_gross_anomaly_segment": 0.02,
+      "ratios_are_modeling_choices_not_real_incidence": true
+    },
+    "signals": ["voltage", "current", "temperature", "SOC"],
     "normal_values_are_majority": true,
     "extreme_anomalies_are_rare": true,
     "extreme_anomaly_meaning": ["implausible_deviation", "sensor_error", "communication_error", "acquisition_error"],
     "numerical_anomaly_not_device_fault": true,
     "numerical_anomaly_not_temporal_hard_query": true,
     "do_not_raise_anomaly_rate_for_rag_difficulty": true,
-    "real_numeric_ranges": "DRAFT_FOR_REVIEW"
+    "source_backed_values_must_not_be_conflated_with_modeling_choices": true
   },
   "operation_event_types": [
     "state_observation", "alarm", "diagnosis", "work_order", "inspection",
@@ -168,6 +263,28 @@
     "state_snapshot_trend_card_or_event_evidence",
     "rag_retrieval"
   ],
+  "review_protocol": {
+    "claim_expert_reviewed": false,
+    "claim_field_certified": false,
+    "paper_label": "public-source-grounded, AI-assisted reviewed synthetic benchmark",
+    "all_chains_deterministic_validation": true,
+    "all_chains_ai_semantic_review": true,
+    "validation_and_test_second_independent_ai_review": true,
+    "unresolved_label": "REVIEW_UNRESOLVED",
+    "unresolved_not_allowed_in_validation_or_test": true,
+    "resolution_methods": ["additional_public_source_research", "correct_authored_logic", "regenerate_by_preregistered_rules"],
+    "method_outcome_must_not_influence_review_resolution": true,
+    "limitation_must_be_disclosed": "no_qualified_field_expert_or_real_station_work_order_validation"
+  },
+  "evaluation_access_policy": {
+    "development": "query_evidence_gold_and_flow_visible",
+    "validation": "gold_and_flow_available_for_model_selection_and_ablation",
+    "test": "query_and_evidence_visible_gold_and_flow_evaluator_only_before_primary_evaluation",
+    "test_gold_public_branch_before_primary_evaluation": false,
+    "test_gold_sha256_required": true,
+    "primary_test_only_after_v6_architecture_objective_weights_and_baselines_frozen": true,
+    "test_rerun_after_bugfix_requires_audit_log": true
+  },
   "multi_step_policy": {
     "implementation_in_this_protocol_round": false,
     "candidate_tags": ["long_span", "multi_episode", "revision_history"],
@@ -179,10 +296,31 @@
     "no_method_outcome_based_test_filtering": true,
     "no_generated_test_results_in_protocol": true
   },
+  "public_sources": [
+    {
+      "name": "HiTHIUM ESS Cell 280 Ah datasheet",
+      "supports": ["LFP", "280Ah", "3.2V_nominal", "operating_voltage", "charge_temperature", "discharge_temperature"],
+      "url": "https://hithium.com/fileadmin/ns_theme_hithium/pdf/HiTHIUM_Data-Sheet_ESS-Cell280Ah_V1-1_EU_EN_230612.pdf"
+    },
+    {
+      "name": "HiTHIUM cell product page",
+      "supports": ["280Ah_LFP", "temperature_range"],
+      "url": "https://www.hithium.com/products/1.html"
+    },
+    {
+      "name": "RWTH Aachen M5BAT Battery Unit Pb1 2017-2025",
+      "supports": ["one_second_resolution_BESS_field_data"],
+      "doi": "10.18154/RWTH-2026-06637",
+      "url": "https://publications.rwth-aachen.de/record/1038622"
+    }
+  ],
   "data_generation": {
     "performed": false,
     "requires_user_freeze_before_start": true,
-    "undecided_sample_counts": "DRAFT_FOR_REVIEW",
-    "undecided_numeric_ranges": "DRAFT_FOR_REVIEW"
+    "sample_counts_specified": true,
+    "numeric_generation_policy_specified": true,
+    "difficulty_mix_specified": true,
+    "review_policy_specified": true,
+    "test_access_policy_specified": true
   }
 }
