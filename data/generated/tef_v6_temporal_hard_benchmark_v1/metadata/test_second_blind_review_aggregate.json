@@ -1,0 +1,17 @@
+{
+  "review_protocol": "FORMAL_TEST_SECOND_BLIND_AI_SEMANTIC_PASS_2",
+  "review_date": "2026-09-16",
+  "blindness_compliant": true,
+  "chain_count": 80,
+  "query_row_count": 480,
+  "pass_count": 80,
+  "review_unresolved_count": 0,
+  "pass1_pass2_agreement_count": 80,
+  "pass1_pass2_disagreement_count": 0,
+  "resolved_disagreement_count": 0,
+  "independent_item_level_artifact_public": false,
+  "independent_item_level_artifact_sha256": "6e274720b45f8fe1d23b9e662cd294168acbcce91cb3a37e11000e2d6bb1e3f7",
+  "sealed_test_evaluator_record_count": 480,
+  "sealed_test_evaluator_sha256": "477bb709f3dfdb672ce5a7f5c93168e0791c7a90cb247c62a6072bd8dee7c9f3",
+  "completion_state": "COMPLETE_PASS"
+}
