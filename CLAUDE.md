@@ -1,90 +1,109 @@
-# TEF-RAG Agent Context
+# TEF-RAG Agent 核心上下文
 
-> **Canonical working context for coding/research agents.** Read this file first. Keep it short, current, and decision-oriented. Historical iteration details belong in `docs/DEVELOPMENT_HISTORY.md`.
+> **这是编码 / 研究 Agent 的唯一核心工作上下文。** 每次开始任务先读本文件。本文件应保持简洁、当前、面向决策；历史迭代细节统一放在 `docs/DEVELOPMENT_HISTORY.md`。
 >
-> Updated: 2026-09-14  
-> Current development branch: `tef-rag-v5.1-failure-attribution`
+> 更新时间：2026-09-15  
+> 当前开发分支：`tef-rag-v5.1-failure-attribution`
 
-## 1. Research background: do not drift away from this
+## 1. 研究背景：后续迭代不得偏离
 
-The most important project source is:
+本项目最重要、最高优先级的背景文件是：
 
 `docs/project_background/一种储能电站多模态异构数据的时空对齐与可信感知方法.docx`
 
-**All later method and dataset iterations must remain grounded in the problem defined by this document unless the user explicitly changes the research direction.** The initial paper in `paper/TMC_RAG_ICRA_style_zh_v2.pdf` is useful historical context, but its method is not the final research target.
+**除非用户明确调整研究方向，否则后续所有方法、数据集与论文迭代都必须围绕该文件所定义的问题展开。** `paper/TMC_RAG_ICRA_style_zh_v2.pdf` 只用于理解初版论文与历史方法，不代表最终研究目标。
 
-The core task is **embodied operation-and-maintenance planning for battery energy storage stations**, not generic temporal QA and not generic incident-log retrieval.
+项目核心不是通用时序问答，也不是通用事故日志检索，而是：
 
-The system must combine heterogeneous evidence such as:
+> **面向储能电站具身运维任务规划，在设备、时间、规程适用性等硬约束下，从多源异构证据中检索并组织能够支撑当前任务的一组完整、可信、可审计证据，并最终支持结构化工单与具有依赖关系的具身动作计划生成。**
 
-- unstructured procedures/manuals/safety documents;
-- structured work orders, equipment records, alarms, maintenance history;
-- BMS/SCADA state records;
-- professional-model prediction evidence when applicable.
+系统需要联合处理的证据包括但不限于：
 
-The downstream target is not only a natural-language answer. It should support a **structured work order and an executable/partially ordered embodied action plan**.
+- 非结构化规程、设备说明书、安全协议；
+- 结构化历史工单、设备记录、告警与维护历史；
+- BMS / SCADA 当前状态记录；
+- 在任务需要时，由专业模型产生的预测类证据。
 
-The original background identifies four enduring problem requirements:
+下游目标不只是自然语言回答，而应能够支撑：
 
-1. **Context completeness** — procedure steps depend on section-level context, prerequisites and scope.
-2. **Field precision** — device IDs, timestamps, alarm codes and other structured fields cannot be replaced by semantic approximation.
-3. **Temporal/order correctness** — evidence availability and operation dependencies matter; unsafe reordering is not acceptable.
-4. **Predictive support when needed** — health/trend decisions should use professional prediction evidence rather than asking the LLM to invent SOH/RUL behavior.
+- **结构化工单**；
+- **可执行或部分有序的具身动作计划**。
 
-Do **not** reduce the research problem to a universal `Observation -> Diagnosis -> Action -> Verification` chain. That pattern may occur in some cases, but TEF-RAG should model a **query-conditioned task-support evidence flow** across heterogeneous sources. Depending on the query, a coherent flow may involve current state, historical precedent, forecast, applicable procedure, prerequisite, action support, correction/supersession, verification, or preserved uncertainty.
+原始背景中有四类长期有效的问题约束：
 
-## 2. Hard constraints vs. learnable/optimizable selection
+1. **上下文完整性**：规程步骤依赖章节上下文、前置条件和适用范围，不能只靠孤立片段理解。
+2. **字段精确性**：设备 ID、时间戳、告警码等结构化字段不能被“语义近似”替代。
+3. **时序 / 顺序正确性**：证据何时可见、操作步骤之间的依赖关系都会影响任务正确性，不允许不安全地任意重排。
+4. **预测性支持**：涉及健康趋势或未来风险时，应使用专业预测证据，不应让 LLM 自行臆测 SOH / RUL 等行为。
 
-A central project principle is to separate **feasibility constraints** from **evidence selection policy**.
+不要把项目简化成固定的：
 
-### Preserve as hard feasibility constraints
+`Observation -> Diagnosis -> Action -> Verification`
 
-These are domain-validity rules, not the main claimed algorithmic novelty:
+这种链条在部分场景中可能成立，但 TEF-RAG 更一般的目标是建模：
 
-- target device/entity must be correct;
-- `event_time <= query_time` when event time exists;
-- `available_at <= query_time`;
-- procedure/model/version validity must hold at query time;
-- retrieval must never read gold/reference labels;
-- future or unavailable evidence must not leak into retrieval;
-- offline authoring/gold fields may be used only for diagnostics/evaluation.
+> **query-conditioned task-support evidence flow（查询条件化的任务支持证据流）**。
 
-### Do not freeze old engineering rules as the research contribution
-
-The following are mutable implementation choices and may be replaced by better methods:
-
-- fixed task-to-source routing;
-- fixed source quotas such as N manuals / M work orders / one state / one forecast;
-- BM25-only or dense-only choices;
-- fixed parent/full-section restoration strategy;
-- hand-written importance rules;
-- manually fixed evidence-role or relation heuristics if a better auditable representation is developed.
-
-The research direction is to let the algorithm decide **which valid evidence combination best supports the current maintenance task under a finite context budget**.
+根据具体 query，一条完整证据流可能包含当前状态、历史先例、预测、适用规程、前置条件、动作支撑、后续更正 / 覆盖、验证或持续不确定性等不同角色。
 
 ---
 
-# 3. Two permanent workstreams
+## 2. 必须区分：硬可行性约束 vs. 可学习 / 可优化的证据选择策略
 
-Unless the user explicitly changes the project direction, development must always advance along **both** of these workstreams. Do not optimize one while ignoring the other.
+项目的核心原则之一是：
 
-## A. DATA: build a benchmark that actually requires temporal evidence reasoning
+> **把“哪些证据绝对不能用”与“合法证据中应该选哪些”严格分开。**
 
-The benchmark must test the failure modes that motivate TEF-RAG, rather than being solvable by `same device + newest records`.
+### 应保留为硬可行性约束
 
-### Data design invariants
+这些规则属于领域有效性边界，不是主要算法创新点：
 
-- Difficulty must be designed **before** evaluating the target algorithm; do not delete or select queries post hoc because a method failed or succeeded.
-- New validation/test data must be independent of the seen v5/v5.1 diagnostic set.
-- Prefer fewer genuinely hard, independently reviewed cases over thousands of template-repeated easy paraphrases.
-- Two paraphrases of one intent are not two independent events. Statistical analysis should cluster by intent / asset / authored chain or another defensible independent unit.
-- Freeze benchmark construction rules and difficulty acceptance criteria before comparing new algorithms.
-- A simple `Latest-5` baseline must be treated as a required difficulty audit. A temporal benchmark dominated by Latest-5-solvable queries is not an adequate primary validation set.
-- Old hard subsets extracted after seeing results may be used for **development diagnostics only**, not relabeled as an independent test set.
+- 目标设备 / 实体必须正确；
+- 若存在事件时间，则必须满足 `event_time <= query_time`；
+- 必须满足 `available_at <= query_time`；
+- 规程型号、版本及有效期必须在查询时刻适用；
+- retrieval 阶段绝不能读取 gold / reference 标签；
+- 不得泄漏未来或查询时刻尚不可见的证据；
+- authoring / gold 字段只能用于离线诊断和评价。
 
-### Difficulty families that should remain central
+### 不要把旧工程规则固化成研究贡献
 
-New data should include combinations of:
+以下都属于可替换的实现策略，而不是不可改变的核心：
+
+- 固定 task -> source 路由；
+- 固定 source quota，例如 N 个规程、M 个工单、1 个状态、1 个预测；
+- 固定使用 BM25、Dense 或某种简单融合；
+- 固定 parent / 整节恢复策略；
+- 手写的重要性规则；
+- 手工固定的 evidence role 或 relation 启发式，只要能提出更合理、可审计的表示，就可以替换。
+
+研究方向应逐渐转向：
+
+> **在有限 Top-k / 上下文预算下，由算法决定哪一组合法证据最能共同支撑当前运维任务。**
+
+---
+
+# 3. 两条长期主线任务
+
+除非用户明确调整方向，否则后续工作必须始终沿着以下 **数据** 与 **算法** 两条主线同时推进。不能只优化其中一条而长期忽略另一条。
+
+## A. 数据主线：构造真正需要时序证据推理的 benchmark
+
+benchmark 必须真实测试 TEF-RAG 想解决的困难，而不能被 `同设备 + 最新若干条记录` 轻易解决。
+
+### 数据设计不变量
+
+- 难度规则必须在评估目标算法 **之前** 定义，不能因为某方法成功或失败再事后删题、挑题。
+- 新 validation / test 必须独立于已经看过的 v5 / v5.1 诊断集。
+- 与其生成数千条模板重复的简单改写，更优先少量真正困难、结构独立、经过人工复核的案例。
+- 同一 intent 的两个改写不能被当作两个独立真实事件；统计时应按 intent / asset / authored chain 等合理独立单元聚类。
+- 在比较新算法前，先冻结 benchmark 构造规则、难度标签规则和验收标准。
+- `Latest-5` 必须作为强制难度审计基线。如果大部分 temporal query 能被 Latest-5 解决，该 benchmark 不适合作为主要验证集。
+- 旧数据中基于已知结果筛出的 hard subset 只能用于 **开发诊断**，不能重新包装为独立 test。
+
+### 必须长期保留和扩充的难度类型
+
+新数据应包含以下难度及其组合：
 
 - `MULTI_EPISODE_DISAMBIGUATION`
 - `CUTOFF_SENSITIVE`
@@ -95,190 +114,257 @@ New data should include combinations of:
 - `SIMILAR_SYMPTOM_DIFFERENT_CAUSE`
 - `PERSISTENT_UNCERTAINTY`
 
-The hard cases should include longer histories, interleaved episodes, corrections/reopenings, real procedure revision/withdrawal logic, multiple source dependencies, and cases where the newest visible records belong to the wrong branch/episode.
+真正困难的样本应逐步加入：
 
-### Future annotation target
+- 更长的同设备历史；
+- 多 episode 交织；
+- 工单 reopen / correction / supersession；
+- 真实风格的规程修订、撤回和版本替换；
+- 多源证据缺失与相互依赖；
+- “最新记录属于错误 branch / episode”的情况。
 
-For a serious v6 validation set, prefer explicit annotation of a **canonical task-support evidence flow** or defensible support edges, rather than only a set of necessary evidence IDs. This enables a real `FlowComplete@k`-style metric instead of a projection-conditioned proxy.
+### 未来 annotation 目标
+
+对于严肃的 v6 validation set，优先考虑显式标注：
+
+> **canonical task-support evidence flow（标准任务支持证据流）**
+
+或至少标注可解释的 support edges，而不是只提供必要 evidence ID 集合。
+
+这样未来才能定义真正的 `FlowComplete@k` 一类指标，而不是继续依赖 projection-conditioned proxy。
 
 ---
 
-## B. ALGORITHM: move from hard-coded retrieval policy to coherent task-support evidence selection
+## B. 算法主线：从硬编码检索策略走向 coherent task-support evidence selection
 
-The algorithmic goal is not simply “more temporal weighting”. It is:
+算法目标不是简单“加入更多时间权重”，而是：
 
-> **Within the hard validity/visibility constraints, retrieve a query-conditioned, complementary, coherent and auditable evidence set that supports the maintenance task under Top-k/context budget.**
+> **在设备 / 时间 / 规程等硬有效性约束内，在 Top-k / context budget 下，检索出 query-conditioned、互补、连贯、可审计，且能够共同支撑当前运维任务的证据集合。**
 
-The intended research evolution is:
+预期研究演进主线是：
 
-`hard-rule TMC-RAG -> query-conditioned set selection -> correct evidence representation/graph -> task-support flow completion`
+`硬规则 TMC-RAG -> 查询条件化集合选择 -> 正确的证据表示 / 图结构 -> 任务支持证据流闭合`
 
-Do not redesign the algorithm before attributing the current failure mode. Search, representation/projection and objective errors must be separated experimentally.
+在归因清楚当前失败模式前，不要直接重新设计算法。必须实验性地区分：
+
+- Search error；
+- Representation / Projection error；
+- Objective error。
 
 ---
 
-# 4. Current status
+# 4. 当前工作进度
 
-## 4.1 Initial TMC-RAG / paper stage
+## 4.1 初版 TMC-RAG / 论文阶段
 
-The initial TMC-RAG pipeline demonstrated useful domain constraints: source-aware retrieval, bitemporal visibility, device/model/version filtering, procedure restoration, structured output and bounded repair. However, much of the retrieval policy was manually specified, so it is treated as an engineering baseline / historical stage rather than the final novelty claim.
+初版 TMC-RAG 已证明一些领域约束确实有价值，包括：
+
+- 分源检索；
+- 双时间可见性；
+- 设备 / 型号 / 版本过滤；
+- 规程恢复；
+- 结构化生成；
+- 有界修复。
+
+但其 retrieval policy 中大量逻辑由人工路由、quota 和硬规则指定，因此当前将其定位为：
+
+> **工程基线 / 历史前身，而不是最终算法创新点。**
 
 ## 4.2 TEF-RAG v5
 
-v5 replaced path-prefix filling with a **query-conditioned set-level objective**:
+v5 将旧的 path-prefix filling 改造成 **query-conditioned set-level objective（查询条件化集合级目标）**：
 
 `Semantic + DirectedChain + RoleCoverage - Redundancy`
 
-with fixed weights in the frozen v5 implementation. It improved some ranking behavior but did not establish a complex-chain advantage over Scoped Hybrid.
+权重在冻结的 v5 实现中固定。
 
-On the frozen 16-query v5 stress set:
+它改善了部分排序行为，但没有在复杂链任务上证明相对 Scoped Hybrid 的稳定优势。
 
-- complex-chain Scoped Hybrid: Recall@5 `0.6750`, nDCG@5 `0.6841`, Complete@5 `0.2500`;
-- complex-chain TEF-RAG v5: Recall@5 `0.6750`, nDCG@5 `0.7074`, Complete@5 `0.1250`.
+冻结的 16-query v5 stress set 上，复杂链 8 题：
 
-This set is now **seen diagnostic data**. It must not be tuned on and then reused as unbiased validation.
+- Scoped Hybrid：Recall@5 `0.6750`，nDCG@5 `0.6841`，Complete@5 `0.2500`；
+- TEF-RAG v5：Recall@5 `0.6750`，nDCG@5 `0.7074`，Complete@5 `0.1250`。
 
-## 4.3 TEF-RAG v5.1 failure attribution — completed
+因此该数据集现在属于 **已见诊断集**，不能调参后继续当作独立验证结果。
 
-Exhaustive exact set search was added using the same frozen v5 `score_set` objective.
+## 4.3 TEF-RAG v5.1 失败归因 —— 已完成
 
-Key result:
+v5.1 在完全不改变 frozen v5 `score_set` 的前提下加入 exhaustive exact set search。
 
-- 12/12 set-mode queries: Beam selected exactly the same set as Exact;
-- mean/max objective gap: `0`;
-- complex-chain metrics remain `0.6750 / 0.7074 / 0.1250`;
-- 10 failed set-objective queries had a feasible gold-complete Top-5, yet the exact objective preferred an incomplete set in all 10; mean objective margin over the best gold-complete set: `0.0693` (diagnostic only).
+核心结果：
 
-Therefore **beam-search approximation is not the primary failure source on the current small candidate pools**.
+- 12/12 个 set-mode query 中，Beam 与 Exact 选出的集合完全一致；
+- mean / max objective gap 均为 `0`；
+- complex-chain 仍为 `0.6750 / 0.7074 / 0.1250`；
+- 10 个 set-objective 失败 query 中，全部存在可行的 gold-complete Top-5，但 Exact 仍然在 10/10 情况下选择 objective 更高的不完整集合；
+- 不完整最优集相对最佳 gold-complete set 的平均 objective margin 为 `0.0693`（仅用于离线诊断）。
 
-However, v5.1 does **not** yet cleanly separate:
+因此：
 
-- query-profile error;
-- role projection error;
-- relation/evidence-graph projection error;
-- set-objective misalignment.
+> **当前小候选池中，Beam Search 近似不是主要失败来源。**
 
-The taxonomy strongly suggests representation and objective problems may coexist. Do not jump directly from “search is not the problem” to “the objective alone is proven wrong”.
+但 v5.1 还没有把以下因素彻底拆开：
 
-## 4.4 `temporal_maintenance_dev_v2` difficulty audit — completed
+- query profile error；
+- role projection error；
+- relation / evidence-graph projection error；
+- set-objective misalignment。
 
-This dataset is development material, not an independent test set.
+当前 taxonomy 强烈提示：**representation/projection 与 objective 可能同时有问题。**
 
-Current audit summary:
+因此不能从“search 不是问题”直接跳到“已经证明 objective 单独有问题”。
 
-- 1,152 queries / 576 intents;
-- 192 synthetic chains;
-- 48 target devices;
-- `RECENCY_ONLY`: 956/1152 = `82.99%`;
-- among 768 temporal queries, Latest-5 structurally covers all necessary evidence for 572 = `74.48%`;
-- therefore only 196 temporal queries are `TEMPORAL_HARD_NOT_RECENCY_SOLVABLE` (`25.52%` of temporal, `17.01%` of all queries).
+## 4.4 `temporal_maintenance_dev_v2` 难度审计 —— 已完成
 
-This means the full old dev set is dominated by recency-solvable tasks and cannot be the primary evidence for future TEF-v6 claims.
+该数据集当前只属于 development material，不是独立 test。
 
-Important naming rule: the full-1152 frozen method result in this audit is **TMC-RAG-v2**, not TEF-RAG-v5. Do not label it simply `TEF` in future reports.
+难度审计结论：
 
-Known audit cleanup: fix the unrendered `{len(operational_hard)}` / percentage placeholder in the report.
+- 1,152 queries / 576 intents；
+- 192 synthetic chains；
+- 48 台 target devices；
+- `RECENCY_ONLY`：956/1152 = `82.99%`；
+- 768 个 temporal query 中，有 572 个被 Latest-5 结构性覆盖全部必要证据，即 `74.48%`；
+- 因此真正的 `TEMPORAL_HARD_NOT_RECENCY_SOLVABLE` 只有 196 个，占 temporal query 的 `25.52%`，占全部 query 的 `17.01%`。
 
----
+这意味着旧 dev set 被 recency-solvable 任务主导，不能作为未来 TEF-v6 的主要验证依据。
 
-# 5. Immediate next tasks
+重要命名规范：
 
-## Algorithm task: v5.2 Oracle Projection Attribution
+> 难度审计里覆盖 1,152 题的冻结结果来自 **TMC-RAG-v2**，不是 TEF-RAG-v5。后续报告中不要再简单标成 `TEF`。
 
-Before defining v6, run a small offline counterfactual attribution study on the **seen diagnostic set only**.
-
-Keep candidate pool, semantic scores, Top-k, budget, exact search and frozen objective unchanged. Compare combinations such as:
-
-- current profile + current roles + current relations;
-- oracle profile + current roles + current relations;
-- current profile + oracle roles + current relations;
-- current profile + current roles + oracle relations;
-- oracle profile + oracle roles + oracle relations.
-
-Purpose: distinguish whether failures are mainly caused by representation/projection or by the objective even when the representation is correct.
-
-No oracle information may enter actual retrieval. Oracle variants are **offline diagnostic only**.
-
-Decision logic after v5.2:
-
-- oracle relation/representation largely fixes failures -> prioritize evidence graph / relation induction;
-- oracle representation is correct but exact objective still prefers incomplete sets -> prioritize closure-/flow-completion-aware objective;
-- mixed improvement -> v6 should address both graph induction and flow-aware set selection.
-
-Do not retune v5 weights on the 16-query seen set.
-
-## Data task: hard benchmark redesign
-
-In parallel:
-
-1. fix the current difficulty-audit reporting bug and TMC/TEF naming;
-2. export the 196 `TEMPORAL_HARD_NOT_RECENCY_SOLVABLE` queries as a **dev diagnostic manifest only**;
-3. design a new independent temporal-hard benchmark protocol before generating/scoring it;
-4. predefine a Latest-5 difficulty acceptance criterion before method evaluation;
-5. increase independent scenario diversity rather than template/paraphrase count;
-6. add human review and, where feasible, canonical task-support flow annotations.
-
-Do not create a “new test set” by simply filtering the old dev set after observing algorithm results.
+当前 audit 还需要清理一个已知问题：修复报告中未渲染的 `{len(operational_hard)}` / percentage 占位符。
 
 ---
 
-# 6. What v6 is allowed to become
+# 5. 立即下一步任务
 
-Do not implement v6 until v5.2 attribution and the new benchmark protocol are written down.
+## 算法任务：v5.2 Oracle Projection Attribution
 
-A likely v6 direction is some combination of:
+在定义 v6 之前，先在 **已见诊断集** 上做一个小型离线 counterfactual attribution 实验。
 
-- query-conditioned evidence graph/relation induction;
-- closure-aware or flow-completion-aware set scoring;
-- explicit reward for selecting evidence that belongs to one coherent task-support structure rather than disconnected role/relation fragments.
+以下内容全部保持不变：
 
-The final Top-k output may still be a **set**. Paths/flows can be latent scoring structures; do not reintroduce the old v4 mistake where a path becomes an atomic retrieval unit and is later prefix-truncated.
+- candidate pool；
+- semantic score；
+- Top-k；
+- budget；
+- Exact Search；
+- frozen v5 objective。
 
-Any v6 objective, weights, success criteria and validation protocol must be preregistered/frozen before evaluating a new independent holdout.
+只替换 profile / role / relation 表示，至少比较：
+
+- current profile + current roles + current relations；
+- oracle profile + current roles + current relations；
+- current profile + oracle roles + current relations；
+- current profile + current roles + oracle relations；
+- oracle profile + oracle roles + oracle relations。
+
+目标：区分失败究竟主要来自 representation/projection，还是即使表示正确，objective 仍偏好不完整集合。
+
+任何 oracle 信息都不得进入真实 retrieval；Oracle variant **只允许离线诊断**。
+
+v5.2 之后按结果决策：
+
+- 若 oracle relation / representation 大幅修复失败：优先研究 evidence graph / relation induction；
+- 若 oracle representation 已正确，但 Exact objective 仍偏好 incomplete set：优先研究 closure-/flow-completion-aware objective；
+- 若两边都有贡献：v6 应同时解决 graph induction 与 flow-aware set selection。
+
+禁止在这 16 个已见 query 上重新调 v5 权重。
+
+## 数据任务：重构真正 temporal-hard 的 benchmark
+
+与 v5.2 并行进行：
+
+1. 修复 difficulty audit 中的占位符 bug，并统一 TMC / TEF 命名；
+2. 导出 196 个 `TEMPORAL_HARD_NOT_RECENCY_SOLVABLE` query，作为 **dev diagnostic manifest**；
+3. 在生成 / 评分前先写新的独立 temporal-hard benchmark protocol；
+4. 在评估方法前预先定义 Latest-5 难度验收标准；
+5. 优先增加独立 scenario diversity，而不是继续堆模板 / paraphrase 数量；
+6. 加入人工复核，并在可行时增加 canonical task-support flow annotation。
+
+不要把旧 dev set 里根据结果筛出来的 hard query 重新包装成“新的 test set”。
 
 ---
 
-# 7. Evaluation discipline
+# 6. v6 允许演化成什么
 
-Always report retrieval and downstream generation separately.
+在以下两件事完成前，不要正式实现 v6：
 
-Retrieval metrics currently include Recall@k, nDCG@k and Complete@k. For future flow-annotated data, add an explicit flow-completeness metric.
+- v5.2 attribution；
+- 新 benchmark protocol 书面冻结。
 
-Do not treat:
+当前较可能的 v6 方向包括：
 
-- a query paraphrase as an independent event;
-- protocol compliance as task correctness;
-- citation-ID existence as semantic support;
-- projected-graph flow diagnostics as canonical ground truth;
-- aggregate performance on an easy benchmark as evidence of temporal reasoning advantage.
+- query-conditioned evidence graph / relation induction；
+- closure-aware / flow-completion-aware set scoring；
+- 显式奖励属于同一 coherent task-support structure 的证据，而不是仅仅 role 齐全或 relation 数量多但结构碎片化。
 
-Always include simple controls: `Latest`, lexical/BM25 where meaningful, Hybrid, and the strongest valid external baselines that can be run correctly. Failed or compatibility-only external runs must be labeled honestly.
+最终 Top-k 仍然可以输出 **set**。Path / Flow 可以只是 latent scoring structure。
 
----
+不要重新引入 v4 的旧问题：
 
-# 8. Agent execution rules
+> 把 path 当作原子检索单元，最后再按 Top-k 做 prefix truncation。
 
-- Read this file first; read `docs/DEVELOPMENT_HISTORY.md` only when historical context is needed.
-- Read the background DOCX before making a major research-direction change.
-- Reuse existing code paths and shared scoring logic; do not create parallel implementations that silently diverge.
-- Never use gold/authoring fields in retrieval.
-- Do not silently change frozen data, objective weights or evaluation definitions.
-- Do not call external online commercial LLM APIs. If an experiment genuinely needs an LLM, use the existing project-local OpenAI-compatible configuration and environment variables; never commit credentials.
-- Keep unrelated local experiments out of commits. Stage/push only necessary files.
-- Do not use `git add .`, `git add -A`, force-push, `git reset --hard`, or destructive cleaning in a mixed research workspace.
-- Update this `CLAUDE.md` by **replacing current status/tasks**, not appending a long diary. Move obsolete milestones to `docs/DEVELOPMENT_HISTORY.md`.
+任何 v6 objective、权重、success criteria 与 validation protocol，都必须在评估新的独立 holdout 之前预登记 / 冻结。
 
 ---
 
-# 9. Canonical reading order
+# 7. 评价纪律
 
-For most work, read only what is needed:
+始终把 retrieval 和 downstream generation 分开报告。
 
-1. `CLAUDE.md` — current research contract and task state.
-2. `docs/project_background/一种储能电站多模态异构数据的时空对齐与可信感知方法.docx` — canonical problem background.
-3. Relevant current implementation, especially `tef_rag_v5/` and current analysis scripts.
-4. Current diagnostic reports under `experiments/analyses/`.
-5. `docs/DEVELOPMENT_HISTORY.md` only for historical evolution.
-6. `paper/TMC_RAG_ICRA_style_zh_v2.pdf` only when historical paper context is needed; it does not define the current final method.
+当前 retrieval 指标包括：
 
-If a future method conflicts with the background problem or either of the two permanent workstreams, stop and explicitly justify the change before implementing it.
+- Recall@k；
+- nDCG@k；
+- Complete@k。
+
+未来如果数据有 flow annotation，应增加显式 flow-completeness 指标。
+
+以下内容不能混为一谈：
+
+- query paraphrase ≠ 独立事件；
+- protocol compliance ≠ task correctness；
+- citation ID 存在 ≠ semantic support；
+- projected-graph flow diagnostic ≠ canonical ground truth；
+- 在简单 benchmark 上的 aggregate improvement ≠ temporal reasoning advantage。
+
+始终保留简单但重要的 baseline / control：
+
+- `Latest`；
+- 合理情况下的 BM25 / lexical；
+- Hybrid；
+- 能够正确运行的最强外部基线。
+
+外部 baseline 如果只是 compatibility run 或存在失败，必须明确标注，不能包装成正式公平比较。
+
+---
+
+# 8. Agent 执行规则
+
+- 每次任务先读本文件；只有需要历史背景时才读 `docs/DEVELOPMENT_HISTORY.md`。
+- 做重大研究方向调整前，必须重新阅读背景 DOCX。
+- 尽量复用现有代码路径和统一 scoring logic，不要另起一套会静默漂移的平行实现。
+- retrieval 阶段永远不能使用 gold / authoring 字段。
+- 不得静默修改已冻结的数据、objective 权重或评价定义。
+- 不得调用外部在线商业 LLM API。若实验确实需要 LLM，优先使用项目已有的本地 OpenAI-compatible 配置与环境变量；绝不能提交凭证。
+- 本地目录包含很多历史实验时，只提交本任务必要文件。
+- 禁止使用 `git add .`、`git add -A`、force push、`git reset --hard` 或破坏性 clean。
+- 更新 `CLAUDE.md` 时应 **直接覆写“当前状态 / 当前任务”**，不要持续追加流水账。
+- 已完成且仍有长期价值的阶段性结论，转移到 `docs/DEVELOPMENT_HISTORY.md`。
+
+---
+
+# 9. 推荐阅读顺序
+
+绝大多数任务只需要按以下顺序读取：
+
+1. `CLAUDE.md` —— 当前研究契约、核心原则与任务状态；
+2. `docs/project_background/一种储能电站多模态异构数据的时空对齐与可信感知方法.docx` —— 最高优先级项目背景；
+3. 当前实现，尤其是 `tef_rag_v5/` 与当前分析脚本；
+4. `experiments/analyses/` 下与当前任务直接相关的诊断报告；
+5. 只有需要历史演进时才读 `docs/DEVELOPMENT_HISTORY.md`；
+6. `paper/TMC_RAG_ICRA_style_zh_v2.pdf` 仅用于理解初版论文，不代表当前最终方法。
+
+如果未来某个方法设计与背景问题定义或“数据 / 算法”两条长期主线发生冲突，应暂停实现，并先明确说明为什么需要调整研究方向。
