@@ -29,7 +29,7 @@ def validate(config, markdown):
     errors = []
     require = lambda condition, message: errors.append(message) if not condition else None
 
-    require(config.get("status") == "DRAFT_FOR_REVIEW", "status must remain DRAFT_FOR_REVIEW until explicit freeze")
+    require(config.get("status") == "FROZEN_BEFORE_DATA_GENERATION", "protocol must be frozen before data generation")
     require(config.get("top_k") == 5, "top_k must be 5")
     require(DIFFICULTIES == set(config.get("difficulty_types", [])), "difficulty taxonomy mismatch")
 
@@ -191,7 +191,7 @@ def validate(config, markdown):
         require(forbidden_phrase not in markdown, f"markdown contains dimensionally invalid P-rate wording: {forbidden_phrase}")
 
     for phrase in (
-        "DRAFT FOR USER REVIEW", "NOT YET FROZEN", "NO DATA GENERATED FROM THIS PROTOCOL YET",
+        "FROZEN BEFORE DATA GENERATION", "NO DATA GENERATED FROM THIS PROTOCOL YET",
         "400 authored chains", "1200 independent primary intents", "2400 query rows",
         "RECENCY_SOLVABLE_AT_5", "Complete@5 = 1, FlowComplete@5 = 0", "required_flow_edges",
         "allowed_endpoint_pairs", "全局一致", "同一个 group 在所有相连 edge 中必须复用同一个 evidence",
@@ -208,7 +208,7 @@ def main():
     errors = validate(config, markdown)
     if errors:
         raise SystemExit("protocol validation failed:\n- " + "\n- ".join(errors))
-    print("protocol validation passed: DRAFT_FOR_REVIEW; parameters specified; no data generated")
+    print("protocol validation passed: FROZEN_BEFORE_DATA_GENERATION; no data generated")
 
 
 if __name__ == "__main__":

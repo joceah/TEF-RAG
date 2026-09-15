@@ -1,6 +1,6 @@
 # TEF-RAG 项目交接
 
-更新时间：2026-09-15；当前分支：`tef-rag-v6-benchmark-protocol`；当前阶段：v5.2 accounting 已收尾，Temporal-Hard Benchmark Protocol 为 `DRAFT_FOR_REVIEW`，核心定义与原 DRAFT 参数均已给出确定方案，等待最终 freeze。
+更新时间：2026-09-15；当前分支：`tef-rag-v6-benchmark-protocol`；当前阶段：Temporal-Hard Benchmark Protocol 已获用户批准并冻结为 `FROZEN_BEFORE_DATA_GENERATION`，本 freeze commit 尚未生成数据。
 
 ## 一页结论
 
@@ -12,7 +12,7 @@ v5.1 已完成 exhaustive exact-search 归因：12 个 set-mode 查询中 Beam �
 
 v5.2 完成 Profile / Roles / Relations 的 2×2×2 exact counterfactual：CCC 为 0.7208 / 0.7291 / 0.1667，OOO 提升至 0.8625 / 0.8752 / 0.5000，gross repair 4、regression 0、net gain +4，但仍有 6/10 个可行 gold-complete 查询被 frozen objective 选成 incomplete。Oracle Roles 单独 gross repair 1、regression 1、net gain 0。结论是 projection error 与 objective misalignment 共存，后续两者都要处理。
 
-新 benchmark protocol 已完成 FlowComplete 全局一致性修订，并进一步指定正式规模与执行参数：`400 chains / 1200 primary intents / 2400 query rows / 100 assets`；Realistic/Challenge 各 200 chains；split 为 60/20/20；Challenge 为 160 single-primary + 40 compositional-hard；major stratum 以 20 primary chains / 60 intents 为门槛且 recency-solvable ceiling 为 0.50。Telemetry 采用 280Ah-class LFP reference system，并严格区分公开资料支撑的 physical envelope 与 benchmark modeling choices。Protocol 仍保持 `DRAFT_FOR_REVIEW`，未生成任何正式 benchmark 数据。
+新 benchmark protocol 已完成 FlowComplete、规模、split、difficulty、telemetry、review 与 sealed-test 定义，并正式冻结为 `FROZEN_BEFORE_DATA_GENERATION`。冻结规模为 `400 chains / 1200 primary intents / 2400 query rows / 100 assets`；本 freeze commit 的 `data_generation.performed` 仍为 false。
 
 Source audit 的 4 个 freeze blockers 已修复：ambient/cell temperature 与 P-rate/current 已严格分离；validation/test 第二轮改为 blind AI review；test gold/flow/reviewer reasoning 进入 sealed workflow，算法开发只接收 aggregate QC。项目仍禁止宣称 expert-reviewed / field-certified；未解决条目标记 `REVIEW_UNRESOLVED`。
 
@@ -93,7 +93,7 @@ TG-RAG 固定提交 `58a57e0bc173064fa0ad7ccf595cf6e266523619`。前 11 题各�
 
 ## 下一步边界
 
-Protocol 的关键定义与此前 DRAFT 参数现已指定，source audit 的 4 个 blockers 已解决，但整体状态仍是 `DRAFT_FOR_REVIEW`。下一步是用户批准；批准后再用独立 commit 标记 `FROZEN BEFORE DATA GENERATION`。当前仍不得生成 benchmark、实现 v6，或根据目标算法结果改变 benchmark 构造规则。
+Protocol 已通过用户批准并以独立 commit Freeze。下一步从该 freeze commit 创建 `tef-rag-v6-benchmark-data-v1`，先预注册 deterministic generator，再生成 `UNREVIEWED_CANDIDATE`；仍不得实现 v6 或根据目标算法结果改变 benchmark 构造规则。
 
 审核阶段采用 public-source-grounded AI-assisted review，而不是领域专家认证。任何物理/规程事实若公开资料不足，应标记不确定或作为 modeling choice，不得伪装成现场标准。
 

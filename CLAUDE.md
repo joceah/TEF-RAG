@@ -329,7 +329,7 @@ Relations 单独没有修复，只有和 oracle Profile 联合时才产生额外
 
 ## 6.1 当前状态：benchmark protocol 等待用户 review/freeze
 
-v5.2 accounting 已正式收尾。Benchmark Protocol Draft 已完成第二轮 definition refinement：Latest-5 difficulty 同时包含 structural `RECENCY_SOLVABLE_AT_5` gate 与 performance gate；`FlowComplete@5` 已收紧为 group-aware、globally consistent group-to-evidence assignment constraint；`scenario_family_id` / `template_family_id` isolation 与 Challenge Test exact asset-disjoint 已机器化；source audit 的 4 个 freeze blockers 已修复。Protocol 仍为 `DRAFT_FOR_REVIEW`，尚未冻结，也没有据此生成数据。下一步等待用户最终 review；只有用户明确批准后，才能在后续 commit 将其改为 `FROZEN BEFORE DATA GENERATION`。
+Benchmark Protocol 已获用户明确批准并正式冻结为 `FROZEN_BEFORE_DATA_GENERATION`；freeze commit 本身未生成数据。下一阶段仅在独立 data branch 上运行预注册 deterministic generator，生成 `UNREVIEWED_CANDIDATE`，不实现 v6。
 
 根据 v5.2，未来 v6 必须同时覆盖：
 

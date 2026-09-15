@@ -1,12 +1,12 @@
 # TEF-RAG v6 Temporal-Hard Benchmark Protocol v1
 
-**STATUS: DRAFT FOR USER REVIEW**
+**STATUS: FROZEN BEFORE DATA GENERATION**
 
-**NOT YET FROZEN**
+**USER APPROVED FOR DETERMINISTIC DATA GENERATION**
 
 **NO DATA GENERATED FROM THIS PROTOCOL YET**
 
-> 2026-09-15 更新：此前保留的样本量、difficulty 配比、telemetry 生成范围、major stratum、审核与 test 使用策略已经给出确定方案；protocol 仍保持 DRAFT，等待用户最终确认后再以独立 commit 标记 `FROZEN BEFORE DATA GENERATION`。
+> 2026-09-15 Freeze：用户已明确批准本 protocol 进入 `FROZEN BEFORE DATA GENERATION`。本 commit 仅冻结定义；`data_generation.performed = false`，尚未生成正式 benchmark。
 
 ## 1. 范围与研究问题
 
@@ -185,7 +185,7 @@ Query 可以标记 `long_span`、`multi_episode`、`revision_history`。本轮�
 
 ## 14. Freeze 与执行 Gate
 
-本草案已经指定规模、配比、telemetry 数值生成策略、major stratum、审核方案与 test 使用策略，但仍保持 `DRAFT_FOR_REVIEW`。用户最终确认后，必须使用单独 commit 将状态改为 `FROZEN BEFORE DATA GENERATION`，之后才能生成正式 benchmark。
+本 protocol 已指定规模、配比、telemetry 数值生成策略、major stratum、审核方案与 test 使用策略，并经用户明确批准进入 `FROZEN BEFORE DATA GENERATION`。冻结后不得静默修改这些定义；正式数据必须在从本 freeze commit 创建的独立 data branch 上生成。
 
 Freeze 前还必须完成一次 protocol-level source audit，确保所有标记为“公开资料支撑”的物理 envelope 均有可追溯来源；任何缺少足够公开依据的具体数值必须明确标为 benchmark modeling choice，而不能包装成真实行业标准。
 

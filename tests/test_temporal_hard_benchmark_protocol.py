@@ -31,7 +31,7 @@ class TemporalHardBenchmarkProtocolTests(unittest.TestCase):
         self.assertEqual(validate(self.config, self.markdown), [])
 
     def test_status_and_top_k(self):
-        self.assertEqual(self.config["status"], "DRAFT_FOR_REVIEW")
+        self.assertEqual(self.config["status"], "FROZEN_BEFORE_DATA_GENERATION")
         self.assertEqual(self.config["top_k"], 5)
         self.assertFalse(self.config["data_generation"]["performed"])
 
