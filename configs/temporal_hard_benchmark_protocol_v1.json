@@ -1,0 +1,121 @@
+{
+  "protocol_id": "TEF_RAG_v6_temporal_hard_benchmark_protocol_v1",
+  "status": "DRAFT_FOR_REVIEW",
+  "status_notice": [
+    "DRAFT FOR USER REVIEW",
+    "NOT YET FROZEN",
+    "NO DATA GENERATED FROM THIS PROTOCOL YET"
+  ],
+  "top_k": 5,
+  "benchmark_layers": [
+    "REALISTIC_DISTRIBUTION_SET",
+    "TEMPORAL_HARD_CHALLENGE_SET"
+  ],
+  "difficulty_types": [
+    "MULTI_EPISODE_DISAMBIGUATION",
+    "CUTOFF_SENSITIVE",
+    "LATE_ARRIVING_EVIDENCE",
+    "SUPERSEDED_DIAGNOSIS",
+    "PROCEDURE_VERSIONING",
+    "CROSS_SOURCE_REQUIRED",
+    "SIMILAR_SYMPTOM_DIFFERENT_CAUSE",
+    "PERSISTENT_UNCERTAINTY"
+  ],
+  "split_names": ["development", "validation", "test"],
+  "split_rules": {
+    "chain_isolation": true,
+    "intent_isolation": true,
+    "paraphrases_share_split": true,
+    "parameterized_template_test_isolation": true,
+    "test_requires_independent_event_combinations": true,
+    "primary_sampling_unit": "independent_intent_or_chain",
+    "clustered_reporting_units": ["intent_id", "chain_id", "asset_id"]
+  },
+  "latest5_acceptance": {
+    "applies_before_algorithm_comparison": true,
+    "challenge_overall_complete_at_5_max": 0.4,
+    "major_strata_must_not_be_recency_dominated": true,
+    "failure_action": "regenerate_or_expand_by_preregistered_rules_only",
+    "prohibits_method_outcome_based_item_selection": true,
+    "threshold_status": "DRAFT_FOR_REVIEW"
+  },
+  "required_annotations": {
+    "canonical_task_support_flow": {
+      "required_nodes": true,
+      "required_groups": true,
+      "support_edges": true,
+      "update_edges": true,
+      "supersession_edges": true,
+      "prerequisite_edges": true,
+      "verification_edges": true,
+      "authored_before_method_evaluation": true
+    }
+  },
+  "primary_metrics": ["Recall@5", "nDCG@5", "Complete@5", "FlowComplete@5"],
+  "secondary_diagnostics": ["edge_recall", "flow_node_recall"],
+  "baseline_names": [
+    "Latest",
+    "BM25",
+    "Hybrid",
+    "TMC-RAG-v2 (historical engineering baseline)",
+    "TEF-RAG frozen current version",
+    "correctly runnable relevant external baseline"
+  ],
+  "baseline_rules": {
+    "same_top_k": true,
+    "same_evidence_corpus": true,
+    "same_query_cutoff": true,
+    "same_visibility_constraint": true,
+    "inactive_external_mechanism_label": "compatibility run"
+  },
+  "telemetry_constraints": {
+    "signals": ["voltage", "current", "temperature", "SOC", "DRAFT_FOR_REVIEW_OTHER_NEEDED_TELEMETRY"],
+    "normal_values_are_majority": true,
+    "extreme_anomalies_are_rare": true,
+    "extreme_anomaly_meaning": ["implausible_deviation", "sensor_error", "communication_error", "acquisition_error"],
+    "numerical_anomaly_not_device_fault": true,
+    "numerical_anomaly_not_temporal_hard_query": true,
+    "do_not_raise_anomaly_rate_for_rag_difficulty": true,
+    "real_numeric_ranges": "DRAFT_FOR_REVIEW"
+  },
+  "operation_event_types": [
+    "state_observation", "alarm", "diagnosis", "work_order", "inspection",
+    "correction", "reopen", "supersession", "procedure_applicability",
+    "repair", "verification", "uncertainty"
+  ],
+  "procedure_versioning_required": {
+    "versions": ["V1", "V2", "V3"],
+    "fields": ["valid_from", "valid_to", "supersedes", "withdrawn_at", "model_scope"],
+    "query_cutoffs_cover_each_version": true,
+    "some_versions_have_materially_different_steps": true
+  },
+  "bitemporal_required": {
+    "fields": ["event_time", "available_at"],
+    "allows_event_time_much_earlier_than_available_at": true,
+    "paired_cutoffs_before_and_after_arrival": true,
+    "paired_cutoffs_require_different_legal_flows": true
+  },
+  "rag_evidence_pipeline": [
+    "raw_time_series",
+    "statistics_detector_or_predictor",
+    "state_snapshot_trend_card_or_event_evidence",
+    "rag_retrieval"
+  ],
+  "multi_step_policy": {
+    "implementation_in_this_protocol_round": false,
+    "candidate_tags": ["long_span", "multi_episode", "revision_history"],
+    "activation_condition": "only_after_systematic_single_step_failure_is_demonstrated"
+  },
+  "diagnostic_only_restrictions": {
+    "old_196_subset_is_not_new_test": true,
+    "no_gold_or_authoring_in_retrieval": true,
+    "no_method_outcome_based_test_filtering": true,
+    "no_generated_test_results_in_protocol": true
+  },
+  "data_generation": {
+    "performed": false,
+    "requires_user_freeze_before_start": true,
+    "undecided_sample_counts": "DRAFT_FOR_REVIEW",
+    "undecided_numeric_ranges": "DRAFT_FOR_REVIEW"
+  }
+}
