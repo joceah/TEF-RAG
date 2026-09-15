@@ -3,7 +3,7 @@
 > **这是编码 / 研究 Agent 的唯一核心工作上下文。** 每次开始任务先读本文件。本文件应保持简洁、当前、面向决策；历史迭代细节统一放在 `docs/DEVELOPMENT_HISTORY.md`。
 >
 > 更新时间：2026-09-15  
-> 当前开发分支：`tef-rag-v6-benchmark-protocol`
+> 当前开发分支：`tef-rag-v6-benchmark-data-v1`
 
 ## 1. 研究背景：后续迭代不得偏离
 
@@ -327,9 +327,9 @@ Relations 单独没有修复，只有和 oracle Profile 联合时才产生额外
 
 # 6. 立即下一步任务
 
-## 6.1 当前状态：benchmark protocol 等待用户 review/freeze
+## 6.1 当前状态：semantic authoring pilot 等待 review
 
-Benchmark Protocol 已冻结；独立 data branch 已生成并结构验证 `UNREVIEWED_CANDIDATE`。当前 review status 为 `PENDING_AI_SEMANTIC_REVIEW`，尚未实现或运行 v6。
+Benchmark Protocol 保持冻结；rule-generated candidate 已废弃。独立 data branch 仅生成 16-chain semantic authoring pilot，状态为 `AUTHORING_PILOT_UNREVIEWED`，等待用户/ChatGPT review；尚未实现或运行 v6。
 
 根据 v5.2，未来 v6 必须同时覆盖：
 
