@@ -155,11 +155,28 @@ def generate(config, seed):
             "telemetry_seed": telemetry_seed, "conceptual_raw_cadence_seconds": 1,
             "rag_evidence_cadence_seconds": 60, "gross_anomaly_segment": global_index < 8,
             "review_status": "PENDING_AI_SEMANTIC_REVIEW",
+            "structural_features": {
+                "multiple_episodes": "MULTI_EPISODE_DISAMBIGUATION" in labels or "SIMILAR_SYMPTOM_DIFFERENT_CAUSE" in labels,
+                "paired_query_cutoffs": any(label in labels for label in ("CUTOFF_SENSITIVE", "LATE_ARRIVING_EVIDENCE")),
+                "late_arrival": "LATE_ARRIVING_EVIDENCE" in labels,
+                "supersession": "SUPERSEDED_DIAGNOSIS" in labels,
+                "procedure_versions": "PROCEDURE_VERSIONING" in labels,
+                "cross_source": "CROSS_SOURCE_REQUIRED" in labels,
+                "persistent_uncertainty": "PERSISTENT_UNCERTAINTY" in labels,
+            },
         }
         chains.append(chain)
         for position in range(9):
             event_time = start + timedelta(hours=position)
             source_type = EVENT_TYPES[(global_index + position) % len(EVENT_TYPES)]
+            if "PROCEDURE_VERSIONING" in labels and position < 3:
+                source_type = "procedure_applicability"
+            elif "CROSS_SOURCE_REQUIRED" in labels and position < 3:
+                source_type = ("state_observation", "diagnosis", "work_order")[position]
+            elif "PERSISTENT_UNCERTAINTY" in labels and position == 2:
+                source_type = "uncertainty"
+            elif "SUPERSEDED_DIAGNOSIS" in labels and position in (1, 2):
+                source_type = ("diagnosis", "supersession")[position - 1]
             if "LATE_ARRIVING_EVIDENCE" in labels and position == req_positions[1]:
                 available_at = event_time + timedelta(hours=3)
             else:
@@ -175,6 +192,7 @@ def generate(config, seed):
                 "layer": layer, "split": split, "asset_id": asset_id, "source_type": source_type,
                 "event_time": iso(event_time), "available_at": iso(available_at),
                 "text": f"{asset_id} {source_type} 记录：episode {global_index + 1}，阶段 {position + 1}，证据按当时可用信息形成。",
+                "episode_id": f"{chain_id}-EP-{1 if position < 3 else 2}",
                 "telemetry": {"voltage_v": voltage, "ambient_temperature_c": ambient_temp, "cell_temperature_c": cell_temp,
                               "normalized_p_rate": rate, "power_w": power_w, "current_a": current_a,
                               "current_derivation": "I=P/V", "soc_percent": 15 + (position * 7 + global_index) % 76},
@@ -187,12 +205,20 @@ def generate(config, seed):
                             "valid_to": iso(start + timedelta(days=30 + version_number * 10)), "supersedes": None if version_number == 1 else f"V{version_number - 1}",
                             "withdrawn_at": None, "model_scope": "280Ah-class-prismatic-LFP",
                             "procedure_step_signature": f"isolate-check-verify-v{version_number}"})
+            if "SUPERSEDED_DIAGNOSIS" in labels and position == 2:
+                row["supersedes_evidence_id"] = f"{chain_id}-EV-02"
+            if "SIMILAR_SYMPTOM_DIFFERENT_CAUSE" in labels:
+                row["symptom_signature"] = "temperature_excursion"
+                row["authored_cause_code"] = "fan_degradation" if position < 3 else "sensor_drift"
             evidence.append(row)
-        query_time = start + timedelta(hours=12)
         for intent_index, intent in enumerate(INTENTS):
             intent_id = f"{chain_id}-INT-{intent_index + 1}"
             for phrasing in range(2):
                 query_id = f"{intent_id}-Q{phrasing + 1}"
+                if any(label in labels for label in ("CUTOFF_SENSITIVE", "LATE_ARRIVING_EVIDENCE")):
+                    query_time = start + timedelta(hours=(3, 8, 12)[intent_index])
+                else:
+                    query_time = start + timedelta(hours=12)
                 query = {
                     "query_id": query_id, "chain_id": chain_id, "intent_id": intent_id,
                     "phrasing_id": f"P{phrasing + 1}", "layer": layer, "split": split,
@@ -201,7 +227,10 @@ def generate(config, seed):
                     "difficulty_labels": labels, "primary_difficulty": primary,
                 }
                 queries.append(query)
-                gold = make_gold(query_id, chain_id, required_ids, intent_index)
+                gold_ids = required_ids
+                if "LATE_ARRIVING_EVIDENCE" in labels and intent_index == 0:
+                    gold_ids = [f"{chain_id}-EV-01", f"{chain_id}-EV-03", f"{chain_id}-EV-04"]
+                gold = make_gold(query_id, chain_id, gold_ids, intent_index)
                 (gold_test if split == "test" else gold_public).append(gold)
     rng.shuffle([])  # Pin use of the preregistered RNG without changing stable ordering.
     return chains, evidence, queries, gold_public, gold_test
