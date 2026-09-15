@@ -1,8 +1,8 @@
-# TEF-RAG v6 Temporal-Hard Benchmark v1
+# TEF-RAG v6 Semantic Benchmark v1
 
-Status: `SEMANTICALLY_AUTHORED_CANDIDATE_PENDING_BLIND_SECOND_REVIEW`
+Status: `FINAL_SEALED`
 
-This artifact was authored semantically under frozen protocol commit `b0e6e004378e7d7f29cabece1efa6b2c30489e9b`.
+This benchmark was semantically authored under frozen protocol commit `b0e6e004378e7d7f29cabece1efa6b2c30489e9b` and completed the protocol-required validation and test blind second semantic reviews. It remains a **public-source-grounded, AI-assisted synthetic benchmark**; it is not expert-reviewed, field-certified, or a real-world benchmark.
 
 ## Scale
 
@@ -16,21 +16,17 @@ This artifact was authored semantically under frozen protocol commit `b0e6e00437
 
 Each chain has 3 distinct primary intents and each intent has 2 deterministic paraphrases. Paraphrases are robustness variants, not independent statistical units.
 
-## Test sealing
+## Final review and sealing
 
-Public test artifacts contain only query/evidence/limited chain metadata. Item-level test difficulty labels, required groups, canonical flow, answer summaries, and review reasoning are not committed.
+- Validation formal second blind review: 80/80 PASS, 0 unresolved, 0 disagreements.
+- Test formal second blind review: 80/80 PASS, 0 unresolved, 80 agreements / 0 disagreements.
+- Test independent item-level review artifact is private; SHA256: `6e274720b45f8fe1d23b9e662cd294168acbcce91cb3a37e11000e2d6bb1e3f7`.
+- Sealed evaluator: 480 records; SHA256: `477bb709f3dfdb672ce5a7f5c93168e0791c7a90cb247c62a6072bd8dee7c9f3`.
+- Target-method runs at authoring/review: 0.
 
-Sealed test evaluator SHA256:
+## Test confidentiality
 
-`477bb709f3dfdb672ce5a7f5c93168e0791c7a90cb247c62a6072bd8dee7c9f3`
-
-The sealed evaluator has 480 query-level records and is stored outside the public GitHub branch.
-
-## Review state
-
-The current ChatGPT authoring context completed a first semantic pass over all authored semantic families and instantiated chains. This pass is **not blind** to authoring. The frozen protocol requires a second blind source-grounded AI review for validation/test, so the dataset is not yet labeled final/released.
-
-No TEF-RAG v6 retrieval method, reranker, multi-step method, or other target method was run during authoring.
+Public test artifacts contain only query/evidence/limited chain metadata. Item-level test difficulty labels, required groups, canonical flow, answer summaries, test gold, and reviewer reasoning are not committed. The sealed evaluator remains outside the public GitHub branch.
 
 ## Evidence semantics
 
@@ -40,12 +36,6 @@ Operational causal stories and synthetic procedures are modeling choices unless 
 
 ## Repository transport format
 
-Large fixed JSONL artifacts are committed under `compressed/*.jsonl.xz` to keep connector-side publication compact. This is a transport choice only; it does not regenerate semantics.
+Large fixed JSONL artifacts are committed under `compressed/*.jsonl.xz` (base64-part transport where required) to keep connector-side publication compact. This is a transport choice only; it does not regenerate semantics.
 
-Run:
-
-`python scripts/materialize_tef_v6_semantic_benchmark_v1.py`
-
-to materialize the logical `public/*.jsonl` and review JSONL files. The validator can also read the `.xz` files directly without materialization. `transport_manifest.json` records compressed and uncompressed SHA256 values.
-
-The materializer contains no sealed test gold and cannot recreate it.
+Run `python scripts/materialize_tef_v6_semantic_benchmark_v1.py` to materialize logical public JSONL/review artifacts. The materializer contains no sealed test gold and cannot recreate it.
