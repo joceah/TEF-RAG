@@ -3,7 +3,7 @@
 > **这是编码 / 研究 Agent 的唯一核心工作上下文。** 每次开始任务先读本文件。本文件应保持简洁、当前、面向决策；历史迭代细节统一放在 `docs/DEVELOPMENT_HISTORY.md`。
 >
 > 更新时间：2026-09-15  
-> 当前开发分支：`tef-rag-v5.2-oracle-attribution`
+> 当前开发分支：`tef-rag-v6-benchmark-protocol`
 
 ## 1. 研究背景：后续迭代不得偏离
 
@@ -291,7 +291,7 @@ v5.1 在完全不改变 frozen v5 `score_set` 的前提下加入 exhaustive exac
 v5.2 在 12 个已见 set-mode query 上完成 Profile / Roles / Relations 的完整 2×2×2 离线 counterfactual。所有条件保持 candidate、visibility、semantic score、Top-k、budget、Exact Search、`_score_set` 与评价不变；oracle metadata 只存在于 analyzer。
 
 - CCC 完整复现 v5.1：Recall / nDCG / Complete = `0.7208 / 0.7291 / 0.1667`；
-- 单独 oracle Profile / Roles / Relations 分别修复 `1 / 1 / 0` 个原失败；
+- 单独 oracle Profile / Roles / Relations 的 gross repair 分别为 `1 / 1 / 0`，regressed success 为 `0 / 1 / 0`，net Complete gain 为 `+1 / 0 / 0`；
 - Oracle Profile + Oracle Roles 修复 `3` 个；
 - OOO 为 `0.8625 / 0.8752 / 0.5000`，修复 `4/10` 个原失败；
 - OOO 仍有 `6/10` 个原失败保持 incomplete，而这些题均存在可行 gold-complete Top-5。
@@ -327,9 +327,11 @@ Relations 单独没有修复，只有和 oracle Profile 联合时才产生额外
 
 # 6. 立即下一步任务
 
-## 6.1 算法任务：冻结 v6 protocol，不立即调参
+## 6.1 当前状态：benchmark protocol 等待用户 review/freeze
 
-v5.2 已完成。下一步先把独立 benchmark protocol 与成功判据书面冻结，再设计统一的 Temporal Evidence Flow 方法。根据 v5.2，v6 必须同时覆盖：
+v5.2 accounting 已正式收尾。`plans/TEF_RAG_v6_temporal_hard_benchmark_protocol_v1.md` 与对应 JSON config/validator 已进入 `DRAFT_FOR_REVIEW`，尚未冻结，也没有据此生成数据。下一步等待用户 review；只有用户明确批准后，才能在后续 commit 将其改为 `FROZEN BEFORE DATA GENERATION`。
+
+根据 v5.2，未来 v6 必须同时覆盖：
 
 1. query-conditioned role / relation / flow representation；
 2. 对完整 task-support flow 更一致的 selection / reranking objective。
@@ -338,7 +340,7 @@ v5.2 已完成。下一步先把独立 benchmark protocol 与成功判据书面�
 
 ## 6.2 数据任务：重构真正 temporal-hard 的 benchmark
 
-旧 audit 收尾已完成；立即剩余任务是：
+旧 audit 收尾已完成；protocol freeze 后的数据任务是：
 
 1. 在生成 / 评分前先写新的独立 temporal-hard benchmark protocol；
 2. 在评估方法前预先定义 Latest-5 难度验收标准；
@@ -353,7 +355,7 @@ v5.2 已完成。下一步先把独立 benchmark protocol 与成功判据书面�
 
 # 7. v6 允许演化成什么
 
-在新 benchmark protocol 书面冻结前，不要正式实现 v6。
+在新 benchmark protocol 经用户 review 并书面冻结前，不要生成数据，也不要正式实现 v6。
 
 v6 的总原则不是“给 v5 objective 再加一个 term”，而是：
 

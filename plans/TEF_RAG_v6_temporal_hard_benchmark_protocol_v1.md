@@ -1,7 +1,9 @@
 # TEF-RAG v6 Temporal-Hard Benchmark Protocol v1
 
-**STATUS: DRAFT FOR USER REVIEW**  
-**NOT YET FROZEN**  
+**STATUS: DRAFT FOR USER REVIEW**
+
+**NOT YET FROZEN**
+
 **NO DATA GENERATED FROM THIS PROTOCOL YET**
 
 ## 1. Scope and research question

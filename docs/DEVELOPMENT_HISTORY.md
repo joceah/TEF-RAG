@@ -179,11 +179,15 @@ v5.1 的目标不是提出新算法，而是判断：
 
 ### v5.2 Oracle Projection Attribution（2026-09-15）
 
-在不改变 frozen v5 candidate、semantic score、Top-k、budget、Exact Search、`_score_set` 或评价的情况下，完成 Profile / Roles / Relations 的 2×2×2 离线归因。CCC 复现 v5.1；OOO 将 all-set Recall / nDCG / Complete 从 `0.7208 / 0.7291 / 0.1667` 提升至 `0.8625 / 0.8752 / 0.5000`，修复 4/10 个原失败，但仍有 6/10 个存在可行 gold-complete Top-5 的查询保持 incomplete。单因素 Profile / Roles / Relations 分别修复 `1 / 1 / 0`，Profile+Roles 修复 3，关系收益主要在 oracle profile 条件下出现。
+在不改变 frozen v5 candidate、semantic score、Top-k、budget、Exact Search、`_score_set` 或评价的情况下，完成 Profile / Roles / Relations 的 2×2×2 离线归因。CCC 复现 v5.1；OOO 将 all-set Recall / nDCG / Complete 从 `0.7208 / 0.7291 / 0.1667` 提升至 `0.8625 / 0.8752 / 0.5000`，gross repair 4、regression 0、net gain +4，但仍有 6/10 个存在可行 gold-complete Top-5 的查询保持 incomplete。单因素 Profile / Roles / Relations 的 gross repair 为 `1 / 1 / 0`，regression 为 `0 / 1 / 0`，net gain 为 `+1 / 0 / 0`；关系收益主要在 oracle profile 条件下出现。
 
 稳定结论：**projection / representation error 与 objective misalignment 共存。** Oracle metadata 只用于 offline analyzer，不进入正常 retrieval API；该结果来自已见诊断集，不是独立验证。
 
 同期修复旧 difficulty audit 报告生成占位符和 TMC / TEF 命名，并导出 196-query `TEMPORAL_HARD_NOT_RECENCY_SOLVABLE` seen-dev diagnostic manifest；它不得包装为新 test。
+
+### Temporal-Hard Benchmark Protocol 草案（2026-09-15）
+
+完成双层 benchmark 预登记草案、机器可读 config、validator 与测试。草案围绕 canonical Temporal Evidence Flow，区分 telemetry 分布、运维事件结构与 RAG temporal difficulty，并预登记 split isolation、FlowComplete@5、Latest-5 `Complete@5 <= 0.40` 草案门槛、V1/V2/V3 规程版本和双时间规则。状态保持 `DRAFT_FOR_REVIEW`；未生成数据，等待用户 review/freeze。
 
 在 v5.2 与数据难度审计之后，已经确认两个研究瓶颈：
 
