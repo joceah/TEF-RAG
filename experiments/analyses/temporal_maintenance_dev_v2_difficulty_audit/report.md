@@ -34,7 +34,7 @@
 
 ## Baseline capability matrix (Recall@5 / nDCG@5 / Complete@5)
 
-| Difficulty | N | Latest R/nDCG/C | BM25 R/nDCG/C | Hybrid R/nDCG/C | TEF* R/nDCG/C |
+| Difficulty | N | Latest R/nDCG/C | BM25 R/nDCG/C | Hybrid R/nDCG/C | TMC-RAG-v2 (frozen) R/nDCG/C |
 |---|---:|---:|---:|---:|---:|
 | ALL | 1152 | 0.9397/0.9356/0.8299 | 0.0900/0.0764/0.0113 | 0.3496/0.3073/0.1441 | 0.9460/0.9320/0.8446 |
 | TEMPORAL_HARD_NOT_RECENCY_SOLVABLE | 196 | 0.6454/0.7339/0.0000 | 0.1594/0.1555/0.0000 | 0.3975/0.3887/0.0510 | 0.6990/0.7516/0.1531 |
@@ -48,7 +48,7 @@
 | SIMILAR_SYMPTOM_DIFFERENT_CAUSE | 96 | 0.8976/0.9222/0.6458 | 0.0156/0.0080/0.0000 | 0.4401/0.4068/0.1562 | 0.9479/0.9346/0.8125 |
 | PERSISTENT_UNCERTAINTY | 96 | 0.9653/0.9424/0.9375 | 0.0990/0.0789/0.0000 | 0.3472/0.3153/0.1354 | 0.9757/0.9310/0.9375 |
 
-**TEF 注：** 对应该数据集已有、全 1152 题冻结主方法结果 `tmc_v2`（报告中显式写为 `TEF (frozen TMC-RAG-v2 run)`）；仓库没有另一个覆盖该数据集全部题目的 TEF-v5 运行，因此不伪造或混入 16 题 stress set。逐 difficulty 数值见 `baseline_by_difficulty.csv`，逐层 TEF-vs-Latest 的 Recall/nDCG/Complete 胜平负见 `tef_vs_latest_wtl.csv`。
+**方法命名说明：** 全 1152 题的冻结主方法结果 `tmc_v2` 明确标为 `TMC-RAG-v2 (frozen)`；它不是 TEF-RAG-v5。仓库没有覆盖该数据集全部题目的 TEF-RAG-v5 运行，因此不伪造或混入 16 题 stress set。逐 difficulty 数值见 `baseline_by_difficulty.csv`，逐层 TMC-RAG-v2-vs-Latest 的 Recall/nDCG/Complete 胜平负见 `tmc_rag_v2_vs_latest_wtl.csv`。
 
 ## Important examples
 
@@ -63,13 +63,13 @@
 
 ## Main findings and dataset gaps
 
-768 个 temporal query 中，572 个（74.48%）的必要证据已被 Latest-5 结构覆盖；只有 {len(operational_hard)} 个（{pct(len(operational_hard), len(temporal)):.2f}%）同时具有时序结构标签且 Latest-5 不能覆盖。总体均值因此主要测到设备过滤与倒序覆盖。更关键的是，TEF 在 `PROCEDURE_VERSIONING/CROSS_SOURCE_REQUIRED` 的 Recall@5 为 0.6250，低于 Latest 的 0.6354，Complete@5 均为 0；在 `LATE_ARRIVING_EVIDENCE` 也低于 Latest（0.9818 vs 0.9948）。它只在 `MULTI_EPISODE`（0.9132 vs 0.8808）和 `SIMILAR_SYMPTOM_DIFFERENT_CAUSE`（0.9479 vs 0.8976）显示较清楚的 Recall 优势。因此数据偏易与算法未稳定利用 hard structure 两者同时存在。
+768 个 temporal query 中，572 个（74.48%）的必要证据已被 Latest-5 结构覆盖；只有 196 个（25.52%）同时具有时序结构标签且 Latest-5 不能覆盖。该 196-query 清单是 **seen development diagnostic subset，NOT independent validation/test**。总体均值因此主要测到设备过滤与倒序覆盖。更关键的是，TMC-RAG-v2 (frozen) 在 `PROCEDURE_VERSIONING/CROSS_SOURCE_REQUIRED` 的 Recall@5 为 0.6250，低于 Latest 的 0.6354，Complete@5 均为 0；在 `LATE_ARRIVING_EVIDENCE` 也低于 Latest（0.9818 vs 0.9948）。它只在 `MULTI_EPISODE`（0.9132 vs 0.8808）和 `SIMILAR_SYMPTOM_DIFFERENT_CAUSE`（0.9479 vs 0.8976）显示较清楚的 Recall 优势。因此数据偏易与算法未稳定利用 hard structure 两者同时存在。
 
 当前设计的主要缺口是：difficulty 由 16 个原型模板参数化复制，类别与 scenario 高度绑定；两个改写共享 intent/gold；缺少更多相互独立的 cutoff 对、跨链交织的长历史、自然形成的多源缺失组合，以及真实规程修订/撤回链。`CUTOFF_SENSITIVE` 覆盖广但不等于 cutoff 决策困难，必须结合 Latest-5 可解率解释。
 
 ## Recommendation
 
-采用“both、数据优先”的决策：先补充独立、人工复核、Latest-5 无法凭倒序覆盖的 temporal-hard 开发/验证任务，再在现有 hard strata 上修正算法。原因是当前 benchmark 的模板重复和 recency coverage 会显著稀释难度；同时若 TEF 在现有 hard strata 没有稳定胜过简单基线，也不能只归因于数据过易。禁止在 dev 上按结果删题或继续调权重后覆盖本审计。
+采用“both、数据优先”的决策：先补充独立、人工复核、Latest-5 无法凭倒序覆盖的 temporal-hard 开发/验证任务，再在现有 hard strata 上修正算法。原因是当前 benchmark 的模板重复和 recency coverage 会显著稀释难度；同时若 TMC-RAG-v2 (frozen) 在现有 hard strata 没有稳定胜过简单基线，也不能只归因于数据过易。禁止在 dev 上按结果删题或继续调权重后覆盖本审计。
 
 ## Limitations
 

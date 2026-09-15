@@ -1,6 +1,6 @@
 # TEF-RAG 项目交接
 
-更新时间：2026-09-14；当前阶段：TEF-RAG v5.1 Failure Attribution（v5 objective 未改动）。
+更新时间：2026-09-15；当前阶段：TEF-RAG v5.2 Oracle Projection Attribution 已完成（v5 objective 未改动）。
 
 ## 一页结论
 
@@ -9,6 +9,8 @@ TEF-RAG v5 已完成一个通用、query-conditioned、集合级时序证据选�
 工程机制已经验证；研究优势尚未成立。新冻结 holdout 的复杂链 8 题中，v5 与 Scoped Hybrid 的 Group Recall@5 都是 0.6750，v5 的 nDCG 高 0.0233，但 Complete@5 从 0.2500 降至 0.1250。预登记的优势条件没有满足。
 
 v5.1 已完成 exhaustive exact-search 归因：12 个 set-mode 查询中 Beam 与 Exact 集合完全一致，match rate 为 1.0000，mean/max objective gap 均为 0；复杂链 Recall / nDCG / Complete 仍同为 0.6750 / 0.7074 / 0.1250。当前 seen diagnostic 上没有搜索近似导致下降的证据，主要问题转向现有 objective/profile/role/relation projection 对 coherent evidence flow 的表达。
+
+v5.2 完成 Profile / Roles / Relations 的 2×2×2 exact counterfactual：CCC 为 0.7208 / 0.7291 / 0.1667，OOO 提升至 0.8625 / 0.8752 / 0.5000，修复 4/10 个原失败，但仍有 6/10 个可行 gold-complete 查询被 frozen objective 选成 incomplete。结论是 projection error 与 objective misalignment 共存，后续两者都要处理。
 
 ## 已完成
 
@@ -87,6 +89,6 @@ TG-RAG 固定提交 `58a57e0bc173064fa0ad7ccf595cf6e266523619`。前 11 题各�
 
 ## 下一步边界
 
-若继续开发，先预登记 closure-/flow-completion-aware v6 objective 的定义与成功判据，再建立独立数据验证。可以保留 Exact 作为小候选池 oracle 和持续 search-gap 审计，但当前证据不支持优先扩大 Beam。不得回调当前权重、profile、关系或 gold 后继续把这 16 题当优势验证。
+若继续开发，先冻结独立 temporal-hard benchmark protocol、Latest-5 验收标准和 v6 成功判据，再设计同时覆盖 query-conditioned flow representation 与 flow-completion-aware selection 的统一方法。可以保留 Exact 作为小候选池 oracle 和持续 search-gap 审计，但当前证据不支持优先扩大 Beam。不得回调当前权重、profile、关系或 gold 后继续把这 16 题当优势验证。
 
 最终回答生成评价是独立未完成任务，不应混入当前检索指标。论文也尚未因 v5 更新。

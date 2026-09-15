@@ -177,16 +177,24 @@ v5.1 的目标不是提出新算法，而是判断：
 
 ## 6. 当前过渡阶段
 
-在 v5.1 与数据难度审计之后，已经明确存在两个研究瓶颈：
+### v5.2 Oracle Projection Attribution（2026-09-15）
 
-1. **算法归因问题**：Search 基本被排除为主要原因，但 projection / representation error 与 objective misalignment 仍需要进一步拆分。
+在不改变 frozen v5 candidate、semantic score、Top-k、budget、Exact Search、`_score_set` 或评价的情况下，完成 Profile / Roles / Relations 的 2×2×2 离线归因。CCC 复现 v5.1；OOO 将 all-set Recall / nDCG / Complete 从 `0.7208 / 0.7291 / 0.1667` 提升至 `0.8625 / 0.8752 / 0.5000`，修复 4/10 个原失败，但仍有 6/10 个存在可行 gold-complete Top-5 的查询保持 incomplete。单因素 Profile / Roles / Relations 分别修复 `1 / 1 / 0`，Profile+Roles 修复 3，关系收益主要在 oracle profile 条件下出现。
+
+稳定结论：**projection / representation error 与 objective misalignment 共存。** Oracle metadata 只用于 offline analyzer，不进入正常 retrieval API；该结果来自已见诊断集，不是独立验证。
+
+同期修复旧 difficulty audit 报告生成占位符和 TMC / TEF 命名，并导出 196-query `TEMPORAL_HARD_NOT_RECENCY_SOLVABLE` seen-dev diagnostic manifest；它不得包装为新 test。
+
+在 v5.2 与数据难度审计之后，已经确认两个研究瓶颈：
+
+1. **算法问题**：Search 基本被排除为主要原因；projection / representation error 与 objective misalignment 已确认共存。
 2. **Benchmark 质量问题**：现有大 dev set 中 Latest 可解样本过多，需要重新设计独立 temporal-hard benchmark protocol。
 
 当前向前推进的计划由 `CLAUDE.md` 维护，核心包括：
 
-- v5.2 Oracle Projection Attribution；
-- 独立 temporal-hard benchmark 重构；
-- 完成上述两项之后，再预登记并实现 v6。
+- 冻结独立 temporal-hard benchmark protocol；
+- 预登记同时处理 flow representation 与 flow-completion selection 的 v6；
+- 只在独立数据上做后续优势验证。
 
 ---
 

@@ -12,13 +12,14 @@ import math
 from collections import Counter, defaultdict
 from pathlib import Path
 
-from evaluate_temporal_baselines_v2 import score
-from temporal_maintenance_dataset_v2_lib import ROOT, visible
+from scripts.evaluate_temporal_baselines_v2 import score
+from scripts.temporal_maintenance_dataset_v2_lib import ROOT, visible
 
 
 DATA = ROOT / "data/generated/temporal_maintenance_dev_v2"
 RUN = ROOT / "experiments/analyses/formal_temporal_rag_v1/rankings_combined.jsonl"
 OUT = ROOT / "experiments/analyses/temporal_maintenance_dev_v2_difficulty_audit"
+MANIFEST_OUT = ROOT / "experiments/analyses/temporal_maintenance_dataset_v2/temporal_hard_not_recency_solvable_manifest.jsonl"
 K = 5
 
 LABEL_ORDER = [
@@ -70,7 +71,7 @@ METHODS = {
     "bm25_visible": "BM25",
     "hybrid_device": "Hybrid",
     # This is the frozen full-coverage main method available for this dataset.
-    "tmc_v2": "TEF (frozen TMC-RAG-v2 run)",
+    "tmc_v2": "TMC-RAG-v2 (frozen)",
 }
 
 
@@ -157,47 +158,54 @@ def main():
         w.writeheader(); w.writerows(audit_rows)
 
     by_qid = {r["query_id"]: r for r in audit_rows}
-    ranks = [r for r in lines(RUN) if r["method"] in METHODS]
-    assert Counter(r["method"] for r in ranks) == Counter({m: 1152 for m in METHODS})
-    metrics = []
-    for r in ranks:
-        q, g = queries[r["query_id"]], gold[r["query_id"]]
-        c = chains[g["chain_id"]]
-        metrics.append({
-            "query_id": r["query_id"], "method": r["method"],
-            **score(r["evidence_ids"], q, g, docs, c, assets, K),
-        })
-
     strata = [
         ("ALL", lambda r: True),
         ("TEMPORAL_HARD_NOT_RECENCY_SOLVABLE", lambda r: r["task"] == "temporal" and not r["recency_solvable_at_5"]),
     ] + [(lab, lambda r, lab=lab: lab in r["difficulty_labels"].split("|")) for lab in LABEL_ORDER]
     baseline_rows = []
-    for label, predicate in strata:
-        qids = {r["query_id"] for r in audit_rows if predicate(r)}
-        for method, display in METHODS.items():
-            subset = [r for r in metrics if r["method"] == method and r["query_id"] in qids]
-            baseline_rows.append({
-                "difficulty": label, "n": len(qids), "method": display,
-                "recall_at_5": mean(subset, "recall"), "ndcg_at_5": mean(subset, "ndcg"),
-                "complete_at_5": mean(subset, "complete"),
-            })
+    if RUN.exists():
+        ranks = [r for r in lines(RUN) if r["method"] in METHODS]
+        assert Counter(r["method"] for r in ranks) == Counter({m: 1152 for m in METHODS})
+        metrics = []
+        for r in ranks:
+            q, g = queries[r["query_id"]], gold[r["query_id"]]
+            c = chains[g["chain_id"]]
+            metrics.append({"query_id": r["query_id"], "method": r["method"],
+                            **score(r["evidence_ids"], q, g, docs, c, assets, K)})
+        for label, predicate in strata:
+            qids = {r["query_id"] for r in audit_rows if predicate(r)}
+            for method, display in METHODS.items():
+                subset = [r for r in metrics if r["method"] == method and r["query_id"] in qids]
+                baseline_rows.append({
+                    "difficulty": label, "n": len(qids), "method": display,
+                    "recall_at_5": mean(subset, "recall"), "ndcg_at_5": mean(subset, "ndcg"),
+                    "complete_at_5": mean(subset, "complete"),
+                })
+        mmap = {(r["query_id"], r["method"]): r for r in metrics}
+        wtl = []
+        for label, predicate in strata:
+            qids = [r["query_id"] for r in audit_rows if predicate(r)]
+            for metric in ("recall", "ndcg", "complete"):
+                counts_wtl = Counter()
+                for qid in qids:
+                    delta = mmap[qid, "tmc_v2"][metric] - mmap[qid, "latest_device"][metric]
+                    counts_wtl["win" if delta > 1e-12 else "loss" if delta < -1e-12 else "tie"] += 1
+                wtl.append({"difficulty": label, "metric": f"{metric}@5", "n": len(qids), **counts_wtl})
+        with (OUT / "tmc_rag_v2_vs_latest_wtl.csv").open("w", encoding="utf-8-sig", newline="") as f:
+            w = csv.DictWriter(f, fieldnames=["difficulty", "metric", "n", "win", "tie", "loss"], restval=0)
+            w.writeheader(); w.writerows(wtl)
+    else:
+        # The compact GitHub package omits the bulky frozen rankings. Reuse the
+        # already archived aggregate values and regenerate labels/report only.
+        with (OUT / "baseline_by_difficulty.csv").open(encoding="utf-8-sig", newline="") as f:
+            for row in csv.DictReader(f):
+                row["method"] = "TMC-RAG-v2 (frozen)" if row["method"].startswith("TEF") else row["method"]
+                row["n"] = int(row["n"])
+                for key in ("recall_at_5", "ndcg_at_5", "complete_at_5"):
+                    row[key] = float(row[key])
+                baseline_rows.append(row)
     with (OUT / "baseline_by_difficulty.csv").open("w", encoding="utf-8-sig", newline="") as f:
         w = csv.DictWriter(f, fieldnames=list(baseline_rows[0])); w.writeheader(); w.writerows(baseline_rows)
-
-    mmap = {(r["query_id"], r["method"]): r for r in metrics}
-    wtl = []
-    for label, predicate in strata:
-        qids = [r["query_id"] for r in audit_rows if predicate(r)]
-        for metric in ("recall", "ndcg", "complete"):
-            counts = Counter()
-            for qid in qids:
-                delta = mmap[qid, "tmc_v2"][metric] - mmap[qid, "latest_device"][metric]
-                counts["win" if delta > 1e-12 else "loss" if delta < -1e-12 else "tie"] += 1
-            wtl.append({"difficulty": label, "metric": f"{metric}@5", "n": len(qids), **counts})
-    with (OUT / "tef_vs_latest_wtl.csv").open("w", encoding="utf-8-sig", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=["difficulty", "metric", "n", "win", "tie", "loss"], restval=0)
-        w.writeheader(); w.writerows(wtl)
 
     counts = {lab: sum(lab in r["difficulty_labels"].split("|") for r in audit_rows) for lab in LABEL_ORDER}
     task_dist = {}
@@ -210,6 +218,30 @@ def main():
     temporal = [r for r in audit_rows if r["task"] == "temporal"]
     hard_temporal = [r for r in temporal if hard_labels.intersection(r["difficulty_labels"].split("|"))]
     operational_hard = [r for r in hard_temporal if not r["recency_solvable_at_5"]]
+    if len(operational_hard) != 196:
+        raise RuntimeError(f"hard development manifest must contain 196 queries, got {len(operational_hard)}")
+    MANIFEST_OUT.parent.mkdir(parents=True, exist_ok=True)
+    with MANIFEST_OUT.open("w", encoding="utf-8", newline="\n") as handle:
+        for row in sorted(operational_hard, key=lambda item: item["query_id"]):
+            g = gold[row["query_id"]]
+            c = chains[g["chain_id"]]
+            manifest_row = {
+                "query_id": row["query_id"],
+                "intent_id": g.get("intent_id"),
+                "asset_id": row["asset"],
+                "chain_id": g["chain_id"],
+                "task": row["task"],
+                "scenario": row["scenario"],
+                "theme": row["theme"],
+                "difficulty_labels": row["difficulty_labels"].split("|"),
+                "query_time": row["query_time"],
+                "cutoff": g.get("cutoff") or row["query_time"],
+                "required_evidence_groups": g["required_evidence_groups"],
+                "recency_solvable_at_5": False,
+                "diagnostic_status": "seen development diagnostic subset",
+                "independent_validation_or_test": False,
+            }
+            handle.write(json.dumps(manifest_row, ensure_ascii=False, sort_keys=True) + "\n")
     co = Counter()
     for r in audit_rows:
         labs = r["difficulty_labels"].split("|")
@@ -234,7 +266,8 @@ def main():
         "notes": [
             "Gold, authoring chains, and relevance judgments were used only for offline audit/evaluation.",
             "RECENCY_ONLY and recency_solvable_at_5 may coexist with temporal labels; the former denotes structural coverage by newest records, not absence of temporal wording.",
-            "The dataset's full-coverage frozen main-method run is named tmc_v2; it is reported as TEF with an explicit alias rather than silently renamed.",
+            "The dataset's full-coverage frozen main-method run is named tmc_v2 and is reported unambiguously as TMC-RAG-v2 (frozen), not TEF-RAG-v5.",
+            "The 196-query hard manifest is a seen development diagnostic subset, NOT independent validation/test.",
             "Counts include two deterministic phrasings per intent; there are 576 intents, so query rows are not independent samples.",
         ],
     }
@@ -242,7 +275,7 @@ def main():
 
     bmap = {(r["difficulty"], r["method"]): r for r in baseline_rows}
     def fmt(x): return f"{x:.4f}" if x is not None else "NA"
-    matrix = ["| Difficulty | N | Latest R/nDCG/C | BM25 R/nDCG/C | Hybrid R/nDCG/C | TEF* R/nDCG/C |",
+    matrix = ["| Difficulty | N | Latest R/nDCG/C | BM25 R/nDCG/C | Hybrid R/nDCG/C | TMC-RAG-v2 (frozen) R/nDCG/C |",
               "|---|---:|---:|---:|---:|---:|"]
     for label, _ in strata:
         row = bmap[label, "Latest"]
@@ -288,7 +321,7 @@ def main():
 
 """ + "\n".join(matrix) + """
 
-**TEF 注：** 对应该数据集已有、全 1152 题冻结主方法结果 `tmc_v2`（报告中显式写为 `TEF (frozen TMC-RAG-v2 run)`）；仓库没有另一个覆盖该数据集全部题目的 TEF-v5 运行，因此不伪造或混入 16 题 stress set。逐 difficulty 数值见 `baseline_by_difficulty.csv`，逐层 TEF-vs-Latest 的 Recall/nDCG/Complete 胜平负见 `tef_vs_latest_wtl.csv`。
+**方法命名说明：** 全 1152 题的冻结主方法结果 `tmc_v2` 明确标为 `TMC-RAG-v2 (frozen)`；它不是 TEF-RAG-v5。仓库没有覆盖该数据集全部题目的 TEF-RAG-v5 运行，因此不伪造或混入 16 题 stress set。逐 difficulty 数值见 `baseline_by_difficulty.csv`，逐层 TMC-RAG-v2-vs-Latest 的 Recall/nDCG/Complete 胜平负见 `tmc_rag_v2_vs_latest_wtl.csv`。
 
 ## Important examples
 
@@ -296,13 +329,13 @@ def main():
 
 ## Main findings and dataset gaps
 
-768 个 temporal query 中，572 个（74.48%）的必要证据已被 Latest-5 结构覆盖；只有 {len(operational_hard)} 个（{pct(len(operational_hard), len(temporal)):.2f}%）同时具有时序结构标签且 Latest-5 不能覆盖。总体均值因此主要测到设备过滤与倒序覆盖。更关键的是，TEF 在 `PROCEDURE_VERSIONING/CROSS_SOURCE_REQUIRED` 的 Recall@5 为 0.6250，低于 Latest 的 0.6354，Complete@5 均为 0；在 `LATE_ARRIVING_EVIDENCE` 也低于 Latest（0.9818 vs 0.9948）。它只在 `MULTI_EPISODE`（0.9132 vs 0.8808）和 `SIMILAR_SYMPTOM_DIFFERENT_CAUSE`（0.9479 vs 0.8976）显示较清楚的 Recall 优势。因此数据偏易与算法未稳定利用 hard structure 两者同时存在。
+""" + f"""768 个 temporal query 中，572 个（74.48%）的必要证据已被 Latest-5 结构覆盖；只有 {len(operational_hard)} 个（{pct(len(operational_hard), len(temporal)):.2f}%）同时具有时序结构标签且 Latest-5 不能覆盖。该 196-query 清单是 **seen development diagnostic subset，NOT independent validation/test**。总体均值因此主要测到设备过滤与倒序覆盖。更关键的是，TMC-RAG-v2 (frozen) 在 `PROCEDURE_VERSIONING/CROSS_SOURCE_REQUIRED` 的 Recall@5 为 0.6250，低于 Latest 的 0.6354，Complete@5 均为 0；在 `LATE_ARRIVING_EVIDENCE` 也低于 Latest（0.9818 vs 0.9948）。它只在 `MULTI_EPISODE`（0.9132 vs 0.8808）和 `SIMILAR_SYMPTOM_DIFFERENT_CAUSE`（0.9479 vs 0.8976）显示较清楚的 Recall 优势。因此数据偏易与算法未稳定利用 hard structure 两者同时存在。
 
 当前设计的主要缺口是：difficulty 由 16 个原型模板参数化复制，类别与 scenario 高度绑定；两个改写共享 intent/gold；缺少更多相互独立的 cutoff 对、跨链交织的长历史、自然形成的多源缺失组合，以及真实规程修订/撤回链。`CUTOFF_SENSITIVE` 覆盖广但不等于 cutoff 决策困难，必须结合 Latest-5 可解率解释。
 
 ## Recommendation
 
-采用“both、数据优先”的决策：先补充独立、人工复核、Latest-5 无法凭倒序覆盖的 temporal-hard 开发/验证任务，再在现有 hard strata 上修正算法。原因是当前 benchmark 的模板重复和 recency coverage 会显著稀释难度；同时若 TEF 在现有 hard strata 没有稳定胜过简单基线，也不能只归因于数据过易。禁止在 dev 上按结果删题或继续调权重后覆盖本审计。
+采用“both、数据优先”的决策：先补充独立、人工复核、Latest-5 无法凭倒序覆盖的 temporal-hard 开发/验证任务，再在现有 hard strata 上修正算法。原因是当前 benchmark 的模板重复和 recency coverage 会显著稀释难度；同时若 TMC-RAG-v2 (frozen) 在现有 hard strata 没有稳定胜过简单基线，也不能只归因于数据过易。禁止在 dev 上按结果删题或继续调权重后覆盖本审计。
 
 ## Limitations
 

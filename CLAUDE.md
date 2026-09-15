@@ -3,7 +3,7 @@
 > **这是编码 / 研究 Agent 的唯一核心工作上下文。** 每次开始任务先读本文件。本文件应保持简洁、当前、面向决策；历史迭代细节统一放在 `docs/DEVELOPMENT_HISTORY.md`。
 >
 > 更新时间：2026-09-15  
-> 当前开发分支：`tef-rag-v5.1-failure-attribution`
+> 当前开发分支：`tef-rag-v5.2-oracle-attribution`
 
 ## 1. 研究背景：后续迭代不得偏离
 
@@ -286,18 +286,23 @@ v5.1 在完全不改变 frozen v5 `score_set` 的前提下加入 exhaustive exac
 
 > **当前小候选池中，Beam Search 近似不是主要失败来源。**
 
-但 v5.1 还没有把以下因素彻底拆开：
+## 5.4 TEF-RAG v5.2 Oracle Projection Attribution —— 已完成
 
-- query profile error；
-- role projection error；
-- relation / evidence-graph projection error；
-- set-objective misalignment。
+v5.2 在 12 个已见 set-mode query 上完成 Profile / Roles / Relations 的完整 2×2×2 离线 counterfactual。所有条件保持 candidate、visibility、semantic score、Top-k、budget、Exact Search、`_score_set` 与评价不变；oracle metadata 只存在于 analyzer。
 
-当前 taxonomy 强烈提示：**representation/projection 与 objective 可能同时有问题。**
+- CCC 完整复现 v5.1：Recall / nDCG / Complete = `0.7208 / 0.7291 / 0.1667`；
+- 单独 oracle Profile / Roles / Relations 分别修复 `1 / 1 / 0` 个原失败；
+- Oracle Profile + Oracle Roles 修复 `3` 个；
+- OOO 为 `0.8625 / 0.8752 / 0.5000`，修复 `4/10` 个原失败；
+- OOO 仍有 `6/10` 个原失败保持 incomplete，而这些题均存在可行 gold-complete Top-5。
 
-因此不能从“search 不是问题”直接跳到“已经证明 objective 单独有问题”。
+结论：
 
-## 5.4 `temporal_maintenance_dev_v2` 难度审计 —— 已完成
+> **Projection/representation 改善确实有效，但 frozen objective 在 oracle 表示下仍大量偏好不完整集合；两类问题共存。**
+
+Relations 单独没有修复，只有和 oracle Profile 联合时才产生额外收益，说明 relation utility 明显受 query demand/profile 条件制约。下一代方法应同时研究 query-conditioned evidence-flow representation 与 flow-completion-aware selection，不能只改图或只扩搜索。
+
+## 5.5 `temporal_maintenance_dev_v2` 难度审计 —— 已完成
 
 该数据集当前只属于 development material，不是独立 test。
 
@@ -316,57 +321,31 @@ v5.1 在完全不改变 frozen v5 `score_set` 的前提下加入 exhaustive exac
 
 > 难度审计里覆盖 1,152 题的冻结结果来自 **TMC-RAG-v2**，不是 TEF-RAG-v5。后续报告中不要再简单标成 `TEF`。
 
-当前 audit 还需要清理一个已知问题：修复报告中未渲染的 `{len(operational_hard)}` / percentage 占位符。
+报告生成占位符与 TMC / TEF 命名已修复；196-query 清单已经导出，但明确是 **seen development diagnostic subset，NOT independent validation/test**。
 
 ---
 
 # 6. 立即下一步任务
 
-## 6.1 算法任务：v5.2 Oracle Projection Attribution
+## 6.1 算法任务：冻结 v6 protocol，不立即调参
 
-在定义 v6 之前，先在 **已见诊断集** 上做一个小型离线 counterfactual attribution 实验。
+v5.2 已完成。下一步先把独立 benchmark protocol 与成功判据书面冻结，再设计统一的 Temporal Evidence Flow 方法。根据 v5.2，v6 必须同时覆盖：
 
-以下内容全部保持不变：
+1. query-conditioned role / relation / flow representation；
+2. 对完整 task-support flow 更一致的 selection / reranking objective。
 
-- candidate pool；
-- semantic score；
-- Top-k；
-- budget；
-- Exact Search；
-- frozen v5 objective。
-
-只替换 profile / role / relation 表示，至少比较：
-
-- current profile + current roles + current relations；
-- oracle profile + current roles + current relations；
-- current profile + oracle roles + current relations；
-- current profile + current roles + oracle relations；
-- oracle profile + oracle roles + oracle relations。
-
-目标：区分失败究竟主要来自 representation/projection，还是即使表示正确，objective 仍偏好不完整集合。
-
-任何 oracle 信息都不得进入真实 retrieval；Oracle variant **只允许离线诊断**。
-
-v5.2 之后按结果决策：
-
-- 若 oracle relation / representation 大幅修复失败：优先研究 evidence graph / relation induction；
-- 若 oracle representation 已正确，但 Exact objective 仍偏好 incomplete set：优先研究 flow-completion-aware retrieval / reranking / selection；
-- 若两边都有贡献：v6 应同时解决 evidence representation 与 flow-aware selection。
-
-禁止在这 16 个已见 query 上重新调 v5 权重。
+禁止在这 16 个已见 query 上重新调 v5 权重，也不要把 oracle graph 包装成真实 retrieval 能获得的图。
 
 ## 6.2 数据任务：重构真正 temporal-hard 的 benchmark
 
-与 v5.2 并行进行：
+旧 audit 收尾已完成；立即剩余任务是：
 
-1. 修复 difficulty audit 中的占位符 bug，并统一 TMC / TEF 命名；
-2. 导出 196 个 `TEMPORAL_HARD_NOT_RECENCY_SOLVABLE` query，作为 **dev diagnostic manifest**；
-3. 在生成 / 评分前先写新的独立 temporal-hard benchmark protocol；
-4. 在评估方法前预先定义 Latest-5 难度验收标准；
-5. 优先增加独立 scenario diversity，而不是继续堆模板 / paraphrase 数量；
-6. 对电压、电流、温度等数值生成规则加入合理范围、采样频率和极少量极端异常点约束；
-7. 继续保留并加强规程 V1 / V2 / V3、时效时间戳及修订 / 撤回链；
-8. 加入人工复核，并在可行时增加 canonical task-support flow annotation。
+1. 在生成 / 评分前先写新的独立 temporal-hard benchmark protocol；
+2. 在评估方法前预先定义 Latest-5 难度验收标准；
+3. 优先增加独立 scenario diversity，而不是继续堆模板 / paraphrase 数量；
+4. 对电压、电流、温度等数值生成规则加入合理范围、采样频率和极少量极端异常点约束；
+5. 继续保留并加强规程 V1 / V2 / V3、时效时间戳及修订 / 撤回链；
+6. 加入人工复核，并在可行时增加 canonical task-support flow annotation。
 
 不要把旧 dev set 里根据结果筛出来的 hard query 重新包装成“新的 test set”。
 
@@ -374,10 +353,7 @@ v5.2 之后按结果决策：
 
 # 7. v6 允许演化成什么
 
-在以下两件事完成前，不要正式实现 v6：
-
-- v5.2 attribution；
-- 新 benchmark protocol 书面冻结。
+在新 benchmark protocol 书面冻结前，不要正式实现 v6。
 
 v6 的总原则不是“给 v5 objective 再加一个 term”，而是：
 

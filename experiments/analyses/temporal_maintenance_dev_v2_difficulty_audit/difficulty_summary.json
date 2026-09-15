@@ -161,12 +161,13 @@
     "latest_device": "Latest",
     "bm25_visible": "BM25",
     "hybrid_device": "Hybrid",
-    "tmc_v2": "TEF (frozen TMC-RAG-v2 run)"
+    "tmc_v2": "TMC-RAG-v2 (frozen)"
   },
   "notes": [
     "Gold, authoring chains, and relevance judgments were used only for offline audit/evaluation.",
     "RECENCY_ONLY and recency_solvable_at_5 may coexist with temporal labels; the former denotes structural coverage by newest records, not absence of temporal wording.",
-    "The dataset's full-coverage frozen main-method run is named tmc_v2; it is reported as TEF with an explicit alias rather than silently renamed.",
+    "The dataset's full-coverage frozen main-method run is named tmc_v2 and is reported unambiguously as TMC-RAG-v2 (frozen), not TEF-RAG-v5.",
+    "The 196-query hard manifest is a seen development diagnostic subset, NOT independent validation/test.",
     "Counts include two deterministic phrasings per intent; there are 576 intents, so query rows are not independent samples."
   ]
 }
