@@ -1,0 +1,49 @@
+{
+  "authoring_timestamp": "2026-09-15",
+  "counts": {
+    "assets": 100,
+    "chains": 400,
+    "evidence_records": 3888,
+    "primary_intents": 1200,
+    "query_rows": 2400
+  },
+  "dataset_id": "TEF_RAG_v6_temporal_hard_benchmark_v1",
+  "protocol_freeze_commit": "b0e6e004378e7d7f29cabece1efa6b2c30489e9b",
+  "public_artifact_hashes": {
+    "README.md": "b3bd76f133b769a532be40a86e3ab9fc242f237cd9882dff00bf230fc44eaa78",
+    "gate_summary.json": "c643152b842c7c669d78acbb92b5fa1ce12cf099e939713e93da0aae814e6855",
+    "metadata/first_pass_review_development_validation.jsonl": "55f93150b1153e937ce073f63f2f51ae9d78b40736b7f0850f61b8cbfd2dfc5d",
+    "metadata/relation_taxonomy.json": "701e537b9111518db942282a9d8f048bd44de3c1afcf0a6cebdb2439f45cf4b9",
+    "metadata/review_status.json": "03904d1fdfc44203223a6c4e6e57b3f5ac915a30f54962b5259170affd459d1a",
+    "metadata/source_registry.json": "d1338843ad1615265b0a49a6605f58450b78105cf2544731ac467dd7f74783c0",
+    "metadata/test_split_aggregate.json": "5b0d0da1127b2b3d9361ce74b5072f9d161d10fcca156af7d8c17fae1c7850ca",
+    "public/chains_development.jsonl": "a260015bd339dc28ee09a4723fe2ca249003d69b3ec8184832aab9c3479cc37f",
+    "public/chains_test.jsonl": "45e6244e55a804d151b4928fa19f726d5852966f1d11906fa3c0f71eb0d27902",
+    "public/chains_validation.jsonl": "caa18c7360fdf809b2d8f1013f4ade39ae232fcf54f859d61665f338d32721b8",
+    "public/evidence.jsonl": "201577c8c7786f2e3aac8ac5f3fee3937cd9746bce47f88d97efae7f1e98b80c",
+    "public/gold_development.jsonl": "d251783b1d8d5bfcb7763c6bf80d67971a9657c9df382a69518c9e7d82c821a6",
+    "public/gold_validation.jsonl": "db52eab2e8dd4e68708f27505bb1d5d1a0d2a08014d8278b4e302b09a4151e67",
+    "public/queries_development.jsonl": "ec48f0bfa236ea110d9721b81528af063884f7f42d5c964e1604aae3233835f7",
+    "public/queries_test.jsonl": "9044c29a0ba531ba26c579c5aac467b80786185da06801d9f7aee653f0f23898",
+    "public/queries_validation.jsonl": "1e527c0490431b369b698681eac89128bca248e1646362200229d30873e20689"
+  },
+  "public_test_gold": false,
+  "sealed_test": {
+    "record_count": 480,
+    "sha256": "477bb709f3dfdb672ce5a7f5c93168e0791c7a90cb247c62a6072bd8dee7c9f3"
+  },
+  "split_chain_counts": {
+    "challenge": {
+      "development": 120,
+      "test": 40,
+      "validation": 40
+    },
+    "realistic": {
+      "development": 120,
+      "test": 40,
+      "validation": 40
+    }
+  },
+  "status": "SEMANTICALLY_AUTHORED_CANDIDATE_PENDING_BLIND_SECOND_REVIEW",
+  "target_method_runs": 0
+}

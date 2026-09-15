@@ -1,0 +1,26 @@
+{
+  "authoring_context": "GPT-5.6 Sol direct semantic authoring",
+  "dataset_status": "SEMANTICALLY_AUTHORED_CANDIDATE_PENDING_BLIND_SECOND_REVIEW",
+  "first_pass": {
+    "expert_or_field_certified": false,
+    "review_mode": "authoring-context AI semantic review; not blind to authoring",
+    "reviewer_model": "GPT-5.6 Sol",
+    "scope": "all 400 chains",
+    "status": "COMPLETE"
+  },
+  "protocol_freeze_commit": "b0e6e004378e7d7f29cabece1efa6b2c30489e9b",
+  "second_blind_review": {
+    "reason": "Current authoring context cannot honestly claim blindness to pass-1 authoring/reasoning.",
+    "test": "PENDING_IN_SEALED_FRESH_REVIEW_CONTEXT",
+    "validation": "PENDING_IN_FRESH_REVIEW_CONTEXT"
+  },
+  "target_method_runs": 0,
+  "test_gold": {
+    "item_level_reasoning_public": false,
+    "public": false,
+    "record_count": 480,
+    "sha256": "477bb709f3dfdb672ce5a7f5c93168e0791c7a90cb247c62a6072bd8dee7c9f3",
+    "storage": "PRIVATE_USER_LIBRARY_SEALED_ARTIFACT"
+  },
+  "v6_implementation_run": false
+}

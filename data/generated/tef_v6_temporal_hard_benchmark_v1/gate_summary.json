@@ -1,0 +1,58 @@
+{
+  "challenge_gates_pass": true,
+  "challenge_latest5_complete_at_5_rate": 0.12166666666666667,
+  "challenge_latest5_flowcomplete_at_5_rate": 0.11,
+  "challenge_query_rows": 1200,
+  "challenge_recency_solvable_at_5_rate": 0.12166666666666667,
+  "challenge_thresholds": {
+    "latest5_complete_at_5_max": 0.4,
+    "recency_solvable_at_5_max": 0.4
+  },
+  "major_strata": {
+    "CROSS_SOURCE_REQUIRED": {
+      "latest5_flowcomplete_at_5_rate": 0.0,
+      "query_rows": 180,
+      "recency_solvable_at_5_rate": 0.0
+    },
+    "CUTOFF_SENSITIVE": {
+      "latest5_flowcomplete_at_5_rate": 0.25555555555555554,
+      "query_rows": 180,
+      "recency_solvable_at_5_rate": 0.3333333333333333
+    },
+    "LATE_ARRIVING_EVIDENCE": {
+      "latest5_flowcomplete_at_5_rate": 0.1111111111111111,
+      "query_rows": 180,
+      "recency_solvable_at_5_rate": 0.1111111111111111
+    },
+    "MULTI_EPISODE_DISAMBIGUATION": {
+      "latest5_flowcomplete_at_5_rate": 0.0,
+      "query_rows": 180,
+      "recency_solvable_at_5_rate": 0.0
+    },
+    "PERSISTENT_UNCERTAINTY": {
+      "latest5_flowcomplete_at_5_rate": 0.1111111111111111,
+      "query_rows": 180,
+      "recency_solvable_at_5_rate": 0.1111111111111111
+    },
+    "PROCEDURE_VERSIONING": {
+      "latest5_flowcomplete_at_5_rate": 0.36666666666666664,
+      "query_rows": 180,
+      "recency_solvable_at_5_rate": 0.36666666666666664
+    },
+    "SIMILAR_SYMPTOM_DIFFERENT_CAUSE": {
+      "latest5_flowcomplete_at_5_rate": 0.0,
+      "query_rows": 180,
+      "recency_solvable_at_5_rate": 0.0
+    },
+    "SUPERSEDED_DIAGNOSIS": {
+      "latest5_flowcomplete_at_5_rate": 0.1111111111111111,
+      "query_rows": 180,
+      "recency_solvable_at_5_rate": 0.1111111111111111
+    }
+  },
+  "major_stratum_recency_ceiling": 0.5,
+  "method_used": "Latest-5 over legal same-asset bitemporally visible evidence; procedure evidence additionally requires valid interval and asset-model scope match.",
+  "realistic_latest5_complete_at_5_rate": 0.77,
+  "routine_stratum_latest5_complete_at_5_rate": 1.0,
+  "top_k": 5
+}
