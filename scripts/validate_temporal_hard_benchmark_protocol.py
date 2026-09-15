@@ -15,7 +15,7 @@ DIFFICULTIES = {
 }
 FLOW_FIELDS = {
     "required_nodes", "required_groups", "required_flow_edges", "support_edges", "update_edges",
-    "supersession_edges", "prerequisite_edges", "verification_edges",
+    "supersession_edges", "prerequisite_edges", "verification_edges", "flowcomplete_semantics",
 }
 REQUIRED_METADATA = {"scenario_family_id", "template_family_id", "asset_id", "chain_id", "intent_id"}
 FLOW_EDGE_FIELDS = {"edge_id", "from_group", "to_group", "relation_type", "allowed_endpoint_pairs"}
@@ -54,6 +54,19 @@ def validate(config, markdown):
     require({"group_id", "acceptable_evidence_ids"} <= group_fields, "required group schema missing group_id/evidence IDs")
     edge_fields = set(flow.get("required_flow_edges", {}).get("item_schema", {}).get("required_fields", []))
     require(FLOW_EDGE_FIELDS <= edge_fields, "required flow edge schema missing fields")
+    semantics = flow.get("flowcomplete_semantics", {})
+    require(semantics.get("assignment_type") == "one_retrieved_acceptable_evidence_per_required_group", "FlowComplete assignment type mismatch")
+    require(semantics.get("global_consistency_required") is True, "FlowComplete must require global consistency")
+    require(semantics.get("same_group_assignment_reused_across_all_incident_edges") is True, "group assignment must be reused across incident edges")
+    require(semantics.get("assignment_is_existential") is True, "FlowComplete assignment must be existential")
+    require(semantics.get("assignment_must_satisfy_all_required_flow_edges") is True, "assignment must satisfy every required flow edge")
+    require(semantics.get("assignment_injective") is False, "FlowComplete assignment must not require injectivity")
+    require(semantics.get("same_evidence_can_fill_multiple_groups_only_if_acceptable_in_each") is True, "shared evidence must be acceptable in every assigned group")
+    require(semantics.get("complete_primary_semantics") == "required_groups", "Complete primary semantics must be required_groups")
+    require(semantics.get("required_nodes_role") == "optional_diagnostic_or_provenance", "required_nodes role must be diagnostic/provenance")
+    required_nodes = flow.get("required_nodes", {})
+    require(required_nodes.get("required") is False, "required_nodes must not be a primary Complete requirement")
+    require(required_nodes.get("role") == "optional_diagnostic_or_provenance", "required_nodes annotation role mismatch")
     require(flow.get("baseline_graph_prediction_required") is False, "baselines must not predict graphs")
     require(flow.get("complete_can_be_one_while_flowcomplete_is_zero") is True, "FlowComplete must differ from Complete")
     require(set(config.get("primary_metrics", [])) == {"Recall@5", "nDCG@5", "Complete@5", "FlowComplete@5"}, "primary metrics mismatch")
@@ -67,7 +80,7 @@ def validate(config, markdown):
     require(restrictions.get("old_196_subset_is_not_new_test"), "old 196 subset restriction missing")
     require(config.get("data_generation", {}).get("performed") is False, "protocol must not claim data generation")
     require(config.get("multi_step_policy", {}).get("implementation_in_this_protocol_round") is False, "multi-step retrieval must remain unimplemented")
-    for phrase in ("DRAFT FOR USER REVIEW", "NOT YET FROZEN", "NO DATA GENERATED FROM THIS PROTOCOL YET", "RECENCY_SOLVABLE_AT_5", "Complete@5 = 1, FlowComplete@5 = 0", "required_flow_edges", "allowed_endpoint_pairs", "event_time", "available_at", "scenario_family_id", "template_family_id", "V1", "V2", "V3"):
+    for phrase in ("DRAFT FOR USER REVIEW", "NOT YET FROZEN", "NO DATA GENERATED FROM THIS PROTOCOL YET", "RECENCY_SOLVABLE_AT_5", "Complete@5 = 1, FlowComplete@5 = 0", "required_flow_edges", "allowed_endpoint_pairs", "全局一致", "同一个 group 在所有相连 edge 中必须复用同一个 evidence", "event_time", "available_at", "scenario_family_id", "template_family_id", "V1", "V2", "V3"):
         require(phrase in markdown, f"markdown missing: {phrase}")
     return errors
 

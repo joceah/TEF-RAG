@@ -1,6 +1,25 @@
 import unittest
+from itertools import product
 
 from scripts.validate_temporal_hard_benchmark_protocol import FLOW_EDGE_FIELDS, FLOW_FIELDS, REQUIRED_METADATA, load_protocol, validate
+
+
+def global_flow_assignment_exists(selected_ids, required_groups, required_flow_edges):
+    """Minimal exhaustive checker for protocol semantics; not a benchmark evaluator."""
+    selected = set(selected_ids)
+    group_ids = list(required_groups)
+    domains = [sorted(selected.intersection(required_groups[group_id])) for group_id in group_ids]
+    if any(not domain for domain in domains):
+        return False
+    for values in product(*domains):
+        assignment = dict(zip(group_ids, values))
+        if all(
+            (assignment[edge["from_group"]], assignment[edge["to_group"]])
+            in {tuple(pair) for pair in edge["allowed_endpoint_pairs"]}
+            for edge in required_flow_edges
+        ):
+            return True
+    return False
 
 
 class TemporalHardBenchmarkProtocolTests(unittest.TestCase):
@@ -40,6 +59,43 @@ class TemporalHardBenchmarkProtocolTests(unittest.TestCase):
         self.assertTrue(complete)
         self.assertFalse(flow_complete)
         self.assertFalse(flow["baseline_graph_prediction_required"])
+
+    def test_local_edges_pass_but_global_assignment_fails(self):
+        groups = {"G1": {"A1"}, "G2": {"B1", "B2"}, "G3": {"C1"}}
+        edges = [
+            {"from_group": "G1", "to_group": "G2", "allowed_endpoint_pairs": [["A1", "B1"]]},
+            {"from_group": "G2", "to_group": "G3", "allowed_endpoint_pairs": [["B2", "C1"]]},
+        ]
+        selected = {"A1", "B1", "B2", "C1"}
+        complete = all(selected & acceptable for acceptable in groups.values())
+        local_edges_pass = all(
+            any(left in selected and right in selected for left, right in edge["allowed_endpoint_pairs"])
+            for edge in edges
+        )
+        self.assertTrue(complete)
+        self.assertTrue(local_edges_pass)
+        self.assertFalse(global_flow_assignment_exists(selected, groups, edges))
+
+    def test_global_assignment_succeeds(self):
+        groups = {"G1": {"A1"}, "G2": {"B1", "B2"}, "G3": {"C1"}}
+        edges = [
+            {"from_group": "G1", "to_group": "G2", "allowed_endpoint_pairs": [["A1", "B1"]]},
+            {"from_group": "G2", "to_group": "G3", "allowed_endpoint_pairs": [["B1", "C1"]]},
+        ]
+        selected = {"A1", "B1", "B2", "C1"}
+        self.assertTrue(all(selected & acceptable for acceptable in groups.values()))
+        self.assertTrue(global_flow_assignment_exists(selected, groups, edges))
+
+    def test_flowcomplete_global_semantics_are_machine_readable(self):
+        flow = self.config["required_annotations"]["canonical_task_support_flow"]
+        semantics = flow["flowcomplete_semantics"]
+        self.assertTrue(semantics["global_consistency_required"])
+        self.assertTrue(semantics["same_group_assignment_reused_across_all_incident_edges"])
+        self.assertTrue(semantics["assignment_is_existential"])
+        self.assertTrue(semantics["assignment_must_satisfy_all_required_flow_edges"])
+        self.assertFalse(semantics["assignment_injective"])
+        self.assertEqual(semantics["complete_primary_semantics"], "required_groups")
+        self.assertEqual(semantics["required_nodes_role"], "optional_diagnostic_or_provenance")
 
     def test_versioning_and_split_isolation(self):
         self.assertEqual(self.config["procedure_versioning_required"]["versions"], ["V1", "V2", "V3"])

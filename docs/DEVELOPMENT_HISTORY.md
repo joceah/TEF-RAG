@@ -191,6 +191,8 @@ v5.1 的目标不是提出新算法，而是判断：
 
 第二轮小修订加入 structural recency gate、group-aware `FlowComplete@5`，以及 scenario/template family 与 Challenge Test asset split isolation；主 protocol 同步中文化。状态仍未冻结。
 
+`FlowComplete@5` 语义进一步从逐边局部可满足收紧为存在全局一致的 group-to-evidence assignment。
+
 在 v5.2 与数据难度审计之后，已经确认两个研究瓶颈：
 
 1. **算法问题**：Search 基本被排除为主要原因；projection / representation error 与 objective misalignment 已确认共存。

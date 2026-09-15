@@ -99,7 +99,9 @@
 
 ### 7.1 Required groups
 
-每个 `required_group` 必须具有稳定的 `group_id` 和 `acceptable_evidence_ids`。例如 `G1 = [A1, A2]` 表示 A1 或 A2 任意一个都能满足该 evidence requirement。
+每个 `required_group` 必须具有稳定的 `group_id` 和 `acceptable_evidence_ids`。例如 `G1 = [A1, A2]` 表示 A1 或 A2 任意一个就能满足该 evidence requirement，不要求两者全部出现。`required_groups` 是 `Complete@5` 的 primary completeness semantics：Top-5 必须对每个 group 至少命中一个 acceptable evidence。
+
+`required_nodes` 仅是可选的 diagnostic/provenance annotation，可用于作者标记、来源追踪和 node-level analysis；它不是 `Complete@5` 的 primary requirement，也不要求其中所有节点都被检索到。
 
 ### 7.2 Required flow edges
 
@@ -119,14 +121,21 @@ Primary flow constraint 使用 `required_flow_edges`。每条 edge 至少包含 
 
 ## 8. `FlowComplete@5` 正式定义
 
+对每个 required group `Gi`，定义 assignment `f(Gi) = ei`，其中 `ei` 必须既属于 `acceptable_evidence_ids(Gi)`，也属于 retrieved Top-5。在一个具体 assignment 中，每个 group 只选择一个 evidence；同一个 group 在所有相连 edge 中必须复用同一个 evidence，不能在不同 flow edge 中切换。Evaluator 可以枚举多个候选 assignment。
+
 `FlowComplete@5 = 1` 当且仅当同时满足：
 
-1. `Complete@5 = 1`：Top-5 至少命中每个 required group 中的一条合法 evidence；
-2. 对每条 `required_flow_edge`，Top-5 在其 `from_group` 和 `to_group` 中选中的 evidence 至少存在一组 `(selected_from_node, selected_to_node)` 属于该 edge 的 `allowed_endpoint_pairs`。
+1. `Complete@5 = 1`；
+2. **存在（EXISTS）至少一个全局一致的 group-to-evidence assignment**，为每个 required group 选择一个 retrieved acceptable evidence；
+3. 同一个 assignment 同时满足全部 `required_flow_edges`：对每条 `Gi -> Gj`，`[f(Gi), f(Gj)]` 都属于该 edge 的 `allowed_endpoint_pairs`。
+
+Assignment 不要求 injective。同一 evidence 可以同时赋给多个 group，但仅当该 evidence 被每个相关 group 的 `acceptable_evidence_ids` 明确接受。额外的干扰 evidence 不会导致失败；只要存在一组全局一致 assignment 即为成功。若每条 edge 分别能找到局部合法 pair、却无法由同一组 evidence selection 同时满足整条 canonical flow，则 `FlowComplete@5 = 0`。
 
 因此明确允许且必须能评价：`Complete@5 = 1, FlowComplete@5 = 0`。
 
 示例：G1=[A1,A2]，G2=[B1,B2]，合法 pair 只有 A1→B2、A2→B1。若模型选择 A1+B1，则两个 group 都已覆盖，Complete@5=1；但 A1→B1 不合法，所以 FlowComplete@5=0。这正是 FlowComplete 区别于元素覆盖完整性的意义。
+
+运维示例：Episode 1 为“持续温升 → 风机故障 → 风机检修”，Episode 2 为“瞬时温度尖峰 → 温度传感器漂移 → 传感器校准”。若 Retriever 返回本次持续温升、风机故障、传感器漂移和传感器校准，各 group 虽均有 evidence，`Complete@5` 可以为 1；但不能把两个 episode 的局部关系拼成一条 flow。若不存在一致的“异常 → 诊断 → 动作”assignment，则 `FlowComplete@5 = 0`。
 
 BM25、Latest、Hybrid 等 baseline 不需要预测 relation graph。离线 evaluator 只用 `retrieved evidence set + author-defined canonical_task_support_flow` 检查约束，因此所有 baseline 可公平评价。
 

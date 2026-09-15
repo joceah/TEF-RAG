@@ -73,7 +73,10 @@
   },
   "required_annotations": {
     "canonical_task_support_flow": {
-      "required_nodes": true,
+      "required_nodes": {
+        "required": false,
+        "role": "optional_diagnostic_or_provenance"
+      },
       "required_groups": {
         "required": true,
         "item_schema": {
@@ -98,6 +101,17 @@
       "supersession_edges": true,
       "prerequisite_edges": true,
       "verification_edges": true,
+      "flowcomplete_semantics": {
+        "assignment_type": "one_retrieved_acceptable_evidence_per_required_group",
+        "global_consistency_required": true,
+        "same_group_assignment_reused_across_all_incident_edges": true,
+        "assignment_is_existential": true,
+        "assignment_must_satisfy_all_required_flow_edges": true,
+        "assignment_injective": false,
+        "same_evidence_can_fill_multiple_groups_only_if_acceptable_in_each": true,
+        "complete_primary_semantics": "required_groups",
+        "required_nodes_role": "optional_diagnostic_or_provenance"
+      },
       "authored_before_method_evaluation": true,
       "flowcomplete_uses_retrieved_set_plus_author_flow": true,
       "baseline_graph_prediction_required": false,
