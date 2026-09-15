@@ -16,3 +16,6 @@ tmp/
 dist/
 build/
 *.egg-info/
+# Deterministically materialized benchmark transport outputs (never commit).
+data/generated/tef_v6_temporal_hard_benchmark_v1/public/
+data/generated/tef_v6_temporal_hard_benchmark_v1/metadata/first_pass_review_development_validation.jsonl

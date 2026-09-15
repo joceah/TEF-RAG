@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "tef-rag"
-version = "0.5.1"
-description = "Query-conditioned set-level temporal evidence selection for maintenance RAG"
+version = "0.6.0"
+description = "Temporal Evidence Flow retrieval for maintenance RAG"
 requires-python = ">=3.11"
 dependencies = []
 
@@ -21,6 +21,7 @@ packages = [
   "tef_rag_v3",
   "tef_rag_v4",
   "tef_rag_v5",
+  "tef_rag_v6",
   "tmc_rag_v3",
 ]
 

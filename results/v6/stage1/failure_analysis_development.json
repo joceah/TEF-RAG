@@ -1,0 +1,47 @@
+{
+  "split": "development",
+  "category_counts": {
+    "flow_search_error": 843,
+    "evidence_redundancy": 238,
+    "relation_classification_error": 185,
+    "procedure_applicability_error": 81,
+    "uncertainty_handling_error": 53
+  },
+  "representative_query_ids": {
+    "flow_search_error": [
+      "TEFV6-C0001-I01-current_cause_action-P1",
+      "TEFV6-C0001-I01-current_cause_action-P2",
+      "TEFV6-C0001-I02-episode_compare-P1"
+    ],
+    "evidence_redundancy": [
+      "TEFV6-C0003-I01-current_cause_action-P1",
+      "TEFV6-C0003-I01-current_cause_action-P2",
+      "TEFV6-C0003-I03-decision_boundary-P1"
+    ],
+    "uncertainty_handling_error": [
+      "TEFV6-C0006-I02-episode_compare-P1",
+      "TEFV6-C0031-I02-status_after_cutoff-P1",
+      "TEFV6-C0031-I03-cutoff_explanation-P1"
+    ],
+    "relation_classification_error": [
+      "TEFV6-C0041-I01-pre_arrival-P1",
+      "TEFV6-C0041-I01-pre_arrival-P2",
+      "TEFV6-C0042-I01-pre_arrival-P1"
+    ],
+    "procedure_applicability_error": [
+      "TEFV6-C0101-I01-cross_source_action-P1",
+      "TEFV6-C0101-I01-cross_source_action-P2",
+      "TEFV6-C0107-I01-cross_source_action-P1"
+    ]
+  },
+  "classification_priority": [
+    "candidate_retrieval_miss",
+    "temporal_filtering_error",
+    "procedure_applicability_error",
+    "relation_classification_error",
+    "uncertainty_handling_error",
+    "evidence_redundancy",
+    "flow_search_error",
+    "insufficient_required_group_coverage"
+  ]
+}

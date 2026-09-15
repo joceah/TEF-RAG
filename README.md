@@ -1,8 +1,8 @@
 # TEF-RAG
 
-TEF-RAG（Temporal Evidence Flow RAG）是面向运维记录的时序证据检索原型。当前主版本 v5 不再先对路径打分再截取 Top-k，而是直接优化一个 query-conditioned 的证据集合。
+TEF-RAG（Temporal Evidence Flow RAG）是面向运维记录的时序证据检索原型。当前已实现 v6 Stage 1：在 candidate retrieval 后执行确定性双时间/procedure 约束，并显式构造 typed Temporal Evidence Flow。实现、dev/validation 结果和已知限制见 [`markdowns/tef_rag_v6_stage1.md`](markdowns/tef_rag_v6_stage1.md)。
 
-> 当前状态（2026-09-14）：v5 的集合选择、Top-k 截断和可审计 trace 已实现并通过测试；小规模冻结 holdout 没有证明其复杂链检索完整性优于 Scoped Hybrid。请把本仓库视为可复现的研究开发快照，不是已验证的生产系统或已成立的创新优势。
+> 当前状态（2026-09-16）：v6 Stage 1 已在 sealed benchmark 的 development/validation 上完成运行，尚未运行 test。请把本仓库视为可复现的研究开发快照，不是已验证的生产系统。
 
 ## v5 做了什么
 
@@ -53,6 +53,7 @@ python -m pip install -e ".[semantic]"
 ## 仓库结构
 
 - `tef_rag_v5/`：当前集合级选择器。
+- `tef_rag_v6/`：v6 Stage 1 candidate、temporal constraint、typed relation 与 flow selector。
 - `tef_rag_v1/`–`tef_rag_v4/`、`tmc_rag_v3/`：v5 仍调用的兼容依赖与历史接口，不代表需要重新运行旧实验。
 - `baseline_adapters/`：Scoped、TA-RAG、TG-RAG 的查询/来源恢复适配代码。
 - `scripts/`：v5 烟测、共享候选运行、外部基线封装、封存和 gold-aware 评分脚本。

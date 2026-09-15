@@ -1,0 +1,8 @@
+{
+  "query_count": 480,
+  "elapsed_seconds": 25.284042400002363,
+  "queries_per_second": 18.984306085483986,
+  "candidate_count_mean": 31.7625,
+  "eligible_count_mean": 19.325,
+  "rejected_count_mean": 12.4375
+}
