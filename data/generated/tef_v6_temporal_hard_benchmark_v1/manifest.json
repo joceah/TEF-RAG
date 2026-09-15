@@ -10,12 +10,12 @@
   "dataset_id": "TEF_RAG_v6_temporal_hard_benchmark_v1",
   "protocol_freeze_commit": "b0e6e004378e7d7f29cabece1efa6b2c30489e9b",
   "public_artifact_hashes": {
-    "README.md": "b3bd76f133b769a532be40a86e3ab9fc242f237cd9882dff00bf230fc44eaa78",
-    "analysis/review_summary.md": "30be69b7f1c32fc0755d10f70e2847510d9154846f12371c587e8a7b9ac48962",
+    "README.md": "2d1a83b4349173faf0430b5371a61611e7bce8d76186af4d05c77bbf59f34c79",
+    "analysis/review_summary.md": "dbca1ecbff9e138ce37dec41d07513dfe487a78ca2f4229ff360bd1e11bc1806",
     "gate_summary.json": "c643152b842c7c669d78acbb92b5fa1ce12cf099e939713e93da0aae814e6855",
     "metadata/first_pass_review_development_validation.jsonl": "55f93150b1153e937ce073f63f2f51ae9d78b40736b7f0850f61b8cbfd2dfc5d",
     "metadata/relation_taxonomy.json": "701e537b9111518db942282a9d8f048bd44de3c1afcf0a6cebdb2439f45cf4b9",
-    "metadata/review_status.json": "2aa8af2c46779863ccd24e21d95a72f5a073c222e847de00bae4e1c0a6805b01",
+    "metadata/review_status.json": "a4c293f63a72e25cf5428e7b253f9058007226c6cb8afd399440bfb5f0e83f41",
     "metadata/source_registry.json": "d1338843ad1615265b0a49a6605f58450b78105cf2544731ac467dd7f74783c0",
     "metadata/test_split_aggregate.json": "5b0d0da1127b2b3d9361ce74b5072f9d161d10fcca156af7d8c17fae1c7850ca",
     "metadata/validation_second_blind_review.json": "00dc11c5b178c4ba774194a59e563032199640be9e47fd35c3edf6c13e608046",
@@ -27,7 +27,8 @@
     "public/gold_validation.jsonl": "db52eab2e8dd4e68708f27505bb1d5d1a0d2a08014d8278b4e302b09a4151e67",
     "public/queries_development.jsonl": "ec48f0bfa236ea110d9721b81528af063884f7f42d5c964e1604aae3233835f7",
     "public/queries_test.jsonl": "9044c29a0ba531ba26c579c5aac467b80786185da06801d9f7aee653f0f23898",
-    "public/queries_validation.jsonl": "1e527c0490431b369b698681eac89128bca248e1646362200229d30873e20689"
+    "public/queries_validation.jsonl": "1e527c0490431b369b698681eac89128bca248e1646362200229d30873e20689",
+    "metadata/test_second_blind_review_aggregate.json": "a8daa0e8d627c4f5b5e31f05991e79ff940291a4feb4f5f5813dc3273016bd85"
   },
   "public_test_gold": false,
   "sealed_test": {
@@ -46,6 +47,35 @@
       "validation": 40
     }
   },
-  "status": "SEMANTICALLY_AUTHORED_CANDIDATE_PENDING_BLIND_SECOND_REVIEW",
-  "target_method_runs": 0
+  "status": "FINAL_SEALED",
+  "target_method_runs": 0,
+  "benchmark_name": "TEF-RAG v6 Semantic Benchmark v1",
+  "benchmark_positioning": "public-source-grounded, AI-assisted synthetic benchmark",
+  "review_aggregate": {
+    "validation_second_blind": {
+      "chains": 80,
+      "pass": 80,
+      "review_unresolved": 0,
+      "disagreements": 0,
+      "artifact_sha256": "00dc11c5b178c4ba774194a59e563032199640be9e47fd35c3edf6c13e608046"
+    },
+    "test_second_blind": {
+      "chains": 80,
+      "query_rows": 480,
+      "pass": 80,
+      "review_unresolved": 0,
+      "agreement": 80,
+      "disagreement": 0,
+      "resolved_disagreements": 0,
+      "private_artifact_sha256": "6e274720b45f8fe1d23b9e662cd294168acbcce91cb3a37e11000e2d6bb1e3f7"
+    }
+  },
+  "final_seal": {
+    "status": "COMPLETE",
+    "seal_date": "2026-09-16",
+    "semantic_item_changes": 0,
+    "deterministic_validation": "PASS",
+    "public_test_gold": false,
+    "target_method_runs": 0
+  }
 }
