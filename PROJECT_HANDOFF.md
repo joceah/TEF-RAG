@@ -1,6 +1,6 @@
 # TEF-RAG 项目交接
 
-更新时间：2026-09-15；当前分支：`tef-rag-v6-benchmark-data-v1`；Frozen Protocol 未改变；previous rule-generated candidate discarded because semantic generation was template-driven and did not faithfully instantiate Temporal Evidence Flow；16-chain semantic authoring pilot 已生成，等待用户/ChatGPT review；尚未实现 v6。
+更新时间：2026-09-15；当前分支：`tef-rag-v6-benchmark-data-v1`；Frozen Protocol 未改变；400-chain semantic benchmark candidate 已发布，状态为 `SEMANTICALLY_AUTHORED_CANDIDATE_PENDING_BLIND_SECOND_REVIEW`；test gold / canonical flow 已 sealed，尚未实现或运行 v6。
 
 ## 一页结论
 
@@ -12,9 +12,11 @@ v5.1 已完成 exhaustive exact-search 归因：12 个 set-mode 查询中 Beam �
 
 v5.2 完成 Profile / Roles / Relations 的 2×2×2 exact counterfactual：CCC 为 0.7208 / 0.7291 / 0.1667，OOO 提升至 0.8625 / 0.8752 / 0.5000，gross repair 4、regression 0、net gain +4，但仍有 6/10 个可行 gold-complete 查询被 frozen objective 选成 incomplete。Oracle Roles 单独 gross repair 1、regression 1、net gain 0。结论是 projection error 与 objective misalignment 共存，后续两者都要处理。
 
-新 benchmark protocol 已完成 FlowComplete、规模、split、difficulty、telemetry、review 与 sealed-test 定义，并正式冻结为 `FROZEN_BEFORE_DATA_GENERATION`。冻结规模为 `400 chains / 1200 primary intents / 2400 query rows / 100 assets`；本 freeze commit 的 `data_generation.performed` 仍为 false。
+新 benchmark protocol 已完成 FlowComplete、规模、split、difficulty、telemetry、review 与 sealed-test 定义，并正式冻结为 `FROZEN_BEFORE_DATA_GENERATION`。冻结规模为 `400 chains / 1200 primary intents / 2400 query rows / 100 assets`；freeze commit 为 `b0e6e004378e7d7f29cabece1efa6b2c30489e9b`。
 
 Source audit 的 4 个 freeze blockers 已修复：ambient/cell temperature 与 P-rate/current 已严格分离；validation/test 第二轮改为 blind AI review；test gold/flow/reviewer reasoning 进入 sealed workflow，算法开发只接收 aggregate QC。项目仍禁止宣称 expert-reviewed / field-certified；未解决条目标记 `REVIEW_UNRESOLVED`。
+
+当前 semantic candidate 已按 Frozen Protocol 实例化为 `400 chains / 1200 primary intents / 2400 query rows / 100 assets / 3888 evidence records`。Challenge `RECENCY_SOLVABLE_AT_5` 与 Latest-5 `Complete@5` 均为 `0.1217`，低于 `0.40` gate；最大 major-stratum recency-solvable rate 为 `0.3667`，低于 `0.50` ceiling。Target-method runs 为 0。
 
 ## 已完成
 
@@ -27,18 +29,19 @@ Source audit 的 4 个 freeze blockers 已修复：ambient/cell temperature 与 
 7. 59 个检索结果/完成文件在 gold-aware 评分前二次哈希封存。
 8. 全工作区历史回归为 150 项测试通过，旧 freeze 校验 `matched=true`；本 GitHub 精简包在 v5 handoff 时为 27 项，v5.1 归档旧 v2 数据测试后当前为 41 项测试及 v5 烟测通过。
 9. v5.1 新增 exact set search、Beam-vs-Exact 逐题归因、结构诊断与 failure taxonomy；检索阶段不读 gold，离线诊断阶段才读取 gold/authoring，且没有调用 LLM。
+10. Benchmark Protocol 已 source-audit、修复 4 个 freeze blockers 并冻结；随后废弃 rule-generated 400-chain candidate，完成 semantic authoring pilot，再按修正后的 authoring schema 生成当前 400-chain semantic candidate。
+11. 当前 candidate 的 deterministic validator 已本地通过；新增 semantic benchmark 单元测试本地 `1 passed / 0 failed`。本发布步骤不声称完整仓库 pytest/CI 已运行。
 
 ## 数据与实验状态
 
-本仓库现在保留两层数据，角色不能混用：
+本仓库现在保留三类不同角色的数据，不能混用：
 
-- `data/generated/tef_v5_holdout_v3/`：4 个案例、48 条公开记录、16 个查询及冻结 gold；只供 v5 复现和 v5.1 失败归因。
-- `data/generated/temporal_maintenance_dev_v2/`：48 台目标设备、192 条链、1,575 条证据和 1,152 个问题；配套 `provenance.json`、来源设计卡、生成配置/脚本/测试、统计报告和图均已归档，供后续扩充参考。
-- 任务分层：8 个 `complex_chain`、4 个 `cutoff_sensitive`、4 个 `latest_control`。
-- 候选范围：同资产，且 `event_time <= query_time`、`available_at <= query_time`；每题 8 或 12 条。
-- 数据状态：`self_generated_holdout_frozen_without_independent_review`。
+- `data/generated/tef_v5_holdout_v3/`：4 个案例、48 条公开记录、16 个查询及冻结 gold；只供 v5 复现和 v5.1/v5.2 失败归因。
+- `data/generated/temporal_maintenance_dev_v2/`：48 台目标设备、192 条链、1,575 条证据和 1,152 个问题；供数据构造参考与 difficulty audit，属于已见 dev diagnostic。
+- `data/generated/tef_v6_authoring_pilot_v1/`：16-chain semantic authoring pilot；用于发现 required-group、relation、late-arrival、procedure metadata 与 provenance 设计问题，不作为正式 benchmark。
+- `data/generated/tef_v6_temporal_hard_benchmark_v1/`：当前 400-chain semantic benchmark candidate。Development / validation 的 gold/flow 可用于后续开发与模型选择；test 只公开 query/evidence/有限 metadata，test evaluator 共 480 rows 已 sealed，SHA256 为 `477bb709f3dfdb672ce5a7f5c93168e0791c7a90cb247c62a6072bd8dee7c9f3`。
 
-两个数据集都不是现场真实工单。旧 v2 的公开资料只用于故障机理、记录结构和时间边界约束；逐项真实来源和许可状态见 `data/README.md` 与 `plans/时序运维资料与案例设计_v1/资料来源与适用边界.md`。这 16 题和旧 v2 都是已见数据，不能在调参后继续宣称是独立验证。
+所有这些数据都不是现场真实工单。公开资料只用于可核验的产品参考、时序采样先例和来源边界；synthetic procedure、故障演化、工单内容与因果链若无公开来源逐项支撑，均作为 modeling choice，不得写成厂家 SOP、现场标准或真实故障率。
 
 ## 主要指标
 
@@ -71,11 +74,12 @@ TG-RAG 固定提交 `58a57e0bc173064fa0ad7ccf595cf6e266523619`。前 11 题各�
 
 ## 模型调用与审计
 
-- 选入数据生成：5 个响应、30,683 tokens；全部生成尝试：7 个响应、44,161 tokens。
-- 选入 profile/角色/关系投影：12 个响应、31,075 tokens；含投影失败缓存：14 个响应、37,905 tokens。
-- 可精确计量的选入生成与投影合计：17 个响应、61,758 tokens。
+- 旧 v5 选入数据生成：5 个响应、30,683 tokens；全部生成尝试：7 个响应、44,161 tokens。
+- 旧 v5 选入 profile/角色/关系投影：12 个响应、31,075 tokens；含投影失败缓存：14 个响应、37,905 tokens。
+- 可精确计量的旧 v5 选入生成与投影合计：17 个响应、61,758 tokens。
 - TA 本轮新增 LLM 调用为 0。
 - TG 的 8 个快照有 161 个缓存条目，但官方路径不提供精确 token usage。
+- 当前 v6 semantic candidate 由 GPT-5.6 Sol authoring context 直接语义构造并完成第一遍 authoring-context review；该 pass 不是 blind review，不声称 expert review。
 - 没有上传 API key、`local.env`、请求头或环境内容。
 
 ## 可靠文件入口
@@ -84,17 +88,18 @@ TG-RAG 固定提交 `58a57e0bc173064fa0ad7ccf595cf6e266523619`。前 11 题各�
 
 1. 本文件。
 2. [`plans/TEF_RAG_v6_temporal_hard_benchmark_protocol_v1.md`](plans/TEF_RAG_v6_temporal_hard_benchmark_protocol_v1.md) 与 [`configs/temporal_hard_benchmark_protocol_v1.json`](configs/temporal_hard_benchmark_protocol_v1.json)。
-3. [`tef_rag_v5/DESIGN.md`](tef_rag_v5/DESIGN.md) 与 [`tef_rag_v5/retriever.py`](tef_rag_v5/retriever.py)。
-4. [`experiments/analyses/tef_v5_1_failure_attribution_v1/report.md`](experiments/analyses/tef_v5_1_failure_attribution_v1/report.md) 与 [`experiments/analyses/tef_v5_holdout_eval_v1/report_zh.md`](experiments/analyses/tef_v5_holdout_eval_v1/report_zh.md)。
+3. [`data/generated/tef_v6_temporal_hard_benchmark_v1/README.md`](data/generated/tef_v6_temporal_hard_benchmark_v1/README.md)、`manifest.json`、`gate_summary.json` 与 `metadata/review_status.json`。
+4. [`tef_rag_v5/DESIGN.md`](tef_rag_v5/DESIGN.md) 与 [`tef_rag_v5/retriever.py`](tef_rag_v5/retriever.py)。
+5. [`experiments/analyses/tef_v5_1_failure_attribution_v1/report.md`](experiments/analyses/tef_v5_1_failure_attribution_v1/report.md) 与 [`experiments/analyses/tef_v5_holdout_eval_v1/report_zh.md`](experiments/analyses/tef_v5_holdout_eval_v1/report_zh.md)。
 
-数据生成扩充时，再读 [`data/README.md`](data/README.md)、[`experiments/analyses/temporal_maintenance_dataset_v2/report_zh.md`](experiments/analyses/temporal_maintenance_dataset_v2/report_zh.md) 和 [`plans/时序运维资料与案例设计_v1/资料来源与适用边界.md`](plans/时序运维资料与案例设计_v1/资料来源与适用边界.md)。项目背景见 `docs/project_background/`；初代论文见 `paper/TMC_RAG_ICRA_style_zh_v2.pdf`，但论文尚未同步 v5/v5.1。
-
-不要从旧 TMC 历史重新遍历项目，也不要运行旧 98 题。
+项目背景见 `docs/project_background/`；初代论文见 `paper/TMC_RAG_ICRA_style_zh_v2.pdf`，但论文尚未同步 v5/v5.1/v6 benchmark 状态。不要从旧 TMC 历史重新遍历项目，也不要运行旧 98 题。
 
 ## 下一步边界
 
-Protocol freeze commit 为 `b0e6e004378e7d7f29cabece1efa6b2c30489e9b`，Frozen Protocol unchanged。上一版 rule-generated candidate 已废弃；当前仅生成公开的 16-chain semantic authoring pilot，等待用户/ChatGPT review。不得开始 v6 或扩展为 400 chains。
+Protocol freeze commit 为 `b0e6e004378e7d7f29cabece1efa6b2c30489e9b`，Frozen Protocol unchanged。当前 semantic candidate 已发布为 `400/1200/2400/100`，并通过本地 deterministic validator；test evaluator 480 rows 已 sealed，public branch 只公开 test query/evidence/aggregate QC/hash。
+
+**下一步不是在本对话中继续调 v6。** 必须在 fresh blind-review context 中完成 validation/test 的 protocol-required second blind source-grounded AI review；解决所有 `REVIEW_UNRESOLVED` 后重新 hash/final seal，才可把 benchmark 标记为最终 accepted/frozen test artifact。之后再用另一个不含 test gold/item-level review reasoning 的干净开发上下文实现 v6。
 
 审核阶段采用 public-source-grounded AI-assisted review，而不是领域专家认证。任何物理/规程事实若公开资料不足，应标记不确定或作为 modeling choice，不得伪装成现场标准。
 
-最终回答生成评价是独立未完成任务，不应混入当前检索指标。论文也尚未因 v5 更新。
+最终回答生成评价是独立未完成任务，不应混入当前检索指标。论文也尚未因 v5/v6 benchmark 更新。
