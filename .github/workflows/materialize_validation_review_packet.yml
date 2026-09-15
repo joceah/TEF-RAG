@@ -1,0 +1,91 @@
+name: Materialize validation review packet
+
+on:
+  push:
+    branches:
+      - tef-rag-v6-review-materialization
+    paths:
+      - .github/workflows/materialize_validation_review_packet.yml
+
+permissions:
+  contents: write
+
+jobs:
+  build-review-packet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: tef-rag-v6-review-materialization
+      - name: Materialize fixed public benchmark
+        run: python scripts/materialize_tef_v6_semantic_benchmark_v1.py
+      - name: Build compact validation review packet
+        run: |
+          python - <<'PY'
+          import json
+          from collections import defaultdict
+          from pathlib import Path
+
+          base = Path('data/generated/tef_v6_temporal_hard_benchmark_v1')
+          pub = base / 'public'
+          chains = [json.loads(x) for x in (pub/'chains_validation.jsonl').read_text(encoding='utf-8').splitlines() if x.strip()]
+          queries = [json.loads(x) for x in (pub/'queries_validation.jsonl').read_text(encoding='utf-8').splitlines() if x.strip()]
+          gold = [json.loads(x) for x in (pub/'gold_validation.jsonl').read_text(encoding='utf-8').splitlines() if x.strip()]
+          evidence = [json.loads(x) for x in (pub/'evidence.jsonl').read_text(encoding='utf-8').splitlines() if x.strip()]
+
+          q_by_chain = defaultdict(list)
+          for q in queries:
+              q_by_chain[q['chain_id']].append(q)
+          g_by_q = {g['query_id']: g for g in gold}
+          e_by_chain = defaultdict(list)
+          for e in evidence:
+              cid = e.get('chain_id')
+              if not cid:
+                  eid = e.get('evidence_id','')
+                  if '-E' in eid:
+                      cid = eid.rsplit('-E',1)[0]
+              if cid:
+                  e_by_chain[cid].append(e)
+
+          out = base/'analysis'/'validation_review_packets_v2.jsonl'
+          rows=[]
+          for c in chains:
+              cid=c['chain_id']
+              qs=sorted(q_by_chain[cid], key=lambda x:(x['intent_id'],x.get('paraphrase_id',0)))
+              intents=[]
+              seen=set()
+              for q in qs:
+                  iid=q['intent_id']
+                  if iid in seen:
+                      continue
+                  seen.add(iid)
+                  same=[z for z in qs if z['intent_id']==iid]
+                  g=g_by_q[q['query_id']]
+                  intents.append({
+                      'intent_id':iid,
+                      'query_time':q['query_time'],
+                      'query_texts':[z['query_text'] for z in same],
+                      'difficulty_labels':q.get('difficulty_labels',[]),
+                      'primary_difficulty':q.get('primary_difficulty'),
+                      'gold':{
+                          'answer_summary':g.get('answer_summary'),
+                          'persistent_uncertainty':g.get('persistent_uncertainty'),
+                          'required_groups':g.get('required_groups',[]),
+                          'required_flow_edges':g.get('required_flow_edges',[]),
+                      }
+                  })
+              rows.append({
+                  'chain_metadata':c,
+                  'evidence':sorted(e_by_chain[cid], key=lambda x:x.get('evidence_id','')),
+                  'intents':intents,
+              })
+          out.write_text('\n'.join(json.dumps(r,ensure_ascii=False,separators=(',',':')) for r in rows)+'\n',encoding='utf-8')
+          print(f'wrote {len(rows)} validation chain packets to {out}')
+          PY
+      - name: Commit review packet
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/generated/tef_v6_temporal_hard_benchmark_v1/analysis/validation_review_packets_v2.jsonl
+          git commit -m "review: materialize validation semantic packet" || exit 0
+          git push origin HEAD:tef-rag-v6-review-materialization
