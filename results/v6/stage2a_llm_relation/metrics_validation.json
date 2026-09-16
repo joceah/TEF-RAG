@@ -1,0 +1,32 @@
+{
+  "heuristic": {
+    "recall_at_5": 0.6357291666666666,
+    "hit_at_5": 0.9145833333333333,
+    "ndcg_at_5": 0.6459736850198678,
+    "complete_at_5": 0.22708333333333333,
+    "flow_complete_at_5": 0.22083333333333333,
+    "edge_recall": 0.32013888888888886,
+    "uncertainty_accuracy": 0.95625,
+    "constraint_violation_rate": 0.0
+  },
+  "llm": {
+    "recall_at_5": 0.6753472222222222,
+    "hit_at_5": 0.95625,
+    "ndcg_at_5": 0.6776955842504951,
+    "complete_at_5": 0.26666666666666666,
+    "flow_complete_at_5": 0.25833333333333336,
+    "edge_recall": 0.3517361111111111,
+    "uncertainty_accuracy": 0.9541666666666667,
+    "constraint_violation_rate": 0.0
+  },
+  "hybrid": {
+    "recall_at_5": 0.6659722222222223,
+    "hit_at_5": 0.95625,
+    "ndcg_at_5": 0.6698892753384709,
+    "complete_at_5": 0.24375,
+    "flow_complete_at_5": 0.23541666666666666,
+    "edge_recall": 0.3378472222222222,
+    "uncertainty_accuracy": 0.9541666666666667,
+    "constraint_violation_rate": 0.0
+  }
+}

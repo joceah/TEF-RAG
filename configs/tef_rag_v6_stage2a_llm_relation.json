@@ -1,0 +1,25 @@
+{
+  "pipeline_config": "configs/tef_rag_v6_stage1.json",
+  "llm_env_file": "../../local.env",
+  "relation": {
+    "base_url": "http://127.0.0.1:55555",
+    "model": "deepseek-chat",
+    "prompt_version": "tef-v6-stage2a-relation-v7",
+    "temperature": 0.0,
+    "max_tokens": 3500,
+    "timeout_seconds": 120.0,
+    "max_retries": 3,
+    "retry_backoff_seconds": 5.0,
+    "busy_retry_backoff_seconds": 30.0,
+    "request_interval_seconds": 0.0,
+    "max_pairs_per_query": 16,
+    "batch_size": 16,
+    "cases_per_request": 1,
+    "llm_confidence_threshold": 0.6,
+    "hybrid_llm_weight": 0.75,
+    "prefilter_heuristic_floor": 0.52,
+    "cache_dir": ".cache/tef_rag_v6_llm_relation"
+  },
+  "workers": 1,
+  "relation_modes": ["heuristic", "llm", "hybrid"]
+}

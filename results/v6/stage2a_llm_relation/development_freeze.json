@@ -1,0 +1,7 @@
+{
+  "status": "FROZEN_AFTER_DEVELOPMENT",
+  "frozen_at_utc": "2026-09-16T09:23:08.957873+00:00",
+  "config_sha256": "6a43eb519ff16568ddb90909b8bde869e7ab5e95f71253a39e49049f2c141227",
+  "prompt_sha256": "c4b8bcf2eece3158f52d0fad15c8181394ad6c38da93806329863e9aa83e1482",
+  "prompt_version": "tef-v6-stage2a-relation-v7"
+}

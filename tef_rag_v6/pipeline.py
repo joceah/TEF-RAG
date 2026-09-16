@@ -125,11 +125,12 @@ class BM25Index:
 class TEFRAGV6:
     """Candidate retrieval, temporal constraints, typed graph, and flow search."""
 
-    def __init__(self, evidence: list[dict], config: V6Config | None = None):
+    def __init__(self, evidence: list[dict], config: V6Config | None = None, relation_scorer=None):
         self.config = config or V6Config()
         self.evidence = sorted(evidence, key=lambda item: item["evidence_id"])
         self.by_id = {item["evidence_id"]: item for item in self.evidence}
         self.index = BM25Index(self.evidence, self.config)
+        self.relation_scorer = relation_scorer
         self.features = {
             item["evidence_id"]: set(tokenize(item.get("text", ""))) for item in self.evidence
         }
@@ -420,6 +421,7 @@ class TEFRAGV6:
         apply_temporal: bool = True,
         use_relations: bool = True,
         use_flow: bool = True,
+        relation_mode: str = "heuristic",
     ) -> dict:
         public = self._public_query(query)
         raw_candidates = self.candidate_retrieval(public)
@@ -443,7 +445,34 @@ class TEFRAGV6:
             eligible,
             key=lambda item: (-node_scores[item["document"]["evidence_id"]]["total"], item["document"]["evidence_id"]),
         )[: self.config.search_pool_k]
-        edges = self.relation_scoring(relation_pool) if use_relations else []
+        relation_diagnostics = {}
+        if use_relations and relation_mode == "heuristic":
+            edges = self.relation_scoring(relation_pool)
+            relation_diagnostics = {
+                "accepted_edge_count": len(edges),
+                "relation_type_counts": dict(Counter(edge["relation_type"] for edge in edges)),
+                "llm_called_pair_count": 0,
+                "request_count": 0,
+                "cache_lookup_count": 0,
+                "cache_hit_count": 0,
+                "retry_count": 0,
+                "malformed_count": 0,
+                "latency_seconds": 0.0,
+                "prompt_tokens": 0,
+                "completion_tokens": 0,
+                "no_edge_count": 0,
+                "prefilter_pairs": [],
+            }
+        elif use_relations and relation_mode in {"llm", "hybrid"}:
+            if self.relation_scorer is None:
+                raise ValueError(f"relation_mode={relation_mode} requires a relation_scorer")
+            edges, relation_diagnostics = self.relation_scorer.score(
+                public, relation_pool, node_scores, self._relation_kind, self._similarity, relation_mode
+            )
+        elif use_relations:
+            raise ValueError("relation_mode must be heuristic, llm, or hybrid")
+        else:
+            edges = []
         selected, flow_score = self._select_flow(
             eligible, node_scores, edges, role_demands, use_relations=use_relations, use_flow=use_flow
         )
@@ -463,6 +492,8 @@ class TEFRAGV6:
             "selected_evidence_ids": selected,
             "ordered_evidence_flow": ordered,
             "relations": selected_edges,
+            "relation_graph": edges,
+            "relation_diagnostics": relation_diagnostics,
             "flow_score": flow_score["total"],
             "score_components": {key: value for key, value in flow_score.items() if key not in {"active_edges", "search_trace"}},
             "node_scores": {identifier: node_scores[identifier] for identifier in selected},

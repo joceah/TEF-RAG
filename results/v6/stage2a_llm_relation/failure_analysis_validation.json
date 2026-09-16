@@ -1,0 +1,113 @@
+{
+  "split": "validation",
+  "modes": {
+    "heuristic": {
+      "category_counts": {
+        "flow_search_error": 293,
+        "relation_classification_error": 75,
+        "evidence_redundancy": 38,
+        "uncertainty_handling_error": 21,
+        "procedure_applicability_error": 20
+      },
+      "representative_query_ids": {
+        "flow_search_error": [
+          "TEFV6-C0013-I01-current_cause_action-P1",
+          "TEFV6-C0013-I01-current_cause_action-P2",
+          "TEFV6-C0013-I02-episode_compare-P2"
+        ],
+        "uncertainty_handling_error": [
+          "TEFV6-C0013-I02-episode_compare-P1",
+          "TEFV6-C0014-I02-episode_compare-P1",
+          "TEFV6-C0015-I02-episode_compare-P1"
+        ],
+        "evidence_redundancy": [
+          "TEFV6-C0015-I01-current_cause_action-P1",
+          "TEFV6-C0015-I03-decision_boundary-P2",
+          "TEFV6-C0033-I02-status_after_cutoff-P1"
+        ],
+        "relation_classification_error": [
+          "TEFV6-C0053-I01-pre_arrival-P1",
+          "TEFV6-C0053-I01-pre_arrival-P2",
+          "TEFV6-C0054-I01-pre_arrival-P1"
+        ],
+        "procedure_applicability_error": [
+          "TEFV6-C0321-I03-routine_followup-P2",
+          "TEFV6-C0322-I03-routine_followup-P2",
+          "TEFV6-C0324-I03-routine_followup-P2"
+        ]
+      }
+    },
+    "llm": {
+      "category_counts": {
+        "flow_search_error": 271,
+        "relation_classification_error": 95,
+        "evidence_redundancy": 41,
+        "uncertainty_handling_error": 22,
+        "procedure_applicability_error": 19
+      },
+      "representative_query_ids": {
+        "flow_search_error": [
+          "TEFV6-C0013-I01-current_cause_action-P1",
+          "TEFV6-C0013-I02-episode_compare-P2",
+          "TEFV6-C0013-I03-decision_boundary-P1"
+        ],
+        "uncertainty_handling_error": [
+          "TEFV6-C0013-I01-current_cause_action-P2",
+          "TEFV6-C0013-I02-episode_compare-P1",
+          "TEFV6-C0013-I03-decision_boundary-P2"
+        ],
+        "evidence_redundancy": [
+          "TEFV6-C0015-I01-current_cause_action-P1",
+          "TEFV6-C0015-I01-current_cause_action-P2",
+          "TEFV6-C0015-I03-decision_boundary-P1"
+        ],
+        "relation_classification_error": [
+          "TEFV6-C0033-I01-status_before_cutoff-P1",
+          "TEFV6-C0033-I01-status_before_cutoff-P2",
+          "TEFV6-C0034-I01-status_before_cutoff-P1"
+        ],
+        "procedure_applicability_error": [
+          "TEFV6-C0321-I03-routine_followup-P2",
+          "TEFV6-C0322-I03-routine_followup-P2",
+          "TEFV6-C0323-I03-routine_followup-P2"
+        ]
+      }
+    },
+    "hybrid": {
+      "category_counts": {
+        "flow_search_error": 282,
+        "relation_classification_error": 85,
+        "evidence_redundancy": 39,
+        "uncertainty_handling_error": 22,
+        "procedure_applicability_error": 20
+      },
+      "representative_query_ids": {
+        "flow_search_error": [
+          "TEFV6-C0013-I01-current_cause_action-P1",
+          "TEFV6-C0013-I02-episode_compare-P2",
+          "TEFV6-C0013-I03-decision_boundary-P1"
+        ],
+        "uncertainty_handling_error": [
+          "TEFV6-C0013-I01-current_cause_action-P2",
+          "TEFV6-C0013-I02-episode_compare-P1",
+          "TEFV6-C0013-I03-decision_boundary-P2"
+        ],
+        "evidence_redundancy": [
+          "TEFV6-C0015-I01-current_cause_action-P1",
+          "TEFV6-C0015-I01-current_cause_action-P2",
+          "TEFV6-C0015-I03-decision_boundary-P1"
+        ],
+        "relation_classification_error": [
+          "TEFV6-C0033-I01-status_before_cutoff-P1",
+          "TEFV6-C0033-I01-status_before_cutoff-P2",
+          "TEFV6-C0034-I01-status_before_cutoff-P1"
+        ],
+        "procedure_applicability_error": [
+          "TEFV6-C0321-I03-routine_followup-P2",
+          "TEFV6-C0322-I03-routine_followup-P2",
+          "TEFV6-C0323-I03-routine_followup-P2"
+        ]
+      }
+    }
+  }
+}

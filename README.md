@@ -1,8 +1,8 @@
 # TEF-RAG
 
-TEF-RAG（Temporal Evidence Flow RAG）是面向运维记录的时序证据检索原型。当前已实现 v6 Stage 1：在 candidate retrieval 后执行确定性双时间/procedure 约束，并显式构造 typed Temporal Evidence Flow。实现、dev/validation 结果和已知限制见 [`markdowns/tef_rag_v6_stage1.md`](markdowns/tef_rag_v6_stage1.md)。
+TEF-RAG（Temporal Evidence Flow RAG）是面向运维记录的时序证据检索原型。v6 Stage 1 在 candidate retrieval 后执行确定性双时间/procedure 约束并构造 typed Temporal Evidence Flow；Stage 2A-1 在冻结其余 pipeline 的条件下增加 query-conditioned LLM relation scoring。详见 [`markdowns/tef_rag_v6_stage1.md`](markdowns/tef_rag_v6_stage1.md) 和 [`markdowns/tef_rag_v6_stage2a_llm_relation.md`](markdowns/tef_rag_v6_stage2a_llm_relation.md)。
 
-> 当前状态（2026-09-16）：v6 Stage 1 已在 sealed benchmark 的 development/validation 上完成运行，尚未运行 test。请把本仓库视为可复现的研究开发快照，不是已验证的生产系统。
+> 当前状态（2026-09-16）：v6 Stage 2A-1 已在 sealed benchmark 的 development/validation 上完成受控 relation 实验，尚未运行 test。请把本仓库视为可复现的研究开发快照，不是已验证的生产系统。
 
 ## v5 做了什么
 
@@ -53,7 +53,7 @@ python -m pip install -e ".[semantic]"
 ## 仓库结构
 
 - `tef_rag_v5/`：当前集合级选择器。
-- `tef_rag_v6/`：v6 Stage 1 candidate、temporal constraint、typed relation 与 flow selector。
+- `tef_rag_v6/`：v6 candidate、temporal constraint、typed relation、LLM relation client 与 flow selector。
 - `tef_rag_v1/`–`tef_rag_v4/`、`tmc_rag_v3/`：v5 仍调用的兼容依赖与历史接口，不代表需要重新运行旧实验。
 - `baseline_adapters/`：Scoped、TA-RAG、TG-RAG 的查询/来源恢复适配代码。
 - `scripts/`：v5 烟测、共享候选运行、外部基线封装、封存和 gold-aware 评分脚本。
