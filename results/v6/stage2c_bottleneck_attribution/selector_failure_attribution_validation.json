@@ -1,0 +1,24 @@
+{
+  "query_count_B": 94,
+  "counts": {
+    "objective_misalignment": 94
+  },
+  "representative_query_ids": {
+    "objective_misalignment": [
+      "TEFV6-C0033-I03-cutoff_explanation-P2",
+      "TEFV6-C0035-I03-cutoff_explanation-P1",
+      "TEFV6-C0035-I03-cutoff_explanation-P2",
+      "TEFV6-C0053-I03-arrival_effect-P2",
+      "TEFV6-C0055-I03-arrival_effect-P1"
+    ]
+  },
+  "diagnostic_means": {
+    "greedy_score": 5.155598888352711,
+    "best_feasible_set_score": 3.575251351041648,
+    "greedy_minus_feasible": 1.5803475373110631,
+    "max_required_rank": 10.77659574468085,
+    "mean_required_rank": 5.813297872340426,
+    "selected_overlap": 2.297872340425532,
+    "missing_required_evidence": 1.8085106382978724
+  }
+}

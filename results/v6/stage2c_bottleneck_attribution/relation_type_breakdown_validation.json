@@ -1,0 +1,50 @@
+{
+  "contrasts": {
+    "gold_edges": 56,
+    "prefilter_endpoint_recall": 0.5535714285714286,
+    "has_edge_recall": 0.5178571428571429,
+    "correct_type_recall": 0.4642857142857143
+  },
+  "governs": {
+    "gold_edges": 226,
+    "prefilter_endpoint_recall": 0.9026548672566371,
+    "has_edge_recall": 0.9026548672566371,
+    "correct_type_recall": 0.7212389380530974
+  },
+  "preserves_uncertainty": {
+    "gold_edges": 56,
+    "prefilter_endpoint_recall": 0.9107142857142857,
+    "has_edge_recall": 0.875,
+    "correct_type_recall": 0.6785714285714286
+  },
+  "qualifies": {
+    "gold_edges": 136,
+    "prefilter_endpoint_recall": 0.5294117647058824,
+    "has_edge_recall": 0.4264705882352941,
+    "correct_type_recall": 0.022058823529411766
+  },
+  "supersession": {
+    "gold_edges": 78,
+    "prefilter_endpoint_recall": 0.6153846153846154,
+    "has_edge_recall": 0.6153846153846154,
+    "correct_type_recall": 0.5512820512820513
+  },
+  "supports": {
+    "gold_edges": 794,
+    "prefilter_endpoint_recall": 0.9030226700251889,
+    "has_edge_recall": 0.8866498740554156,
+    "correct_type_recall": 0.7732997481108312
+  },
+  "updates": {
+    "gold_edges": 36,
+    "prefilter_endpoint_recall": 0.5833333333333334,
+    "has_edge_recall": 0.5833333333333334,
+    "correct_type_recall": 0.027777777777777776
+  },
+  "verifies": {
+    "gold_edges": 112,
+    "prefilter_endpoint_recall": 0.9196428571428571,
+    "has_edge_recall": 0.9017857142857143,
+    "correct_type_recall": 0.8571428571428571
+  }
+}

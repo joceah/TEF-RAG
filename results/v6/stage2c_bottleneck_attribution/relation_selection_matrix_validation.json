@@ -1,0 +1,57 @@
+{
+  "query_count": 480,
+  "cells": {
+    "A_relation_yes_actual_yes": {
+      "count": 45,
+      "rate": 0.09375
+    },
+    "B_relation_yes_actual_no": {
+      "count": 94,
+      "rate": 0.19583333333333333
+    },
+    "C_relation_no_actual_yes": {
+      "count": 94,
+      "rate": 0.19583333333333333
+    },
+    "D_relation_no_actual_no": {
+      "count": 247,
+      "rate": 0.5145833333333333
+    }
+  },
+  "conditional_rates": {
+    "actual_success_given_relation_feasible": 0.3237410071942446,
+    "selection_failure_given_feasible": 0.6762589928057554,
+    "success_despite_relation_infeasible": 0.2756598240469208,
+    "actual_failure_given_relation_infeasible": 0.7243401759530792
+  },
+  "representative_query_ids": {
+    "D_relation_no_actual_no": [
+      "TEFV6-C0013-I01-current_cause_action-P1",
+      "TEFV6-C0013-I01-current_cause_action-P2",
+      "TEFV6-C0013-I02-episode_compare-P1",
+      "TEFV6-C0013-I02-episode_compare-P2",
+      "TEFV6-C0013-I03-decision_boundary-P1"
+    ],
+    "C_relation_no_actual_yes": [
+      "TEFV6-C0033-I01-status_before_cutoff-P1",
+      "TEFV6-C0034-I01-status_before_cutoff-P2",
+      "TEFV6-C0035-I01-status_before_cutoff-P2",
+      "TEFV6-C0053-I01-pre_arrival-P1",
+      "TEFV6-C0053-I01-pre_arrival-P2"
+    ],
+    "B_relation_yes_actual_no": [
+      "TEFV6-C0033-I03-cutoff_explanation-P2",
+      "TEFV6-C0035-I03-cutoff_explanation-P1",
+      "TEFV6-C0035-I03-cutoff_explanation-P2",
+      "TEFV6-C0053-I03-arrival_effect-P2",
+      "TEFV6-C0055-I03-arrival_effect-P1"
+    ],
+    "A_relation_yes_actual_yes": [
+      "TEFV6-C0154-I03-next_discriminator-P1",
+      "TEFV6-C0321-I01-routine_status-P1",
+      "TEFV6-C0322-I02-routine_basis-P1",
+      "TEFV6-C0322-I02-routine_basis-P2",
+      "TEFV6-C0323-I02-routine_basis-P1"
+    ]
+  }
+}
