@@ -395,10 +395,14 @@ class TEFRAGV6:
             return selected, self._set_score(
                 tuple(selected), node_scores, edges, role_demands, use_relations=False
             )
-        if search_mode == "beam":
-            return self._select_flow_beam(pool, limit, node_scores, edges, role_demands, use_relations)
+        if search_mode in {"beam", "beam_with_fallback"}:
+            return self._select_flow_beam(pool, limit, node_scores, edges, role_demands,
+                                          use_relations, allow_fallback=True)
+        if search_mode == "raw_beam":
+            return self._select_flow_beam(pool, limit, node_scores, edges, role_demands,
+                                          use_relations, allow_fallback=False)
         if search_mode != "greedy":
-            raise ValueError("search_mode must be greedy or beam")
+            raise ValueError("search_mode must be greedy, raw_beam, or beam_with_fallback")
         selected: tuple[str, ...] = tuple()
         trace = []
         while len(selected) < limit:
@@ -419,7 +423,8 @@ class TEFRAGV6:
         final["search_trace"] = trace
         return list(selected), final
 
-    def _select_flow_beam(self, pool, limit, node_scores, edges, role_demands, use_relations):
+    def _select_flow_beam(self, pool, limit, node_scores, edges, role_demands, use_relations,
+                          allow_fallback=True):
         """Deterministic constrained beam over evidence sets; no gold fields are accepted."""
         expansion_pool = pool[: max(1, self.config.expansion_top_k)]
         beams = [(tuple(), self._set_score(tuple(), node_scores, edges, role_demands,
@@ -449,19 +454,28 @@ class TEFRAGV6:
         selected, final = sorted(beams, key=lambda item: (-item[1]["total"], item[0]))[0]
         # Frozen greedy is a deliberately diverse relevance hypothesis.  Beam replaces it
         # only when the non-local objective has a meaningful advantage.
-        if self.config.relevance_fallback and limit:
-            greedy_ids, _ = self._select_flow(
-                [{"document": self.by_id[i]} for i in pool], node_scores, edges, role_demands,
-                use_relations=use_relations, use_flow=True, search_mode="greedy",
-            )
-            fallback = tuple(greedy_ids)
-            fallback_score = self._set_score(fallback, node_scores, edges, role_demands,
-                                             use_relations=use_relations, enhanced=True)
+        fallback_used = False
+        raw_selected, raw_score = selected, final
+        greedy_ids, greedy_base_score = self._select_flow(
+            [{"document": self.by_id[i]} for i in pool], node_scores, edges, role_demands,
+            use_relations=use_relations, use_flow=True, search_mode="greedy",
+        )
+        fallback = tuple(greedy_ids)
+        fallback_score = self._set_score(fallback, node_scores, edges, role_demands,
+                                         use_relations=use_relations, enhanced=True)
+        if allow_fallback and self.config.relevance_fallback and limit:
             if final["total"] < fallback_score["total"] + self.config.beam_min_gain:
                 selected, final = fallback, fallback_score
+                fallback_used = True
         final["search_trace"] = trace
         final["beam_states_expanded"] = expanded
         final["beam_surviving_states"] = sum(row["surviving"] for row in trace)
+        final["raw_beam_selected_ids"] = list(raw_selected)
+        final["greedy_selected_ids"] = list(fallback)
+        final["raw_beam_score"] = raw_score["total"]
+        final["greedy_score"] = fallback_score["total"]
+        final["beam_score_minus_greedy_score"] = raw_score["total"] - fallback_score["total"]
+        final["fallback_used"] = fallback_used
         return list(selected), final
 
     def _uncertainty_state(self, selected: list[str], query_text: str) -> dict:
@@ -570,6 +584,16 @@ class TEFRAGV6:
                 "mode": search_mode,
                 "states_expanded": flow_score.get("beam_states_expanded", 0),
                 "surviving_states": flow_score.get("beam_surviving_states", 0),
+                "search_pool_ids": sorted(
+                    (item["document"]["evidence_id"] for item in eligible),
+                    key=lambda identifier: (-node_scores[identifier]["total"], identifier),
+                )[: self.config.search_pool_k],
+                "raw_beam_selected_ids": flow_score.get("raw_beam_selected_ids", []),
+                "greedy_selected_ids": flow_score.get("greedy_selected_ids", []),
+                "raw_beam_score": flow_score.get("raw_beam_score"),
+                "greedy_score": flow_score.get("greedy_score"),
+                "beam_score_minus_greedy_score": flow_score.get("beam_score_minus_greedy_score"),
+                "fallback_used": flow_score.get("fallback_used", False),
             },
             "node_scores": {identifier: node_scores[identifier] for identifier in selected},
             "rejections": rejected,

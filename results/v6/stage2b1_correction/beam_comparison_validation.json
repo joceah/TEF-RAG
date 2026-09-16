@@ -1,0 +1,22 @@
+{
+  "query_count": 480,
+  "raw_beam_selected_count": 480,
+  "fallback_to_greedy_count": 480,
+  "fallback_rate": 1.0,
+  "raw_beam_same_as_greedy_count": 5,
+  "raw_beam_diff_from_greedy_count": 475,
+  "fallback_final_same_as_greedy_count": 480,
+  "beam_score_minus_greedy_score": {
+    "mean": 0.08178494342900171,
+    "median": 0.0,
+    "p25": 0.0,
+    "p75": 0.061657841490706744,
+    "min": 0.0,
+    "max": 0.8275417571401835
+  },
+  "runtime_per_query_seconds": {
+    "improved_prefilter_greedy": 0.0811654418749337,
+    "improved_prefilter_raw_beam": 0.03094151187509245,
+    "improved_prefilter_beam_fallback": 0.031037395208295494
+  }
+}

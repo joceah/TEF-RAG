@@ -1,0 +1,131 @@
+{
+  "split": "development",
+  "methods": {
+    "improved_prefilter_greedy": {
+      "category_counts": {
+        "flow_search_error": 755,
+        "relation_classification_error": 231,
+        "evidence_redundancy": 252,
+        "uncertainty_handling_error": 48,
+        "temporal_filtering_error": 39,
+        "procedure_applicability_error": 71
+      },
+      "representative_query_ids": {
+        "flow_search_error": [
+          "TEFV6-C0001-I01-current_cause_action-P1",
+          "TEFV6-C0001-I02-episode_compare-P1",
+          "TEFV6-C0001-I02-episode_compare-P2"
+        ],
+        "relation_classification_error": [
+          "TEFV6-C0001-I01-current_cause_action-P2",
+          "TEFV6-C0005-I01-current_cause_action-P2",
+          "TEFV6-C0007-I01-current_cause_action-P2"
+        ],
+        "evidence_redundancy": [
+          "TEFV6-C0003-I01-current_cause_action-P1",
+          "TEFV6-C0003-I01-current_cause_action-P2",
+          "TEFV6-C0003-I02-episode_compare-P1"
+        ],
+        "uncertainty_handling_error": [
+          "TEFV6-C0006-I02-episode_compare-P1",
+          "TEFV6-C0031-I02-status_after_cutoff-P1",
+          "TEFV6-C0031-I03-cutoff_explanation-P1"
+        ],
+        "temporal_filtering_error": [
+          "TEFV6-C0009-I02-episode_compare-P2",
+          "TEFV6-C0009-I03-decision_boundary-P2",
+          "TEFV6-C0021-I02-status_after_cutoff-P2"
+        ],
+        "procedure_applicability_error": [
+          "TEFV6-C0101-I01-cross_source_action-P1",
+          "TEFV6-C0101-I01-cross_source_action-P2",
+          "TEFV6-C0107-I01-cross_source_action-P1"
+        ]
+      }
+    },
+    "improved_prefilter_raw_beam": {
+      "category_counts": {
+        "flow_search_error": 792,
+        "evidence_redundancy": 264,
+        "relation_classification_error": 186,
+        "temporal_filtering_error": 39,
+        "uncertainty_handling_error": 48,
+        "procedure_applicability_error": 75
+      },
+      "representative_query_ids": {
+        "flow_search_error": [
+          "TEFV6-C0001-I01-current_cause_action-P1",
+          "TEFV6-C0001-I01-current_cause_action-P2",
+          "TEFV6-C0001-I02-episode_compare-P1"
+        ],
+        "evidence_redundancy": [
+          "TEFV6-C0003-I01-current_cause_action-P1",
+          "TEFV6-C0003-I01-current_cause_action-P2",
+          "TEFV6-C0003-I02-episode_compare-P1"
+        ],
+        "relation_classification_error": [
+          "TEFV6-C0005-I01-current_cause_action-P2",
+          "TEFV6-C0007-I01-current_cause_action-P2",
+          "TEFV6-C0011-I01-current_cause_action-P2"
+        ],
+        "temporal_filtering_error": [
+          "TEFV6-C0009-I02-episode_compare-P2",
+          "TEFV6-C0009-I03-decision_boundary-P2",
+          "TEFV6-C0021-I02-status_after_cutoff-P2"
+        ],
+        "uncertainty_handling_error": [
+          "TEFV6-C0061-I02-supersession_basis-P1",
+          "TEFV6-C0062-I02-supersession_basis-P1",
+          "TEFV6-C0064-I02-supersession_basis-P1"
+        ],
+        "procedure_applicability_error": [
+          "TEFV6-C0201-I03-routine_followup-P2",
+          "TEFV6-C0202-I03-routine_followup-P2",
+          "TEFV6-C0204-I03-routine_followup-P2"
+        ]
+      }
+    },
+    "improved_prefilter_beam_fallback": {
+      "category_counts": {
+        "flow_search_error": 755,
+        "relation_classification_error": 229,
+        "evidence_redundancy": 252,
+        "uncertainty_handling_error": 50,
+        "temporal_filtering_error": 39,
+        "procedure_applicability_error": 71
+      },
+      "representative_query_ids": {
+        "flow_search_error": [
+          "TEFV6-C0001-I01-current_cause_action-P1",
+          "TEFV6-C0001-I02-episode_compare-P1",
+          "TEFV6-C0001-I02-episode_compare-P2"
+        ],
+        "relation_classification_error": [
+          "TEFV6-C0001-I01-current_cause_action-P2",
+          "TEFV6-C0005-I01-current_cause_action-P2",
+          "TEFV6-C0007-I01-current_cause_action-P2"
+        ],
+        "evidence_redundancy": [
+          "TEFV6-C0003-I01-current_cause_action-P1",
+          "TEFV6-C0003-I01-current_cause_action-P2",
+          "TEFV6-C0003-I02-episode_compare-P1"
+        ],
+        "uncertainty_handling_error": [
+          "TEFV6-C0006-I02-episode_compare-P1",
+          "TEFV6-C0031-I02-status_after_cutoff-P1",
+          "TEFV6-C0031-I03-cutoff_explanation-P1"
+        ],
+        "temporal_filtering_error": [
+          "TEFV6-C0009-I02-episode_compare-P2",
+          "TEFV6-C0009-I03-decision_boundary-P2",
+          "TEFV6-C0021-I02-status_after_cutoff-P2"
+        ],
+        "procedure_applicability_error": [
+          "TEFV6-C0101-I01-cross_source_action-P1",
+          "TEFV6-C0101-I01-cross_source_action-P2",
+          "TEFV6-C0107-I01-cross_source_action-P1"
+        ]
+      }
+    }
+  }
+}

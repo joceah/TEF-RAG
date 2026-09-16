@@ -1,0 +1,32 @@
+{
+  "improved_prefilter_greedy": {
+    "recall_at_5": 0.6147222222222223,
+    "hit_at_5": 0.925,
+    "ndcg_at_5": 0.6272069922769348,
+    "complete_at_5": 0.1909722222222222,
+    "flow_complete_at_5": 0.18611111111111112,
+    "edge_recall": 0.3026041666666667,
+    "uncertainty_accuracy": 0.9638888888888889,
+    "constraint_violation_rate": 0.0
+  },
+  "improved_prefilter_raw_beam": {
+    "recall_at_5": 0.590474537037037,
+    "hit_at_5": 0.9569444444444445,
+    "ndcg_at_5": 0.5630790343105112,
+    "complete_at_5": 0.15416666666666667,
+    "flow_complete_at_5": 0.14930555555555555,
+    "edge_recall": 0.2733796296296296,
+    "uncertainty_accuracy": 0.9645833333333333,
+    "constraint_violation_rate": 0.0
+  },
+  "improved_prefilter_beam_fallback": {
+    "recall_at_5": 0.6137962962962963,
+    "hit_at_5": 0.925,
+    "ndcg_at_5": 0.6265720128234521,
+    "complete_at_5": 0.18958333333333333,
+    "flow_complete_at_5": 0.18472222222222223,
+    "edge_recall": 0.3026041666666667,
+    "uncertainty_accuracy": 0.9625,
+    "constraint_violation_rate": 0.0
+  }
+}

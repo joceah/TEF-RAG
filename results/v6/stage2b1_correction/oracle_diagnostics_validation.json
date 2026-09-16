@@ -1,0 +1,7 @@
+{
+  "candidate_pool_group_complete_oracle_at_5": 1.0,
+  "search_pool_group_complete_oracle_at_5": 0.9791666666666666,
+  "search_pool_flow_complete_oracle_at_5": 0.9770833333333333,
+  "relation_graph_feasibility_at_5": 0.28958333333333336,
+  "actual_flow_complete_at_5": 0.28958333333333336
+}

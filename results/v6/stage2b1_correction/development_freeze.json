@@ -1,0 +1,13 @@
+{
+  "status": "FROZEN_AFTER_DEVELOPMENT",
+  "frozen_at_utc": "2026-09-16T13:59:47.619871+00:00",
+  "base_stage2b_commit": "42d43630b5d5becc0c3c45d3a210bef708c1845b",
+  "search_pool_k": 30,
+  "beam_expansion_top_k": 30,
+  "beam_width": 8,
+  "beam_config_hash": "005a8c3b3edca859c61b54d95e746763386d65eaf4effd06bb7023a7e40e55dc",
+  "prefilter_mode": "improved",
+  "relation_prompt_version": "tef-v6-stage2a-relation-v7",
+  "relation_cache_fingerprint_version": "stage2a-pair-cache-v1",
+  "oracle_definition_version": "stage2b1-official-flow-v1"
+}
