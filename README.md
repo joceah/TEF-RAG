@@ -1,5 +1,7 @@
 # TEF-RAG
 
+Stage reports: [v6 Stage 2B constrained beam search](markdowns/tef_rag_v6_stage2b_beam_search.md).
+
 TEF-RAG（Temporal Evidence Flow RAG）是面向运维记录的时序证据检索原型。v6 Stage 1 在 candidate retrieval 后执行确定性双时间/procedure 约束并构造 typed Temporal Evidence Flow；Stage 2A-1 在冻结其余 pipeline 的条件下增加 query-conditioned LLM relation scoring。详见 [`markdowns/tef_rag_v6_stage1.md`](markdowns/tef_rag_v6_stage1.md) 和 [`markdowns/tef_rag_v6_stage2a_llm_relation.md`](markdowns/tef_rag_v6_stage2a_llm_relation.md)。
 
 > 当前状态（2026-09-16）：v6 Stage 2A-1 已在 sealed benchmark 的 development/validation 上完成受控 relation 实验，尚未运行 test。请把本仓库视为可复现的研究开发快照，不是已验证的生产系统。

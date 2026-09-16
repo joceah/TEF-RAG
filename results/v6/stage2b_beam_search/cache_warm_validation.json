@@ -1,0 +1,16 @@
+{
+  "case_count": 480,
+  "pending_case_count": 422,
+  "pair_count": 3066,
+  "cache_hit_count": 7064,
+  "saved_pair_count": 3066,
+  "request_count": 430,
+  "retry_count": 8,
+  "malformed_count": 8,
+  "latency_seconds": 398.0590325000303,
+  "prompt_tokens": 801742,
+  "completion_tokens": 28106,
+  "invalid_type_count": 0,
+  "failed_batch_count": 0,
+  "padded_missing_count": 0
+}

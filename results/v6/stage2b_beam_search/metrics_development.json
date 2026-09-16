@@ -1,0 +1,42 @@
+{
+  "stage2a_llm_greedy": {
+    "recall_at_5": 0.6007986111111111,
+    "hit_at_5": 0.9361111111111111,
+    "ndcg_at_5": 0.6171329756881448,
+    "complete_at_5": 0.16319444444444445,
+    "flow_complete_at_5": 0.15763888888888888,
+    "edge_recall": 0.27239583333333334,
+    "uncertainty_accuracy": 0.9652777777777778,
+    "constraint_violation_rate": 0.0
+  },
+  "stage2a_llm_beam": {
+    "recall_at_5": 0.5994097222222222,
+    "hit_at_5": 0.9361111111111111,
+    "ndcg_at_5": 0.6162315732214414,
+    "complete_at_5": 0.16111111111111112,
+    "flow_complete_at_5": 0.15555555555555556,
+    "edge_recall": 0.27239583333333334,
+    "uncertainty_accuracy": 0.9631944444444445,
+    "constraint_violation_rate": 0.0
+  },
+  "improved_prefilter_greedy": {
+    "recall_at_5": 0.6147222222222223,
+    "hit_at_5": 0.925,
+    "ndcg_at_5": 0.6272069922769348,
+    "complete_at_5": 0.1909722222222222,
+    "flow_complete_at_5": 0.18611111111111112,
+    "edge_recall": 0.3026041666666667,
+    "uncertainty_accuracy": 0.9638888888888889,
+    "constraint_violation_rate": 0.0
+  },
+  "improved_prefilter_beam": {
+    "recall_at_5": 0.6137962962962963,
+    "hit_at_5": 0.925,
+    "ndcg_at_5": 0.6265720128234521,
+    "complete_at_5": 0.18958333333333333,
+    "flow_complete_at_5": 0.18472222222222223,
+    "edge_recall": 0.3026041666666667,
+    "uncertainty_accuracy": 0.9625,
+    "constraint_violation_rate": 0.0
+  }
+}

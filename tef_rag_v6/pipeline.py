@@ -69,6 +69,13 @@ class V6Config:
     redundancy_penalty: float = 0.16
     disconnected_penalty: float = 0.10
     relation_threshold: float = 0.58
+    beam_width: int = 8
+    expansion_top_k: int = 20
+    length_normalization: float = 0.0
+    uncertainty_weight: float = 0.0
+    connectivity_weight: float = 0.0
+    relevance_fallback: bool = True
+    beam_min_gain: float = 0.25
 
     @classmethod
     def from_dict(cls, value: dict) -> "V6Config":
@@ -324,6 +331,7 @@ class TEFRAGV6:
         role_demands: set[str],
         *,
         use_relations: bool,
+        enhanced: bool = False,
     ) -> dict:
         chosen = set(selected)
         node_sum = sum(node_scores[identifier]["total"] for identifier in selected)
@@ -341,10 +349,16 @@ class TEFRAGV6:
                 redundancy += max(0.0, self._similarity(left, right) - 0.45)
         connected = {edge["source_id"] for edge in active} | {edge["target_id"] for edge in active}
         disconnected = max(0, len(selected) - len(connected)) if len(selected) > 1 and use_relations else 0
+        connectivity = (len(connected) / len(selected)) if selected else 0.0
+        query_uncertain = "uncertainty" in role_demands
+        has_uncertainty = "uncertainty" in roles
+        uncertainty_consistency = 1.0 if query_uncertain == has_uncertainty else 0.0
         total = (
             node_sum
             + self.config.edge_weight * edge_sum
             + self.config.role_coverage_weight * role_coverage
+            + (self.config.connectivity_weight * connectivity if enhanced else 0.0)
+            + (self.config.uncertainty_weight * uncertainty_consistency if enhanced else 0.0)
             - self.config.redundancy_penalty * redundancy
             - self.config.disconnected_penalty * disconnected
         )
@@ -353,6 +367,8 @@ class TEFRAGV6:
             "node_sum": node_sum,
             "edge_sum": edge_sum,
             "role_coverage": role_coverage,
+            "connectivity": connectivity,
+            "uncertainty_consistency": uncertainty_consistency,
             "redundancy_penalty": self.config.redundancy_penalty * redundancy,
             "disconnected_penalty": self.config.disconnected_penalty * disconnected,
             "active_edges": active,
@@ -367,6 +383,7 @@ class TEFRAGV6:
         *,
         use_relations: bool,
         use_flow: bool,
+        search_mode: str = "greedy",
     ) -> tuple[list[str], dict]:
         pool = sorted(
             (item["document"]["evidence_id"] for item in candidates),
@@ -378,6 +395,10 @@ class TEFRAGV6:
             return selected, self._set_score(
                 tuple(selected), node_scores, edges, role_demands, use_relations=False
             )
+        if search_mode == "beam":
+            return self._select_flow_beam(pool, limit, node_scores, edges, role_demands, use_relations)
+        if search_mode != "greedy":
+            raise ValueError("search_mode must be greedy or beam")
         selected: tuple[str, ...] = tuple()
         trace = []
         while len(selected) < limit:
@@ -396,6 +417,51 @@ class TEFRAGV6:
             trace.append({"selected_id": identifier, "score_after": scored["total"]})
         final = self._set_score(selected, node_scores, edges, role_demands, use_relations=use_relations)
         final["search_trace"] = trace
+        return list(selected), final
+
+    def _select_flow_beam(self, pool, limit, node_scores, edges, role_demands, use_relations):
+        """Deterministic constrained beam over evidence sets; no gold fields are accepted."""
+        expansion_pool = pool[: max(1, self.config.expansion_top_k)]
+        beams = [(tuple(), self._set_score(tuple(), node_scores, edges, role_demands,
+                                           use_relations=use_relations, enhanced=True))]
+        trace, expanded = [], 0
+        for depth in range(limit):
+            proposals = {}
+            for selected, _ in beams:
+                for identifier in expansion_pool:
+                    if identifier in selected:
+                        continue
+                    proposal = selected + (identifier,)
+                    canonical = tuple(sorted(proposal))
+                    scored = self._set_score(proposal, node_scores, edges, role_demands,
+                                             use_relations=use_relations, enhanced=True)
+                    rank_score = scored["total"] / (len(proposal) ** self.config.length_normalization)
+                    candidate = (rank_score, proposal, scored)
+                    previous = proposals.get(canonical)
+                    if previous is None or (-rank_score, proposal) < (-previous[0], previous[1]):
+                        proposals[canonical] = candidate
+                    expanded += 1
+            ranked = sorted(proposals.values(), key=lambda item: (-item[0], item[1]))
+            beams = [(proposal, scored) for _, proposal, scored in ranked[: self.config.beam_width]]
+            trace.append({"depth": depth + 1, "expanded": len(proposals), "surviving": len(beams)})
+            if not beams:
+                break
+        selected, final = sorted(beams, key=lambda item: (-item[1]["total"], item[0]))[0]
+        # Frozen greedy is a deliberately diverse relevance hypothesis.  Beam replaces it
+        # only when the non-local objective has a meaningful advantage.
+        if self.config.relevance_fallback and limit:
+            greedy_ids, _ = self._select_flow(
+                [{"document": self.by_id[i]} for i in pool], node_scores, edges, role_demands,
+                use_relations=use_relations, use_flow=True, search_mode="greedy",
+            )
+            fallback = tuple(greedy_ids)
+            fallback_score = self._set_score(fallback, node_scores, edges, role_demands,
+                                             use_relations=use_relations, enhanced=True)
+            if final["total"] < fallback_score["total"] + self.config.beam_min_gain:
+                selected, final = fallback, fallback_score
+        final["search_trace"] = trace
+        final["beam_states_expanded"] = expanded
+        final["beam_surviving_states"] = sum(row["surviving"] for row in trace)
         return list(selected), final
 
     def _uncertainty_state(self, selected: list[str], query_text: str) -> dict:
@@ -422,6 +488,8 @@ class TEFRAGV6:
         use_relations: bool = True,
         use_flow: bool = True,
         relation_mode: str = "heuristic",
+        search_mode: str = "greedy",
+        prefilter_mode: str = "stage2a",
     ) -> dict:
         public = self._public_query(query)
         raw_candidates = self.candidate_retrieval(public)
@@ -467,14 +535,16 @@ class TEFRAGV6:
             if self.relation_scorer is None:
                 raise ValueError(f"relation_mode={relation_mode} requires a relation_scorer")
             edges, relation_diagnostics = self.relation_scorer.score(
-                public, relation_pool, node_scores, self._relation_kind, self._similarity, relation_mode
+                public, relation_pool, node_scores, self._relation_kind, self._similarity, relation_mode,
+                prefilter_mode=prefilter_mode,
             )
         elif use_relations:
             raise ValueError("relation_mode must be heuristic, llm, or hybrid")
         else:
             edges = []
         selected, flow_score = self._select_flow(
-            eligible, node_scores, edges, role_demands, use_relations=use_relations, use_flow=use_flow
+            eligible, node_scores, edges, role_demands, use_relations=use_relations, use_flow=use_flow,
+            search_mode=search_mode,
         )
         selected_set = set(selected)
         selected_edges = [
@@ -496,6 +566,11 @@ class TEFRAGV6:
             "relation_diagnostics": relation_diagnostics,
             "flow_score": flow_score["total"],
             "score_components": {key: value for key, value in flow_score.items() if key not in {"active_edges", "search_trace"}},
+            "search_diagnostics": {
+                "mode": search_mode,
+                "states_expanded": flow_score.get("beam_states_expanded", 0),
+                "surviving_states": flow_score.get("beam_surviving_states", 0),
+            },
             "node_scores": {identifier: node_scores[identifier] for identifier in selected},
             "rejections": rejected,
             "uncertainty": self._uncertainty_state(selected, public["query_text"]),

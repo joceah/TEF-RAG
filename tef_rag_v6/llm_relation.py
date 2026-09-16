@@ -601,7 +601,9 @@ class QueryConditionedRelationScorer:
 
     def prefilter(self, candidates: list[dict], node_scores: dict[str, dict],
                   relation_kind: Callable[[dict, dict], tuple[str, float]],
-                  similarity: Callable[[str, str], float]) -> tuple[list[dict], int]:
+                  similarity: Callable[[str, str], float], mode: str = "stage2a") -> tuple[list[dict], int]:
+        if mode not in {"stage2a", "improved"}:
+            raise ValueError("prefilter mode must be stage2a or improved")
         documents = [item["document"] for item in candidates]
         ranked = []
         raw_count = 0
@@ -623,6 +625,25 @@ class QueryConditionedRelationScorer:
                         or target.get("event_type") in {"diagnosis", "work_order", "correction", "verification", "uncertainty"}
                     )
                 )
+                if mode == "improved":
+                    transition = (
+                        source.get("event_type"), target.get("event_type")
+                    ) in {
+                        ("state_observation", "diagnosis"), ("inspection", "diagnosis"),
+                        ("diagnosis", "work_order"), ("diagnosis", "repair"),
+                        ("work_order", "verification"), ("repair", "verification"),
+                        ("procedure_applicability", "work_order"),
+                        ("uncertainty", "verification"), ("uncertainty", "correction"),
+                    }
+                    top_neighborhood = (
+                        node_scores[source["evidence_id"]]["total"] >= 0.65
+                        or node_scores[target["evidence_id"]]["total"] >= 0.65
+                    )
+                    special = source.get("event_type") in {"uncertainty", "correction", "procedure_applicability"} \
+                        or target.get("event_type") in {"uncertainty", "correction", "verification"}
+                    compatible = compatible or transition or (same_chain and special) or (
+                        same_chain and top_neighborhood and lexical >= 0.08
+                    )
                 if not compatible:
                     continue
                 node_prior = (node_scores[source["evidence_id"]]["total"] + node_scores[target["evidence_id"]]["total"]) / 2
@@ -633,14 +654,16 @@ class QueryConditionedRelationScorer:
                     "same_episode": same_episode, "explicit_supersession": explicit, "priority": priority,
                 })
         ranked.sort(key=lambda pair: (-pair["priority"], pair["source"]["evidence_id"], pair["target"]["evidence_id"]))
-        return ranked[: self.config.max_pairs_per_query], raw_count
+        limit = self.config.max_pairs_per_query if mode == "stage2a" else max(24, self.config.max_pairs_per_query)
+        return ranked[:limit], raw_count
 
     def score(self, query: dict, candidates: list[dict], node_scores: dict[str, dict],
               relation_kind: Callable[[dict, dict], tuple[str, float]],
-              similarity: Callable[[str, str], float], mode: str) -> tuple[list[dict], dict]:
+              similarity: Callable[[str, str], float], mode: str,
+              prefilter_mode: str = "stage2a") -> tuple[list[dict], dict]:
         if mode not in {"llm", "hybrid"}:
             raise ValueError("LLM scorer mode must be llm or hybrid")
-        pairs, raw_count = self.prefilter(candidates, node_scores, relation_kind, similarity)
+        pairs, raw_count = self.prefilter(candidates, node_scores, relation_kind, similarity, prefilter_mode)
         deterministic = [pair for pair in pairs if mode == "hybrid" and pair["explicit_supersession"]]
         semantic_pairs = [pair for pair in pairs if pair not in deterministic]
         judgments, diagnostics = self.client.judge(query, semantic_pairs)
@@ -675,5 +698,6 @@ class QueryConditionedRelationScorer:
             "no_edge_count": llm_no_edge,
             "relation_type_counts": dict(Counter(edge["relation_type"] for edge in edges)),
             "prefilter_pairs": [[pair["source"]["evidence_id"], pair["target"]["evidence_id"]] for pair in pairs],
+            "prefilter_mode": prefilter_mode,
         })
         return sorted(edges, key=lambda edge: (-edge["score"], edge["source_id"], edge["target_id"])), diagnostics

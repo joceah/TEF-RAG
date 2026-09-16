@@ -1,0 +1,22 @@
+{
+  "stage2a_llm_greedy": {
+    "candidate_oracle_complete_at_5": 1.0,
+    "relation_graph_oracle_flow_complete_at_5": 0.24583333333333332,
+    "actual_flow_complete_at_5": 0.25833333333333336
+  },
+  "stage2a_llm_beam": {
+    "candidate_oracle_complete_at_5": 1.0,
+    "relation_graph_oracle_flow_complete_at_5": 0.24583333333333332,
+    "actual_flow_complete_at_5": 0.25833333333333336
+  },
+  "improved_prefilter_greedy": {
+    "candidate_oracle_complete_at_5": 1.0,
+    "relation_graph_oracle_flow_complete_at_5": 0.28958333333333336,
+    "actual_flow_complete_at_5": 0.28958333333333336
+  },
+  "improved_prefilter_beam": {
+    "candidate_oracle_complete_at_5": 1.0,
+    "relation_graph_oracle_flow_complete_at_5": 0.28958333333333336,
+    "actual_flow_complete_at_5": 0.28958333333333336
+  }
+}

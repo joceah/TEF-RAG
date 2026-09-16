@@ -1,0 +1,42 @@
+{
+  "stage2a_llm_greedy": {
+    "recall_at_5": 0.6753472222222222,
+    "hit_at_5": 0.95625,
+    "ndcg_at_5": 0.6776955842504951,
+    "complete_at_5": 0.26666666666666666,
+    "flow_complete_at_5": 0.25833333333333336,
+    "edge_recall": 0.3517361111111111,
+    "uncertainty_accuracy": 0.9541666666666667,
+    "constraint_violation_rate": 0.0
+  },
+  "stage2a_llm_beam": {
+    "recall_at_5": 0.6753472222222222,
+    "hit_at_5": 0.95625,
+    "ndcg_at_5": 0.6776955842504951,
+    "complete_at_5": 0.26666666666666666,
+    "flow_complete_at_5": 0.25833333333333336,
+    "edge_recall": 0.3517361111111111,
+    "uncertainty_accuracy": 0.9541666666666667,
+    "constraint_violation_rate": 0.0
+  },
+  "improved_prefilter_greedy": {
+    "recall_at_5": 0.6879861111111112,
+    "hit_at_5": 0.9520833333333333,
+    "ndcg_at_5": 0.6859849215523256,
+    "complete_at_5": 0.29791666666666666,
+    "flow_complete_at_5": 0.28958333333333336,
+    "edge_recall": 0.38454861111111105,
+    "uncertainty_accuracy": 0.9479166666666666,
+    "constraint_violation_rate": 0.0
+  },
+  "improved_prefilter_beam": {
+    "recall_at_5": 0.6879861111111112,
+    "hit_at_5": 0.9520833333333333,
+    "ndcg_at_5": 0.6859849215523256,
+    "complete_at_5": 0.29791666666666666,
+    "flow_complete_at_5": 0.28958333333333336,
+    "edge_recall": 0.38454861111111105,
+    "uncertainty_accuracy": 0.9479166666666666,
+    "constraint_violation_rate": 0.0
+  }
+}
