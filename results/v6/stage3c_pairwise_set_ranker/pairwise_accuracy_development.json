@@ -1,0 +1,22 @@
+{
+  "pairwise_agnostic_r0": {
+    "correct_pairs": 9961,
+    "evaluation_pairs": 10477,
+    "pairwise_accuracy": 0.9507492602844325
+  },
+  "pairwise_aware_r0": {
+    "correct_pairs": 9942,
+    "evaluation_pairs": 10477,
+    "pairwise_accuracy": 0.9489357640545958
+  },
+  "pairwise_agnostic_r1": {
+    "correct_pairs": 7352,
+    "evaluation_pairs": 10477,
+    "pairwise_accuracy": 0.7017275937768446
+  },
+  "pairwise_aware_r1": {
+    "correct_pairs": 6349,
+    "evaluation_pairs": 10477,
+    "pairwise_accuracy": 0.6059940822754605
+  }
+}

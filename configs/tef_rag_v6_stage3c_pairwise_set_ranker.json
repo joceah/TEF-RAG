@@ -1,0 +1,20 @@
+{
+  "stage3b_config": "configs/tef_rag_v6_stage3b_set_scorer.json",
+  "base_stage3b_commit": "6848288d68da5a73a44e7882950aac8bdb14b617",
+  "base_stage3a_commit": "89280ac95d901bc5805609bb65ccc0d5c5705c1f",
+  "seed": 20260916,
+  "candidate_bank_version": "stage3b-full5-top15-swap-v1",
+  "candidate_bank_top_m": 15,
+  "max_positive_sets": 30,
+  "round0_hard_negatives": 30,
+  "round0_diverse_negatives": 10,
+  "round1_model_hard_negatives": 20,
+  "round1_handcrafted_hard_negatives": 10,
+  "max_negatives_per_positive": 5,
+  "max_pairs_per_query": 150,
+  "hard_negative_rounds": 1,
+  "model_type": "LogisticRegressionPairwiseLinear",
+  "model_hyperparameters": {"C": 1.0, "max_iter": 300, "solver": "liblinear", "fit_intercept": false},
+  "artifact_dir": "artifacts/v6/stage3c_pairwise_ranker",
+  "output_dir": "results/v6/stage3c_pairwise_set_ranker"
+}

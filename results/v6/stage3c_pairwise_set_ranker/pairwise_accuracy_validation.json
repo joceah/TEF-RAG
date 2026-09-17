@@ -1,0 +1,12 @@
+{
+  "frozen_pairwise_agnostic": {
+    "correct_pairs": 8422,
+    "evaluation_pairs": 12618,
+    "pairwise_accuracy": 0.6674591852908544
+  },
+  "frozen_pairwise_aware": {
+    "correct_pairs": 7552,
+    "evaluation_pairs": 12618,
+    "pairwise_accuracy": 0.5985100649865271
+  }
+}
