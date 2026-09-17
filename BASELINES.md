@@ -33,6 +33,33 @@
 
 本次 TG-RAG 前 11 题完成，后 5 题因供应商 HTTP 402 余额不足返回 0 条；这些输出原样保留，但已在评分前声明为外部失败，不进入主公平胜负比较。36MB 图缓存和模型响应缓存没有上传。
 
+## TEF-RAG v6 待复现外部时序基线
+
+以下两项已确定为 v6 正式外部时序对照候选。当前仅完成方法与适配可行性核验，尚未在 v6 benchmark 上生成正式结果；在首次 sealed test 前应固定上游版本、适配协议、输入字段和 Top-5 输出映射。
+
+### MRAG（待复现）
+
+- 论文：Siyue Zhang et al., *MRAG: A Modular Retrieval Framework for Time-Sensitive Question Answering*, Findings of EMNLP 2025.
+- 官方代码：[siyue-zhang/MRAG](https://github.com/siyue-zhang/MRAG)
+- 方法性质：training-free temporal retrieval framework。
+- 核心机制：将查询拆分为语义内容与时间约束；对召回证据进行细粒度处理/摘要；分别计算语义相关性与时间相关性并进行混合排序。
+- v6 适配原则：使用部署可见的 query text、`query_time`、evidence text、`event_time` / `available_at`；不得读取 required groups、flow gold、chain construction metadata 或 test private artifact。
+- 输出统一为原始 evidence ID 的 Top-5；若 MRAG 中间产生摘要/细粒度片段，必须使用预先冻结的 provenance 映射回原始 evidence ID。
+- 公平性要求：与 TEF-RAG 共享同一 query-time visibility snapshot，不允许通过先构建全时段摘要再在输出端过滤的方式利用未来信息。
+- 状态：`PENDING_V6_REPRODUCTION`。
+
+### TA-RAG（待完整复现）
+
+- 论文：Kwun Hang Lau et al., *Reading Between the Timelines: RAG for Answering Diachronic Questions*, 2025, arXiv:2507.22917.
+- 官方代码：[kwunhang/TA-RAG](https://github.com/kwunhang/TA-RAG)
+- v5 历史适配见上文；v5 结果未完整激活官方 LLM 时间解析，因此不得直接作为 v6 正式外部基线结果。
+- 核心机制：将查询拆分为主题语义与时间窗口，并在检索中联合语义相关性与时间相关性，形成覆盖目标时间范围的时间一致证据集合。
+- v6 复现要求：优先完整激活官方 temporal parsing / interval logic；若官方模块仍无法稳定运行，必须单独标记为兼容分支，不得称为完整 TA-RAG。
+- v6 适配原则：使用部署可见的 query/evidence 字段，统一 query-time visibility snapshot，最终输出原始 evidence ID Top-5。
+- 状态：`PENDING_V6_FULL_REPRODUCTION`。
+
+这两个方法承担与 BM25 / temporal-filter 等基础对照不同的角色：BM25 类基线用于刻画普通检索下限，MRAG 与 TA-RAG 用于比较近期 temporal-aware RAG。正式 v6 结果只在适配协议冻结后产生，不根据 TEF-RAG 的 test 表现反向修改基线。
+
 ## 公平性约束
 
 所有方法逐题共享：
