@@ -1,0 +1,19 @@
+{
+  "stage3c_config": "configs/tef_rag_v6_stage3c_pairwise_set_ranker.json",
+  "base_stage3c_commit": "0d8c2031ff57c82f48ef0a8d2747659bf979e569",
+  "seed": 20260916,
+  "candidate_bank_version": "stage3b-full5-top15-swap-v1",
+  "hidden_sizes": [
+    64,
+    32
+  ],
+  "optimizer": "Adam",
+  "learning_rate": 0.001,
+  "weight_decay": 0.0001,
+  "batch_size": 512,
+  "max_epochs": 30,
+  "early_stopping_patience": 5,
+  "hard_negative_rounds": 1,
+  "artifact_dir": "artifacts/v6/stage3d_nonlinear_ranknet",
+  "output_dir": "results/v6/stage3d_nonlinear_ranknet"
+}

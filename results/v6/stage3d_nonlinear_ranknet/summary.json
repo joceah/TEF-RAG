@@ -1,0 +1,62 @@
+{
+  "development_selection": "mlp_r1",
+  "validation_metrics": {
+    "stage3a_greedy": {
+      "recall_at_5": 0.7069791666666667,
+      "hit_at_5": 0.9604166666666667,
+      "ndcg_at_5": 0.6964698776521627,
+      "complete_at_5": 0.31875,
+      "flow_complete_at_5": 0.3125,
+      "edge_recall": 0.42569444444444443,
+      "uncertainty_accuracy": 0.9541666666666667
+    },
+    "frozen_mlp": {
+      "recall_at_5": 0.7566666666666666,
+      "hit_at_5": 0.9708333333333333,
+      "ndcg_at_5": 0.6885479556270926,
+      "complete_at_5": 0.40625,
+      "flow_complete_at_5": 0.4041666666666667,
+      "edge_recall": 0.47638888888888886,
+      "uncertainty_accuracy": 0.9625
+    },
+    "stage3c_linear_r1": {
+      "recall_at_5": 0.6846527777777778,
+      "hit_at_5": 0.9833333333333333,
+      "ndcg_at_5": 0.6091116168595571,
+      "complete_at_5": 0.22708333333333333,
+      "flow_complete_at_5": 0.21875,
+      "edge_recall": 0.3928819444444444,
+      "uncertainty_accuracy": 0.9333333333333333
+    }
+  },
+  "positive_rank_diagnostics": {
+    "frozen_mlp": {
+      "positive_set_hit_at_1": 0.4041666666666667,
+      "positive_set_hit_at_3": 0.5229166666666667,
+      "positive_set_hit_at_5": 0.5791666666666667,
+      "positive_set_hit_at_10": 0.6729166666666667,
+      "bank_oracle_queries": 380,
+      "bank_oracle_fraction": 0.7916666666666666,
+      "mean_best_positive_rank": 16.33157894736842,
+      "median_best_positive_rank": 2.0,
+      "p75_best_positive_rank": 8.0,
+      "p90_best_positive_rank": 25.100000000000023
+    }
+  },
+  "cache": {
+    "relation_cache_lookups": 13030,
+    "cache_hits": 13030,
+    "cache_hit_rate": 1.0,
+    "new_llm_calls": 0,
+    "new_http_requests": 0
+  },
+  "final_v6_decision": "Stage3D accepted",
+  "method_development_status": "nonlinear ranking successful",
+  "next": "benchmark integrity audit -> first sealed test",
+  "test_gold_accessed": false,
+  "sealed_test_evaluator_accessed": false,
+  "private_test_artifact_accessed": false,
+  "target_method_test_runs": 0,
+  "new_llm_calls": 0,
+  "new_http_requests": 0
+}

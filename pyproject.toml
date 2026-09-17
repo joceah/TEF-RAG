@@ -12,6 +12,7 @@ dependencies = []
 [project.optional-dependencies]
 test = ["pytest>=8"]
 semantic = ["numpy", "onnxruntime==1.29.0", "tokenizers==0.23.2"]
+ranknet = ["numpy", "torch>=2.14"]
 
 [tool.setuptools]
 packages = [
