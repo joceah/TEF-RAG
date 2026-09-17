@@ -1,0 +1,75 @@
+{
+  "python_version": "3.13.5",
+  "sklearn_version": "1.6.1",
+  "seed": 20260916,
+  "train_groups": 188,
+  "tune_groups": 52,
+  "split_hash": "5eaff9f55889dcb07386f24b7da6684e658330010768bed73ada7a0c69e15811",
+  "tune_metrics": {
+    "stage3a_greedy": {
+      "recall_at_5": 0.659241452991453,
+      "hit_at_5": 0.9487179487179487,
+      "ndcg_at_5": 0.6651015273545382,
+      "complete_at_5": 0.2467948717948718,
+      "flow_complete_at_5": 0.24358974358974358,
+      "edge_recall": 0.3888888888888889,
+      "uncertainty_accuracy": 0.9615384615384616
+    },
+    "bank_handcrafted": {
+      "recall_at_5": 0.6347222222222222,
+      "hit_at_5": 0.9743589743589743,
+      "ndcg_at_5": 0.5746429295657803,
+      "complete_at_5": 0.21153846153846154,
+      "flow_complete_at_5": 0.21153846153846154,
+      "edge_recall": 0.3501602564102564,
+      "uncertainty_accuracy": 0.9647435897435898
+    },
+    "learned_type_agnostic": {
+      "recall_at_5": 0.6577457264957265,
+      "hit_at_5": 0.9903846153846154,
+      "ndcg_at_5": 0.5980863790849167,
+      "complete_at_5": 0.15064102564102563,
+      "flow_complete_at_5": 0.15064102564102563,
+      "edge_recall": 0.3886217948717949,
+      "uncertainty_accuracy": 0.9647435897435898
+    },
+    "learned_type_aware": {
+      "recall_at_5": 0.6697115384615384,
+      "hit_at_5": 0.9935897435897436,
+      "ndcg_at_5": 0.6064818270309242,
+      "complete_at_5": 0.17307692307692307,
+      "flow_complete_at_5": 0.17307692307692307,
+      "edge_recall": 0.4107905982905983,
+      "uncertainty_accuracy": 0.9711538461538461
+    }
+  },
+  "tune_bank": {
+    "query_count": 312,
+    "mean_sets_per_query": 2245.49358974359,
+    "median_sets_per_query": 3033.0,
+    "max_sets_per_query": 3130,
+    "flow_complete_oracle_count": 245,
+    "flow_complete_oracle": 0.7852564102564102
+  },
+  "selected_scorer": "learned_type_aware",
+  "agnostic_training": {
+    "queries": 1440,
+    "positive_sets": 11544,
+    "negative_sets": 92372,
+    "queries_with_positive": 1086,
+    "bank_oracle": 1086,
+    "candidate_sets": 3476472,
+    "runtime_seconds": 557.3316366000072
+  },
+  "aware_training": {
+    "queries": 1440,
+    "positive_sets": 11544,
+    "negative_sets": 92372,
+    "queries_with_positive": 1086,
+    "bank_oracle": 1086,
+    "candidate_sets": 3476472,
+    "runtime_seconds": 557.3316366000072
+  },
+  "agnostic_fit_seconds": 9.420881800004281,
+  "aware_fit_seconds": 14.281826899998123
+}

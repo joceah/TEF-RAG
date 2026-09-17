@@ -1,0 +1,14 @@
+{
+  "seed": 20260916,
+  "python_version": "3.13.5",
+  "sklearn_version": "1.6.1",
+  "train_groups": 188,
+  "tune_groups": 52,
+  "development_queries": 1440,
+  "positive_sets": 11544,
+  "negative_sets": 92372,
+  "candidate_bank_version": "stage3b-full5-top15-swap-v1",
+  "selected_scorer": "learned_type_aware",
+  "agnostic_model_sha256": "9aceee986a46f26d610a0b39ac976777ab94cc14b81dff210025f899790a048f",
+  "aware_model_sha256": "faefa79342e1c6f9679734c640b5fa4ee4e6480fb03437b036f0b4c65d6c5c56"
+}

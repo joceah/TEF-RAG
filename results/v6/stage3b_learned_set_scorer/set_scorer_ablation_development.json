@@ -1,0 +1,18 @@
+{
+  "stage3a_greedy": {
+    "bank_oracle": 0.7541666666666667,
+    "flow_complete": 0.21597222222222223
+  },
+  "bank_handcrafted": {
+    "bank_oracle": 0.7541666666666667,
+    "flow_complete": 0.1638888888888889
+  },
+  "learned_type_agnostic": {
+    "bank_oracle": 0.7541666666666667,
+    "flow_complete": 0.1125
+  },
+  "learned_type_aware": {
+    "bank_oracle": 0.7541666666666667,
+    "flow_complete": 0.14791666666666667
+  }
+}

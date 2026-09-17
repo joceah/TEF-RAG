@@ -1,0 +1,8 @@
+{
+  "query_count": 1440,
+  "mean_sets_per_query": 2414.2166666666667,
+  "median_sets_per_query": 3048.0,
+  "max_sets_per_query": 3130,
+  "flow_complete_oracle_count": 1086,
+  "flow_complete_oracle": 0.7541666666666667
+}
