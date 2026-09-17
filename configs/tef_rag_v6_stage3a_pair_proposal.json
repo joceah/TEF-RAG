@@ -1,0 +1,10 @@
+{
+  "stage2b1_config": "configs/tef_rag_v6_stage2b1_correction.json",
+  "base_stage2c_commit": "ca928b625a4e61e15acb197f3e48e7d55913fddf",
+  "seed": 20260916,
+  "model_type": "LogisticRegression",
+  "model_hyperparameters": {"class_weight": "balanced", "C": 1.0, "max_iter": 300, "solver": "liblinear"},
+  "budgets": [16, 24, 32],
+  "artifact_dir": "artifacts/v6/stage3a_pair_proposer",
+  "output_dir": "results/v6/stage3a_learned_pair_proposal"
+}

@@ -1,0 +1,38 @@
+{
+  "rule_improved": {
+    "search_flow": {
+      "count": 469,
+      "rate": 0.9770833333333333
+    },
+    "pair": {
+      "count": 306,
+      "rate": 0.6375
+    },
+    "edge": {
+      "count": 289,
+      "rate": 0.6020833333333333
+    },
+    "typed": {
+      "count": 139,
+      "rate": 0.28958333333333336
+    }
+  },
+  "stage3a_frozen": {
+    "search_flow": {
+      "count": 469,
+      "rate": 0.9770833333333333
+    },
+    "pair": {
+      "count": 412,
+      "rate": 0.8583333333333333
+    },
+    "edge": {
+      "count": 380,
+      "rate": 0.7916666666666666
+    },
+    "typed": {
+      "count": 179,
+      "rate": 0.3729166666666667
+    }
+  }
+}

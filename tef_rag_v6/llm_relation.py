@@ -286,6 +286,32 @@ class LLMRelationClient:
                 diagnostics["completion_tokens"] += int(usage.get("completion_tokens") or 0)
                 parsed = _recover_json(response["choices"][0]["message"]["content"])
                 rows = parsed.get("judgments") if isinstance(parsed, dict) else None
+                if len(pairs) == 1 and isinstance(parsed, dict) and not isinstance(rows, list):
+                    direct = parsed.get("judgment", parsed)
+                    if isinstance(direct, dict) and "has_edge" in direct:
+                        pair = pairs[0]
+                        rows = [{**direct,
+                                 "source_id": direct.get("source_id", pair["source"]["evidence_id"]),
+                                 "target_id": direct.get("target_id", pair["target"]["evidence_id"])}]
+                    compact = parsed.get("cases")
+                    if (not isinstance(rows, list) and isinstance(compact, list) and len(compact) == 1
+                            and isinstance(compact[0], list) and len(compact[0]) == 2
+                            and isinstance(compact[0][1], list) and len(compact[0][1]) == 1):
+                        result = compact[0][1][0]
+                        if isinstance(result, list) and len(result) == 3:
+                            relation = self.relation_by_code.get(str(result[0]).upper())
+                            try:
+                                confidence = float(result[1])
+                                reason = REASON_CODES[int(result[2])]
+                            except (IndexError, TypeError, ValueError):
+                                relation = None
+                            if relation is not None:
+                                pair = pairs[0]
+                                rows = [{"source_id": pair["source"]["evidence_id"],
+                                         "target_id": pair["target"]["evidence_id"],
+                                         "has_edge": relation != NO_EDGE, "relation_type": relation,
+                                         "confidence": confidence / 100.0 if confidence > 1.0 else confidence,
+                                         "reason_code": reason}]
                 if not isinstance(rows, list):
                     raise ValueError("response has no judgments array")
                 output = {}
@@ -512,11 +538,12 @@ class LLMRelationClient:
         """Populate pair cache using serial multi-query requests; never runs requests concurrently."""
         pending = []
         cache_hits = 0
+        existing = {path.stem for path in self.cache_dir.rglob("*.json")}
         for case in cases:
             missing = []
             for pair in case["pairs"]:
                 fingerprint = self.fingerprint(case["query"], pair["source"], pair["target"])
-                if self._load_cache(fingerprint) is not None:
+                if fingerprint in existing:
                     cache_hits += 1
                 else:
                     missing.append({**pair, "fingerprint": fingerprint})
@@ -532,6 +559,41 @@ class LLMRelationClient:
         for start in range(0, len(pending), self.config.cases_per_request):
             batch = pending[start : start + self.config.cases_per_request]
             judged, diagnostics = self._request_case_batch(batch)
+            # The frozen endpoint occasionally emits malformed compact JSON for a
+            # single case. Production runs may retry once through the established
+            # verbose protocol; max_retries=0 preserves fail-fast test semantics.
+            if judged is None and len(batch) == 1 and self.config.max_retries > 0:
+                case = batch[0]
+                verbose, fallback_diag = self._request_batch(case["query"], case["pairs"])
+                if verbose and all(value.get("reason_code") != "client_failure_after_retries"
+                                   for value in verbose.values()):
+                    judged = {(case["case_id"], source, target): value
+                              for (source, target), value in verbose.items()}
+                    diagnostics["failed_batch_count"] = 0
+                    for key in ("request_count", "retry_count", "malformed_count", "latency_seconds",
+                                "prompt_tokens", "completion_tokens", "invalid_type_count"):
+                        diagnostics[key] += fallback_diag.get(key, 0)
+            if judged is None and len(batch) == 1 and len(batch[0]["pairs"]) > 1:
+                # Preserve progress when one compact response is persistently
+                # malformed: retry only that case as independently keyed pairs.
+                case = batch[0]
+                split_judged = {}
+                split_failed = False
+                for index, pair in enumerate(case["pairs"]):
+                    split_case = {"case_id": f"{case['case_id']}-p{index}",
+                                  "query": case["query"], "pairs": [pair]}
+                    values, split_diag = self._request_case_batch([split_case])
+                    for key in ("request_count", "retry_count", "malformed_count", "latency_seconds",
+                                "prompt_tokens", "completion_tokens", "invalid_type_count"):
+                        diagnostics[key] += split_diag.get(key, 0)
+                    if values is None:
+                        split_failed = True
+                        break
+                    split_judged[(case["case_id"], pair["source"]["evidence_id"],
+                                   pair["target"]["evidence_id"])] = next(iter(values.values()))
+                if not split_failed and len(split_judged) == len(case["pairs"]):
+                    judged = split_judged
+                    diagnostics["failed_batch_count"] = 0
             for key in (
                 "pair_count", "request_count", "retry_count", "malformed_count", "latency_seconds",
                 "prompt_tokens", "completion_tokens", "invalid_type_count", "failed_batch_count",
@@ -590,10 +652,13 @@ class LLMRelationClient:
 
 
 class QueryConditionedRelationScorer:
-    def __init__(self, client: LLMRelationClient, relation_threshold: float):
+    def __init__(self, client: LLMRelationClient, relation_threshold: float, pair_proposer=None,
+                 pair_budget: int = 24):
         self.client = client
         self.config = client.config
         self.relation_threshold = relation_threshold
+        self.pair_proposer = pair_proposer
+        self.pair_budget = pair_budget
 
     @staticmethod
     def _clock(document: dict) -> tuple[str, str, str]:
@@ -601,9 +666,20 @@ class QueryConditionedRelationScorer:
 
     def prefilter(self, candidates: list[dict], node_scores: dict[str, dict],
                   relation_kind: Callable[[dict, dict], tuple[str, float]],
-                  similarity: Callable[[str, str], float], mode: str = "stage2a") -> tuple[list[dict], int]:
+                  similarity: Callable[[str, str], float], mode: str = "stage2a",
+                  query: dict | None = None) -> tuple[list[dict], int]:
+        if mode in {"learned", "hybrid_learned"}:
+            if self.pair_proposer is None or query is None:
+                raise ValueError("learned prefilter requires pair_proposer and query")
+            raw_count = len(candidates) * (len(candidates) - 1) // 2
+            # The deployment-visible role parser remains the frozen pipeline parser.
+            from .pipeline import TEFRAGV6
+            role_demands = TEFRAGV6._role_demands(query["query_text"])
+            proposal_mode = "learned" if mode == "learned" else "hybrid"
+            return self.pair_proposer.rank(query, candidates, node_scores, role_demands,
+                                           self.pair_budget, proposal_mode), raw_count
         if mode not in {"stage2a", "improved"}:
-            raise ValueError("prefilter mode must be stage2a or improved")
+            raise ValueError("prefilter mode must be stage2a, improved, learned, or hybrid_learned")
         documents = [item["document"] for item in candidates]
         ranked = []
         raw_count = 0
@@ -663,7 +739,8 @@ class QueryConditionedRelationScorer:
               prefilter_mode: str = "stage2a") -> tuple[list[dict], dict]:
         if mode not in {"llm", "hybrid"}:
             raise ValueError("LLM scorer mode must be llm or hybrid")
-        pairs, raw_count = self.prefilter(candidates, node_scores, relation_kind, similarity, prefilter_mode)
+        pairs, raw_count = self.prefilter(candidates, node_scores, relation_kind, similarity,
+                                          prefilter_mode, query=query)
         deterministic = [pair for pair in pairs if mode == "hybrid" and pair["explicit_supersession"]]
         semantic_pairs = [pair for pair in pairs if pair not in deterministic]
         judgments, diagnostics = self.client.judge(query, semantic_pairs)

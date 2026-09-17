@@ -1,0 +1,14 @@
+{
+  "rule_improved": {
+    "relation_yes_actual_yes": 44,
+    "relation_yes_actual_no": 379,
+    "relation_no_actual_yes": 224,
+    "relation_no_actual_no": 793
+  },
+  "stage3a_frozen": {
+    "relation_yes_actual_yes": 60,
+    "relation_yes_actual_no": 542,
+    "relation_no_actual_yes": 251,
+    "relation_no_actual_no": 587
+  }
+}
