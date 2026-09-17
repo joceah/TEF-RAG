@@ -46,7 +46,12 @@
 - v6 适配原则：使用部署可见的 query text、`query_time`、evidence text、`event_time` / `available_at`；不得读取 required groups、flow gold、chain construction metadata 或 test private artifact。
 - 输出统一为原始 evidence ID 的 Top-5；若 MRAG 中间产生摘要/细粒度片段，必须使用预先冻结的 provenance 映射回原始 evidence ID。
 - 公平性要求：与 TEF-RAG 共享同一 query-time visibility snapshot，不允许通过先构建全时段摘要再在输出端过滤的方式利用未来信息。
-- 状态：`PENDING_V6_REPRODUCTION`。
+- 上游审计提交：`19f3bcf9a365f9379e12edc13bec96c9ec557e1a`（2026-09-17 的 `master` HEAD）。
+- License：MIT。
+- 依赖：Contriever/一阶段召回、PyTorch/CUDA、`vllm`、NLTK、SciPy、Transformers/SentenceTransformers 或 FlagEmbedding reranker、NV-Embed-v2，以及 Llama 3.1 8B/70B 类关键词提取与 query-focused summarization 模型。
+- 计划适配：先按 `query_time` 构造无未来信息 snapshot；原始 evidence ID 作为 passage/sentence/summary 的不可变 provenance；最终按官方 sentence hybrid rank 顺序去重并截断 Top-5。
+- 已知限制：论文要求 LLM question decomposition，但公开实现读取 TempRAGEval 的 `time_relation` 注释，没有通用官方解析入口；v6 不能使用构造元数据补该字段。摘要是正式核心流程，不能删去或用 BM25+time-decay 冒充。
+- 状态：`BLOCKED`。在冻结通用 decomposition 协议并完成官方 GPU/LLM/reranker end-to-end smoke 前，不进入正式 v6 reproduction。
 
 ### TA-RAG（待完整复现）
 
@@ -56,7 +61,12 @@
 - 核心机制：将查询拆分为主题语义与时间窗口，并在检索中联合语义相关性与时间相关性，形成覆盖目标时间范围的时间一致证据集合。
 - v6 复现要求：优先完整激活官方 temporal parsing / interval logic；若官方模块仍无法稳定运行，必须单独标记为兼容分支，不得称为完整 TA-RAG。
 - v6 适配原则：使用部署可见的 query/evidence 字段，统一 query-time visibility snapshot，最终输出原始 evidence ID Top-5。
-- 状态：`PENDING_V6_FULL_REPRODUCTION`。
+- 上游固定/当前提交：`9e5e28a9e7ddad7d6d022c4d3533dbca2aff03b9`（审计时 upstream HEAD 未变化）。
+- License：CC BY-NC-SA 4.0。
+- 依赖：FAISS、NCLS、NumPy、pandas、PyTorch、Transformers/SentenceTransformers、`nomic-ai/nomic-embed-text-v1.5`（768d），以及 OpenAI-compatible LLM endpoint；公开配置使用 `meta-llama/Llama-3.3-70B-Instruct`。
+- 计划适配：每个 query-time snapshot 独立构建 FAISS/NCLS；point `event_time` 映射为一秒区间；相对时间以 `query_time` 而非机器当前日期解释；`corpus_uid` 直接保留 original evidence ID，去重后返回 Top-5。
+- 已知限制：没有预建 v6 index/权重；需要下载 embedding model 并配置 LLM。v5 注入空 temporal decomposition，并替换为 MiniLM/NumPy/线性 interval 兼容实现，因此不是完整 TA-RAG。
+- 状态：`READY_WITH_ADAPTATION`。完成上述有限 adapter 与依赖冻结后，可进入正式 v6 reproduction。
 
 这两个方法承担与 BM25 / temporal-filter 等基础对照不同的角色：BM25 类基线用于刻画普通检索下限，MRAG 与 TA-RAG 用于比较近期 temporal-aware RAG。正式 v6 结果只在适配协议冻结后产生，不根据 TEF-RAG 的 test 表现反向修改基线。
 
