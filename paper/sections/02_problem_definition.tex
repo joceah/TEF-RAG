@@ -19,6 +19,18 @@ $t_q$ 为本次回答允许使用知识的截止时刻。
 \begin{equation}
 \Evidence=\{e_1,e_2,\ldots,e_N\}.
 \end{equation}
+从具身运维应用的输入形态看，可进一步写为
+\begin{equation}
+\Evidence=
+\mathcal{D}_{\mathrm{unstruct}}
+\cup \mathcal{D}_{\mathrm{struct}}
+\cup \mathcal{D}_{\mathrm{temporal}},
+\end{equation}
+其中 $\mathcal{D}_{\mathrm{unstruct}}$ 包含运维手册、设备说明书和安全规程等非结构化文档，
+$\mathcal{D}_{\mathrm{struct}}$ 包含历史故障、工单和设备台账等结构化记录，
+$\mathcal{D}_{\mathrm{temporal}}$ 则表示 BMS/SCADA 状态及由专业预测模型产生的时序健康信息。
+TEF-RAG 在算法实现中将三类输入统一投影为可追踪来源的 evidence records，
+但不假设它们原始形态相同。
 每条证据 $e$ 至少包含文本或结构化内容 $z(e)$、资产标识 $u(e)$、
 来源类型 $s(e)$、事件类型 $c(e)$、事件时间 $t_e(e)$ 和可用时间 $t_a(e)$；
 若证据属于规程、版本化诊断或工单，还可包含型号范围、版本、有效区间、
@@ -61,6 +73,41 @@ $w_d$ 为撤回时刻；无明确失效时刻时令 $t_d^+=+\infty$。
 这一边界的作用是防止未来证据、错设备证据和无效规程进入后续学习过程，
 而不是替代语义检索本身。
 
+\subsection{端到端任务输出与评价边界}
+
+储能电站具身运维的最终目标是一个从多源输入到结构化、有序输出的映射。
+本文将最终输出表示为
+\begin{equation}
+Y_q=(W_q,A_q),
+\label{eq:task_output}
+\end{equation}
+其中 $W_q$ 为标准化工单，
+其字段由固定 schema 约束，可包含目标设备、查询/处置时刻、当前状态、
+诊断或处置结论、适用规程、证据引用以及未知/待确认项等；
+$A_q=[a_1,a_2,\ldots,a_n]$ 为有序具身指令序列。
+每个 $a_i$ 对应一个可执行的原子动作，例如导航、测温、拍照、检查、操作或数据回传，
+并可携带目标对象、参数、前置依赖和证据引用。
+
+令 $\Delta_q$ 为动作依赖集合。
+若 $(a_i,a_j)\in\Delta_q$，
+则动作 $a_i$ 必须在 $a_j$ 之前完成，
+从而显式表示规程顺序、安全逻辑和物理依赖，
+而不是把动作集合当作可任意交换的自然语言列表。
+在总体系统中，TEF-RAG 检索得到的证据流作为生成器的受控上下文：
+\begin{equation}
+(\hat W_q,\hat A_q)
+=
+g_{\psi}\!\left(x_q,\hat{\Selected}_q,\FlowGraph_q\right).
+\label{eq:downstream_generation}
+\end{equation}
+
+本文当前的核心算法贡献及 v6 封存实验集中于式~\eqref{eq:downstream_generation}
+之前的 evidence-flow retrieval：
+即保证进入生成器的证据满足时间可见性、字段/规程适用性与集合流程完整性。
+因此，Recall、nDCG、Complete 和 FlowComplete 用于评价上游证据质量；
+它们不能替代对 $W_q$ 字段规范性、$A_q$ 动作可执行性以及真实机器人闭环安全性的独立验证。
+这一划分保留了端到端具身运维目标，同时避免将当前检索 benchmark 的结果外推为执行层性能。
+
 \subsection{Temporal Evidence Flow}
 
 基础检索器根据 $x_q$ 从 $\Candidates_q$ 中取得查询相关的候选节点集合 $V_q$。
@@ -102,10 +149,13 @@ $\phi(\cdot)$ 为集合级特征表示，$F_{\theta}$ 为学习到的非线性�
         \placeholderfigure{Figure placeholder: TEF-RAG overall architecture.\\
         Query + temporally valid candidate pool $\rightarrow$ learned pair proposal $\rightarrow$
         query-conditioned relation reasoning $\rightarrow$ Temporal Evidence Flow graph $\rightarrow$
-        candidate set construction $\rightarrow$ nonlinear pairwise set ranking $\rightarrow$ Top-5 evidence flow.}%
+        candidate set construction $\rightarrow$ nonlinear pairwise set ranking $\rightarrow$ Top-5 evidence flow
+        $\rightarrow$ grounded generation $\rightarrow$ standardized work order + ordered embodied instruction sequence.}%
     }
     \caption{TEF-RAG 总体框架。系统先从查询时刻合法的候选证据中构建查询条件化的时序证据图，
-    再对候选证据集合进行非线性 pairwise ranking，以恢复完整的 Top-5 evidence flow，而非独立排序五条记录。}
+    再对候选证据集合进行非线性 pairwise ranking，以恢复完整的 Top-5 evidence flow；
+    该证据流随后作为受控上下文生成标准化工单与有序具身指令序列。
+    本文 v6 封存 benchmark 重点评价图中 evidence-flow retrieval 部分。}
     \label{fig:tef_overview}
 \end{figure*}
 
@@ -158,6 +208,8 @@ $\FlowGraph_q=(V_q,E_q)$ & 查询条件化 Temporal Evidence Flow 图 \\
 $\Rels$ & typed evidence relation 集合 \\
 $\SetBank_q$ & 查询 $q$ 的候选证据集合空间 \\
 $\hat{\Selected}_q$ & 最终选择的 Top-$k$ 证据集合，本文 $k=5$ \\
+$Y_q=(W_q,A_q)$ & 最终运维输出：标准化工单与有序具身指令序列 \\
+$\Delta_q$ & 具身指令之间必须满足的动作依赖集合 \\
 $\Gamma_q^{\star}$ & 离线必要证据组集合 \\
 $\Phi_q^{\star}$ & 离线必要 flow edge 集合 \\
 \bottomrule
