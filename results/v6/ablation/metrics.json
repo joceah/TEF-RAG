@@ -1,0 +1,67 @@
+{
+  "metrics": {
+    "full_tef_rag": {
+      "recall_at_5": 0.7566666666666666,
+      "hit_at_5": 0.9708333333333333,
+      "ndcg_at_5": 0.6885479556270926,
+      "complete_at_5": 0.40625,
+      "flow_complete_at_5": 0.4041666666666667,
+      "edge_recall": 0.47638888888888886,
+      "uncertainty_accuracy": 0.9625
+    },
+    "without_learned_pair_proposal": {
+      "recall_at_5": 0.749375,
+      "hit_at_5": 0.9729166666666667,
+      "ndcg_at_5": 0.6832245800741337,
+      "complete_at_5": 0.40625,
+      "flow_complete_at_5": 0.40208333333333335,
+      "edge_recall": 0.4513888888888889,
+      "uncertainty_accuracy": 0.9708333333333333
+    },
+    "without_relation_graph_features": {
+      "recall_at_5": 0.7183680555555556,
+      "hit_at_5": 0.9874999999999999,
+      "ndcg_at_5": 0.6600509952986466,
+      "complete_at_5": 0.375,
+      "flow_complete_at_5": 0.3666666666666667,
+      "edge_recall": 0.42135416666666664,
+      "uncertainty_accuracy": 0.95
+    },
+    "without_hard_negative_mining": {
+      "recall_at_5": 0.6747916666666667,
+      "hit_at_5": 0.9479166666666666,
+      "ndcg_at_5": 0.6042098249662983,
+      "complete_at_5": 0.2875,
+      "flow_complete_at_5": 0.2833333333333333,
+      "edge_recall": 0.39097222222222217,
+      "uncertainty_accuracy": 0.9354166666666667
+    },
+    "without_nonlinear_set_ranker": {
+      "recall_at_5": 0.7069791666666667,
+      "hit_at_5": 0.9604166666666667,
+      "ndcg_at_5": 0.6964698776521627,
+      "complete_at_5": 0.31875,
+      "flow_complete_at_5": 0.3125,
+      "edge_recall": 0.42569444444444443,
+      "uncertainty_accuracy": 0.9541666666666667
+    }
+  },
+  "delta_vs_full": {
+    "without_learned_pair_proposal": {
+      "flow_complete_at_5": -0.002083333333333326,
+      "recall_at_5": -0.007291666666666585
+    },
+    "without_relation_graph_features": {
+      "flow_complete_at_5": -0.03749999999999998,
+      "recall_at_5": -0.03829861111111099
+    },
+    "without_hard_negative_mining": {
+      "flow_complete_at_5": -0.12083333333333335,
+      "recall_at_5": -0.08187499999999992
+    },
+    "without_nonlinear_set_ranker": {
+      "flow_complete_at_5": -0.09166666666666667,
+      "recall_at_5": -0.049687499999999885
+    }
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "base_commit": "8404d3d40d63afc89e67f7e39a1e26945464f125",
+  "split": "validation",
+  "query_count": 480,
+  "seed": 20260916,
+  "pair_budget": 32,
+  "search_pool_k": 30,
+  "candidate_bank_version": "stage3b-full5-top15-swap-v1",
+  "relation_prompt_version": "tef-v6-stage2a-relation-v7",
+  "relation_threshold": 0.6,
+  "stage3a_result_reused": true,
+  "stage3a_semantically_comparable": true,
+  "training": {
+    "seed": 20260916,
+    "group_split_hash": "5eaff9f55889dcb07386f24b7da6684e658330010768bed73ada7a0c69e15811",
+    "train_groups": 188,
+    "tune_groups": 52,
+    "round0": {
+      "queries_with_positive": 1086,
+      "ranking_pairs": 51332,
+      "queries_without_positive": 354
+    },
+    "graphless_round1": {
+      "queries_with_positive": 1086,
+      "ranking_pairs": 51332,
+      "queries_without_positive": 354
+    },
+    "full_feature_count": 62,
+    "graphless_feature_count": 43,
+    "hard_negative_rounds": 1,
+    "hyperparameter_sweep": false
+  },
+  "model_hashes": {
+    "without_hard_negative_mining": "add92ecf23f963ea1c963af0c32c659bcc6d3421ac88461aa9f1ec9cad87461e",
+    "without_relation_graph_features": "b7e92025b47d419d3bc229ed958577239eb5999cbe744fdcbe9cca20feeca958"
+  },
+  "normalization_hashes": {
+    "without_hard_negative_mining": "5f81746e726e279bb6ba1bae6277345dd23d473fbb6e865d3d57697e24c69c0a",
+    "without_relation_graph_features": "905a1481506bbdbc48f66e4e8e4c4b92d3cd53dcd19405cb4331e2a270780490"
+  },
+  "validation_cache": {
+    "learned": {
+      "lookups": 13030,
+      "hits": 13030
+    },
+    "heuristic_top32": {
+      "lookups": 12829,
+      "hits": 12829
+    },
+    "heuristic_warm": {
+      "case_count": 480,
+      "pending_case_count": 322,
+      "pair_count": 1872,
+      "cache_hit_count": 10957,
+      "saved_pair_count": 1872,
+      "request_count": 327,
+      "retry_count": 5,
+      "malformed_count": 5,
+      "latency_seconds": 1598.7046113994147,
+      "prompt_tokens": 583634,
+      "completion_tokens": 17515,
+      "invalid_type_count": 0,
+      "failed_batch_count": 0,
+      "padded_missing_count": 0
+    }
+  },
+  "new_hyperparameter_sweep": false,
+  "sealed_test_accessed": false,
+  "test_gold_accessed": false,
+  "test_predictions_run": false
+}
