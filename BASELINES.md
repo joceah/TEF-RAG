@@ -72,7 +72,7 @@ visible corpus -> BM25(query, evidence text) -> Top-5
 - 不使用 TEF-RAG relation / pair proposal / set scorer；
 - 参数若已有冻结实现则直接复用；若必须选择参数，只在 development 上完成并 freeze。
 
-状态：`TO_REPRODUCE_V6`
+冻结参数：`k1=1.5`、`b=0.75`、`Top-k=5`。状态：`FROZEN_V6`。
 
 ---
 
@@ -101,7 +101,7 @@ visible corpus
 - 不在 validation/test 上调 candidate size、batch size 之外会改变排名语义的参数；
 - candidate depth 固定为 30，与 TEF-RAG 的 first-stage candidate budget 对齐，但候选由该 baseline 自己的 BM25 从完整 visible corpus 产生。
 
-状态：`TO_IMPLEMENT`
+冻结模型为 `BAAI/bge-reranker-v2-m3@953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e`，candidate depth 为 30。状态：`FROZEN_V6`。
 
 ---
 
@@ -131,7 +131,7 @@ score(e,q) = lambda * normalized_BM25(e,q)
 
 该方法是本项目自定义 baseline，论文中命名为 **Temporal-BM25**，不得冒充 MRAG 或其他已有方法。
 
-状态：`TO_IMPLEMENT`
+冻结 `lambda=0.25`，候选集合为 `{0.25, 0.50, 0.75}`，公式不变。状态：`FROZEN_V6`。
 
 ---
 
@@ -179,7 +179,7 @@ query
 - 不允许使用 v5 的 `NoEventIntervalParser` compatibility branch 作为正式 v6 TA-RAG；
 - 若官方 temporal parser / Nomic / FAISS / NCLS 栈无法稳定运行，必须报告失败，不能悄悄退化成简化版本仍称 TA-RAG。
 
-状态：`READY_WITH_ADAPTATION`
+正式冻结为 **official rerank variant**。上游 commit 为 `9e5e28a9e7ddad7d6d022c4d3533dbca2aff03b9`；用户授权的 endpoint substitution 为 `https://api.deepseek.com`、`deepseek-chat`、temperature 0，API key 不持久化。Nomic 使用版本由 final freeze manifest 中的本地权重 SHA256 固定。状态：`FROZEN_V6`。
 
 ---
 
@@ -196,6 +196,8 @@ query
 在 baseline reproduction 阶段禁止继续修改 TEF-RAG 方法或超参数。
 
 当前正式方法分支 / commit 应在 baseline freeze manifest 中记录，而不是依赖浮动 branch HEAD。
+
+最终方法 commit 固定为 `49487cadb96efcbf7f4432965743a766575903d7`。benchmark seal、benchmark protocol、baseline protocol、baseline implementation 与 baseline results provenance 分别记录在 `results/v6/final_freeze_manifest.json`，不得用一个模糊的 “benchmark commit” 字段替代。
 
 ---
 
@@ -258,6 +260,8 @@ TEF-RAG
 - Top-k = 5。
 
 第三方源码、模型权重、LLM cache、API key 和 private test artifact 不提交到本仓库。
+
+第一次 sealed test 前必须运行 `scripts/preflight_tef_rag_v6_sealed_test.py`。任何 method、artifact、baseline 配置、结果哈希或 provenance mismatch 均 `FAIL CLOSED`。`metadata/validation_second_blind_review.json` 的已知 manifest bookkeeping mismatch 记录为 `BENCHMARK_ISSUE_FOUND`，不修改 benchmark 文件，也不作为 preflight fatal error。
 
 ---
 

@@ -1,8 +1,11 @@
 {
   "status": "FROZEN",
-  "benchmark_commit": "e439621d2598fda2d2bc165b5679641e42a36321",
-  "baseline_code_commit": "e756575cafafb6c2980377c6a8201aedbf4b4585",
-  "stage3d_commit": "716e5660bde8f2ed84d2b48d8464d8b071b50874",
+  "tef_rag_method_commit": "49487cadb96efcbf7f4432965743a766575903d7",
+  "benchmark_seal_commit": "4cd74c51bf874beac3c72df7fa64ae89f73438b8",
+  "benchmark_protocol_commit": "b0e6e004378e7d7f29cabece1efa6b2c30489e9b",
+  "baseline_protocol_commit": "e439621d2598fda2d2bc165b5679641e42a36321",
+  "baseline_implementation_commit": "e756575cafafb6c2980377c6a8201aedbf4b4585",
+  "baseline_results_commit": "79a6c164899b0d667c438a67f51cd84fcddd2058",
   "bm25": {
     "implementation": "tef_rag_v6.pipeline.BM25Index",
     "k1": 1.5,
@@ -23,8 +26,10 @@
     ]
   },
   "ta_rag": {
+    "variant": "official rerank variant",
     "upstream_commit": "9e5e28a9e7ddad7d6d022c4d3533dbca2aff03b9",
-    "embedding": "nomic-ai/nomic-embed-text-v1.5",
+    "nomic_model": "nomic-ai/nomic-embed-text-v1.5",
+    "nomic_revision_or_local_hash": "sha256:9e7d262b1fe5ea350782829496efa831901b77486bbde1cea54a4c822d010d5c",
     "base_url": "https://api.deepseek.com",
     "model": "deepseek-chat",
     "temperature": 0,
@@ -42,5 +47,5 @@
   "top_k": 5,
   "failures": {},
   "missing": [],
-  "freeze_hash": "b07be41faeeb41fb191e3f5cf0713d1f83b602c871f67e9cf421e1bb6c45c1ed"
+  "freeze_hash": "1c2dca07fd4b9d3d2f55d776fd9400c08f15979b586fde13f81801f986ea5be9"
 }

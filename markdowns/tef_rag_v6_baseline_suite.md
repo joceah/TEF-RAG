@@ -37,3 +37,9 @@ The machine-readable source of truth is `results/v6/baseline_suite/baseline_free
 ## Runtime and dependency limitations
 
 The official NCLS package has no Python 3.13 Windows wheel, so TA-RAG uses an ignored isolated Python 3.11 runtime with the official Windows NCLS wheel. Third-party sources, environments, models, caches, endpoint credentials, and private artifacts remain excluded from Git. CPU execution of the 568M-parameter multilingual BGE reranker and Nomic embeddings is expected to be substantially slower than GPU execution.
+
+## Final freeze provenance
+
+The final source of truth is `results/v6/final_freeze_manifest.json`. It distinguishes the TEF-RAG method commit, benchmark seal commit, benchmark protocol commit, baseline protocol commit, baseline implementation commit, and baseline results commit. TA-RAG is explicitly frozen as the official rerank variant with upstream commit `9e5e28a9e7ddad7d6d022c4d3533dbca2aff03b9`, the user-authorized official DeepSeek endpoint substitution (`https://api.deepseek.com`, `deepseek-chat`, temperature 0), and the locally used Nomic weight SHA256. No performance values or predictions were changed during this metadata correction.
+
+The independent sealed-test preflight validates all frozen commits, Stage3D/Stage3A artifacts, baseline parameters, model identities, result-tree hashes, and the formal validation marker. Any mismatch fails closed. The known `metadata/validation_second_blind_review.json` declared-hash mismatch is retained as `BENCHMARK_ISSUE_FOUND`, classified as non-fatal metadata bookkeeping, and the benchmark artifact and manifest remain untouched.
