@@ -1,0 +1,46 @@
+{
+  "status": "FROZEN",
+  "benchmark_commit": "e439621d2598fda2d2bc165b5679641e42a36321",
+  "baseline_code_commit": "e756575cafafb6c2980377c6a8201aedbf4b4585",
+  "stage3d_commit": "716e5660bde8f2ed84d2b48d8464d8b071b50874",
+  "bm25": {
+    "implementation": "tef_rag_v6.pipeline.BM25Index",
+    "k1": 1.5,
+    "b": 0.75
+  },
+  "bge": {
+    "model": "BAAI/bge-reranker-v2-m3",
+    "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+    "candidate_depth": 30
+  },
+  "temporal_bm25": {
+    "formula": "lambda*normalized_bm25+(1-lambda)*temporal_score",
+    "lambda": 0.25,
+    "lambda_candidates": [
+      0.25,
+      0.5,
+      0.75
+    ]
+  },
+  "ta_rag": {
+    "upstream_commit": "9e5e28a9e7ddad7d6d022c4d3533dbca2aff03b9",
+    "embedding": "nomic-ai/nomic-embed-text-v1.5",
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-chat",
+    "temperature": 0,
+    "api_key_persisted": false
+  },
+  "dependencies": {
+    "numpy": "2.4.6",
+    "torch": "2.14.0+cu130",
+    "transformers": "4.57.6",
+    "sentence-transformers": "5.7.0",
+    "faiss-cpu": "1.15.1",
+    "ncls": "0.0.68",
+    "openai": "3.14.1"
+  },
+  "top_k": 5,
+  "failures": {},
+  "missing": [],
+  "freeze_hash": "b07be41faeeb41fb191e3f5cf0713d1f83b602c871f67e9cf421e1bb6c45c1ed"
+}

@@ -1,0 +1,5250 @@
+[
+  {
+    "query_id": "TEFV6-C0013-I01-current_cause_action-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0013-E09",
+      "TEFV6-C0013-E08",
+      "TEFV6-C0095-E12",
+      "TEFV6-C0013-E06",
+      "TEFV6-C0013-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0013-I01-current_cause_action-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0154-E02",
+      "TEFV6-C0154-E08",
+      "TEFV6-C0013-E05",
+      "TEFV6-C0095-E04",
+      "TEFV6-C0013-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0013-I02-episode_compare-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0154-E02",
+      "TEFV6-C0154-E07",
+      "TEFV6-C0013-E06",
+      "TEFV6-C0154-E05",
+      "TEFV6-C0013-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0013-I02-episode_compare-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0191-E01",
+      "TEFV6-C0191-E03",
+      "TEFV6-C0191-E04",
+      "TEFV6-C0154-E07",
+      "TEFV6-C0191-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0013-I03-decision_boundary-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0095-E10",
+      "TEFV6-C0013-E06",
+      "TEFV6-C0154-E04",
+      "TEFV6-C0013-E09",
+      "TEFV6-C0013-E04"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0013-I03-decision_boundary-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0013-E09",
+      "TEFV6-C0154-E05",
+      "TEFV6-C0191-E01",
+      "TEFV6-C0191-E04",
+      "TEFV6-C0013-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0014-I01-current_cause_action-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0014-E09",
+      "TEFV6-C0014-E08",
+      "TEFV6-C0096-E12",
+      "TEFV6-C0014-E05",
+      "TEFV6-C0014-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0014-I01-current_cause_action-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0155-E02",
+      "TEFV6-C0014-E05",
+      "TEFV6-C0155-E08",
+      "TEFV6-C0014-E06",
+      "TEFV6-C0155-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0014-I02-episode_compare-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0155-E02",
+      "TEFV6-C0155-E07",
+      "TEFV6-C0014-E06",
+      "TEFV6-C0155-E05",
+      "TEFV6-C0014-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0014-I02-episode_compare-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0155-E07",
+      "TEFV6-C0014-E01",
+      "TEFV6-C0155-E08",
+      "TEFV6-C0096-E06",
+      "TEFV6-C0073-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0014-I03-decision_boundary-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0073-E08",
+      "TEFV6-C0096-E10",
+      "TEFV6-C0014-E06",
+      "TEFV6-C0155-E04",
+      "TEFV6-C0073-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0014-I03-decision_boundary-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0014-E09",
+      "TEFV6-C0155-E05",
+      "TEFV6-C0014-E08",
+      "TEFV6-C0014-E06",
+      "TEFV6-C0014-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0015-I01-current_cause_action-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0015-E09",
+      "TEFV6-C0015-E14",
+      "TEFV6-C0015-E08",
+      "TEFV6-C0015-E06",
+      "TEFV6-C0015-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0015-I01-current_cause_action-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0185-E01",
+      "TEFV6-C0156-E02",
+      "TEFV6-C0156-E08",
+      "TEFV6-C0015-E05",
+      "TEFV6-C0015-E13"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0015-I02-episode_compare-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0156-E02",
+      "TEFV6-C0156-E07",
+      "TEFV6-C0185-E01",
+      "TEFV6-C0015-E06",
+      "TEFV6-C0015-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0015-I02-episode_compare-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0133-E01",
+      "TEFV6-C0133-E03",
+      "TEFV6-C0133-E02",
+      "TEFV6-C0156-E07",
+      "TEFV6-C0015-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0015-I03-decision_boundary-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0133-E04",
+      "TEFV6-C0074-E08",
+      "TEFV6-C0185-E03",
+      "TEFV6-C0015-E06",
+      "TEFV6-C0133-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0015-I03-decision_boundary-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0015-E09",
+      "TEFV6-C0156-E05",
+      "TEFV6-C0133-E07",
+      "TEFV6-C0156-E13",
+      "TEFV6-C0133-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0016-I01-current_cause_action-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0016-E09",
+      "TEFV6-C0016-E08",
+      "TEFV6-C0016-E05",
+      "TEFV6-C0016-E06",
+      "TEFV6-C0016-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0016-I01-current_cause_action-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0016-E05",
+      "TEFV6-C0134-E04",
+      "TEFV6-C0075-E05",
+      "TEFV6-C0016-E06",
+      "TEFV6-C0075-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0016-I02-episode_compare-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0016-E06",
+      "TEFV6-C0016-E07",
+      "TEFV6-C0134-E01",
+      "TEFV6-C0134-E04",
+      "TEFV6-C0016-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0016-I02-episode_compare-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0134-E03",
+      "TEFV6-C0134-E01",
+      "TEFV6-C0134-E02",
+      "TEFV6-C0016-E01",
+      "TEFV6-C0075-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0016-I03-decision_boundary-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0134-E04",
+      "TEFV6-C0075-E08",
+      "TEFV6-C0134-E08",
+      "TEFV6-C0016-E06",
+      "TEFV6-C0075-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0016-I03-decision_boundary-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0016-E09",
+      "TEFV6-C0134-E07",
+      "TEFV6-C0134-E08",
+      "TEFV6-C0016-E08",
+      "TEFV6-C0016-E12"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0033-I01-status_before_cutoff-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0033-E03",
+      "TEFV6-C0115-E08",
+      "TEFV6-C0033-E02",
+      "TEFV6-C0115-E04",
+      "TEFV6-C0033-E12"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0033-I01-status_before_cutoff-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0033-E12",
+      "TEFV6-C0033-E02",
+      "TEFV6-C0033-E03",
+      "TEFV6-C0033-E09",
+      "TEFV6-C0115-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0033-I02-status_after_cutoff-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0033-E12",
+      "TEFV6-C0033-E02",
+      "TEFV6-C0033-E07",
+      "TEFV6-C0115-E05",
+      "TEFV6-C0033-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0033-I02-status_after_cutoff-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0033-E12",
+      "TEFV6-C0033-E06",
+      "TEFV6-C0115-E04",
+      "TEFV6-C0033-E04",
+      "TEFV6-C0115-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0033-I03-cutoff_explanation-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0115-E01",
+      "TEFV6-C0115-E10",
+      "TEFV6-C0115-E02",
+      "TEFV6-C0115-E07",
+      "TEFV6-C0033-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0033-I03-cutoff_explanation-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0115-E04",
+      "TEFV6-C0033-E02",
+      "TEFV6-C0033-E12",
+      "TEFV6-C0033-E07",
+      "TEFV6-C0115-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0034-I01-status_before_cutoff-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0093-E12",
+      "TEFV6-C0034-E03",
+      "TEFV6-C0093-E09",
+      "TEFV6-C0116-E08",
+      "TEFV6-C0093-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0034-I01-status_before_cutoff-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0034-E02",
+      "TEFV6-C0034-E03",
+      "TEFV6-C0034-E09",
+      "TEFV6-C0116-E10",
+      "TEFV6-C0093-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0034-I02-status_after_cutoff-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0034-E02",
+      "TEFV6-C0034-E07",
+      "TEFV6-C0034-E06",
+      "TEFV6-C0034-E09",
+      "TEFV6-C0116-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0034-I02-status_after_cutoff-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0034-E06",
+      "TEFV6-C0093-E12",
+      "TEFV6-C0116-E04",
+      "TEFV6-C0034-E04",
+      "TEFV6-C0093-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0034-I03-cutoff_explanation-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0116-E01",
+      "TEFV6-C0116-E10",
+      "TEFV6-C0116-E02",
+      "TEFV6-C0116-E07",
+      "TEFV6-C0034-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0034-I03-cutoff_explanation-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0034-E02",
+      "TEFV6-C0116-E04",
+      "TEFV6-C0116-E10",
+      "TEFV6-C0034-E07",
+      "TEFV6-C0034-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0035-I01-status_before_cutoff-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0094-E12",
+      "TEFV6-C0153-E07",
+      "TEFV6-C0035-E03",
+      "TEFV6-C0094-E10",
+      "TEFV6-C0094-E09"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0035-I01-status_before_cutoff-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0035-E02",
+      "TEFV6-C0035-E03",
+      "TEFV6-C0035-E09",
+      "TEFV6-C0094-E10",
+      "TEFV6-C0153-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0035-I02-status_after_cutoff-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0035-E02",
+      "TEFV6-C0153-E07",
+      "TEFV6-C0153-E08",
+      "TEFV6-C0035-E07",
+      "TEFV6-C0153-E13"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0035-I02-status_after_cutoff-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0094-E12",
+      "TEFV6-C0035-E06",
+      "TEFV6-C0035-E04",
+      "TEFV6-C0094-E10",
+      "TEFV6-C0035-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0035-I03-cutoff_explanation-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0153-E07",
+      "TEFV6-C0153-E10",
+      "TEFV6-C0035-E10",
+      "TEFV6-C0035-E02",
+      "TEFV6-C0035-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0035-I03-cutoff_explanation-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0035-E02",
+      "TEFV6-C0035-E07",
+      "TEFV6-C0035-E10",
+      "TEFV6-C0035-E09",
+      "TEFV6-C0035-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0036-I01-status_before_cutoff-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0013-E08",
+      "TEFV6-C0095-E12",
+      "TEFV6-C0013-E09",
+      "TEFV6-C0154-E07",
+      "TEFV6-C0036-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0036-I01-status_before_cutoff-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0036-E12",
+      "TEFV6-C0013-E09",
+      "TEFV6-C0036-E02",
+      "TEFV6-C0036-E03",
+      "TEFV6-C0036-E09"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0036-I02-status_after_cutoff-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0036-E12",
+      "TEFV6-C0036-E02",
+      "TEFV6-C0154-E08",
+      "TEFV6-C0154-E07",
+      "TEFV6-C0036-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0036-I02-status_after_cutoff-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0036-E12",
+      "TEFV6-C0013-E09",
+      "TEFV6-C0036-E06",
+      "TEFV6-C0036-E04",
+      "TEFV6-C0095-E12"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0036-I03-cutoff_explanation-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0154-E07",
+      "TEFV6-C0013-E11",
+      "TEFV6-C0154-E10",
+      "TEFV6-C0013-E05",
+      "TEFV6-C0013-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0036-I03-cutoff_explanation-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0036-E02",
+      "TEFV6-C0013-E11",
+      "TEFV6-C0013-E06",
+      "TEFV6-C0036-E12",
+      "TEFV6-C0036-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0053-I01-pre_arrival-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0053-E03",
+      "TEFV6-C0053-E04",
+      "TEFV6-C0135-E10",
+      "TEFV6-C0135-E08",
+      "TEFV6-C0053-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0053-I01-pre_arrival-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0053-E01",
+      "TEFV6-C0053-E03",
+      "TEFV6-C0135-E13",
+      "TEFV6-C0135-E11",
+      "TEFV6-C0053-E04"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0053-I02-post_arrival-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0053-E07",
+      "TEFV6-C0053-E06",
+      "TEFV6-C0053-E04",
+      "TEFV6-C0053-E08",
+      "TEFV6-C0053-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0053-I02-post_arrival-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0053-E08",
+      "TEFV6-C0053-E07",
+      "TEFV6-C0053-E03",
+      "TEFV6-C0053-E02",
+      "TEFV6-C0053-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0053-I03-arrival_effect-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0053-E04",
+      "TEFV6-C0053-E03",
+      "TEFV6-C0053-E10",
+      "TEFV6-C0053-E06",
+      "TEFV6-C0053-E09"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0053-I03-arrival_effect-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0135-E13",
+      "TEFV6-C0053-E07",
+      "TEFV6-C0053-E02",
+      "TEFV6-C0135-E07",
+      "TEFV6-C0135-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0054-I01-pre_arrival-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0054-E03",
+      "TEFV6-C0054-E13",
+      "TEFV6-C0054-E04",
+      "TEFV6-C0136-E10",
+      "TEFV6-C0136-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0054-I01-pre_arrival-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0054-E12",
+      "TEFV6-C0054-E13",
+      "TEFV6-C0054-E01",
+      "TEFV6-C0054-E03",
+      "TEFV6-C0113-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0054-I02-post_arrival-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0054-E07",
+      "TEFV6-C0113-E08",
+      "TEFV6-C0054-E06",
+      "TEFV6-C0113-E02",
+      "TEFV6-C0054-E04"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0054-I02-post_arrival-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0054-E08",
+      "TEFV6-C0054-E07",
+      "TEFV6-C0054-E03",
+      "TEFV6-C0054-E02",
+      "TEFV6-C0054-E13"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0054-I03-arrival_effect-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0113-E02",
+      "TEFV6-C0054-E03",
+      "TEFV6-C0054-E04",
+      "TEFV6-C0054-E13",
+      "TEFV6-C0136-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0054-I03-arrival_effect-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0054-E13",
+      "TEFV6-C0054-E07",
+      "TEFV6-C0113-E02",
+      "TEFV6-C0136-E03",
+      "TEFV6-C0136-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0055-I01-pre_arrival-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0055-E03",
+      "TEFV6-C0055-E04",
+      "TEFV6-C0114-E10",
+      "TEFV6-C0055-E02",
+      "TEFV6-C0114-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0055-I01-pre_arrival-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0055-E01",
+      "TEFV6-C0055-E03",
+      "TEFV6-C0114-E02",
+      "TEFV6-C0055-E04",
+      "TEFV6-C0114-E14"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0055-I02-post_arrival-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0055-E07",
+      "TEFV6-C0114-E08",
+      "TEFV6-C0055-E06",
+      "TEFV6-C0055-E04",
+      "TEFV6-C0055-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0055-I02-post_arrival-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0055-E08",
+      "TEFV6-C0055-E07",
+      "TEFV6-C0055-E03",
+      "TEFV6-C0055-E02",
+      "TEFV6-C0055-E11"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0055-I03-arrival_effect-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0055-E03",
+      "TEFV6-C0114-E02",
+      "TEFV6-C0055-E04",
+      "TEFV6-C0055-E10",
+      "TEFV6-C0055-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0055-I03-arrival_effect-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0114-E14",
+      "TEFV6-C0055-E07",
+      "TEFV6-C0114-E02",
+      "TEFV6-C0114-E04",
+      "TEFV6-C0055-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0056-I01-pre_arrival-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0056-E03",
+      "TEFV6-C0056-E04",
+      "TEFV6-C0056-E02",
+      "TEFV6-C0115-E10",
+      "TEFV6-C0033-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0056-I01-pre_arrival-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0033-E04",
+      "TEFV6-C0033-E12",
+      "TEFV6-C0033-E02",
+      "TEFV6-C0056-E01",
+      "TEFV6-C0056-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0056-I02-post_arrival-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0056-E07",
+      "TEFV6-C0115-E08",
+      "TEFV6-C0056-E06",
+      "TEFV6-C0056-E04",
+      "TEFV6-C0056-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0056-I02-post_arrival-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0056-E07",
+      "TEFV6-C0056-E08",
+      "TEFV6-C0056-E03",
+      "TEFV6-C0033-E08",
+      "TEFV6-C0056-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0056-I03-arrival_effect-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0056-E03",
+      "TEFV6-C0115-E02",
+      "TEFV6-C0056-E04",
+      "TEFV6-C0033-E07",
+      "TEFV6-C0033-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0056-I03-arrival_effect-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0033-E12",
+      "TEFV6-C0115-E04",
+      "TEFV6-C0056-E07",
+      "TEFV6-C0033-E02",
+      "TEFV6-C0056-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0073-I01-current_valid-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0155-E07",
+      "TEFV6-C0073-E03",
+      "TEFV6-C0073-E06",
+      "TEFV6-C0155-E08",
+      "TEFV6-C0073-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0073-I01-current_valid-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0073-E08",
+      "TEFV6-C0073-E02",
+      "TEFV6-C0073-E05",
+      "TEFV6-C0096-E12",
+      "TEFV6-C0073-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0073-I02-supersession_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0073-E06",
+      "TEFV6-C0155-E07",
+      "TEFV6-C0155-E08",
+      "TEFV6-C0155-E02",
+      "TEFV6-C0155-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0073-I02-supersession_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0073-E03",
+      "TEFV6-C0073-E04",
+      "TEFV6-C0073-E08",
+      "TEFV6-C0096-E10",
+      "TEFV6-C0155-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0073-I03-action_revision-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0073-E03",
+      "TEFV6-C0073-E08",
+      "TEFV6-C0073-E04",
+      "TEFV6-C0096-E10",
+      "TEFV6-C0073-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0073-I03-action_revision-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0073-E06",
+      "TEFV6-C0073-E08",
+      "TEFV6-C0073-E02",
+      "TEFV6-C0155-E07",
+      "TEFV6-C0073-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0074-I01-current_valid-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0074-E03",
+      "TEFV6-C0156-E07",
+      "TEFV6-C0074-E08",
+      "TEFV6-C0156-E08",
+      "TEFV6-C0074-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0074-I01-current_valid-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0074-E08",
+      "TEFV6-C0074-E02",
+      "TEFV6-C0156-E13",
+      "TEFV6-C0074-E05",
+      "TEFV6-C0074-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0074-I02-supersession_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0074-E06",
+      "TEFV6-C0156-E07",
+      "TEFV6-C0156-E08",
+      "TEFV6-C0156-E02",
+      "TEFV6-C0156-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0074-I02-supersession_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0074-E03",
+      "TEFV6-C0074-E04",
+      "TEFV6-C0074-E08",
+      "TEFV6-C0133-E07",
+      "TEFV6-C0156-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0074-I03-action_revision-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0074-E03",
+      "TEFV6-C0074-E08",
+      "TEFV6-C0074-E04",
+      "TEFV6-C0133-E08",
+      "TEFV6-C0074-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0074-I03-action_revision-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0074-E06",
+      "TEFV6-C0074-E08",
+      "TEFV6-C0156-E07",
+      "TEFV6-C0074-E02",
+      "TEFV6-C0074-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0075-I01-current_valid-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0075-E03",
+      "TEFV6-C0075-E08",
+      "TEFV6-C0075-E06",
+      "TEFV6-C0075-E13",
+      "TEFV6-C0134-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0075-I01-current_valid-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0075-E08",
+      "TEFV6-C0075-E13",
+      "TEFV6-C0075-E02",
+      "TEFV6-C0075-E05",
+      "TEFV6-C0075-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0075-I02-supersession_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0075-E06",
+      "TEFV6-C0075-E13",
+      "TEFV6-C0075-E08",
+      "TEFV6-C0075-E02",
+      "TEFV6-C0134-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0075-I02-supersession_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0075-E03",
+      "TEFV6-C0075-E04",
+      "TEFV6-C0075-E08",
+      "TEFV6-C0075-E12",
+      "TEFV6-C0134-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0075-I03-action_revision-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0075-E08",
+      "TEFV6-C0075-E03",
+      "TEFV6-C0075-E04",
+      "TEFV6-C0075-E12",
+      "TEFV6-C0134-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0075-I03-action_revision-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0075-E06",
+      "TEFV6-C0075-E13",
+      "TEFV6-C0075-E08",
+      "TEFV6-C0075-E02",
+      "TEFV6-C0134-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0076-I01-current_valid-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0076-E03",
+      "TEFV6-C0076-E06",
+      "TEFV6-C0076-E08",
+      "TEFV6-C0053-E08",
+      "TEFV6-C0135-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0076-I01-current_valid-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0076-E08",
+      "TEFV6-C0076-E02",
+      "TEFV6-C0076-E05",
+      "TEFV6-C0076-E06",
+      "TEFV6-C0076-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0076-I02-supersession_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0076-E06",
+      "TEFV6-C0053-E07",
+      "TEFV6-C0076-E02",
+      "TEFV6-C0053-E03",
+      "TEFV6-C0135-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0076-I02-supersession_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0076-E03",
+      "TEFV6-C0076-E04",
+      "TEFV6-C0076-E08",
+      "TEFV6-C0135-E07",
+      "TEFV6-C0053-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0076-I03-action_revision-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0076-E03",
+      "TEFV6-C0076-E08",
+      "TEFV6-C0076-E04",
+      "TEFV6-C0053-E08",
+      "TEFV6-C0135-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0076-I03-action_revision-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0076-E06",
+      "TEFV6-C0076-E08",
+      "TEFV6-C0076-E02",
+      "TEFV6-C0053-E04",
+      "TEFV6-C0135-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0093-I01-v1_applicability-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0093-E04",
+      "TEFV6-C0093-E01",
+      "TEFV6-C0093-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0093-I01-v1_applicability-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0093-E04",
+      "TEFV6-C0093-E05",
+      "TEFV6-C0093-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0093-I02-v2_applicability-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0093-E06",
+      "TEFV6-C0093-E02",
+      "TEFV6-C0093-E05",
+      "TEFV6-C0093-E04",
+      "TEFV6-C0093-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0093-I02-v2_applicability-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0093-E06",
+      "TEFV6-C0093-E05",
+      "TEFV6-C0093-E04",
+      "TEFV6-C0093-E02",
+      "TEFV6-C0093-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0093-I03-v3_applicability-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0093-E03",
+      "TEFV6-C0093-E08",
+      "TEFV6-C0093-E09",
+      "TEFV6-C0093-E10",
+      "TEFV6-C0093-E12"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0093-I03-v3_applicability-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0093-E09",
+      "TEFV6-C0093-E10",
+      "TEFV6-C0093-E08",
+      "TEFV6-C0093-E11",
+      "TEFV6-C0116-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0094-I01-v1_applicability-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0094-E04",
+      "TEFV6-C0094-E01",
+      "TEFV6-C0094-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0094-I01-v1_applicability-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0094-E04",
+      "TEFV6-C0094-E05",
+      "TEFV6-C0094-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0094-I02-v2_applicability-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0094-E06",
+      "TEFV6-C0094-E02",
+      "TEFV6-C0094-E05",
+      "TEFV6-C0094-E04",
+      "TEFV6-C0094-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0094-I02-v2_applicability-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0094-E06",
+      "TEFV6-C0094-E05",
+      "TEFV6-C0094-E04",
+      "TEFV6-C0094-E02",
+      "TEFV6-C0094-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0094-I03-v3_applicability-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0094-E03",
+      "TEFV6-C0094-E08",
+      "TEFV6-C0094-E09",
+      "TEFV6-C0094-E12",
+      "TEFV6-C0094-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0094-I03-v3_applicability-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0094-E09",
+      "TEFV6-C0094-E10",
+      "TEFV6-C0094-E08",
+      "TEFV6-C0153-E07",
+      "TEFV6-C0094-E11"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0095-I01-v1_applicability-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0095-E04",
+      "TEFV6-C0095-E01",
+      "TEFV6-C0095-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0095-I01-v1_applicability-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0095-E04",
+      "TEFV6-C0095-E05",
+      "TEFV6-C0095-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0095-I02-v2_applicability-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0095-E06",
+      "TEFV6-C0095-E02",
+      "TEFV6-C0095-E05",
+      "TEFV6-C0095-E04",
+      "TEFV6-C0095-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0095-I02-v2_applicability-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0095-E06",
+      "TEFV6-C0095-E05",
+      "TEFV6-C0095-E04",
+      "TEFV6-C0095-E02",
+      "TEFV6-C0095-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0095-I03-v3_applicability-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0095-E03",
+      "TEFV6-C0095-E08",
+      "TEFV6-C0095-E09",
+      "TEFV6-C0095-E10",
+      "TEFV6-C0095-E12"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0095-I03-v3_applicability-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0095-E09",
+      "TEFV6-C0095-E10",
+      "TEFV6-C0095-E08",
+      "TEFV6-C0154-E07",
+      "TEFV6-C0095-E11"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0096-I01-v1_applicability-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0096-E04",
+      "TEFV6-C0096-E01",
+      "TEFV6-C0096-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0096-I01-v1_applicability-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0096-E04",
+      "TEFV6-C0096-E05",
+      "TEFV6-C0096-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0096-I02-v2_applicability-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0096-E06",
+      "TEFV6-C0096-E02",
+      "TEFV6-C0096-E05",
+      "TEFV6-C0096-E04",
+      "TEFV6-C0096-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0096-I02-v2_applicability-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0096-E06",
+      "TEFV6-C0096-E05",
+      "TEFV6-C0096-E04",
+      "TEFV6-C0096-E02",
+      "TEFV6-C0096-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0096-I03-v3_applicability-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0096-E03",
+      "TEFV6-C0096-E08",
+      "TEFV6-C0096-E09",
+      "TEFV6-C0096-E10",
+      "TEFV6-C0096-E12"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0096-I03-v3_applicability-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0096-E09",
+      "TEFV6-C0096-E10",
+      "TEFV6-C0096-E08",
+      "TEFV6-C0155-E07",
+      "TEFV6-C0096-E11"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0113-I01-cross_source_action-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0113-E06",
+      "TEFV6-C0113-E08",
+      "TEFV6-C0113-E07",
+      "TEFV6-C0113-E05",
+      "TEFV6-C0113-E11"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0113-I01-cross_source_action-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0113-E07",
+      "TEFV6-C0113-E06",
+      "TEFV6-C0113-E08",
+      "TEFV6-C0113-E11",
+      "TEFV6-C0113-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0113-I02-cross_source_cause-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0113-E07",
+      "TEFV6-C0113-E11",
+      "TEFV6-C0113-E10",
+      "TEFV6-C0113-E02",
+      "TEFV6-C0113-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0113-I02-cross_source_cause-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0136-E01",
+      "TEFV6-C0113-E07",
+      "TEFV6-C0136-E03",
+      "TEFV6-C0113-E03",
+      "TEFV6-C0113-E04"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0113-I03-cross_source_precedent-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0113-E07",
+      "TEFV6-C0113-E08",
+      "TEFV6-C0113-E10",
+      "TEFV6-C0113-E05",
+      "TEFV6-C0113-E11"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0113-I03-cross_source_precedent-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0113-E07",
+      "TEFV6-C0113-E04",
+      "TEFV6-C0113-E10",
+      "TEFV6-C0113-E06",
+      "TEFV6-C0113-E11"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0114-I01-cross_source_action-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0114-E06",
+      "TEFV6-C0114-E08",
+      "TEFV6-C0114-E07",
+      "TEFV6-C0114-E05",
+      "TEFV6-C0114-E11"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0114-I01-cross_source_action-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0114-E07",
+      "TEFV6-C0114-E06",
+      "TEFV6-C0114-E08",
+      "TEFV6-C0114-E11",
+      "TEFV6-C0114-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0114-I02-cross_source_cause-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0114-E07",
+      "TEFV6-C0114-E13",
+      "TEFV6-C0114-E11",
+      "TEFV6-C0114-E10",
+      "TEFV6-C0114-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0114-I02-cross_source_cause-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0114-E07",
+      "TEFV6-C0114-E14",
+      "TEFV6-C0114-E04",
+      "TEFV6-C0114-E03",
+      "TEFV6-C0114-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0114-I03-cross_source_precedent-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0114-E07",
+      "TEFV6-C0114-E08",
+      "TEFV6-C0114-E05",
+      "TEFV6-C0114-E10",
+      "TEFV6-C0114-E11"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0114-I03-cross_source_precedent-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0114-E07",
+      "TEFV6-C0114-E04",
+      "TEFV6-C0114-E10",
+      "TEFV6-C0114-E14",
+      "TEFV6-C0114-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0115-I01-cross_source_action-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0115-E06",
+      "TEFV6-C0115-E08",
+      "TEFV6-C0115-E07",
+      "TEFV6-C0115-E05",
+      "TEFV6-C0115-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0115-I01-cross_source_action-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0115-E07",
+      "TEFV6-C0115-E06",
+      "TEFV6-C0115-E08",
+      "TEFV6-C0115-E11",
+      "TEFV6-C0115-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0115-I02-cross_source_cause-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0115-E07",
+      "TEFV6-C0115-E11",
+      "TEFV6-C0115-E10",
+      "TEFV6-C0115-E03",
+      "TEFV6-C0115-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0115-I02-cross_source_cause-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0115-E07",
+      "TEFV6-C0115-E04",
+      "TEFV6-C0115-E03",
+      "TEFV6-C0115-E02",
+      "TEFV6-C0115-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0115-I03-cross_source_precedent-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0115-E07",
+      "TEFV6-C0115-E08",
+      "TEFV6-C0115-E05",
+      "TEFV6-C0115-E10",
+      "TEFV6-C0115-E11"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0115-I03-cross_source_precedent-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0115-E07",
+      "TEFV6-C0115-E04",
+      "TEFV6-C0115-E10",
+      "TEFV6-C0115-E06",
+      "TEFV6-C0115-E11"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0116-I01-cross_source_action-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0116-E06",
+      "TEFV6-C0116-E08",
+      "TEFV6-C0116-E07",
+      "TEFV6-C0093-E07",
+      "TEFV6-C0116-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0116-I01-cross_source_action-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0116-E07",
+      "TEFV6-C0116-E06",
+      "TEFV6-C0093-E10",
+      "TEFV6-C0116-E08",
+      "TEFV6-C0116-E04"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0116-I02-cross_source_cause-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0116-E07",
+      "TEFV6-C0116-E11",
+      "TEFV6-C0116-E02",
+      "TEFV6-C0187-E02",
+      "TEFV6-C0116-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0116-I02-cross_source_cause-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0187-E01",
+      "TEFV6-C0116-E07",
+      "TEFV6-C0116-E03",
+      "TEFV6-C0187-E04",
+      "TEFV6-C0187-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0116-I03-cross_source_precedent-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0116-E07",
+      "TEFV6-C0093-E10",
+      "TEFV6-C0187-E01",
+      "TEFV6-C0116-E08",
+      "TEFV6-C0187-E04"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0116-I03-cross_source_precedent-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0093-E10",
+      "TEFV6-C0116-E07",
+      "TEFV6-C0116-E04",
+      "TEFV6-C0187-E04",
+      "TEFV6-C0187-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0133-I01-differentiate-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0133-E07",
+      "TEFV6-C0133-E04",
+      "TEFV6-C0133-E01",
+      "TEFV6-C0133-E08",
+      "TEFV6-C0133-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0133-I01-differentiate-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0133-E02",
+      "TEFV6-C0133-E01",
+      "TEFV6-C0133-E03",
+      "TEFV6-C0133-E07",
+      "TEFV6-C0133-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0133-I02-current_action-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0133-E08",
+      "TEFV6-C0133-E07",
+      "TEFV6-C0133-E03",
+      "TEFV6-C0133-E02",
+      "TEFV6-C0133-E11"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0133-I02-current_action-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0133-E08",
+      "TEFV6-C0133-E07",
+      "TEFV6-C0133-E06",
+      "TEFV6-C0133-E05",
+      "TEFV6-C0133-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0133-I03-history_role-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0133-E07",
+      "TEFV6-C0133-E08",
+      "TEFV6-C0133-E01",
+      "TEFV6-C0133-E06",
+      "TEFV6-C0133-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0133-I03-history_role-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0133-E07",
+      "TEFV6-C0133-E01",
+      "TEFV6-C0133-E02",
+      "TEFV6-C0133-E03",
+      "TEFV6-C0133-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0134-I01-differentiate-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0134-E07",
+      "TEFV6-C0134-E04",
+      "TEFV6-C0134-E01",
+      "TEFV6-C0134-E08",
+      "TEFV6-C0134-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0134-I01-differentiate-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0134-E02",
+      "TEFV6-C0134-E03",
+      "TEFV6-C0134-E01",
+      "TEFV6-C0134-E07",
+      "TEFV6-C0134-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0134-I02-current_action-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0134-E08",
+      "TEFV6-C0134-E07",
+      "TEFV6-C0134-E11",
+      "TEFV6-C0134-E10",
+      "TEFV6-C0134-E09"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0134-I02-current_action-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0134-E08",
+      "TEFV6-C0134-E07",
+      "TEFV6-C0134-E06",
+      "TEFV6-C0134-E05",
+      "TEFV6-C0134-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0134-I03-history_role-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0134-E07",
+      "TEFV6-C0134-E08",
+      "TEFV6-C0134-E01",
+      "TEFV6-C0134-E06",
+      "TEFV6-C0134-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0134-I03-history_role-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0134-E07",
+      "TEFV6-C0134-E01",
+      "TEFV6-C0134-E02",
+      "TEFV6-C0134-E03",
+      "TEFV6-C0134-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0135-I01-differentiate-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0135-E07",
+      "TEFV6-C0135-E04",
+      "TEFV6-C0135-E01",
+      "TEFV6-C0135-E12",
+      "TEFV6-C0135-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0135-I01-differentiate-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0135-E02",
+      "TEFV6-C0135-E01",
+      "TEFV6-C0135-E13",
+      "TEFV6-C0135-E03",
+      "TEFV6-C0135-E12"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0135-I02-current_action-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0135-E08",
+      "TEFV6-C0135-E07",
+      "TEFV6-C0135-E03",
+      "TEFV6-C0135-E11",
+      "TEFV6-C0135-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0135-I02-current_action-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0135-E08",
+      "TEFV6-C0135-E07",
+      "TEFV6-C0135-E06",
+      "TEFV6-C0135-E05",
+      "TEFV6-C0135-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0135-I03-history_role-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0135-E07",
+      "TEFV6-C0135-E08",
+      "TEFV6-C0135-E13",
+      "TEFV6-C0135-E01",
+      "TEFV6-C0135-E12"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0135-I03-history_role-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0135-E07",
+      "TEFV6-C0135-E01",
+      "TEFV6-C0135-E02",
+      "TEFV6-C0135-E12",
+      "TEFV6-C0135-E13"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0136-I01-differentiate-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0136-E07",
+      "TEFV6-C0136-E04",
+      "TEFV6-C0136-E01",
+      "TEFV6-C0136-E08",
+      "TEFV6-C0113-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0136-I01-differentiate-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0136-E02",
+      "TEFV6-C0136-E01",
+      "TEFV6-C0136-E03",
+      "TEFV6-C0136-E07",
+      "TEFV6-C0136-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0136-I02-current_action-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0136-E08",
+      "TEFV6-C0136-E07",
+      "TEFV6-C0136-E11",
+      "TEFV6-C0136-E10",
+      "TEFV6-C0113-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0136-I02-current_action-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0136-E08",
+      "TEFV6-C0136-E07",
+      "TEFV6-C0113-E08",
+      "TEFV6-C0136-E05",
+      "TEFV6-C0136-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0136-I03-history_role-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0136-E07",
+      "TEFV6-C0113-E05",
+      "TEFV6-C0136-E08",
+      "TEFV6-C0136-E01",
+      "TEFV6-C0136-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0136-I03-history_role-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0136-E02",
+      "TEFV6-C0136-E07",
+      "TEFV6-C0136-E01",
+      "TEFV6-C0136-E03",
+      "TEFV6-C0113-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0153-I01-uncertain_status-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0153-E02",
+      "TEFV6-C0153-E07",
+      "TEFV6-C0153-E04",
+      "TEFV6-C0153-E06",
+      "TEFV6-C0153-E11"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0153-I01-uncertain_status-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0153-E02",
+      "TEFV6-C0153-E07",
+      "TEFV6-C0153-E05",
+      "TEFV6-C0153-E06",
+      "TEFV6-C0153-E13"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0153-I02-why_uncertain-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0153-E07",
+      "TEFV6-C0153-E11",
+      "TEFV6-C0153-E03",
+      "TEFV6-C0153-E13",
+      "TEFV6-C0153-E04"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0153-I02-why_uncertain-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0153-E04",
+      "TEFV6-C0153-E05",
+      "TEFV6-C0153-E13",
+      "TEFV6-C0153-E03",
+      "TEFV6-C0153-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0153-I03-next_discriminator-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0153-E08",
+      "TEFV6-C0153-E07",
+      "TEFV6-C0153-E06",
+      "TEFV6-C0153-E05",
+      "TEFV6-C0153-E13"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0153-I03-next_discriminator-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0153-E07",
+      "TEFV6-C0153-E08",
+      "TEFV6-C0153-E11",
+      "TEFV6-C0153-E04",
+      "TEFV6-C0153-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0154-I01-uncertain_status-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0154-E02",
+      "TEFV6-C0154-E07",
+      "TEFV6-C0154-E04",
+      "TEFV6-C0154-E06",
+      "TEFV6-C0154-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0154-I01-uncertain_status-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0154-E02",
+      "TEFV6-C0154-E07",
+      "TEFV6-C0154-E05",
+      "TEFV6-C0154-E06",
+      "TEFV6-C0154-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0154-I02-why_uncertain-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0154-E11",
+      "TEFV6-C0154-E07",
+      "TEFV6-C0095-E05",
+      "TEFV6-C0154-E03",
+      "TEFV6-C0154-E04"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0154-I02-why_uncertain-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0154-E04",
+      "TEFV6-C0154-E05",
+      "TEFV6-C0154-E03",
+      "TEFV6-C0154-E01",
+      "TEFV6-C0154-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0154-I03-next_discriminator-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0154-E08",
+      "TEFV6-C0154-E07",
+      "TEFV6-C0154-E06",
+      "TEFV6-C0154-E05",
+      "TEFV6-C0154-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0154-I03-next_discriminator-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0154-E07",
+      "TEFV6-C0154-E08",
+      "TEFV6-C0154-E05",
+      "TEFV6-C0154-E11",
+      "TEFV6-C0154-E04"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0155-I01-uncertain_status-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0155-E02",
+      "TEFV6-C0155-E07",
+      "TEFV6-C0155-E04",
+      "TEFV6-C0155-E06",
+      "TEFV6-C0155-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0155-I01-uncertain_status-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0155-E02",
+      "TEFV6-C0155-E07",
+      "TEFV6-C0155-E05",
+      "TEFV6-C0155-E06",
+      "TEFV6-C0155-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0155-I02-why_uncertain-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0155-E11",
+      "TEFV6-C0155-E07",
+      "TEFV6-C0096-E05",
+      "TEFV6-C0155-E03",
+      "TEFV6-C0155-E04"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0155-I02-why_uncertain-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0155-E04",
+      "TEFV6-C0155-E05",
+      "TEFV6-C0155-E03",
+      "TEFV6-C0155-E01",
+      "TEFV6-C0155-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0155-I03-next_discriminator-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0155-E08",
+      "TEFV6-C0155-E07",
+      "TEFV6-C0155-E06",
+      "TEFV6-C0155-E05",
+      "TEFV6-C0155-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0155-I03-next_discriminator-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0155-E07",
+      "TEFV6-C0155-E08",
+      "TEFV6-C0155-E11",
+      "TEFV6-C0155-E05",
+      "TEFV6-C0155-E04"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0156-I01-uncertain_status-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0156-E02",
+      "TEFV6-C0156-E07",
+      "TEFV6-C0133-E05",
+      "TEFV6-C0133-E08",
+      "TEFV6-C0156-E04"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0156-I01-uncertain_status-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0156-E02",
+      "TEFV6-C0156-E07",
+      "TEFV6-C0156-E05",
+      "TEFV6-C0156-E13",
+      "TEFV6-C0156-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0156-I02-why_uncertain-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0156-E07",
+      "TEFV6-C0133-E11",
+      "TEFV6-C0156-E11",
+      "TEFV6-C0156-E13",
+      "TEFV6-C0156-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0156-I02-why_uncertain-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0156-E04",
+      "TEFV6-C0156-E05",
+      "TEFV6-C0133-E07",
+      "TEFV6-C0156-E03",
+      "TEFV6-C0156-E13"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0156-I03-next_discriminator-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0156-E08",
+      "TEFV6-C0156-E07",
+      "TEFV6-C0156-E06",
+      "TEFV6-C0156-E05",
+      "TEFV6-C0156-E13"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0156-I03-next_discriminator-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0133-E08",
+      "TEFV6-C0156-E07",
+      "TEFV6-C0156-E08",
+      "TEFV6-C0133-E05",
+      "TEFV6-C0156-E11"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0185-I01-before_arrival-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0133-E08",
+      "TEFV6-C0015-E03",
+      "TEFV6-C0133-E07",
+      "TEFV6-C0156-E13",
+      "TEFV6-C0133-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0185-I01-before_arrival-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0185-E03",
+      "TEFV6-C0074-E08",
+      "TEFV6-C0185-E02",
+      "TEFV6-C0156-E13",
+      "TEFV6-C0074-E11"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0185-I02-after_supersession-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0185-E06",
+      "TEFV6-C0156-E08",
+      "TEFV6-C0156-E07",
+      "TEFV6-C0074-E02",
+      "TEFV6-C0074-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0185-I02-after_supersession-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0074-E08",
+      "TEFV6-C0185-E03",
+      "TEFV6-C0156-E01",
+      "TEFV6-C0133-E08",
+      "TEFV6-C0185-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0185-I03-temporal_change-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0015-E03",
+      "TEFV6-C0185-E06",
+      "TEFV6-C0015-E01",
+      "TEFV6-C0185-E03",
+      "TEFV6-C0185-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0185-I03-temporal_change-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0185-E06",
+      "TEFV6-C0074-E01",
+      "TEFV6-C0156-E05",
+      "TEFV6-C0156-E06",
+      "TEFV6-C0156-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0186-I01-current_rule-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0186-E07",
+      "TEFV6-C0186-E14",
+      "TEFV6-C0186-E03",
+      "TEFV6-C0186-E08",
+      "TEFV6-C0186-E11"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0186-I01-current_rule-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0054-E02",
+      "TEFV6-C0136-E08",
+      "TEFV6-C0186-E07",
+      "TEFV6-C0054-E07",
+      "TEFV6-C0186-E14"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0186-I02-cross_source_rule-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0186-E07",
+      "TEFV6-C0186-E14",
+      "TEFV6-C0186-E03",
+      "TEFV6-C0186-E08",
+      "TEFV6-C0186-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0186-I02-cross_source_rule-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0186-E03",
+      "TEFV6-C0113-E07",
+      "TEFV6-C0186-E08",
+      "TEFV6-C0054-E07",
+      "TEFV6-C0054-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0186-I03-version_source_interaction-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0186-E07",
+      "TEFV6-C0186-E14",
+      "TEFV6-C0186-E03",
+      "TEFV6-C0136-E07",
+      "TEFV6-C0186-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0186-I03-version_source_interaction-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0186-E14",
+      "TEFV6-C0186-E07",
+      "TEFV6-C0186-E08",
+      "TEFV6-C0054-E13",
+      "TEFV6-C0186-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0187-I01-differentiate-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0187-E08",
+      "TEFV6-C0187-E05",
+      "TEFV6-C0187-E01",
+      "TEFV6-C0187-E09",
+      "TEFV6-C0116-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0187-I01-differentiate-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0187-E02",
+      "TEFV6-C0187-E01",
+      "TEFV6-C0187-E04",
+      "TEFV6-C0187-E03",
+      "TEFV6-C0093-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0187-I02-current_action-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0187-E08",
+      "TEFV6-C0187-E09",
+      "TEFV6-C0034-E07",
+      "TEFV6-C0187-E04",
+      "TEFV6-C0187-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0187-I02-current_action-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0187-E09",
+      "TEFV6-C0187-E08",
+      "TEFV6-C0187-E01",
+      "TEFV6-C0034-E08",
+      "TEFV6-C0187-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0187-I03-history_role-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0187-E08",
+      "TEFV6-C0116-E05",
+      "TEFV6-C0187-E09",
+      "TEFV6-C0093-E12",
+      "TEFV6-C0187-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0187-I03-history_role-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0187-E02",
+      "TEFV6-C0187-E01",
+      "TEFV6-C0187-E08",
+      "TEFV6-C0187-E04",
+      "TEFV6-C0187-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0188-I01-before_cutoff-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0155-E02",
+      "TEFV6-C0188-E01",
+      "TEFV6-C0155-E07",
+      "TEFV6-C0155-E04",
+      "TEFV6-C0155-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0188-I01-before_cutoff-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0155-E07",
+      "TEFV6-C0188-E04",
+      "TEFV6-C0188-E03",
+      "TEFV6-C0155-E04",
+      "TEFV6-C0073-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0188-I02-after_cutoff-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0188-E06",
+      "TEFV6-C0155-E08",
+      "TEFV6-C0188-E05",
+      "TEFV6-C0073-E08",
+      "TEFV6-C0073-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0188-I02-after_cutoff-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0014-E08",
+      "TEFV6-C0096-E12",
+      "TEFV6-C0014-E09",
+      "TEFV6-C0188-E10",
+      "TEFV6-C0188-E09"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0188-I03-uncertainty_over_time-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0014-E09",
+      "TEFV6-C0073-E01",
+      "TEFV6-C0188-E06",
+      "TEFV6-C0014-E08",
+      "TEFV6-C0188-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0188-I03-uncertainty_over_time-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0188-E02",
+      "TEFV6-C0188-E04",
+      "TEFV6-C0014-E06",
+      "TEFV6-C0188-E03",
+      "TEFV6-C0155-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0189-I01-before_arrival-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0053-E03",
+      "TEFV6-C0135-E08",
+      "TEFV6-C0053-E08",
+      "TEFV6-C0135-E07",
+      "TEFV6-C0189-E13"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0189-I01-before_arrival-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0189-E03",
+      "TEFV6-C0076-E08",
+      "TEFV6-C0189-E13",
+      "TEFV6-C0053-E07",
+      "TEFV6-C0053-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0189-I02-after_supersession-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0189-E06",
+      "TEFV6-C0053-E06",
+      "TEFV6-C0053-E07",
+      "TEFV6-C0076-E06",
+      "TEFV6-C0076-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0189-I02-after_supersession-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0076-E08",
+      "TEFV6-C0135-E10",
+      "TEFV6-C0189-E03",
+      "TEFV6-C0189-E08",
+      "TEFV6-C0135-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0189-I03-temporal_change-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0189-E06",
+      "TEFV6-C0189-E13",
+      "TEFV6-C0189-E03",
+      "TEFV6-C0189-E08",
+      "TEFV6-C0135-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0189-I03-temporal_change-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0189-E06",
+      "TEFV6-C0076-E01",
+      "TEFV6-C0053-E07",
+      "TEFV6-C0076-E06",
+      "TEFV6-C0053-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0190-I01-current_rule-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0190-E07",
+      "TEFV6-C0190-E03",
+      "TEFV6-C0190-E08",
+      "TEFV6-C0190-E11",
+      "TEFV6-C0190-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0190-I01-current_rule-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0056-E02",
+      "TEFV6-C0033-E03",
+      "TEFV6-C0190-E07",
+      "TEFV6-C0033-E09",
+      "TEFV6-C0056-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0190-I02-cross_source_rule-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0190-E07",
+      "TEFV6-C0190-E03",
+      "TEFV6-C0190-E08",
+      "TEFV6-C0190-E05",
+      "TEFV6-C0190-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0190-I02-cross_source_rule-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0190-E03",
+      "TEFV6-C0115-E07",
+      "TEFV6-C0033-E03",
+      "TEFV6-C0056-E03",
+      "TEFV6-C0056-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0190-I03-version_source_interaction-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0190-E07",
+      "TEFV6-C0190-E03",
+      "TEFV6-C0033-E06",
+      "TEFV6-C0190-E05",
+      "TEFV6-C0056-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0190-I03-version_source_interaction-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0190-E07",
+      "TEFV6-C0190-E03",
+      "TEFV6-C0190-E08",
+      "TEFV6-C0190-E11",
+      "TEFV6-C0190-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0191-I01-differentiate-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0191-E08",
+      "TEFV6-C0191-E05",
+      "TEFV6-C0191-E01",
+      "TEFV6-C0013-E08",
+      "TEFV6-C0191-E09"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0191-I01-differentiate-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0191-E02",
+      "TEFV6-C0191-E04",
+      "TEFV6-C0191-E03",
+      "TEFV6-C0191-E01",
+      "TEFV6-C0154-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0191-I02-current_action-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0191-E08",
+      "TEFV6-C0191-E09",
+      "TEFV6-C0013-E09",
+      "TEFV6-C0191-E04",
+      "TEFV6-C0036-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0191-I02-current_action-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0191-E09",
+      "TEFV6-C0191-E08",
+      "TEFV6-C0013-E09",
+      "TEFV6-C0191-E01",
+      "TEFV6-C0191-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0191-I03-history_role-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0013-E08",
+      "TEFV6-C0191-E08",
+      "TEFV6-C0191-E09",
+      "TEFV6-C0191-E01",
+      "TEFV6-C0013-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0191-I03-history_role-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0191-E01",
+      "TEFV6-C0191-E02",
+      "TEFV6-C0191-E08",
+      "TEFV6-C0191-E04",
+      "TEFV6-C0191-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0192-I01-before_cutoff-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0192-E01",
+      "TEFV6-C0192-E11",
+      "TEFV6-C0192-E02",
+      "TEFV6-C0016-E01",
+      "TEFV6-C0075-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0192-I01-before_cutoff-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0192-E04",
+      "TEFV6-C0192-E03",
+      "TEFV6-C0192-E12",
+      "TEFV6-C0192-E02",
+      "TEFV6-C0075-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0192-I02-after_cutoff-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0192-E06",
+      "TEFV6-C0192-E05",
+      "TEFV6-C0075-E08",
+      "TEFV6-C0075-E13",
+      "TEFV6-C0075-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0192-I02-after_cutoff-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0192-E12",
+      "TEFV6-C0016-E08",
+      "TEFV6-C0075-E13",
+      "TEFV6-C0192-E10",
+      "TEFV6-C0016-E09"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0192-I03-uncertainty_over_time-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0016-E09",
+      "TEFV6-C0192-E06",
+      "TEFV6-C0075-E01",
+      "TEFV6-C0192-E07",
+      "TEFV6-C0192-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0192-I03-uncertainty_over_time-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0192-E02",
+      "TEFV6-C0192-E04",
+      "TEFV6-C0016-E06",
+      "TEFV6-C0192-E03",
+      "TEFV6-C0192-E12"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0321-I01-routine_status-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0321-E05",
+      "TEFV6-C0321-E04",
+      "TEFV6-C0321-E03",
+      "TEFV6-C0321-E06",
+      "TEFV6-C0321-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0321-I01-routine_status-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0321-E06",
+      "TEFV6-C0321-E04",
+      "TEFV6-C0321-E03",
+      "TEFV6-C0321-E05",
+      "TEFV6-C0321-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0321-I02-routine_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0321-E05",
+      "TEFV6-C0321-E04",
+      "TEFV6-C0321-E01",
+      "TEFV6-C0321-E02",
+      "TEFV6-C0321-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0321-I02-routine_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0321-E04",
+      "TEFV6-C0321-E05",
+      "TEFV6-C0357-E06",
+      "TEFV6-C0357-E07",
+      "TEFV6-C0321-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0321-I03-routine_followup-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0321-E04",
+      "TEFV6-C0321-E05",
+      "TEFV6-C0321-E03",
+      "TEFV6-C0321-E07",
+      "TEFV6-C0321-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0321-I03-routine_followup-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0321-E05",
+      "TEFV6-C0321-E02",
+      "TEFV6-C0321-E07",
+      "TEFV6-C0321-E06",
+      "TEFV6-C0321-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0322-I01-routine_status-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0322-E05",
+      "TEFV6-C0322-E06",
+      "TEFV6-C0322-E04",
+      "TEFV6-C0322-E03",
+      "TEFV6-C0322-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0322-I01-routine_status-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0322-E06",
+      "TEFV6-C0322-E04",
+      "TEFV6-C0322-E05",
+      "TEFV6-C0322-E03",
+      "TEFV6-C0322-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0322-I02-routine_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0322-E05",
+      "TEFV6-C0322-E01",
+      "TEFV6-C0322-E04",
+      "TEFV6-C0322-E02",
+      "TEFV6-C0322-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0322-I02-routine_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0322-E04",
+      "TEFV6-C0322-E05",
+      "TEFV6-C0322-E03",
+      "TEFV6-C0322-E02",
+      "TEFV6-C0322-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0322-I03-routine_followup-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0322-E04",
+      "TEFV6-C0322-E05",
+      "TEFV6-C0322-E07",
+      "TEFV6-C0322-E03",
+      "TEFV6-C0322-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0322-I03-routine_followup-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0322-E05",
+      "TEFV6-C0322-E07",
+      "TEFV6-C0322-E02",
+      "TEFV6-C0322-E06",
+      "TEFV6-C0322-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0323-I01-routine_status-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0323-E05",
+      "TEFV6-C0323-E06",
+      "TEFV6-C0323-E04",
+      "TEFV6-C0323-E03",
+      "TEFV6-C0323-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0323-I01-routine_status-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0323-E06",
+      "TEFV6-C0323-E04",
+      "TEFV6-C0323-E05",
+      "TEFV6-C0323-E01",
+      "TEFV6-C0323-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0323-I02-routine_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0323-E05",
+      "TEFV6-C0323-E04",
+      "TEFV6-C0323-E02",
+      "TEFV6-C0323-E01",
+      "TEFV6-C0323-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0323-I02-routine_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0323-E04",
+      "TEFV6-C0323-E01",
+      "TEFV6-C0323-E05",
+      "TEFV6-C0323-E03",
+      "TEFV6-C0323-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0323-I03-routine_followup-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0323-E04",
+      "TEFV6-C0323-E05",
+      "TEFV6-C0323-E07",
+      "TEFV6-C0323-E03",
+      "TEFV6-C0323-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0323-I03-routine_followup-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0323-E05",
+      "TEFV6-C0323-E07",
+      "TEFV6-C0323-E02",
+      "TEFV6-C0323-E06",
+      "TEFV6-C0323-E04"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0324-I01-routine_status-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0324-E05",
+      "TEFV6-C0345-E08",
+      "TEFV6-C0324-E04",
+      "TEFV6-C0345-E07",
+      "TEFV6-C0324-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0324-I01-routine_status-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0324-E06",
+      "TEFV6-C0324-E04",
+      "TEFV6-C0324-E03",
+      "TEFV6-C0345-E08",
+      "TEFV6-C0324-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0324-I02-routine_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0324-E05",
+      "TEFV6-C0324-E04",
+      "TEFV6-C0324-E01",
+      "TEFV6-C0324-E02",
+      "TEFV6-C0345-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0324-I02-routine_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0345-E04",
+      "TEFV6-C0324-E04",
+      "TEFV6-C0345-E08",
+      "TEFV6-C0324-E05",
+      "TEFV6-C0345-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0324-I03-routine_followup-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0324-E04",
+      "TEFV6-C0345-E02",
+      "TEFV6-C0324-E05",
+      "TEFV6-C0345-E08",
+      "TEFV6-C0324-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0324-I03-routine_followup-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0324-E05",
+      "TEFV6-C0324-E07",
+      "TEFV6-C0324-E02",
+      "TEFV6-C0324-E06",
+      "TEFV6-C0324-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0325-I01-routine_status-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0325-E05",
+      "TEFV6-C0346-E10",
+      "TEFV6-C0325-E06",
+      "TEFV6-C0325-E04",
+      "TEFV6-C0325-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0325-I01-routine_status-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0325-E06",
+      "TEFV6-C0325-E04",
+      "TEFV6-C0325-E05",
+      "TEFV6-C0325-E03",
+      "TEFV6-C0325-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0325-I02-routine_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0325-E05",
+      "TEFV6-C0325-E04",
+      "TEFV6-C0325-E01",
+      "TEFV6-C0325-E02",
+      "TEFV6-C0325-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0325-I02-routine_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0325-E04",
+      "TEFV6-C0346-E09",
+      "TEFV6-C0346-E07",
+      "TEFV6-C0325-E05",
+      "TEFV6-C0346-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0325-I03-routine_followup-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0325-E04",
+      "TEFV6-C0325-E05",
+      "TEFV6-C0346-E09",
+      "TEFV6-C0325-E07",
+      "TEFV6-C0325-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0325-I03-routine_followup-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0325-E05",
+      "TEFV6-C0325-E02",
+      "TEFV6-C0325-E07",
+      "TEFV6-C0325-E06",
+      "TEFV6-C0325-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0326-I01-routine_status-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0326-E05",
+      "TEFV6-C0347-E07",
+      "TEFV6-C0326-E04",
+      "TEFV6-C0347-E08",
+      "TEFV6-C0347-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0326-I01-routine_status-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0326-E06",
+      "TEFV6-C0326-E04",
+      "TEFV6-C0347-E08",
+      "TEFV6-C0326-E03",
+      "TEFV6-C0326-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0326-I02-routine_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0326-E05",
+      "TEFV6-C0326-E01",
+      "TEFV6-C0326-E04",
+      "TEFV6-C0347-E07",
+      "TEFV6-C0326-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0326-I02-routine_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0326-E04",
+      "TEFV6-C0347-E07",
+      "TEFV6-C0326-E05",
+      "TEFV6-C0326-E03",
+      "TEFV6-C0326-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0326-I03-routine_followup-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0326-E04",
+      "TEFV6-C0326-E05",
+      "TEFV6-C0347-E08",
+      "TEFV6-C0326-E03",
+      "TEFV6-C0326-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0326-I03-routine_followup-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0326-E05",
+      "TEFV6-C0326-E07",
+      "TEFV6-C0326-E02",
+      "TEFV6-C0326-E06",
+      "TEFV6-C0326-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0327-I01-routine_status-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0327-E05",
+      "TEFV6-C0348-E08",
+      "TEFV6-C0327-E04",
+      "TEFV6-C0327-E06",
+      "TEFV6-C0327-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0327-I01-routine_status-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0327-E06",
+      "TEFV6-C0327-E04",
+      "TEFV6-C0327-E05",
+      "TEFV6-C0327-E03",
+      "TEFV6-C0327-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0327-I02-routine_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0327-E05",
+      "TEFV6-C0327-E04",
+      "TEFV6-C0348-E04",
+      "TEFV6-C0327-E01",
+      "TEFV6-C0327-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0327-I02-routine_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0327-E01",
+      "TEFV6-C0327-E04",
+      "TEFV6-C0327-E05",
+      "TEFV6-C0348-E05",
+      "TEFV6-C0348-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0327-I03-routine_followup-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0327-E04",
+      "TEFV6-C0327-E05",
+      "TEFV6-C0327-E07",
+      "TEFV6-C0327-E03",
+      "TEFV6-C0348-E04"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0327-I03-routine_followup-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0327-E05",
+      "TEFV6-C0327-E07",
+      "TEFV6-C0327-E02",
+      "TEFV6-C0327-E06",
+      "TEFV6-C0348-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0328-I01-routine_status-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0328-E05",
+      "TEFV6-C0328-E06",
+      "TEFV6-C0349-E05",
+      "TEFV6-C0328-E04",
+      "TEFV6-C0349-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0328-I01-routine_status-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0328-E06",
+      "TEFV6-C0328-E04",
+      "TEFV6-C0349-E07",
+      "TEFV6-C0328-E03",
+      "TEFV6-C0328-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0328-I02-routine_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0328-E05",
+      "TEFV6-C0328-E04",
+      "TEFV6-C0349-E08",
+      "TEFV6-C0328-E01",
+      "TEFV6-C0349-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0328-I02-routine_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0328-E04",
+      "TEFV6-C0349-E08",
+      "TEFV6-C0349-E07",
+      "TEFV6-C0349-E06",
+      "TEFV6-C0328-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0328-I03-routine_followup-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0328-E04",
+      "TEFV6-C0328-E05",
+      "TEFV6-C0328-E07",
+      "TEFV6-C0349-E07",
+      "TEFV6-C0328-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0328-I03-routine_followup-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0328-E05",
+      "TEFV6-C0328-E07",
+      "TEFV6-C0328-E02",
+      "TEFV6-C0328-E06",
+      "TEFV6-C0349-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0329-I01-routine_status-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0329-E05",
+      "TEFV6-C0350-E09",
+      "TEFV6-C0329-E04",
+      "TEFV6-C0329-E06",
+      "TEFV6-C0329-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0329-I01-routine_status-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0329-E06",
+      "TEFV6-C0329-E04",
+      "TEFV6-C0329-E03",
+      "TEFV6-C0329-E05",
+      "TEFV6-C0350-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0329-I02-routine_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0329-E05",
+      "TEFV6-C0329-E04",
+      "TEFV6-C0329-E01",
+      "TEFV6-C0329-E02",
+      "TEFV6-C0350-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0329-I02-routine_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0329-E04",
+      "TEFV6-C0350-E09",
+      "TEFV6-C0350-E08",
+      "TEFV6-C0350-E11",
+      "TEFV6-C0329-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0329-I03-routine_followup-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0329-E04",
+      "TEFV6-C0329-E05",
+      "TEFV6-C0350-E09",
+      "TEFV6-C0329-E03",
+      "TEFV6-C0350-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0329-I03-routine_followup-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0329-E05",
+      "TEFV6-C0329-E02",
+      "TEFV6-C0329-E07",
+      "TEFV6-C0329-E06",
+      "TEFV6-C0350-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0330-I01-routine_status-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0330-E05",
+      "TEFV6-C0351-E08",
+      "TEFV6-C0351-E07",
+      "TEFV6-C0330-E04",
+      "TEFV6-C0351-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0330-I01-routine_status-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0330-E06",
+      "TEFV6-C0330-E04",
+      "TEFV6-C0330-E03",
+      "TEFV6-C0351-E04",
+      "TEFV6-C0330-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0330-I02-routine_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0330-E05",
+      "TEFV6-C0330-E01",
+      "TEFV6-C0330-E04",
+      "TEFV6-C0351-E03",
+      "TEFV6-C0351-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0330-I02-routine_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0330-E04",
+      "TEFV6-C0351-E06",
+      "TEFV6-C0351-E03",
+      "TEFV6-C0330-E05",
+      "TEFV6-C0330-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0330-I03-routine_followup-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0330-E04",
+      "TEFV6-C0330-E05",
+      "TEFV6-C0351-E06",
+      "TEFV6-C0351-E03",
+      "TEFV6-C0330-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0330-I03-routine_followup-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0330-E05",
+      "TEFV6-C0330-E07",
+      "TEFV6-C0330-E02",
+      "TEFV6-C0330-E06",
+      "TEFV6-C0351-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0331-I01-routine_status-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0331-E05",
+      "TEFV6-C0352-E02",
+      "TEFV6-C0352-E08",
+      "TEFV6-C0331-E04",
+      "TEFV6-C0331-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0331-I01-routine_status-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0331-E06",
+      "TEFV6-C0331-E04",
+      "TEFV6-C0352-E04",
+      "TEFV6-C0352-E07",
+      "TEFV6-C0331-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0331-I02-routine_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0331-E05",
+      "TEFV6-C0331-E04",
+      "TEFV6-C0352-E03",
+      "TEFV6-C0331-E01",
+      "TEFV6-C0352-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0331-I02-routine_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0331-E01",
+      "TEFV6-C0331-E04",
+      "TEFV6-C0352-E04",
+      "TEFV6-C0352-E08",
+      "TEFV6-C0331-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0331-I03-routine_followup-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0331-E04",
+      "TEFV6-C0331-E05",
+      "TEFV6-C0352-E05",
+      "TEFV6-C0352-E02",
+      "TEFV6-C0331-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0331-I03-routine_followup-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0331-E05",
+      "TEFV6-C0331-E07",
+      "TEFV6-C0331-E02",
+      "TEFV6-C0331-E06",
+      "TEFV6-C0352-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0332-I01-routine_status-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0332-E05",
+      "TEFV6-C0353-E08",
+      "TEFV6-C0332-E04",
+      "TEFV6-C0353-E07",
+      "TEFV6-C0332-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0332-I01-routine_status-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0332-E06",
+      "TEFV6-C0332-E04",
+      "TEFV6-C0332-E03",
+      "TEFV6-C0353-E08",
+      "TEFV6-C0332-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0332-I02-routine_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0332-E05",
+      "TEFV6-C0332-E04",
+      "TEFV6-C0332-E01",
+      "TEFV6-C0332-E02",
+      "TEFV6-C0353-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0332-I02-routine_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0353-E04",
+      "TEFV6-C0332-E04",
+      "TEFV6-C0353-E08",
+      "TEFV6-C0332-E05",
+      "TEFV6-C0353-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0332-I03-routine_followup-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0332-E04",
+      "TEFV6-C0353-E02",
+      "TEFV6-C0332-E05",
+      "TEFV6-C0353-E08",
+      "TEFV6-C0332-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0332-I03-routine_followup-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0332-E05",
+      "TEFV6-C0332-E07",
+      "TEFV6-C0332-E02",
+      "TEFV6-C0332-E06",
+      "TEFV6-C0332-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0333-I01-routine_status-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0333-E05",
+      "TEFV6-C0354-E10",
+      "TEFV6-C0333-E06",
+      "TEFV6-C0333-E04",
+      "TEFV6-C0333-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0333-I01-routine_status-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0333-E06",
+      "TEFV6-C0333-E04",
+      "TEFV6-C0333-E05",
+      "TEFV6-C0333-E03",
+      "TEFV6-C0333-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0333-I02-routine_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0333-E05",
+      "TEFV6-C0333-E04",
+      "TEFV6-C0333-E01",
+      "TEFV6-C0333-E02",
+      "TEFV6-C0333-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0333-I02-routine_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0333-E04",
+      "TEFV6-C0354-E09",
+      "TEFV6-C0354-E07",
+      "TEFV6-C0333-E05",
+      "TEFV6-C0354-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0333-I03-routine_followup-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0333-E04",
+      "TEFV6-C0333-E05",
+      "TEFV6-C0354-E09",
+      "TEFV6-C0333-E07",
+      "TEFV6-C0333-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0333-I03-routine_followup-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0333-E05",
+      "TEFV6-C0333-E02",
+      "TEFV6-C0333-E07",
+      "TEFV6-C0333-E06",
+      "TEFV6-C0333-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0334-I01-routine_status-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0334-E05",
+      "TEFV6-C0334-E06",
+      "TEFV6-C0334-E04",
+      "TEFV6-C0334-E03",
+      "TEFV6-C0334-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0334-I01-routine_status-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0334-E06",
+      "TEFV6-C0334-E04",
+      "TEFV6-C0334-E05",
+      "TEFV6-C0334-E03",
+      "TEFV6-C0334-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0334-I02-routine_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0334-E05",
+      "TEFV6-C0334-E01",
+      "TEFV6-C0334-E04",
+      "TEFV6-C0334-E02",
+      "TEFV6-C0334-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0334-I02-routine_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0334-E04",
+      "TEFV6-C0334-E05",
+      "TEFV6-C0334-E03",
+      "TEFV6-C0334-E02",
+      "TEFV6-C0334-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0334-I03-routine_followup-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0334-E04",
+      "TEFV6-C0334-E05",
+      "TEFV6-C0334-E07",
+      "TEFV6-C0334-E03",
+      "TEFV6-C0334-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0334-I03-routine_followup-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0334-E05",
+      "TEFV6-C0334-E07",
+      "TEFV6-C0334-E02",
+      "TEFV6-C0334-E06",
+      "TEFV6-C0334-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0335-I01-routine_status-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0335-E05",
+      "TEFV6-C0335-E06",
+      "TEFV6-C0335-E04",
+      "TEFV6-C0335-E03",
+      "TEFV6-C0335-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0335-I01-routine_status-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0335-E06",
+      "TEFV6-C0335-E04",
+      "TEFV6-C0335-E05",
+      "TEFV6-C0335-E01",
+      "TEFV6-C0335-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0335-I02-routine_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0335-E05",
+      "TEFV6-C0335-E04",
+      "TEFV6-C0335-E02",
+      "TEFV6-C0335-E01",
+      "TEFV6-C0335-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0335-I02-routine_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0335-E04",
+      "TEFV6-C0335-E01",
+      "TEFV6-C0335-E05",
+      "TEFV6-C0335-E03",
+      "TEFV6-C0335-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0335-I03-routine_followup-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0335-E04",
+      "TEFV6-C0335-E05",
+      "TEFV6-C0335-E07",
+      "TEFV6-C0335-E03",
+      "TEFV6-C0335-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0335-I03-routine_followup-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0335-E05",
+      "TEFV6-C0335-E07",
+      "TEFV6-C0335-E02",
+      "TEFV6-C0335-E06",
+      "TEFV6-C0335-E04"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0336-I01-routine_status-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0336-E05",
+      "TEFV6-C0336-E06",
+      "TEFV6-C0336-E04",
+      "TEFV6-C0336-E03",
+      "TEFV6-C0336-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0336-I01-routine_status-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0336-E06",
+      "TEFV6-C0336-E04",
+      "TEFV6-C0336-E05",
+      "TEFV6-C0336-E03",
+      "TEFV6-C0336-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0336-I02-routine_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0336-E05",
+      "TEFV6-C0336-E04",
+      "TEFV6-C0336-E01",
+      "TEFV6-C0336-E02",
+      "TEFV6-C0336-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0336-I02-routine_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0336-E04",
+      "TEFV6-C0336-E05",
+      "TEFV6-C0336-E03",
+      "TEFV6-C0336-E02",
+      "TEFV6-C0336-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0336-I03-routine_followup-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0336-E04",
+      "TEFV6-C0336-E05",
+      "TEFV6-C0336-E07",
+      "TEFV6-C0336-E03",
+      "TEFV6-C0336-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0336-I03-routine_followup-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0336-E05",
+      "TEFV6-C0336-E02",
+      "TEFV6-C0336-E07",
+      "TEFV6-C0336-E06",
+      "TEFV6-C0336-E04"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0337-I01-routine_status-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0337-E05",
+      "TEFV6-C0337-E06",
+      "TEFV6-C0337-E04",
+      "TEFV6-C0337-E03",
+      "TEFV6-C0337-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0337-I01-routine_status-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0337-E06",
+      "TEFV6-C0337-E04",
+      "TEFV6-C0337-E05",
+      "TEFV6-C0337-E03",
+      "TEFV6-C0337-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0337-I02-routine_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0337-E05",
+      "TEFV6-C0337-E04",
+      "TEFV6-C0337-E01",
+      "TEFV6-C0337-E02",
+      "TEFV6-C0337-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0337-I02-routine_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0337-E04",
+      "TEFV6-C0337-E05",
+      "TEFV6-C0337-E03",
+      "TEFV6-C0337-E02",
+      "TEFV6-C0337-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0337-I03-routine_followup-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0337-E04",
+      "TEFV6-C0337-E05",
+      "TEFV6-C0337-E07",
+      "TEFV6-C0337-E03",
+      "TEFV6-C0337-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0337-I03-routine_followup-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0337-E05",
+      "TEFV6-C0337-E02",
+      "TEFV6-C0337-E07",
+      "TEFV6-C0337-E06",
+      "TEFV6-C0337-E04"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0338-I01-routine_status-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0338-E05",
+      "TEFV6-C0338-E06",
+      "TEFV6-C0338-E04",
+      "TEFV6-C0338-E03",
+      "TEFV6-C0338-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0338-I01-routine_status-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0338-E06",
+      "TEFV6-C0338-E04",
+      "TEFV6-C0338-E05",
+      "TEFV6-C0338-E03",
+      "TEFV6-C0338-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0338-I02-routine_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0338-E05",
+      "TEFV6-C0338-E01",
+      "TEFV6-C0338-E04",
+      "TEFV6-C0338-E02",
+      "TEFV6-C0338-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0338-I02-routine_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0338-E04",
+      "TEFV6-C0338-E05",
+      "TEFV6-C0338-E03",
+      "TEFV6-C0338-E02",
+      "TEFV6-C0338-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0338-I03-routine_followup-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0338-E04",
+      "TEFV6-C0338-E05",
+      "TEFV6-C0338-E07",
+      "TEFV6-C0338-E03",
+      "TEFV6-C0338-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0338-I03-routine_followup-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0338-E05",
+      "TEFV6-C0338-E07",
+      "TEFV6-C0338-E02",
+      "TEFV6-C0338-E06",
+      "TEFV6-C0338-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0339-I01-routine_status-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0339-E05",
+      "TEFV6-C0339-E06",
+      "TEFV6-C0339-E04",
+      "TEFV6-C0339-E03",
+      "TEFV6-C0339-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0339-I01-routine_status-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0339-E06",
+      "TEFV6-C0339-E04",
+      "TEFV6-C0339-E05",
+      "TEFV6-C0339-E01",
+      "TEFV6-C0339-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0339-I02-routine_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0339-E05",
+      "TEFV6-C0339-E04",
+      "TEFV6-C0339-E02",
+      "TEFV6-C0339-E01",
+      "TEFV6-C0339-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0339-I02-routine_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0339-E04",
+      "TEFV6-C0339-E01",
+      "TEFV6-C0339-E05",
+      "TEFV6-C0339-E03",
+      "TEFV6-C0339-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0339-I03-routine_followup-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0339-E04",
+      "TEFV6-C0339-E05",
+      "TEFV6-C0339-E07",
+      "TEFV6-C0339-E03",
+      "TEFV6-C0339-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0339-I03-routine_followup-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0339-E05",
+      "TEFV6-C0339-E07",
+      "TEFV6-C0339-E02",
+      "TEFV6-C0339-E06",
+      "TEFV6-C0339-E04"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0340-I01-routine_status-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0340-E05",
+      "TEFV6-C0340-E06",
+      "TEFV6-C0340-E04",
+      "TEFV6-C0340-E03",
+      "TEFV6-C0340-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0340-I01-routine_status-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0340-E06",
+      "TEFV6-C0340-E04",
+      "TEFV6-C0340-E05",
+      "TEFV6-C0340-E03",
+      "TEFV6-C0340-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0340-I02-routine_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0340-E05",
+      "TEFV6-C0340-E04",
+      "TEFV6-C0340-E01",
+      "TEFV6-C0340-E02",
+      "TEFV6-C0340-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0340-I02-routine_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0340-E04",
+      "TEFV6-C0340-E05",
+      "TEFV6-C0340-E03",
+      "TEFV6-C0340-E02",
+      "TEFV6-C0340-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0340-I03-routine_followup-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0340-E04",
+      "TEFV6-C0340-E05",
+      "TEFV6-C0340-E07",
+      "TEFV6-C0340-E03",
+      "TEFV6-C0340-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0340-I03-routine_followup-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0340-E05",
+      "TEFV6-C0340-E02",
+      "TEFV6-C0340-E07",
+      "TEFV6-C0340-E06",
+      "TEFV6-C0340-E04"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0341-I01-routine_status-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0341-E05",
+      "TEFV6-C0341-E06",
+      "TEFV6-C0341-E04",
+      "TEFV6-C0341-E03",
+      "TEFV6-C0341-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0341-I01-routine_status-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0341-E06",
+      "TEFV6-C0341-E04",
+      "TEFV6-C0341-E05",
+      "TEFV6-C0341-E03",
+      "TEFV6-C0341-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0341-I02-routine_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0341-E05",
+      "TEFV6-C0341-E04",
+      "TEFV6-C0341-E01",
+      "TEFV6-C0341-E02",
+      "TEFV6-C0341-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0341-I02-routine_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0341-E04",
+      "TEFV6-C0341-E05",
+      "TEFV6-C0341-E03",
+      "TEFV6-C0341-E02",
+      "TEFV6-C0341-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0341-I03-routine_followup-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0341-E04",
+      "TEFV6-C0341-E05",
+      "TEFV6-C0341-E07",
+      "TEFV6-C0341-E03",
+      "TEFV6-C0341-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0341-I03-routine_followup-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0341-E05",
+      "TEFV6-C0341-E02",
+      "TEFV6-C0341-E07",
+      "TEFV6-C0341-E06",
+      "TEFV6-C0341-E04"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0342-I01-routine_status-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0342-E05",
+      "TEFV6-C0342-E06",
+      "TEFV6-C0342-E04",
+      "TEFV6-C0342-E03",
+      "TEFV6-C0342-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0342-I01-routine_status-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0342-E06",
+      "TEFV6-C0342-E04",
+      "TEFV6-C0342-E05",
+      "TEFV6-C0342-E03",
+      "TEFV6-C0342-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0342-I02-routine_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0342-E05",
+      "TEFV6-C0342-E01",
+      "TEFV6-C0342-E04",
+      "TEFV6-C0342-E02",
+      "TEFV6-C0342-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0342-I02-routine_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0342-E04",
+      "TEFV6-C0342-E05",
+      "TEFV6-C0342-E03",
+      "TEFV6-C0342-E02",
+      "TEFV6-C0342-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0342-I03-routine_followup-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0342-E04",
+      "TEFV6-C0342-E05",
+      "TEFV6-C0342-E07",
+      "TEFV6-C0342-E03",
+      "TEFV6-C0342-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0342-I03-routine_followup-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0342-E05",
+      "TEFV6-C0342-E07",
+      "TEFV6-C0342-E02",
+      "TEFV6-C0342-E06",
+      "TEFV6-C0342-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0343-I01-routine_status-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0343-E05",
+      "TEFV6-C0343-E06",
+      "TEFV6-C0343-E04",
+      "TEFV6-C0343-E03",
+      "TEFV6-C0343-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0343-I01-routine_status-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0343-E06",
+      "TEFV6-C0343-E04",
+      "TEFV6-C0343-E05",
+      "TEFV6-C0343-E01",
+      "TEFV6-C0343-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0343-I02-routine_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0343-E05",
+      "TEFV6-C0343-E04",
+      "TEFV6-C0343-E02",
+      "TEFV6-C0343-E01",
+      "TEFV6-C0343-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0343-I02-routine_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0343-E04",
+      "TEFV6-C0343-E01",
+      "TEFV6-C0343-E05",
+      "TEFV6-C0343-E03",
+      "TEFV6-C0343-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0343-I03-routine_followup-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0343-E04",
+      "TEFV6-C0343-E05",
+      "TEFV6-C0343-E07",
+      "TEFV6-C0343-E03",
+      "TEFV6-C0343-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0343-I03-routine_followup-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0343-E05",
+      "TEFV6-C0343-E07",
+      "TEFV6-C0343-E02",
+      "TEFV6-C0343-E06",
+      "TEFV6-C0343-E04"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0344-I01-routine_status-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0344-E05",
+      "TEFV6-C0344-E06",
+      "TEFV6-C0344-E04",
+      "TEFV6-C0344-E03",
+      "TEFV6-C0344-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0344-I01-routine_status-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0344-E06",
+      "TEFV6-C0344-E04",
+      "TEFV6-C0344-E05",
+      "TEFV6-C0344-E03",
+      "TEFV6-C0344-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0344-I02-routine_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0344-E05",
+      "TEFV6-C0344-E04",
+      "TEFV6-C0344-E01",
+      "TEFV6-C0344-E02",
+      "TEFV6-C0344-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0344-I02-routine_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0344-E04",
+      "TEFV6-C0344-E05",
+      "TEFV6-C0344-E03",
+      "TEFV6-C0344-E02",
+      "TEFV6-C0344-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0344-I03-routine_followup-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0344-E04",
+      "TEFV6-C0344-E05",
+      "TEFV6-C0344-E07",
+      "TEFV6-C0344-E03",
+      "TEFV6-C0344-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0344-I03-routine_followup-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0344-E05",
+      "TEFV6-C0344-E02",
+      "TEFV6-C0344-E07",
+      "TEFV6-C0344-E06",
+      "TEFV6-C0344-E04"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0345-I01-current_valid-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0345-E03",
+      "TEFV6-C0345-E06",
+      "TEFV6-C0345-E08",
+      "TEFV6-C0345-E07",
+      "TEFV6-C0345-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0345-I01-current_valid-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0345-E08",
+      "TEFV6-C0345-E02",
+      "TEFV6-C0345-E06",
+      "TEFV6-C0345-E05",
+      "TEFV6-C0345-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0345-I02-supersession_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0345-E06",
+      "TEFV6-C0345-E02",
+      "TEFV6-C0345-E08",
+      "TEFV6-C0345-E07",
+      "TEFV6-C0345-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0345-I02-supersession_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0345-E04",
+      "TEFV6-C0345-E03",
+      "TEFV6-C0345-E08",
+      "TEFV6-C0345-E07",
+      "TEFV6-C0345-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0345-I03-action_revision-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0345-E08",
+      "TEFV6-C0345-E03",
+      "TEFV6-C0345-E04",
+      "TEFV6-C0345-E07",
+      "TEFV6-C0345-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0345-I03-action_revision-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0345-E06",
+      "TEFV6-C0345-E08",
+      "TEFV6-C0345-E02",
+      "TEFV6-C0345-E07",
+      "TEFV6-C0345-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0346-I01-v1_applicability-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0346-E04",
+      "TEFV6-C0346-E01",
+      "TEFV6-C0346-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0346-I01-v1_applicability-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0346-E04",
+      "TEFV6-C0346-E05",
+      "TEFV6-C0346-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0346-I02-v2_applicability-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0346-E06",
+      "TEFV6-C0346-E02",
+      "TEFV6-C0346-E05",
+      "TEFV6-C0346-E04",
+      "TEFV6-C0346-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0346-I02-v2_applicability-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0346-E06",
+      "TEFV6-C0346-E05",
+      "TEFV6-C0346-E04",
+      "TEFV6-C0346-E02",
+      "TEFV6-C0346-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0346-I03-v3_applicability-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0346-E03",
+      "TEFV6-C0346-E08",
+      "TEFV6-C0346-E09",
+      "TEFV6-C0346-E10",
+      "TEFV6-C0346-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0346-I03-v3_applicability-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0346-E10",
+      "TEFV6-C0346-E09",
+      "TEFV6-C0346-E08",
+      "TEFV6-C0346-E06",
+      "TEFV6-C0346-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0347-I01-cross_source_action-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0347-E06",
+      "TEFV6-C0347-E08",
+      "TEFV6-C0347-E07",
+      "TEFV6-C0347-E05",
+      "TEFV6-C0347-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0347-I01-cross_source_action-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0347-E07",
+      "TEFV6-C0347-E06",
+      "TEFV6-C0347-E08",
+      "TEFV6-C0347-E04",
+      "TEFV6-C0347-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0347-I02-cross_source_cause-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0347-E07",
+      "TEFV6-C0347-E03",
+      "TEFV6-C0347-E02",
+      "TEFV6-C0347-E06",
+      "TEFV6-C0347-E04"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0347-I02-cross_source_cause-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0347-E07",
+      "TEFV6-C0347-E03",
+      "TEFV6-C0347-E02",
+      "TEFV6-C0347-E04",
+      "TEFV6-C0347-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0347-I03-cross_source_precedent-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0347-E07",
+      "TEFV6-C0347-E08",
+      "TEFV6-C0347-E05",
+      "TEFV6-C0347-E04",
+      "TEFV6-C0347-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0347-I03-cross_source_precedent-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0347-E07",
+      "TEFV6-C0347-E04",
+      "TEFV6-C0347-E06",
+      "TEFV6-C0347-E02",
+      "TEFV6-C0347-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0348-I01-differentiate-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0348-E07",
+      "TEFV6-C0348-E04",
+      "TEFV6-C0348-E01",
+      "TEFV6-C0348-E08",
+      "TEFV6-C0348-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0348-I01-differentiate-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0348-E02",
+      "TEFV6-C0348-E03",
+      "TEFV6-C0348-E01",
+      "TEFV6-C0348-E07",
+      "TEFV6-C0348-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0348-I02-current_action-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0348-E08",
+      "TEFV6-C0348-E07",
+      "TEFV6-C0348-E04",
+      "TEFV6-C0348-E05",
+      "TEFV6-C0348-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0348-I02-current_action-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0348-E08",
+      "TEFV6-C0348-E07",
+      "TEFV6-C0348-E06",
+      "TEFV6-C0348-E05",
+      "TEFV6-C0348-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0348-I03-history_role-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0348-E07",
+      "TEFV6-C0348-E08",
+      "TEFV6-C0348-E01",
+      "TEFV6-C0348-E06",
+      "TEFV6-C0348-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0348-I03-history_role-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0348-E01",
+      "TEFV6-C0348-E07",
+      "TEFV6-C0348-E02",
+      "TEFV6-C0348-E03",
+      "TEFV6-C0348-E04"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0349-I01-uncertain_status-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0349-E02",
+      "TEFV6-C0349-E07",
+      "TEFV6-C0349-E04",
+      "TEFV6-C0349-E05",
+      "TEFV6-C0349-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0349-I01-uncertain_status-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0349-E02",
+      "TEFV6-C0349-E07",
+      "TEFV6-C0349-E05",
+      "TEFV6-C0349-E06",
+      "TEFV6-C0349-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0349-I02-why_uncertain-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0349-E07",
+      "TEFV6-C0349-E03",
+      "TEFV6-C0349-E04",
+      "TEFV6-C0349-E02",
+      "TEFV6-C0349-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0349-I02-why_uncertain-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0349-E04",
+      "TEFV6-C0349-E05",
+      "TEFV6-C0349-E03",
+      "TEFV6-C0349-E01",
+      "TEFV6-C0349-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0349-I03-next_discriminator-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0349-E08",
+      "TEFV6-C0349-E07",
+      "TEFV6-C0349-E06",
+      "TEFV6-C0349-E05",
+      "TEFV6-C0349-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0349-I03-next_discriminator-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0349-E07",
+      "TEFV6-C0349-E08",
+      "TEFV6-C0349-E05",
+      "TEFV6-C0349-E04",
+      "TEFV6-C0349-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0350-I01-current_cause_action-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0350-E09",
+      "TEFV6-C0350-E11",
+      "TEFV6-C0350-E08",
+      "TEFV6-C0350-E05",
+      "TEFV6-C0350-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0350-I01-current_cause_action-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0350-E05",
+      "TEFV6-C0350-E10",
+      "TEFV6-C0350-E09",
+      "TEFV6-C0350-E06",
+      "TEFV6-C0350-E04"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0350-I02-episode_compare-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0350-E07",
+      "TEFV6-C0350-E09",
+      "TEFV6-C0350-E06",
+      "TEFV6-C0350-E05",
+      "TEFV6-C0350-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0350-I02-episode_compare-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0350-E01",
+      "TEFV6-C0350-E02",
+      "TEFV6-C0350-E06",
+      "TEFV6-C0350-E05",
+      "TEFV6-C0350-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0350-I03-decision_boundary-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0350-E09",
+      "TEFV6-C0350-E04",
+      "TEFV6-C0350-E06",
+      "TEFV6-C0350-E11",
+      "TEFV6-C0350-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0350-I03-decision_boundary-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0350-E09",
+      "TEFV6-C0350-E08",
+      "TEFV6-C0350-E11",
+      "TEFV6-C0350-E06",
+      "TEFV6-C0350-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0351-I01-status_before_cutoff-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0351-E03",
+      "TEFV6-C0351-E02",
+      "TEFV6-C0351-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0351-I01-status_before_cutoff-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0351-E02",
+      "TEFV6-C0351-E03",
+      "TEFV6-C0351-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0351-I02-status_after_cutoff-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0351-E02",
+      "TEFV6-C0351-E07",
+      "TEFV6-C0351-E06",
+      "TEFV6-C0351-E03",
+      "TEFV6-C0351-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0351-I02-status_after_cutoff-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0351-E06",
+      "TEFV6-C0351-E04",
+      "TEFV6-C0351-E02",
+      "TEFV6-C0351-E03",
+      "TEFV6-C0351-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0351-I03-cutoff_explanation-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0351-E05",
+      "TEFV6-C0351-E02",
+      "TEFV6-C0351-E07",
+      "TEFV6-C0351-E04",
+      "TEFV6-C0351-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0351-I03-cutoff_explanation-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0351-E02",
+      "TEFV6-C0351-E07",
+      "TEFV6-C0351-E05",
+      "TEFV6-C0351-E01",
+      "TEFV6-C0351-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0352-I01-pre_arrival-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0352-E03",
+      "TEFV6-C0352-E04",
+      "TEFV6-C0352-E02",
+      "TEFV6-C0352-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0352-I01-pre_arrival-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0352-E01",
+      "TEFV6-C0352-E03",
+      "TEFV6-C0352-E04",
+      "TEFV6-C0352-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0352-I02-post_arrival-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0352-E07",
+      "TEFV6-C0352-E06",
+      "TEFV6-C0352-E08",
+      "TEFV6-C0352-E04",
+      "TEFV6-C0352-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0352-I02-post_arrival-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0352-E08",
+      "TEFV6-C0352-E07",
+      "TEFV6-C0352-E06",
+      "TEFV6-C0352-E02",
+      "TEFV6-C0352-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0352-I03-arrival_effect-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0352-E04",
+      "TEFV6-C0352-E03",
+      "TEFV6-C0352-E06",
+      "TEFV6-C0352-E07",
+      "TEFV6-C0352-E08"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0352-I03-arrival_effect-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0352-E07",
+      "TEFV6-C0352-E02",
+      "TEFV6-C0352-E03",
+      "TEFV6-C0352-E05",
+      "TEFV6-C0352-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0353-I01-current_valid-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0353-E03",
+      "TEFV6-C0353-E06",
+      "TEFV6-C0353-E08",
+      "TEFV6-C0353-E07",
+      "TEFV6-C0353-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0353-I01-current_valid-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0353-E08",
+      "TEFV6-C0353-E02",
+      "TEFV6-C0353-E06",
+      "TEFV6-C0353-E05",
+      "TEFV6-C0353-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0353-I02-supersession_basis-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0353-E06",
+      "TEFV6-C0353-E02",
+      "TEFV6-C0353-E08",
+      "TEFV6-C0353-E07",
+      "TEFV6-C0353-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0353-I02-supersession_basis-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0353-E04",
+      "TEFV6-C0353-E03",
+      "TEFV6-C0353-E08",
+      "TEFV6-C0353-E07",
+      "TEFV6-C0353-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0353-I03-action_revision-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0353-E08",
+      "TEFV6-C0353-E03",
+      "TEFV6-C0353-E04",
+      "TEFV6-C0353-E07",
+      "TEFV6-C0353-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0353-I03-action_revision-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0353-E06",
+      "TEFV6-C0353-E08",
+      "TEFV6-C0353-E02",
+      "TEFV6-C0353-E07",
+      "TEFV6-C0353-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0354-I01-v1_applicability-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0354-E04",
+      "TEFV6-C0354-E01",
+      "TEFV6-C0354-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0354-I01-v1_applicability-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0354-E04",
+      "TEFV6-C0354-E05",
+      "TEFV6-C0354-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0354-I02-v2_applicability-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0354-E06",
+      "TEFV6-C0354-E02",
+      "TEFV6-C0354-E05",
+      "TEFV6-C0354-E04",
+      "TEFV6-C0354-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0354-I02-v2_applicability-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0354-E06",
+      "TEFV6-C0354-E05",
+      "TEFV6-C0354-E04",
+      "TEFV6-C0354-E02",
+      "TEFV6-C0354-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0354-I03-v3_applicability-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0354-E03",
+      "TEFV6-C0354-E08",
+      "TEFV6-C0354-E09",
+      "TEFV6-C0354-E10",
+      "TEFV6-C0354-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0354-I03-v3_applicability-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0354-E10",
+      "TEFV6-C0354-E09",
+      "TEFV6-C0354-E08",
+      "TEFV6-C0354-E06",
+      "TEFV6-C0354-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0355-I01-differentiate-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0355-E08",
+      "TEFV6-C0355-E05",
+      "TEFV6-C0355-E01",
+      "TEFV6-C0355-E09",
+      "TEFV6-C0355-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0355-I01-differentiate-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0355-E02",
+      "TEFV6-C0355-E01",
+      "TEFV6-C0355-E04",
+      "TEFV6-C0355-E03",
+      "TEFV6-C0344-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0355-I02-current_action-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0355-E09",
+      "TEFV6-C0355-E08",
+      "TEFV6-C0355-E06",
+      "TEFV6-C0355-E04",
+      "TEFV6-C0355-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0355-I02-current_action-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0355-E09",
+      "TEFV6-C0355-E08",
+      "TEFV6-C0355-E07",
+      "TEFV6-C0355-E06",
+      "TEFV6-C0355-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0355-I03-history_role-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0355-E08",
+      "TEFV6-C0355-E09",
+      "TEFV6-C0344-E03",
+      "TEFV6-C0355-E01",
+      "TEFV6-C0344-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0355-I03-history_role-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0355-E01",
+      "TEFV6-C0355-E08",
+      "TEFV6-C0355-E02",
+      "TEFV6-C0355-E04",
+      "TEFV6-C0355-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0356-I01-before_cutoff-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0356-E01",
+      "TEFV6-C0356-E02",
+      "TEFV6-C0356-E03",
+      "TEFV6-C0356-E04"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0356-I01-before_cutoff-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0356-E04",
+      "TEFV6-C0356-E02",
+      "TEFV6-C0356-E03",
+      "TEFV6-C0356-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0356-I02-after_cutoff-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0356-E06",
+      "TEFV6-C0356-E05",
+      "TEFV6-C0356-E02",
+      "TEFV6-C0356-E07",
+      "TEFV6-C0356-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0356-I02-after_cutoff-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0356-E06",
+      "TEFV6-C0356-E02",
+      "TEFV6-C0356-E07",
+      "TEFV6-C0356-E05",
+      "TEFV6-C0356-E04"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0356-I03-uncertainty_over_time-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0356-E06",
+      "TEFV6-C0356-E07",
+      "TEFV6-C0356-E02",
+      "TEFV6-C0356-E01",
+      "TEFV6-C0356-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0356-I03-uncertainty_over_time-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0356-E02",
+      "TEFV6-C0356-E04",
+      "TEFV6-C0356-E03",
+      "TEFV6-C0356-E05",
+      "TEFV6-C0356-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0357-I01-before_arrival-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0357-E10",
+      "TEFV6-C0357-E01",
+      "TEFV6-C0357-E02",
+      "TEFV6-C0357-E03",
+      "TEFV6-C0357-E09"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0357-I01-before_arrival-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0357-E03",
+      "TEFV6-C0357-E10",
+      "TEFV6-C0357-E09",
+      "TEFV6-C0357-E02",
+      "TEFV6-C0357-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0357-I02-after_supersession-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0357-E06",
+      "TEFV6-C0357-E04",
+      "TEFV6-C0357-E02",
+      "TEFV6-C0357-E10",
+      "TEFV6-C0357-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0357-I02-after_supersession-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0357-E03",
+      "TEFV6-C0357-E08",
+      "TEFV6-C0357-E07",
+      "TEFV6-C0357-E02",
+      "TEFV6-C0357-E10"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0357-I03-temporal_change-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0357-E06",
+      "TEFV6-C0357-E10",
+      "TEFV6-C0357-E03",
+      "TEFV6-C0357-E08",
+      "TEFV6-C0357-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0357-I03-temporal_change-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0357-E06",
+      "TEFV6-C0357-E02",
+      "TEFV6-C0357-E10",
+      "TEFV6-C0357-E07",
+      "TEFV6-C0357-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0358-I01-current_rule-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0358-E07",
+      "TEFV6-C0358-E03",
+      "TEFV6-C0358-E08",
+      "TEFV6-C0358-E06",
+      "TEFV6-C0358-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0358-I01-current_rule-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0358-E07",
+      "TEFV6-C0322-E05",
+      "TEFV6-C0322-E03",
+      "TEFV6-C0322-E01",
+      "TEFV6-C0322-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0358-I02-cross_source_rule-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0358-E07",
+      "TEFV6-C0358-E08",
+      "TEFV6-C0358-E03",
+      "TEFV6-C0358-E05",
+      "TEFV6-C0358-E04"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0358-I02-cross_source_rule-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0358-E03",
+      "TEFV6-C0358-E06",
+      "TEFV6-C0358-E08",
+      "TEFV6-C0322-E05",
+      "TEFV6-C0358-E07"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0358-I03-version_source_interaction-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0358-E07",
+      "TEFV6-C0358-E03",
+      "TEFV6-C0358-E05",
+      "TEFV6-C0322-E05",
+      "TEFV6-C0358-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0358-I03-version_source_interaction-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0358-E07",
+      "TEFV6-C0358-E08",
+      "TEFV6-C0358-E03",
+      "TEFV6-C0358-E05",
+      "TEFV6-C0358-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0359-I01-differentiate-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0359-E08",
+      "TEFV6-C0359-E05",
+      "TEFV6-C0359-E01",
+      "TEFV6-C0359-E09",
+      "TEFV6-C0359-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0359-I01-differentiate-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0359-E02",
+      "TEFV6-C0359-E01",
+      "TEFV6-C0359-E04",
+      "TEFV6-C0359-E03",
+      "TEFV6-C0323-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0359-I02-current_action-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0359-E09",
+      "TEFV6-C0359-E08",
+      "TEFV6-C0359-E04",
+      "TEFV6-C0359-E03",
+      "TEFV6-C0359-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0359-I02-current_action-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0359-E09",
+      "TEFV6-C0359-E08",
+      "TEFV6-C0359-E07",
+      "TEFV6-C0359-E06",
+      "TEFV6-C0359-E05"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0359-I03-history_role-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0359-E08",
+      "TEFV6-C0359-E09",
+      "TEFV6-C0323-E03",
+      "TEFV6-C0359-E01",
+      "TEFV6-C0323-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0359-I03-history_role-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0359-E08",
+      "TEFV6-C0359-E01",
+      "TEFV6-C0359-E02",
+      "TEFV6-C0359-E04",
+      "TEFV6-C0359-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0360-I01-before_cutoff-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0360-E01",
+      "TEFV6-C0324-E07",
+      "TEFV6-C0345-E01",
+      "TEFV6-C0360-E02",
+      "TEFV6-C0345-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0360-I01-before_cutoff-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0360-E04",
+      "TEFV6-C0360-E03",
+      "TEFV6-C0324-E03",
+      "TEFV6-C0345-E08",
+      "TEFV6-C0360-E02"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0360-I02-after_cutoff-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0360-E06",
+      "TEFV6-C0360-E05",
+      "TEFV6-C0345-E06",
+      "TEFV6-C0345-E08",
+      "TEFV6-C0345-E03"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0360-I02-after_cutoff-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0360-E06",
+      "TEFV6-C0360-E02",
+      "TEFV6-C0324-E03",
+      "TEFV6-C0345-E08",
+      "TEFV6-C0345-E06"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0360-I03-uncertainty_over_time-P1",
+    "selected_evidence_ids": [
+      "TEFV6-C0360-E06",
+      "TEFV6-C0360-E07",
+      "TEFV6-C0345-E01",
+      "TEFV6-C0360-E02",
+      "TEFV6-C0360-E01"
+    ],
+    "relations": []
+  },
+  {
+    "query_id": "TEFV6-C0360-I03-uncertainty_over_time-P2",
+    "selected_evidence_ids": [
+      "TEFV6-C0360-E02",
+      "TEFV6-C0360-E04",
+      "TEFV6-C0360-E03",
+      "TEFV6-C0324-E01",
+      "TEFV6-C0360-E05"
+    ],
+    "relations": []
+  }
+]
