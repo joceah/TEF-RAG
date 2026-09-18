@@ -1,0 +1,137 @@
+% =========================================================
+\section{实验设计}
+\label{sec:experiments}
+% =========================================================
+
+\subsection{TEF-RAG v6 Semantic Benchmark v1}
+\label{sec:dataset}
+
+\textbf{总体定位与规模。}
+本文使用新构建并封存的 \textbf{TEF-RAG v6 Semantic Benchmark v1}。
+该数据集是一个\emph{public-source-grounded, AI-assisted synthetic benchmark}：
+公开制造商资料和公开研究数据只用于约束产品类别、数值范围和采样先例，
+而运维因果故事、诊断演化、规程情境和查询任务由受控语义生成流程构造。
+因此，本文不将其描述为真实电站运行数据、专家标注数据或现场认证 SOP。
+
+数据集包含 100 个目标资产、400 条完整事件链、3888 条证据记录、
+1200 个 primary intents 和 2400 条 query rows。
+每条 chain 包含 3 个语义不同的 primary intents，
+每个 intent 生成 2 个确定性 paraphrases，因此每条 chain 对应 6 条查询。
+两种难度层各包含 200 条 chain：
+\emph{Realistic Distribution Set} 用于覆盖较常见的时序运维组合，
+\emph{Temporal-Hard Challenge Set} 则有意增加晚到证据、版本替换、多 episode 对比、
+跨来源互补证据以及持续不确定性等情形。
+两个层均按 chain 进行 60/20/20 的 development/validation/test 划分，
+保证同一 chain 的不同 intent 和 paraphrase 不跨数据划分。
+统计见表~\ref{tab:dataset_stats}。
+
+\begin{table*}[t]
+\caption{TEF-RAG v6 Semantic Benchmark v1 规模与划分}
+\label{tab:dataset_stats}
+\centering
+\small
+\begin{tabular}{lrrrr}
+\toprule
+统计项 & Development & Validation & Test & Total \\
+\midrule
+Realistic Distribution chains & 120 & 40 & 40 & 200 \\
+Temporal-Hard Challenge chains & 120 & 40 & 40 & 200 \\
+全部 authored chains & 240 & 80 & 80 & 400 \\
+Primary intents & 720 & 240 & 240 & 1200 \\
+Query rows & 1440 & 480 & 480 & 2400 \\
+\midrule
+Target assets & -- & -- & -- & 100 \\
+Evidence records & -- & -- & -- & 3888 \\
+Paraphrases / intent & \multicolumn{4}{c}{2（同一 intent 的鲁棒性改写，不视为独立事件）} \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\textbf{公开资料约束。}
+新版 benchmark 不再沿用初版先导实验中单一手册驱动的数据构造方式，
+而是建立明确的 source registry。
+其中，HiTHIUM 280Ah LFP 数据表用于约束 280Ah-class 方形磷酸铁锂电芯的
+标称电压、工作电压/温度范围以及制造商给出的倍率信息
+\cite{hithium2023v11,hithium2024v33}；
+REPT BATTERO 的储能资料用于提供跨制造商的 280Ah/3.2V stationary-LFP 背景参照
+\cite{rept2025}；
+RWTH Aachen University 发布的 M5BAT 数据记录则用于提供
+储能现场数据采用秒级采样的公开先例
+\cite{rwth2026m5bat}。
+这些来源的作用边界如表~\ref{tab:source_grounding} 所示：
+它们约束物理/产品背景，但\textbf{不}为本文合成的故障发生率、站级保护阈值、
+维护因果故事或具体工单动作背书。
+
+\begin{table*}[t]
+\caption{公开资料在 benchmark 中的约束范围}
+\label{tab:source_grounding}
+\centering
+\small
+\begin{tabularx}{\textwidth}{p{0.23\textwidth}X X}
+\toprule
+公开来源 & 用于约束/提供的现实参照 & 明确不用于支持 \\
+\midrule
+HiTHIUM ESS Cell 280Ah V1.1 & 280Ah-class LFP、3.2V 标称电压、工作电压与环境温度范围、制造商特定连续倍率 & 合成故障发生率、站级保护阈值、维护因果故事、机器人/工单 SOP \\
+HiTHIUM 280Ah V3.3 & 280Ah/3.2V 产品信息交叉核对、制造商特定 0.5P 标准倍率 & 通用 LFP 倍率标准、站级维护阈值 \\
+REPT BATTERO 储能资料 & 跨制造商 280Ah/3.2V stationary-LFP 背景 & HiTHIUM 特定限制或本文合成运维流程 \\
+RWTH M5BAT 数据记录 & BESS 现场数据秒级采样先例 & LFP 特定电压/温度边界、本文合成故障因果关系 \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+\textbf{语义生成与证据流标注。}
+数据生成以 chain 为基本单元，而不是独立随机生成 query--document 对。
+每条 chain 先确定目标资产、时间轴和一组相互关联的 evidence records，
+再围绕同一事件过程构造观察、检查、诊断、规程适用性、工单、更新、纠正、验证或不确定性分支等节点。
+困难层额外加入时间上容易混淆但在查询截止时刻不可用的 late-arriving evidence、
+被后续版本替代的 procedure/diagnosis、跨 episode 的相似模式和必须共同出现的跨来源证据。
+这种构造方式使检索器不能仅依赖``最新记录''或单条文本相似度完成任务。
+
+在每条 chain 上进一步编写 3 个不同 primary intents，
+并为每个 intent 产生 2 个语义保持的确定性 paraphrases。
+离线 gold 不把``正确答案''简单表示成一个 evidence-ID 列表，
+而是为每个 intent 定义若干 required groups 和 required flow edges。
+required group 内仅允许真正等价的证据作为 OR 替代，
+而相互补充、必须同时出现的证据被拆分到不同 group；
+required flow edge 则记录 group 之间的关系类型以及允许的 endpoint pairs。
+这种标注方式与第~\ref{sec:problem} 节的 FlowComplete 定义一致，
+能够区分``召回了若干相关证据''和``召回的证据能够组成一个全局一致的任务相关 flow''。
+
+\begin{figure*}[t]
+    \centering
+    \IfFileExists{figures/tef_rag_benchmark_construction.pdf}{%
+        \includegraphics[width=0.96\textwidth]{figures/tef_rag_benchmark_construction.pdi}%
+    }{%
+        \placeholderfigure{Figure placeholder: benchmark construction protocol.\\
+        Public-source constraints $\rightarrow$ semantic chain authoring $\rightarrow$
+        3 intents/chain $\times$ 2 paraphrases $\rightarrow$ required groups + typed flow edges $\rightarrow$
+        chain-level 60/20/20 split $\rightarrow$ blind semantic review and sealing.}%
+    }
+    \caption{TEF-RAG v6 benchmark 构建与封存流程示意。公开资料仅约束产品与采样背景；
+    运维事件链、查询意图和 evidence-flow gold 在冻结协议下进行 AI-assisted semantic authoring，
+    并按 chain 划分后完成独立语义复核。}
+    \label{fig:benchmark_construction}
+\end{figure*}
+
+\textbf{语义复核与封存。}
+benchmark 在方法正式测试前完成冻结。
+Development 和 validation 的 gold 可用于方法开发与受控模型选择；
+公开 test 仅包含 query、evidence 和有限的 chain metadata，
+item-level required groups、canonical flow、answer summary 和 reviewer reasoning 均保持私有。
+Validation 的 formal second blind semantic review 覆盖全部 80 条 validation chains，
+80/80 通过且无 unresolved case；
+Test 的独立 second blind review 同样覆盖全部 80 条 test chains / 480 条 query rows，
+80/80 通过，且两遍语义复核无 disagreement。
+在最终封存时，目标方法尚未运行 test，
+从而将 benchmark authoring/review 与后续 sealed evaluation 隔离。
+
+\subsection{对比方法}
+\label{sec:baselines}
+
+\subsection{实验设置与冻结协议}
+\label{sec:setup}
+
+\subsection{评价指标}
+\label{sec:metrics}
+
+

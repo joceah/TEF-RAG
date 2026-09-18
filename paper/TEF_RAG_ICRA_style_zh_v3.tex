@@ -1,0 +1,48 @@
+% !TeX program = xelatex
+
+\documentclass[letterpaper,10pt,conference]{IEEEtran}
+
+\usepackage[UTF8,scheme=plain]{ctex}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{cite}
+\usepackage[hyphens]{url}
+\usepackage[hidelinks]{hyperref}
+
+\title{TEF-RAG: Temporal Evidence Flow Retrieval-Augmented Generation}
+\author{Juxian Yin}
+
+\newcommand{\ind}{\mathbb{I}}
+\newcommand{\Rels}{\mathcal{R}}
+\newcommand{\Evidence}{\mathcal{K}}
+\newcommand{\Candidates}{\mathcal{C}}
+\newcommand{\FlowGraph}{\mathcal{G}}
+\newcommand{\SetBank}{\mathcal{B}}
+\newcommand{\Selected}{\mathcal{S}}
+\newcommand{\placeholderfigure}[1]{%
+  \fbox{\parbox{0.94\linewidth}{\vspace{0.8in}\centering\textit{#1}\par\vspace{0.8in}}}%
+}
+
+\begin{document}
+
+\maketitle
+
+% =========================================================
+% Abstract
+% =========================================================
+\begin{abstract}
+xxx
+\end{abstract}
+
+\input{sections/01_introduction_related.tex}
+\input{sections/02_problem_definition.tex}
+\input{sections/03_method_outline.tex}
+\input{sections/04_benchmark.tex}
+\input{sections/05_remaining_outline.tex}
+\input{sections/06_references.tex}
+
+\end{document}
