@@ -1,0 +1,47 @@
+{
+  "bm25": {
+    "recall_at_5": 0.3791319444444444,
+    "hit_at_5": 0.8645833333333334,
+    "ndcg_at_5": 0.3914646196013589,
+    "complete_at_5": 0.05625,
+    "flow_complete_at_5": 0.05625,
+    "edge_recall": null,
+    "uncertainty_accuracy": 0.8875
+  },
+  "bge_reranker": {
+    "recall_at_5": 0.29159722222222223,
+    "hit_at_5": 0.75625,
+    "ndcg_at_5": 0.30697538565037147,
+    "complete_at_5": 0.041666666666666664,
+    "flow_complete_at_5": 0.041666666666666664,
+    "edge_recall": null,
+    "uncertainty_accuracy": 0.8875
+  },
+  "temporal_bm25": {
+    "recall_at_5": 0.4590625,
+    "hit_at_5": 0.9125,
+    "ndcg_at_5": 0.49550049524081685,
+    "complete_at_5": 0.07916666666666666,
+    "flow_complete_at_5": 0.07916666666666666,
+    "edge_recall": null,
+    "uncertainty_accuracy": 0.8875
+  },
+  "ta_rag": {
+    "recall_at_5": 0.27694444444444444,
+    "hit_at_5": 0.70625,
+    "ndcg_at_5": 0.29068467204336146,
+    "complete_at_5": 0.0375,
+    "flow_complete_at_5": 0.0375,
+    "edge_recall": null,
+    "uncertainty_accuracy": 0.8875
+  },
+  "tef_rag_stage3d": {
+    "recall_at_5": 0.7228125,
+    "hit_at_5": 0.9875,
+    "ndcg_at_5": 0.6231480206091232,
+    "complete_at_5": 0.31875,
+    "flow_complete_at_5": 0.3145833333333333,
+    "edge_recall": 0.43645833333333334,
+    "uncertainty_accuracy": 0.9666666666666667
+  }
+}

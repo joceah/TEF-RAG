@@ -50,6 +50,7 @@ class LLMRelationConfig:
     max_pairs_per_query: int = 16
     batch_size: int = 16
     cases_per_request: int = 8
+    case_batch_mode: bool = False
     llm_confidence_threshold: float = 0.60
     hybrid_llm_weight: float = 0.75
     prefilter_heuristic_floor: float = 0.52
@@ -274,6 +275,8 @@ class LLMRelationClient:
                        "prompt_tokens": 0, "completion_tokens": 0, "invalid_type_count": 0}
         expected = {(pair["source"]["evidence_id"], pair["target"]["evidence_id"]) for pair in pairs}
         last_error = "unknown"
+        last_response_shape = None
+        last_response_symbols = None
 
         for attempt in range(self.config.max_retries + 1):
             diagnostics["request_count"] += 1
@@ -285,7 +288,64 @@ class LLMRelationClient:
                 diagnostics["prompt_tokens"] += int(usage.get("prompt_tokens") or 0)
                 diagnostics["completion_tokens"] += int(usage.get("completion_tokens") or 0)
                 parsed = _recover_json(response["choices"][0]["message"]["content"])
+                def response_shape(value, depth=0):
+                    if depth >= 4:
+                        return type(value).__name__
+                    if isinstance(value, dict):
+                        return {str(key): response_shape(item, depth + 1) for key, item in value.items()}
+                    if isinstance(value, list):
+                        return {"list_length": len(value), "items": [response_shape(item, depth + 1) for item in value[:2]]}
+                    return type(value).__name__
+                last_response_shape = response_shape(parsed)
+                def response_symbols(value):
+                    output = []
+                    if isinstance(value, list):
+                        if len(value) == 3 and all(not isinstance(item, (list, dict)) for item in value):
+                            output.append([str(value[0])[:80], str(value[1])[:80], str(value[2])[:80]])
+                        else:
+                            for item in value:
+                                output.extend(response_symbols(item))
+                    elif isinstance(value, dict):
+                        for item in value.values():
+                            output.extend(response_symbols(item))
+                    return sorted({tuple(item) for item in output})
+                last_response_symbols = response_symbols(parsed)
                 rows = parsed.get("judgments") if isinstance(parsed, dict) else None
+                compact = parsed.get("cases") if isinstance(parsed, dict) else None
+                def compact_results(value):
+                    if (isinstance(value, list) and len(value) == len(pairs)
+                            and all(isinstance(item, list) and len(item) == 3
+                                    and (str(item[0]).upper() in self.relation_by_code
+                                         or str(item[0]) in self.allowed | {NO_EDGE}) for item in value)):
+                        return value
+                    if isinstance(value, list):
+                        found = [result for item in value if (result := compact_results(item)) is not None]
+                        if len(found) == 1:
+                            return found[0]
+                    return None
+                compact_values = compact_results(compact)
+                if not isinstance(rows, list) and compact_values is not None:
+                    converted = []
+                    for pair, result in zip(pairs, compact_values):
+                        relation = self.relation_by_code.get(str(result[0]).upper())
+                        if relation is None and str(result[0]) in self.allowed | {NO_EDGE}:
+                            relation = str(result[0])
+                        try:
+                            confidence = float(str(result[1]).strip().removesuffix("%"))
+                            reason = (str(result[2]) if str(result[2]) in REASON_CODES
+                                      else REASON_CODES[int(result[2])])
+                        except (IndexError, TypeError, ValueError):
+                            relation = None
+                        if relation is None:
+                            converted = []
+                            break
+                        converted.append({"source_id": pair["source"]["evidence_id"],
+                            "target_id": pair["target"]["evidence_id"],
+                            "has_edge": relation != NO_EDGE, "relation_type": relation,
+                            "confidence": confidence / 100.0 if confidence > 1.0 else confidence,
+                            "reason_code": reason})
+                    if converted:
+                        rows = converted
                 if len(pairs) == 1 and isinstance(parsed, dict) and not isinstance(rows, list):
                     direct = parsed.get("judgment", parsed)
                     if isinstance(direct, dict) and "has_edge" in direct:
@@ -342,7 +402,8 @@ class LLMRelationClient:
         self._failure_log({
             "prompt_version": self.config.prompt_version,
             "query_fingerprint": hashlib.sha256(query["query_text"].encode("utf-8")).hexdigest(),
-            "pair_count": len(pairs), "error": last_error,
+            "pair_count": len(pairs), "error": last_error, "response_shape": last_response_shape,
+            "response_symbols": last_response_symbols,
         })
         failure = {
             (pair["source"]["evidence_id"], pair["target"]["evidence_id"]): {
@@ -636,13 +697,43 @@ class LLMRelationClient:
         diagnostics["llm_called_pair_count"] = len(missing)
         for start in range(0, len(missing), self.config.batch_size):
             batch = missing[start : start + self.config.batch_size]
-            judged, batch_diag = self._request_batch(query, batch)
+            if self.config.case_batch_mode:
+                case_id = hashlib.sha256(
+                    f"{query['query_text']}\n{query['query_time']}\n{start}".encode("utf-8")
+                ).hexdigest()[:16]
+                case_judged, batch_diag = self._request_case_batch(
+                    [{"case_id": case_id, "query": query, "pairs": batch}]
+                )
+                if case_judged is None and len(batch) > 1:
+                    case_judged = {}
+                    for offset, pair in enumerate(batch):
+                        split_id = f"{case_id}-{offset:02d}"
+                        split, split_diag = self._request_case_batch(
+                            [{"case_id": split_id, "query": query, "pairs": [pair]}]
+                        )
+                        for diag_key in ("request_count", "retry_count", "malformed_count", "latency_seconds",
+                                         "prompt_tokens", "completion_tokens", "invalid_type_count",
+                                         "padded_missing_count"):
+                            batch_diag[diag_key] += split_diag.get(diag_key, 0)
+                        if split is None or split_diag.get("padded_missing_count"):
+                            case_judged = None
+                            break
+                        (_, source_id, target_id), value = next(iter(split.items()))
+                        case_judged[(case_id, source_id, target_id)] = value
+                judged = ({(source, target): value for (_, source, target), value in case_judged.items()}
+                          if case_judged is not None and not batch_diag.get("padded_missing_count") else None)
+            else:
+                judged, batch_diag = self._request_batch(query, batch)
             for key in ("request_count", "retry_count", "malformed_count", "latency_seconds", "prompt_tokens",
                         "completion_tokens", "invalid_type_count"):
                 diagnostics[key] += batch_diag[key]
             for pair in batch:
                 key = (pair["source"]["evidence_id"], pair["target"]["evidence_id"])
-                value = judged[key]
+                value = (judged[key] if judged is not None else {
+                    "source_id": key[0], "target_id": key[1], "has_edge": False,
+                    "relation_type": NO_EDGE, "confidence": 0.0,
+                    "reason_code": "client_failure_after_retries",
+                })
                 output[key] = value
                 if value.get("reason_code") != "client_failure_after_retries":
                     self._save_cache(pair["fingerprint"], value)
