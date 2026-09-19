@@ -188,10 +188,12 @@ def build_prompt(query: dict[str, Any], selected: list[dict[str, Any]], output_s
 
 
 class DeepSeekClient:
-    def __init__(self, cache_dir: Path):
+    def __init__(self, cache_dir: Path, official: bool = False):
         env = read_env()
-        self.key = env["API_KEY"]
         self.endpoint = env.get("ENDPOINT", BASE_URL.rstrip("/") + "/chat/completions")
+        if official and self.endpoint != BASE_URL.rstrip("/") + "/chat/completions":
+            raise RuntimeError("formal generation requires the official DeepSeek endpoint")
+        self.key = env["API_KEY"]
         self.cache_dir = cache_dir
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         self.last_call = 0.0
@@ -208,7 +210,7 @@ class DeepSeekClient:
             "max_tokens": MAX_TOKENS,
             "response_format": {"type": "json_object"},
         }
-        request_hash = sha_text(json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")))
+        request_hash = sha_text(json.dumps({"endpoint": self.endpoint, "payload": payload}, ensure_ascii=False, sort_keys=True, separators=(",", ":")))
         cache_path = self.cache_dir / f"{request_hash}.json"
         if cache_path.exists():
             self.stats["cache_hits"] += 1

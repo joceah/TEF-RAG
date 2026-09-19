@@ -30,6 +30,16 @@ python scripts/run_tef_rag_v6_generation_eval.py evaluate --private-root ../.tef
 
 `evaluate` verifies those hashes and the private generation-gold SHA256 before scoring. Item-level test scores are written only below the private gold root; the repository receives aggregate metrics only.
 
+## Integrity gates before a formal run
+
+The preflight requires materialized public `queries_test.jsonl` and `evidence.jsonl`, all five retrieval prediction files, and their frozen hashes. The two public file hashes must be supplied in the tracked generation metadata file `materialized_artifact_hashes.json` under their filenames. The retrieval prediction hashes and query-ID hash come from the sealed retrieval manifest. Missing files or missing/mismatched hashes stop the run; preflight does not recreate retrieval outputs.
+
+Formal generation accepts only `https://api.deepseek.com/chat/completions`. Each generation row records endpoint, model, prompt, schema, temperature and token limit. `freeze` locks those values plus the evaluator, schema and registries. `evaluate` rechecks the locks before private gold access. Existing formal metrics, final manifest or private item-level details stop a second official evaluation.
+
+The current public test aggregate provides the private gold SHA256, but lacks `private_index_sha256` and `semantic_gold_sha256_by_id`. The latter must bind every stable `semantic_gold_id` in the index to the canonical SHA256 of its private semantic gold object. Duplicate semantic objects would additionally require an explicit stable ID inside each gold object. Without independently frozen public mapping values, the evaluator fails closed before opening the private gold; line-order pairing is not accepted. Do not derive expected values during the formal run.
+
+The frozen protocol requires structured parameter `{value, unit}` entries, while the published development gold currently contains direct string parameter values. That conflict must be resolved and independently frozen before tightening schema validation for formal scoring. This hardening branch preserves existing published gold semantics and does not rewrite the gold or prompt.
+
 ## Reported metrics
 
 - Schema Validity

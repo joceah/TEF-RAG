@@ -13,6 +13,7 @@ from tef_rag_v6.generation_eval import (
     validate_generation_output,
 )
 from tef_rag_v6.generation_runner import (
+    ROOT,
     PUBLIC,
     GEN_META,
     OUT,
@@ -23,6 +24,7 @@ from tef_rag_v6.generation_runner import (
     METHODS,
     MODEL,
     BASE_URL,
+    MAX_TOKENS,
     TEMPERATURE,
     PROMPT_VERSION,
     GENERATION_PROTOCOL_VERSION,
@@ -46,6 +48,18 @@ from tef_rag_v6.generation_runner import (
     write_jsonl,
 )
 
+EVALUATOR_FILES = ("tef_rag_v6/generation_eval.py", "tef_rag_v6/generation_eval_cli.py")
+
+
+def scoring_fingerprint() -> dict[str, Any]:
+    return {
+        "schema_sha256": sha256(GEN_META / "schema.json"),
+        "alias_registry_sha256": sha256(GEN_META / "alias_registry.json"),
+        "parameter_registry_sha256": sha256(GEN_META / "parameter_registry.json"),
+        "evaluator_sha256": {name: sha256(ROOT / name) for name in EVALUATOR_FILES},
+        "protocol_version": GENERATION_PROTOCOL_VERSION,
+    }
+
 
 def expected_retrieval_hashes() -> dict[str, str]:
     manifest = read_json(RETRIEVAL_MANIFEST)
@@ -61,15 +75,23 @@ def preflight() -> dict[str, Any]:
         GEN_META / "alias_registry.json",
         GEN_META / "parameter_registry.json",
         GEN_META / "test_generation_gold_aggregate.json",
+        GEN_META / "materialized_artifact_hashes.json",
     ]
     missing = [str(path) for path in required if not path.exists()]
     if missing:
         raise RuntimeError("missing required files: " + "; ".join(missing))
 
     qs = queries()
+    materialized = read_json(GEN_META / "materialized_artifact_hashes.json")
+    for name in ("queries_test.jsonl", "evidence.jsonl"):
+        expected = materialized.get(name)
+        if not isinstance(expected, str) or sha256(PUBLIC / name) != expected:
+            raise RuntimeError(f"materialized artifact hash missing or changed: {name}")
     qids = [query["query_id"] for query in qs]
     evidence = evidence_map()
     expected_hashes = expected_retrieval_hashes()
+    if sha_text(json.dumps(qids, ensure_ascii=False, separators=(",", ":"))) != read_json(RETRIEVAL_MANIFEST)["query_ids_sha256"]:
+        raise RuntimeError("test query IDs differ from sealed retrieval manifest")
     problems: list[str] = []
     for method, path in retrieval_paths().items():
         if not path.exists():
@@ -100,6 +122,7 @@ def preflight() -> dict[str, Any]:
         "test_queries": 480,
         "methods": list(METHODS),
         "retrieval_prediction_hashes": expected_hashes,
+        "materialized_artifact_hashes": materialized,
         "generation_schema_sha256": sha256(GEN_META / "schema.json"),
         "alias_registry_sha256": sha256(GEN_META / "alias_registry.json"),
         "parameter_registry_sha256": sha256(GEN_META / "parameter_registry.json"),
@@ -126,7 +149,7 @@ def run_generation(methods: tuple[str, ...]) -> dict[str, Any]:
     evidence = evidence_map()
     retrieval = retrieval_predictions()
     output_schema = schema()
-    client = DeepSeekClient(CACHE / "api_cache")
+    client = DeepSeekClient(CACHE / "api_cache", official=True)
     existing = {method: load_generation_rows(method) for method in methods}
 
     for method in methods:
@@ -156,6 +179,14 @@ def run_generation(methods: tuple[str, ...]) -> dict[str, Any]:
                 "generation": final,
                 "repair_used": repair_used,
                 "validation_errors": errors,
+                "request_provenance": {
+                    "endpoint": client.endpoint,
+                    "model": MODEL,
+                    "prompt_sha256": sha_text(generator_instructions()),
+                    "schema_sha256": sha256(GEN_META / "schema.json"),
+                    "temperature": TEMPERATURE,
+                    "max_tokens": MAX_TOKENS,
+                },
             }
             existing[method].append(row)
             write_jsonl(PRED_OUT / f"{method}.jsonl", existing[method])
@@ -170,6 +201,10 @@ def run_generation(methods: tuple[str, ...]) -> dict[str, Any]:
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "methods": list(methods),
         "client_stats": client.stats,
+        "endpoint": client.endpoint,
+        "model": MODEL,
+        "prompt_sha256": sha_text(generator_instructions()),
+        "schema_sha256": sha256(GEN_META / "schema.json"),
         "unresolved": unresolved,
     }
     write_json(OUT / "generation_runtime.json", runtime)
@@ -196,6 +231,15 @@ def validate_generation_files() -> dict[str, str]:
             selected = list(retrieval[method][index]["selected_evidence_ids"])
             if row.get("input_evidence_ids") != selected:
                 raise RuntimeError(f"{method}/{query['query_id']}: retrieval input changed")
+            if row.get("request_provenance") != {
+                "endpoint": BASE_URL.rstrip("/") + "/chat/completions",
+                "model": MODEL,
+                "prompt_sha256": sha_text(generator_instructions()),
+                "schema_sha256": sha256(GEN_META / "schema.json"),
+                "temperature": TEMPERATURE,
+                "max_tokens": MAX_TOKENS,
+            }:
+                raise RuntimeError(f"{method}/{query['query_id']}: missing or changed request provenance")
             errors = validate_generation_output(
                 row.get("generation"),
                 output_schema,
@@ -212,9 +256,13 @@ def validate_generation_files() -> dict[str, str]:
 
 
 def freeze() -> dict[str, Any]:
+    if (OUT / "generation_prediction_manifest.json").exists():
+        raise RuntimeError("generation predictions already frozen")
     pre = preflight()
     hashes = validate_generation_files()
     runtime = read_json(OUT / "generation_runtime.json") if (OUT / "generation_runtime.json").exists() else {}
+    if runtime.get("endpoint") != BASE_URL.rstrip("/") + "/chat/completions" or runtime.get("model") != MODEL or runtime.get("prompt_sha256") != sha_text(generator_instructions()) or runtime.get("schema_sha256") != pre["generation_schema_sha256"]:
+        raise RuntimeError("formal generation runtime provenance missing or changed")
     manifest = {
         "status": "GENERATION_PREDICTIONS_FROZEN_BEFORE_PRIVATE_GOLD_ACCESS",
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
@@ -229,11 +277,14 @@ def freeze() -> dict[str, Any]:
         },
         "protocol_version": GENERATION_PROTOCOL_VERSION,
         "retrieval_prediction_hashes": pre["retrieval_prediction_hashes"],
+        "materialized_artifact_hashes": pre["materialized_artifact_hashes"],
         "generation_prediction_hashes": hashes,
         "schema_sha256": pre["generation_schema_sha256"],
         "alias_registry_sha256": pre["alias_registry_sha256"],
         "parameter_registry_sha256": pre["parameter_registry_sha256"],
         "prompt_sha256": sha_text(generator_instructions()),
+        "scoring_fingerprint": scoring_fingerprint(),
+        "request_config": {"max_tokens": MAX_TOKENS, "response_format": "json_object"},
         "private_generation_gold_expected_sha256": pre["private_generation_gold_expected_sha256"],
         "private_generation_gold_accessed": False,
         "retrieval_relations_passed_to_generator": False,
@@ -249,30 +300,66 @@ def load_private_gold(root: Path) -> tuple[dict[str, dict[str, Any]], str]:
     index_path = root / "gold_test_index.jsonl"
     if not gold_path.exists() or not index_path.exists():
         raise RuntimeError("private generation gold/index missing")
-    expected = read_json(GEN_META / "test_generation_gold_aggregate.json")["private_gold_sha256"]
+    metadata = read_json(GEN_META / "test_generation_gold_aggregate.json")
+    expected = metadata["private_gold_sha256"]
+    index_expected = metadata.get("private_index_sha256")
+    row_hashes = metadata.get("semantic_gold_sha256_by_id")
+    if not index_expected or not isinstance(row_hashes, dict) or len(row_hashes) != 240:
+        raise RuntimeError("sealed public metadata lacks private_index_sha256 and semantic_gold_sha256_by_id; cannot safely pair private gold and index")
     actual = sha256(gold_path)
     if actual != expected:
         raise RuntimeError(f"private generation gold SHA mismatch: {actual}")
+    if sha256(index_path) != index_expected:
+        raise RuntimeError("private gold index SHA mismatch")
     gold_rows = read_jsonl(gold_path)
     index_rows = read_jsonl(index_path)
     if len(gold_rows) != 240 or len(index_rows) != 240:
         raise RuntimeError("expected 240 semantic private gold objects")
     by_query: dict[str, dict[str, Any]] = {}
-    for gold, index in zip(gold_rows, index_rows):
+    gold_by_hash = {}
+    for gold in gold_rows:
+        digest = sha_text(json.dumps(gold, ensure_ascii=False, sort_keys=True, separators=(",", ":")))
+        if digest in gold_by_hash:
+            raise RuntimeError("duplicate private semantic gold object hash")
+        gold_by_hash[digest] = gold
+    if set(gold_by_hash) != set(row_hashes.values()):
+        raise RuntimeError("private semantic gold mapping hash mismatch")
+    seen_semantic_ids: set[str] = set()
+    for index in index_rows:
+        semantic_id = index.get("semantic_gold_id")
+        if semantic_id not in row_hashes:
+            raise RuntimeError("private index semantic gold ID absent from frozen metadata")
+        if semantic_id in seen_semantic_ids:
+            raise RuntimeError("duplicate private index semantic gold ID")
+        seen_semantic_ids.add(semantic_id)
+        gold = gold_by_hash[row_hashes[semantic_id]]
         for query_id in index.get("query_ids", []):
             if query_id in by_query:
                 raise RuntimeError(f"duplicate private gold query id {query_id}")
             by_query[query_id] = gold
     if len(by_query) != 480:
         raise RuntimeError("private gold index must cover 480 query rows")
+    if seen_semantic_ids != set(row_hashes):
+        raise RuntimeError("private index does not cover frozen semantic IDs")
     return by_query, actual
 
 
 def evaluate(private_root: Path) -> dict[str, Any]:
+    if (OUT / "final_evaluation_manifest.json").exists() or (OUT / "metrics.json").exists():
+        raise RuntimeError("formal generation evaluation already completed or artifacts exist")
+    if (private_root / "evaluation_details_v1").exists():
+        raise RuntimeError("private item-level evaluation artifacts already exist")
     manifest_path = OUT / "generation_prediction_manifest.json"
     if not manifest_path.exists():
         raise RuntimeError("freeze generation predictions before evaluation")
     manifest = read_json(manifest_path)
+    if manifest.get("scoring_fingerprint") != scoring_fingerprint():
+        raise RuntimeError("frozen evaluator/schema/registry/config changed")
+    if manifest.get("prompt_sha256") != sha_text(generator_instructions()) or manifest.get("request_config") != {"max_tokens": MAX_TOKENS, "response_format": "json_object"}:
+        raise RuntimeError("frozen prompt/request config changed")
+    pre = preflight()
+    if pre["retrieval_prediction_hashes"] != manifest.get("retrieval_prediction_hashes") or pre["materialized_artifact_hashes"] != manifest.get("materialized_artifact_hashes"):
+        raise RuntimeError("frozen retrieval or materialized benchmark inputs changed")
     current = validate_generation_files()
     if current != manifest["generation_prediction_hashes"]:
         raise RuntimeError("generation predictions changed after freeze")

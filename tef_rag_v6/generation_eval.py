@@ -6,6 +6,8 @@ work order/action plan against generation gold under protocol v1.2.
 from __future__ import annotations
 
 from collections import deque
+from decimal import Decimal
+from itertools import combinations, permutations
 import json
 import math
 import re
@@ -86,7 +88,48 @@ class Canonicalizer:
             return [self.parameter_value(v) for v in value]
         return self.text(value) if isinstance(value, str) else value
 
+    def _si(self, value: Any, unit: Any) -> tuple[Any, Any]:
+        units = {
+            "v": ("v", "1"), "mv": ("v", "0.001"), "kv": ("v", "1000"),
+            "a": ("a", "1"), "ma": ("a", "0.001"),
+            "ω": ("ohm", "1"), "ohm": ("ohm", "1"), "kω": ("ohm", "1000"), "kohm": ("ohm", "1000"),
+            "pa": ("pa", "1"), "kpa": ("pa", "1000"), "mpa": ("pa", "1000000"),
+            "s": ("s", "1"), "ms": ("s", "0.001"), "min": ("s", "60"), "h": ("s", "3600"),
+            "k": ("k", "1"), "°c": ("k", "1"), "℃": ("k", "1"),
+        }
+        key = self.text(unit) if unit is not None else None
+        if not isinstance(value, (int, float)) or isinstance(value, bool) or key not in units:
+            return value, key
+        target, factor = units[key]
+        result = Decimal(str(value)) * Decimal(factor)
+        if key in ("°c", "℃"):
+            result += Decimal("273.15")
+        return result, target
+
+    def _parameter_entry_equal(self, left: Any, right: Any) -> bool:
+        if not isinstance(left, dict) or not isinstance(right, dict):
+            return self.text(left) == self.text(right) if isinstance(left, str) and isinstance(right, str) else left == right
+        if set(left) != {"value", "unit"} or set(right) != {"value", "unit"}:
+            return False
+        lv, lu = left["value"], left["unit"]
+        rv, ru = right["value"], right["unit"]
+        if isinstance(lv, dict) or isinstance(rv, dict):
+            if not isinstance(lv, dict) or not isinstance(rv, dict) or set(lv) != {"lower", "upper"} or set(rv) != {"lower", "upper"}:
+                return False
+            return all(self._parameter_entry_equal({"value": lv[k], "unit": lu}, {"value": rv[k], "unit": ru}) for k in ("lower", "upper"))
+        lv, lu = self._si(lv, lu)
+        rv, ru = self._si(rv, ru)
+        if lu != ru:
+            return False
+        if isinstance(lv, (int, float, Decimal)) and not isinstance(lv, bool) and isinstance(rv, (int, float, Decimal)) and not isinstance(rv, bool):
+            return abs(Decimal(str(lv)) - Decimal(str(rv))) <= Decimal(str(self.numeric_tolerance))
+        return self.text(lv) == self.text(rv) if isinstance(lv, str) and isinstance(rv, str) else lv == rv
+
     def parameters_equal(self, left: Any, right: Any) -> bool:
+        if isinstance(left, dict) and isinstance(right, dict):
+            l = {self.parameter_key(k): v for k, v in left.items()}
+            r = {self.parameter_key(k): v for k, v in right.items()}
+            return set(l) == set(r) and all(self._parameter_entry_equal(l[k], r[k]) for k in l)
         if isinstance(left, (int, float)) and not isinstance(left, bool) and isinstance(right, (int, float)) and not isinstance(right, bool):
             return math.isclose(float(left), float(right), rel_tol=0.0, abs_tol=self.numeric_tolerance)
         if type(left) is not type(right):
@@ -170,8 +213,7 @@ def transitive_closure(actions: list[dict[str, Any]]) -> set[tuple[str, str]]:
     nodes = set(_ids(actions))
     graph: dict[str, set[str]] = {node: set() for node in nodes}
     for source, target in dependency_edges(actions):
-        if source in nodes and target in nodes:
-            graph[source].add(target)
+        graph.setdefault(source, set()).add(target)
     closure: set[tuple[str, str]] = set()
     for source in nodes:
         stack = list(graph[source])
@@ -182,7 +224,7 @@ def transitive_closure(actions: list[dict[str, Any]]) -> set[tuple[str, str]]:
                 continue
             seen.add(target)
             closure.add((source, target))
-            stack.extend(graph[target] - seen)
+            stack.extend(graph.get(target, set()) - seen)
     return closure
 
 
@@ -207,6 +249,44 @@ def maximum_action_matching(pred_actions: list[dict[str, Any]], gold_actions: li
     for pid in sorted(adjacency):
         augment(pid, set())
     return {pid: gid for gid, pid in match_gold.items()}
+
+
+def resolve_duplicate_matching(pred: dict[str, Any], gold: dict[str, Any], canon: Canonicalizer, initial: dict[str, str]) -> dict[str, str]:
+    """Choose a maximum matching using graph, recommendation and citation semantics."""
+    groups: dict[str, list[str]] = {}
+    for action in pred["action_plan"]:
+        aid = str(action["action_id"])
+        groups.setdefault(canon.action_key(action), []).append(aid)
+    candidates = [initial]
+    for pids in groups.values():
+        sample = next(action for action in pred["action_plan"] if str(action["action_id"]) == pids[0])
+        gids = [str(action["action_id"]) for action in gold["action_plan"] if canon.action_equal(sample, action)]
+        if len(pids) < 2 or not gids:
+            continue
+        count = min(len(pids), len(gids))
+        expanded = []
+        for mapping in candidates:
+            base = {pid: gid for pid, gid in mapping.items() if pid not in pids}
+            for selected in combinations(pids, count):
+                for ordered in permutations(gids, count):
+                    choice = {**base, **dict(zip(selected, ordered))}
+                    if len(choice) == len(initial) and len(set(choice.values())) == len(choice):
+                        expanded.append(choice)
+                        if len(expanded) > 50000:
+                            raise RuntimeError("ambiguous duplicate-action matching exceeds deterministic limit")
+        if expanded:
+            candidates = expanded
+    gold_closure = transitive_closure(gold["action_plan"])
+    gold_links = _claim_links(gold, None, canon, prediction=False)
+    gold_rec = set(map(str, gold["work_order"]["recommended_actions"]))
+    pred_rec = set(map(str, pred["work_order"]["recommended_actions"]))
+    def score(mapping: dict[str, str]) -> tuple[int, int, int]:
+        closure, _, _ = _map_closure(pred["action_plan"], mapping)
+        links = _claim_links(pred, mapping, canon, prediction=True)
+        return (len(closure & gold_closure) - len(closure - gold_closure),
+                len(links & gold_links) - len(links - gold_links),
+                len({mapping[x] for x in pred_rec if x in mapping} & gold_rec))
+    return max(candidates, key=score)
 
 
 def f1(tp: int, fp: int, fn: int) -> tuple[float, float, float]:
@@ -343,6 +423,7 @@ def evaluate_generation_prediction(
     pred_actions = pred.get("action_plan", []) if isinstance(pred.get("action_plan"), list) else []
     gold_actions = gold.get("action_plan", []) if isinstance(gold.get("action_plan"), list) else []
     mapping = maximum_action_matching(pred_actions, gold_actions, canon)
+    mapping = resolve_duplicate_matching(pred, gold, canon, mapping)
     matched = len(mapping)
     ap, ar, af = f1(matched, len(pred_actions) - matched, len(gold_actions) - matched)
 
@@ -374,7 +455,7 @@ def evaluate_generation_prediction(
     all_actions_exact = matched == len(pred_actions) == len(gold_actions)
     plan_em = float(
         all_actions_exact and rec_mapping_ok and sorted(mapped_rec) == gold_rec
-        and pred_closure_mapped == gold_closure
+        and all_edge_nodes_matched and pred_closure_mapped == gold_closure
     )
 
     slot_scores: list[float] = []
