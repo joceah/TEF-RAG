@@ -1,0 +1,24 @@
+{
+  "before_edit": {
+    "head": "935832eb4d59ac11eacf4d95d50d7fcf0da5c3d4",
+    "status_short": [
+      "?? results/v6/generation_eval_v1/"
+    ],
+    "diff_name_status": []
+  },
+  "after_diagnostic": {
+    "head": "935832eb4d59ac11eacf4d95d50d7fcf0da5c3d4",
+    "status_short": [
+      " M tef_rag_v6/generation_runner.py",
+      "?? results/v6/generation_eval_v1/"
+    ],
+    "diff_name_status": [
+      "M tef_rag_v6/generation_runner.py"
+    ]
+  },
+  "source_diff": "D:\\electric-project\\.tef_v6_generation_diagnostics\\935832_tef_stage3d_C0059_I02_P2_20260919Tdiag1\\diagnostic_source_diff.patch",
+  "instrumented_source": true,
+  "formal_generation_resumed": false,
+  "private_gold_or_index_accessed": false,
+  "formal_predictions_or_cache_written": false
+}

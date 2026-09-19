@@ -35,8 +35,10 @@ def test_frozen_retrieval_length_distributions_are_preserved():
 
 
 def test_short_output_protocol_version_is_sealed():
-    assert runner.GENERATION_PROTOCOL_VERSION == "v1.7-transport-syntax-normalization"
+    assert runner.GENERATION_PROTOCOL_VERSION == "v1.8-premature-root-close-normalization"
     assert cli.scoring_fingerprint()["protocol_version"] == runner.GENERATION_PROTOCOL_VERSION
+    assert runner.OUT.name == "generation_eval_v1_8_premature_root_close"
+    assert runner.CACHE.name == "tef_rag_v6_generation_eval_v1_8_premature_root_close"
 
 
 def test_canonical_model_is_bound_in_request_payload_and_session():
@@ -125,6 +127,11 @@ def test_transport_protocol_changes_session_but_not_request_fingerprint(monkeypa
     [
         ('{"a":1}', "strict", {"a": 1}),
         ('{"a":1}}', "single_extra_closing_brace", {"a": 1}),
+        (
+            '{"work_order":{"asset_id":"Rack-A"}},"action_plan":[]}',
+            "premature_root_close",
+            {"work_order": {"asset_id": "Rack-A"}, "action_plan": []},
+        ),
     ],
 )
 def test_generation_parser_accepts_only_strict_object_or_one_extra_brace(raw, mode, expected):
@@ -154,6 +161,54 @@ def test_generation_parser_accepts_only_strict_object_or_one_extra_brace(raw, mo
 def test_generation_parser_rejects_other_malformed_or_trailing_content(raw):
     with pytest.raises((json.JSONDecodeError, ValueError)):
         runner.parse_generation_json_object(raw)
+
+
+@pytest.mark.parametrize(
+    "raw",
+    [
+        '{"work_order":{}}},"action_plan":[]}',
+        '{"work_order":{}},"action_plan":[]} trailing',
+        '{"work_order":{"asset_id":"unterminated},"action_plan":[]}',
+        '{"work_order":{}}"action_plan":[]}',
+        '{"work_order":{}},"unexpected":[]}',
+        '{"work_order":{},"action_plan":[]},"action_plan":[]}',
+        '{"work_order":{}},"action_plan":[],"action_plan":[]}',
+        '[],"action_plan":[]}',
+        '{"work_order":{}},"action_plan":[]}extra}',
+        '{"work_order":{}},"action_plan":}',
+        '{"work_order":{"nested":"unterminated},"action_plan":[]}',
+        '{"work_order":{}}{"action_plan":[]}',
+    ],
+)
+def test_premature_root_close_rejects_unsafe_variants(raw):
+    with pytest.raises((json.JSONDecodeError, ValueError)):
+        runner.parse_generation_json_object(raw)
+
+
+def test_premature_root_close_provenance_and_schema_path():
+    raw = '{"work_order":{"asset_id":"Rack-A"}},"action_plan":[]}'
+    result, provenance = runner.parse_generation_json_object(raw)
+    assert provenance["parse_mode"] == "premature_root_close"
+    assert provenance["normalization_removed_chars"] == 1
+    assert provenance["original_json_decode_error_msg"] == "Extra data"
+    assert provenance["original_json_decode_error_pos"] == 36
+    assert provenance["recovered_root_key"] == "action_plan"
+    assert provenance["normalization_version"] == runner.PREMATURE_ROOT_CLOSE_NORMALIZATION_VERSION
+    assert provenance["provider_content_sha256"] == runner.sha_text(raw)
+    assert provenance["accepted_json_text_sha256"] == runner.sha_text(json.dumps(result, separators=(",", ":")))
+    assert runner.validate_parse_provenance(provenance) == []
+    assert validate_generation_output(result, schema(), set(), "Rack-A")
+
+
+def test_observed_premature_root_close_shape_recovers_action_plan():
+    raw = (
+        '{"work_order":{"asset_id":"C-T07","diagnosis":{"status":"confirmed"}}},'
+        '"action_plan":[{"action_id":"A1","action_type":"repair","target":"part",'
+        '"parameters":{},"depends_on":[],"supporting_evidence_ids":["E1"]}]}'
+    )
+    result, provenance = runner.parse_generation_json_object(raw)
+    assert provenance["parse_mode"] == "premature_root_close"
+    assert result["action_plan"][0]["action_id"] == "A1"
 
 
 def test_strict_parser_does_not_change_valid_json():

@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 import re
 import time
+import traceback
 import urllib.error
 import urllib.request
 from typing import Any
@@ -21,9 +22,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 PUBLIC = ROOT / "data/generated/tef_v6_temporal_hard_benchmark_v1/public"
 GEN_META = ROOT / "data/generated/tef_v6_generation_gold_v1/metadata"
-OUT = ROOT / "results/v6/generation_eval_v1"
+OUT = ROOT / "results/v6/generation_eval_v1_8_premature_root_close"
 PRED_OUT = OUT / "predictions"
-CACHE = ROOT / ".cache/tef_rag_v6_generation_eval_v1"
+CACHE = ROOT / ".cache/tef_rag_v6_generation_eval_v1_8_premature_root_close"
 RETRIEVAL_ROOT = ROOT / "results/v6/sealed_test/predictions"
 RETRIEVAL_MANIFEST = ROOT / "results/v6/sealed_test/prediction_manifest.json"
 DEFAULT_PRIVATE = Path(os.environ.get("TEF_GENERATION_PRIVATE_ROOT", str(ROOT.parent / ".tef_v6_generation_gold_private")))
@@ -35,7 +36,8 @@ MAX_TOKENS = 5000
 THINKING_MODE = "disabled"
 CALL_INTERVAL = 1.2
 PROMPT_VERSION = "tef-v6-generation-eval-v1.3"
-GENERATION_PROTOCOL_VERSION = "v1.7-transport-syntax-normalization"
+GENERATION_PROTOCOL_VERSION = "v1.8-premature-root-close-normalization"
+PREMATURE_ROOT_CLOSE_NORMALIZATION_VERSION = "premature-root-close-v1"
 
 
 def read_json(path: Path) -> Any:
@@ -184,11 +186,24 @@ def _clean_generation_content(raw_content: str) -> str:
     return content
 
 
-def parse_generation_json_object(raw_content: str) -> tuple[dict[str, Any], dict[str, Any]]:
-    """Parse one provider response with the sole approved syntax normalization.
+def _reject_duplicate_json_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    result: dict[str, Any] = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError("duplicate JSON object key")
+        result[key] = value
+    return result
 
-    A complete JSON object followed by exactly one closing brace is a known
-    provider transport artifact. No other malformed or trailing content is
+
+def parse_generation_json_object(
+    raw_content: str,
+    expected_root_keys: set[str] | None = None,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Parse one provider response with the approved transport normalizations.
+
+    A complete JSON object followed by exactly one closing brace, or a
+    premature root close immediately before a declared root field, are known
+    provider transport artifacts. No other malformed or trailing content is
     accepted, and semantic/schema validation remains the caller's job.
     """
     if not isinstance(raw_content, str):
@@ -212,23 +227,64 @@ def parse_generation_json_object(raw_content: str) -> tuple[dict[str, Any], dict
         except json.JSONDecodeError:
             raise strict_error
         trailing = cleaned[end:]
-        if not isinstance(value, dict) or trailing != "}" or len(trailing) != 1:
-            raise strict_error
-        normalized = cleaned[:end]
-        try:
-            verified = json.loads(normalized)
-        except json.JSONDecodeError:
-            raise strict_error
-        if not isinstance(verified, dict) or verified != value:
-            raise strict_error
-        provenance = {
-            **base,
-            "parse_mode": "single_extra_closing_brace",
-            "accepted_json_text_sha256": sha_text(normalized),
-            "accepted_json_text_length": len(normalized),
-            "normalization_removed_chars": 1,
-        }
-        return verified, provenance
+        if isinstance(value, dict) and trailing == "}" and len(trailing) == 1:
+            normalized = cleaned[:end]
+            try:
+                verified = json.loads(normalized)
+            except json.JSONDecodeError:
+                raise strict_error
+            if not isinstance(verified, dict) or verified != value:
+                raise strict_error
+            provenance = {
+                **base,
+                "parse_mode": "single_extra_closing_brace",
+                "accepted_json_text_sha256": sha_text(normalized),
+                "accepted_json_text_length": len(normalized),
+                "normalization_removed_chars": 1,
+            }
+            return verified, provenance
+
+        root_keys = expected_root_keys
+        if root_keys is None:
+            output_schema = schema()
+            properties = output_schema.get("properties") if isinstance(output_schema, dict) else None
+            root_keys = set(properties) if isinstance(properties, dict) else set()
+        recovered_root_key = next(
+            (
+                key
+                for key in sorted(root_keys)
+                if trailing.startswith(f',"{key}":') and key not in value
+            ),
+            None,
+        ) if isinstance(value, dict) else None
+        if (
+            isinstance(value, dict)
+            and end > 0
+            and cleaned[end - 1] == "}"
+            and recovered_root_key is not None
+        ):
+            reconstructed = cleaned[: end - 1] + cleaned[end:]
+            if len(reconstructed) != len(cleaned) - 1:
+                raise strict_error
+            try:
+                verified = json.loads(reconstructed, object_pairs_hook=_reject_duplicate_json_keys)
+            except (json.JSONDecodeError, ValueError):
+                raise strict_error
+            if not isinstance(verified, dict) or recovered_root_key not in verified:
+                raise strict_error
+            provenance = {
+                **base,
+                "parse_mode": "premature_root_close",
+                "accepted_json_text_sha256": sha_text(reconstructed),
+                "accepted_json_text_length": len(reconstructed),
+                "normalization_removed_chars": 1,
+                "original_json_decode_error_msg": strict_error.msg,
+                "original_json_decode_error_pos": strict_error.pos,
+                "recovered_root_key": recovered_root_key,
+                "normalization_version": PREMATURE_ROOT_CLOSE_NORMALIZATION_VERSION,
+            }
+            return verified, provenance
+        raise strict_error
     if not isinstance(value, dict):
         raise ValueError("JSON object required")
     provenance = {
@@ -247,7 +303,7 @@ def validate_parse_provenance(value: Any) -> list[str]:
         return ["parse provenance must be an object"]
     errors: list[str] = []
     mode = value.get("parse_mode")
-    if mode not in {"strict", "single_extra_closing_brace"}:
+    if mode not in {"strict", "single_extra_closing_brace", "premature_root_close"}:
         errors.append("parse_mode is invalid")
     for key in ("provider_content_sha256", "cleaned_content_sha256", "accepted_json_text_sha256"):
         digest = value.get(key)
@@ -272,6 +328,20 @@ def validate_parse_provenance(value: Any) -> list[str]:
                 errors.append("normalized parse must remove exactly one character")
             if value["accepted_json_text_length"] != value["cleaned_content_length"] - 1:
                 errors.append("normalized parse accepted length is invalid")
+        elif mode == "premature_root_close":
+            if value["normalization_removed_chars"] != 1:
+                errors.append("premature-root normalization must remove exactly one character")
+            if value["accepted_json_text_length"] != value["cleaned_content_length"] - 1:
+                errors.append("premature-root accepted length is invalid")
+            if value.get("normalization_version") != PREMATURE_ROOT_CLOSE_NORMALIZATION_VERSION:
+                errors.append("premature-root normalization version is invalid")
+            if not isinstance(value.get("original_json_decode_error_msg"), str) or not value["original_json_decode_error_msg"]:
+                errors.append("original JSON decode message is invalid")
+            error_pos = value.get("original_json_decode_error_pos")
+            if not isinstance(error_pos, int) or isinstance(error_pos, bool) or error_pos < 0:
+                errors.append("original JSON decode position is invalid")
+            if not isinstance(value.get("recovered_root_key"), str) or not value["recovered_root_key"]:
+                errors.append("recovered root key is invalid")
     return errors
 
 
@@ -290,7 +360,7 @@ def build_prompt(query: dict[str, Any], selected: list[dict[str, Any]], output_s
 
 
 class DeepSeekClient:
-    def __init__(self, cache_dir: Path, official: bool = False):
+    def __init__(self, cache_dir: Path, official: bool = False, diagnostic_dir: Path | None = None):
         env = read_env()
         self.endpoint = env.get("ENDPOINT", BASE_URL.rstrip("/") + "/chat/completions")
         if official and self.endpoint != BASE_URL.rstrip("/") + "/chat/completions":
@@ -298,6 +368,10 @@ class DeepSeekClient:
         self.key = env["API_KEY"]
         self.cache_dir = cache_dir
         self.cache_dir.mkdir(parents=True, exist_ok=True)
+        self.diagnostic_dir = diagnostic_dir
+        if self.diagnostic_dir is not None:
+            self.diagnostic_dir.mkdir(parents=True, exist_ok=True)
+        self.diagnostic_events: list[dict[str, Any]] = []
         self.last_call = 0.0
         self.last_request_hash: str | None = None
         self.last_parse_provenance: dict[str, Any] | None = None
@@ -324,6 +398,111 @@ class DeepSeekClient:
         except (TypeError, ValueError):
             pass
 
+    @staticmethod
+    def _diagnostic_excerpt(text: str, position: int | None = None) -> dict[str, Any]:
+        excerpt: dict[str, Any] = {
+            "first_300": text[:300],
+            "last_300": text[-300:] if text else "",
+        }
+        if position is not None:
+            start = max(0, position - 200)
+            excerpt["around_error"] = text[start:min(len(text), position + 200)]
+            excerpt["around_error_start"] = start
+        return excerpt
+
+    def _write_diagnostic_failure(
+        self,
+        logical_key: str,
+        request_hash: str,
+        attempt: int,
+        layer: str,
+        exc: BaseException,
+        *,
+        raw_body: bytes | None = None,
+        response_status: int | None = None,
+        response_headers: dict[str, Any] | None = None,
+        envelope: dict[str, Any] | None = None,
+        finish_reason: Any = None,
+        content: str | None = None,
+        parser_mode: str | None = None,
+    ) -> None:
+        if self.diagnostic_dir is None:
+            return
+        safe_key = re.sub(r"[^A-Za-z0-9_.-]+", "_", logical_key).strip("_") or request_hash
+        stem = f"{safe_key}_attempt{attempt + 1}"
+        headers = {
+            str(key): str(value).replace(self.key, "<API_KEY_REDACTED>")
+            for key, value in (response_headers or {}).items()
+        }
+        event: dict[str, Any] = {
+            "logical_key": logical_key,
+            "request_fingerprint": request_hash,
+            "attempt": attempt + 1,
+            "layer": layer,
+            "exception": {
+                "type": type(exc).__name__,
+                "message": str(exc),
+                "repr": repr(exc),
+            },
+            "http_status": response_status,
+            "content_type": headers.get("Content-Type"),
+            "response_headers": headers,
+            "response_id": envelope.get("id") if isinstance(envelope, dict) else None,
+            "response_model": envelope.get("model") if isinstance(envelope, dict) else None,
+            "finish_reason": finish_reason,
+            "usage": envelope.get("usage") if isinstance(envelope, dict) else None,
+            "streaming": False,
+            "parser_mode_attempted": parser_mode,
+            "raw_response_from_cache": False,
+        }
+        if isinstance(exc, json.JSONDecodeError):
+            event["json_decode_error"] = {
+                "msg": exc.msg,
+                "lineno": exc.lineno,
+                "colno": exc.colno,
+                "pos": exc.pos,
+            }
+        if raw_body is not None:
+            raw_text = raw_body.decode("utf-8", errors="replace").replace(self.key, "<API_KEY_REDACTED>")
+            lower = raw_text.lstrip().lower()
+            appearance = "empty" if not raw_text else "json_or_unknown"
+            if lower.startswith("<html") or "<html" in lower[:200]:
+                appearance = "html"
+            elif lower.startswith("event:") or "\nevent:" in lower[:200]:
+                appearance = "sse"
+            elif not lower.startswith(("{", "[")):
+                appearance = "plaintext_or_unknown"
+            event["raw_body_byte_length"] = len(raw_body)
+            event["raw_body_char_length"] = len(raw_text)
+            event["raw_body_appearance"] = appearance
+            event["raw_body_excerpt"] = self._diagnostic_excerpt(
+                raw_text,
+                exc.pos if isinstance(exc, json.JSONDecodeError) else None,
+            )
+            raw_path = self.diagnostic_dir / f"{stem}_raw_response.txt"
+            raw_path.write_text(raw_text, encoding="utf-8")
+            event["raw_response_path"] = str(raw_path)
+        if content is not None:
+            safe_content = content.replace(self.key, "<API_KEY_REDACTED>")
+            event["content_char_length"] = len(safe_content)
+            event["content_byte_length"] = len(safe_content.encode("utf-8"))
+            event["content_empty"] = not bool(safe_content)
+            event["content_excerpt"] = self._diagnostic_excerpt(
+                safe_content,
+                exc.pos if isinstance(exc, json.JSONDecodeError) else None,
+            )
+            content_path = self.diagnostic_dir / f"{stem}_assistant_content.txt"
+            content_path.write_text(safe_content, encoding="utf-8")
+            event["assistant_content_path"] = str(content_path)
+        traceback_path = self.diagnostic_dir / f"{stem}_traceback.txt"
+        traceback_text = "".join(traceback.format_exception(type(exc), exc, exc.__traceback__))
+        traceback_path.write_text(traceback_text.replace(self.key, "<API_KEY_REDACTED>"), encoding="utf-8")
+        event["traceback_path"] = str(traceback_path)
+        event_path = self.diagnostic_dir / f"{stem}_failure.json"
+        event_path.write_text(json.dumps(event, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        event["diagnostic_path"] = str(event_path)
+        self.diagnostic_events.append(event)
+
     def call(self, system: str, user: str, logical_key: str) -> dict[str, Any]:
         payload = request_payload(system, user)
         request_hash = request_fingerprint(self.endpoint, system, user)
@@ -346,6 +525,9 @@ class DeepSeekClient:
         for attempt in range(3):
             self.last_call = time.monotonic()
             self.stats["requests"] += 1
+            raw_body: bytes | None = None
+            response_status: int | None = None
+            response_headers: dict[str, Any] = {}
             try:
                 req = urllib.request.Request(
                     self.endpoint,
@@ -353,7 +535,32 @@ class DeepSeekClient:
                     headers={"Content-Type": "application/json", "Authorization": "Bearer " + self.key},
                 )
                 with urllib.request.urlopen(req, timeout=240) as response:
-                    data = json.load(response)
+                    if self.diagnostic_dir is None:
+                        data = json.load(response)
+                    else:
+                        response_status = getattr(response, "status", None)
+                        response_headers_obj = getattr(response, "headers", None)
+                        response_headers = (
+                            dict(response_headers_obj)
+                            if response_headers_obj is not None
+                            else {}
+                        )
+                        raw_body = response.read()
+                        try:
+                            data = json.loads(raw_body.decode("utf-8"))
+                        except json.JSONDecodeError as exc:
+                            self._write_diagnostic_failure(
+                                logical_key,
+                                request_hash,
+                                attempt,
+                                "http_response_json",
+                                exc,
+                                raw_body=raw_body,
+                                response_status=response_status,
+                                response_headers=response_headers,
+                                parser_mode="http_envelope_json",
+                            )
+                            raise
                 if not isinstance(data, dict):
                     raise ValueError("JSON response envelope must be an object")
                 usage = data.get("usage") or {}
@@ -368,7 +575,24 @@ class DeepSeekClient:
                 if not isinstance(message, dict):
                     raise ValueError("response message envelope is invalid")
                 content = str(message.get("content", ""))
-                result, parse_provenance = parse_generation_json_object(content)
+                try:
+                    result, parse_provenance = parse_generation_json_object(content)
+                except json.JSONDecodeError as exc:
+                    self._write_diagnostic_failure(
+                        logical_key,
+                        request_hash,
+                        attempt,
+                        "assistant_content_json",
+                        exc,
+                        raw_body=raw_body,
+                        response_status=response_status,
+                        response_headers=response_headers,
+                        envelope=data,
+                        finish_reason=choice.get("finish_reason"),
+                        content=content,
+                        parser_mode="strict_then_transport_normalizations",
+                    )
+                    raise
                 self.last_parse_provenance = parse_provenance
                 write_json(cache_path, {
                     "logical_key": logical_key,
@@ -381,11 +605,11 @@ class DeepSeekClient:
             except urllib.error.HTTPError as exc:
                 if exc.code in (401, 402, 403) or attempt == 2:
                     self.stats["failures"] += 1
-                    raise RuntimeError(f"DeepSeek HTTP {exc.code}") from None
+                    raise RuntimeError(f"DeepSeek HTTP {exc.code}") from exc
             except (urllib.error.URLError, TimeoutError, json.JSONDecodeError, KeyError, ValueError, TypeError) as exc:
                 if attempt == 2:
                     self.stats["failures"] += 1
-                    raise RuntimeError(f"DeepSeek generation failure: {type(exc).__name__}") from None
+                    raise RuntimeError(f"DeepSeek generation failure: {type(exc).__name__}") from exc
             self.stats["retries"] += 1
             time.sleep(CALL_INTERVAL * (attempt + 1))
         raise RuntimeError("unreachable")

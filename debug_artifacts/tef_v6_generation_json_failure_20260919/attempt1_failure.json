@@ -1,0 +1,72 @@
+{
+  "logical_key": "TEFV6-C0059-I02-post_arrival-P2",
+  "request_fingerprint": "29d49b8b10f61fbfdc977b88b00a474c644a22580b482c2dfe6b00202284eb21",
+  "attempt": 1,
+  "layer": "assistant_content_json",
+  "exception": {
+    "type": "JSONDecodeError",
+    "message": "Extra data: line 1 column 1045 (char 1044)",
+    "repr": "JSONDecodeError('Extra data: line 1 column 1045 (char 1044)')"
+  },
+  "http_status": 200,
+  "content_type": "application/json",
+  "response_headers": {
+    "Content-Type": "application/json",
+    "Transfer-Encoding": "chunked",
+    "Connection": "close",
+    "Date": "Sat, 19 Sep 2026 14:34:38 GMT",
+    "X-Content-Type-Options": "nosniff",
+    "Server": "elb",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-credentials": "true",
+    "x-ds-trace-id": "a6b8e014cfd9b9c9ddf5e871bc95d67a",
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
+    "X-Cache": "Miss from cloudfront",
+    "Via": "1.1 e6fee154206c62588f17535ec08da33a.cloudfront.net (CloudFront)",
+    "X-Amz-Cf-Pop": "NRT20-P2",
+    "X-Amz-Cf-Id": "IhZNYi71DEpUostOTF0w9i7c3XuR89S0AG3ARZy2e8_KoKLqdLLWkQ=="
+  },
+  "response_id": "c06785ad-18c2-4585-879d-445b3f9eaf46",
+  "response_model": "deepseek-flash",
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 1852,
+    "completion_tokens": 553,
+    "total_tokens": 2405,
+    "prompt_tokens_details": {
+      "cached_tokens": 1664
+    },
+    "prompt_cache_hit_tokens": 1664,
+    "prompt_cache_miss_tokens": 188
+  },
+  "streaming": false,
+  "parser_mode_attempted": "strict_then_single_extra_closing_brace",
+  "raw_response_from_cache": false,
+  "json_decode_error": {
+    "msg": "Extra data",
+    "lineno": 1,
+    "colno": 1045,
+    "pos": 1044
+  },
+  "raw_body_byte_length": 2313,
+  "raw_body_char_length": 2183,
+  "raw_body_appearance": "json_or_unknown",
+  "raw_body_excerpt": {
+    "first_300": "{\"id\":\"c06785ad-18c2-4585-879d-445b3f9eaf46\",\"object\":\"chat.completion\",\"created\":1789828478,\"model\":\"deepseek-flash\",\"choices\":[{\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"work_order\\\":{\\\"asset_id\\\":\\\"C-T07\\\",\\\"diagnosis\\\":{\\\"status\\\":\\\"confirmed\\\",\\\"concept\\\":\\\"可定位的局部部件异常\\\",\\\"supporting",
+    "last_300": "-C0059-E08\\\"]}]}\"},\"logprobs\":null,\"finish_reason\":\"stop\"}],\"usage\":{\"prompt_tokens\":1852,\"completion_tokens\":553,\"total_tokens\":2405,\"prompt_tokens_details\":{\"cached_tokens\":1664},\"prompt_cache_hit_tokens\":1664,\"prompt_cache_miss_tokens\":188},\"system_fingerprint\":\"aeb56401ca74e127821c4f9126dcb669\"}",
+    "around_error": "[{\\\"action_id\\\":\\\"A1\\\",\\\"action_type\\\":\\\"repair\\\",\\\"target\\\":\\\"已定位部件\\\",\\\"parameters\\\":{},\\\"depends_on\\\":[],\\\"supporting_evidence_ids\\\":[\\\"TEFV6-C0059-E07\\\",\\\"TEFV6-C0059-E08\\\"]},{\\\"action_id\\\":\\\"A2\\\",\\\"action_type\\\":\\\"verify\\\",\\\"target\\\":\\\"已定位部件\\\",\\\"parameters\\\":{},\\\"depends_on\\\":[\\\"A1\\\"],\\\"supporting_evidence_ids\\\":[\\\"TEFV6-C0059-E08\\\"]},{\\\"action_id\\\":\\\"A3\\\",\\\"action_type\\\":\\\"document\\\",\\\"target",
+    "around_error_start": 844
+  },
+  "raw_response_path": "D:\\electric-project\\.tef_v6_generation_diagnostics\\935832_tef_stage3d_C0059_I02_P2_20260919Tdiag1\\TEFV6-C0059-I02-post_arrival-P2_attempt1_raw_response.txt",
+  "content_char_length": 1512,
+  "content_byte_length": 1642,
+  "content_empty": false,
+  "content_excerpt": {
+    "first_300": "{\"work_order\":{\"asset_id\":\"C-T07\",\"diagnosis\":{\"status\":\"confirmed\",\"concept\":\"可定位的局部部件异常\",\"supporting_evidence_ids\":[\"TEFV6-C0059-E05\",\"TEFV6-C0059-E06\",\"TEFV6-C0059-E07\"]},\"recommended_actions\":[\"A1\",\"A2\",\"A3\"],\"applicable_procedure\":{\"status\":\"applicable\",\"procedure_version\":\"批准SOP\",\"supporting_e",
+    "last_300": "]},{\"action_id\":\"A2\",\"action_type\":\"verify\",\"target\":\"已定位部件\",\"parameters\":{},\"depends_on\":[\"A1\"],\"supporting_evidence_ids\":[\"TEFV6-C0059-E08\"]},{\"action_id\":\"A3\",\"action_type\":\"document\",\"target\":\"原工单\",\"parameters\":{},\"depends_on\":[],\"supporting_evidence_ids\":[\"TEFV6-C0059-E07\",\"TEFV6-C0059-E08\"]}]}",
+    "around_error": "pporting_evidence_ids\":[\"TEFV6-C0059-E08\"]},{\"action_id\":\"A3\",\"action_type\":\"document\",\"target\":\"原工单\",\"parameters\":{},\"depends_on\":[],\"supporting_evidence_ids\":[\"TEFV6-C0059-E07\",\"TEFV6-C0059-E08\"]}]},\"action_plan\":[{\"action_id\":\"A1\",\"action_type\":\"repair\",\"target\":\"已定位部件\",\"parameters\":{},\"depends_on\":[],\"supporting_evidence_ids\":[\"TEFV6-C0059-E07\",\"TEFV6-C0059-E08\"]},{\"action_id\":\"A2\",\"action_typ",
+    "around_error_start": 844
+  },
+  "assistant_content_path": "D:\\electric-project\\.tef_v6_generation_diagnostics\\935832_tef_stage3d_C0059_I02_P2_20260919Tdiag1\\TEFV6-C0059-I02-post_arrival-P2_attempt1_assistant_content.txt",
+  "traceback_path": "D:\\electric-project\\.tef_v6_generation_diagnostics\\935832_tef_stage3d_C0059_I02_P2_20260919Tdiag1\\TEFV6-C0059-I02-post_arrival-P2_attempt1_traceback.txt"
+}
