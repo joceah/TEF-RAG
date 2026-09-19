@@ -1,0 +1,8 @@
+{
+  "split": "test",
+  "chains": 80,
+  "semantic_gold_objects": 240,
+  "private_gold_sha256": "dccf5a831b9b145d5aab26288088d14d2e9af6fafd06d4eced3a22983a7c9aea",
+  "item_level_gold_committed": false,
+  "canonicalization_version": "v1.1"
+}

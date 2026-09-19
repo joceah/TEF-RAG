@@ -1,0 +1,39 @@
+{
+  "canonicalization_version": "v1.1",
+  "splits": {
+    "development": {
+      "semantic_gold_objects": 720,
+      "schema_valid": 720,
+      "temporal_valid": 720,
+      "procedure_valid": 720,
+      "citation_valid": 720,
+      "provenance_valid": 720,
+      "dag_valid": 720,
+      "paraphrase_consistent": 720,
+      "review_unresolved": 0
+    },
+    "validation": {
+      "semantic_gold_objects": 240,
+      "schema_valid": 240,
+      "temporal_valid": 240,
+      "procedure_valid": 240,
+      "citation_valid": 240,
+      "provenance_valid": 240,
+      "dag_valid": 240,
+      "paraphrase_consistent": 240,
+      "review_unresolved": 0
+    },
+    "test": {
+      "semantic_gold_objects": 240,
+      "schema_valid": 240,
+      "temporal_valid": 240,
+      "procedure_valid": 240,
+      "citation_valid": 240,
+      "provenance_valid": 240,
+      "dag_valid": 240,
+      "paraphrase_consistent": 240,
+      "review_unresolved": 0
+    }
+  },
+  "all_checks_pass": true
+}
