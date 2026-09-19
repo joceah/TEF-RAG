@@ -6,11 +6,11 @@ This runner evaluates whether better retrieval evidence flows improve the final 
 
 All five frozen retrieval methods use exactly the same downstream generator:
 
-- model: `deepseek-chat`
+- model: `deepseek-flash`
 - base URL: official DeepSeek API
 - temperature: `0`
 - prompt version: `tef-v6-generation-eval-v1.3`
-- protocol version: `v1.4-short-output-clarification`
+- protocol version: `v1.5-model-correction`
 - one repair attempt maximum
 - identical JSON schema and canonicalization registries
 
@@ -25,7 +25,7 @@ python scripts/run_tef_rag_v6_generation_eval.py freeze
 python scripts/run_tef_rag_v6_generation_eval.py evaluate --private-root ../.tef_v6_generation_gold_private
 ```
 
-`generate --all` is the only formal mode. It interleaves calls query-major across all five methods; `--method` is rejected. The v1.4 short-output clarification is in `plans/TEF_RAG_v6_generation_evaluation_protocol_v1_4_short_retrieval_output_clarification.md`.
+`generate --all` is the only formal mode. It interleaves calls query-major across all five methods; `--method` is rejected. The v1.4 short-output clarification and v1.5 model correction are in `plans/TEF_RAG_v6_generation_evaluation_protocol_v1_4_short_retrieval_output_clarification.md` and `plans/TEF_RAG_v6_generation_evaluation_protocol_v1_5_model_correction.md`.
 
 `freeze` must complete before private generation gold is read. It hashes every generation prediction file and records `private_generation_gold_accessed=false`.
 

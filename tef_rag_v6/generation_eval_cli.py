@@ -190,6 +190,7 @@ def preflight() -> dict[str, Any]:
         "private_generation_index_expected_sha256": expected_index_hash,
         "private_generation_gold_accessed": False,
         "prompt_version": PROMPT_VERSION,
+        "protocol_version": GENERATION_PROTOCOL_VERSION,
         "model": MODEL,
         "temperature": TEMPERATURE,
     }
@@ -200,6 +201,26 @@ def preflight() -> dict[str, Any]:
 def load_generation_rows(method: str) -> list[dict[str, Any]]:
     path = PRED_OUT / f"{method}.jsonl"
     return read_jsonl(path) if path.exists() else []
+
+
+def ensure_clean_generation_restart(existing: dict[str, list[dict[str, Any]]], session: str) -> None:
+    """Refuse to resume rows from a different formal session.
+
+    Aborted predictions are retained for audit and must be archived outside the
+    repository before a new formal session starts. They are never rewritten as
+    rows for the new model/protocol session.
+    """
+    for method, rows in existing.items():
+        mismatched = [
+            index
+            for index, row in enumerate(rows)
+            if row.get("session_fingerprint") != session
+        ]
+        if mismatched:
+            raise RuntimeError(
+                f"{method}: resume session mismatch; existing rows belong to a different formal session "
+                "and must be archived outside the repository before clean restart"
+            )
 
 
 def run_generation(methods: tuple[str, ...]) -> dict[str, Any]:
@@ -214,6 +235,7 @@ def run_generation(methods: tuple[str, ...]) -> dict[str, Any]:
     retrieval = retrieval_predictions()
     output_schema = schema()
     existing = {method: load_generation_rows(method) for method in methods}
+    ensure_clean_generation_restart(existing, session)
 
     for method in methods:
         if len(existing[method]) > len(qs):

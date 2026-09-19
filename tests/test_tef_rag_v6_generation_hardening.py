@@ -35,8 +35,58 @@ def test_frozen_retrieval_length_distributions_are_preserved():
 
 
 def test_short_output_protocol_version_is_sealed():
-    assert runner.GENERATION_PROTOCOL_VERSION == "v1.4-short-output-clarification"
+    assert runner.GENERATION_PROTOCOL_VERSION == "v1.5-model-correction"
     assert cli.scoring_fingerprint()["protocol_version"] == runner.GENERATION_PROTOCOL_VERSION
+
+
+def test_canonical_model_is_bound_in_request_payload_and_session():
+    assert runner.MODEL == "deepseek-flash"
+    query = {"query_id": "Q", "query_text": "test", "query_time": "2021-01-01T00:00:00+00:00", "asset_id": "Rack-A"}
+    system, user = runner.build_prompt(query, [], schema())
+    payload = runner.request_payload(system, user)
+    assert payload["model"] == "deepseek-flash"
+    pre = {
+        "retrieval_prediction_hashes": {method: f"{method}-hash" for method in cli.METHODS},
+        "materialized_artifact_hashes": {"queries_test.jsonl": "q", "evidence.jsonl": "e"},
+    }
+    baseline = cli.formal_session_fingerprint(pre)
+    original_model = cli.MODEL
+    original_protocol = cli.GENERATION_PROTOCOL_VERSION
+    try:
+        cli.MODEL = "deepseek-v4-flash"
+        assert cli.formal_session_fingerprint(pre) != baseline
+        cli.MODEL = original_model
+        cli.GENERATION_PROTOCOL_VERSION = "v1.4-short-output-clarification"
+        assert cli.formal_session_fingerprint(pre) != baseline
+    finally:
+        cli.MODEL = original_model
+        cli.GENERATION_PROTOCOL_VERSION = original_protocol
+
+
+def test_model_correction_preserves_prompt_schema_retrieval_and_repair_contract():
+    assert runner.PROMPT_VERSION == "tef-v6-generation-eval-v1.3"
+    assert runner.TEMPERATURE == 0.0
+    query = {"query_id": "Q", "query_text": "test", "query_time": "2021-01-01T00:00:00+00:00", "asset_id": "Rack-A"}
+    system, user = runner.build_prompt(query, [], schema())
+    payload = runner.request_payload(system, user)
+    assert payload["temperature"] == 0.0
+    assert payload["response_format"] == {"type": "json_object"}
+    assert runner.sha_text(runner.generator_instructions()) == "07ce267fc5a7b4da0675723acd3f6d79dbe7ea83f882193da7133fc88fc61e74"
+    assert runner.sha256(runner.GEN_META / "schema.json") == "dfdbd8a38c9be95138a55af8f7672c33a3b25e3d3f8189d0e0edb7957334ab85"
+    manifest = runner.read_json(runner.RETRIEVAL_MANIFEST)
+    assert cli.expected_retrieval_hashes() == {
+        method: manifest["predictions"][method]["prediction_sha256"]
+        for method in cli.METHODS
+    }
+    assert "one repair" in Path("markdowns/tef_rag_v6_generation_evaluation_v1.md").read_text(encoding="utf-8").lower()
+
+
+def test_old_session_partial_rows_fail_closed_before_resume():
+    with pytest.raises(RuntimeError, match="different formal session"):
+        cli.ensure_clean_generation_restart(
+            {"bm25": [{"session_fingerprint": "a8db-deepseek-chat"}]},
+            "v1.5-deepseek-flash",
+        )
 
 
 def _visible_evidence(evidence_id: str) -> dict[str, object]:

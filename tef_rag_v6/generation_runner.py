@@ -28,13 +28,13 @@ RETRIEVAL_ROOT = ROOT / "results/v6/sealed_test/predictions"
 RETRIEVAL_MANIFEST = ROOT / "results/v6/sealed_test/prediction_manifest.json"
 DEFAULT_PRIVATE = Path(os.environ.get("TEF_GENERATION_PRIVATE_ROOT", str(ROOT.parent / ".tef_v6_generation_gold_private")))
 METHODS = ("bm25", "bge_reranker", "temporal_bm25", "ta_rag", "tef_rag_stage3d")
-MODEL = "deepseek-chat"
+MODEL = "deepseek-flash"
 BASE_URL = "https://api.deepseek.com"
 TEMPERATURE = 0.0
 MAX_TOKENS = 5000
 CALL_INTERVAL = 1.2
 PROMPT_VERSION = "tef-v6-generation-eval-v1.3"
-GENERATION_PROTOCOL_VERSION = "v1.4-short-output-clarification"
+GENERATION_PROTOCOL_VERSION = "v1.5-model-correction"
 
 
 def read_json(path: Path) -> Any:
