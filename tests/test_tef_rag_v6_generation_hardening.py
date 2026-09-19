@@ -35,7 +35,7 @@ def test_frozen_retrieval_length_distributions_are_preserved():
 
 
 def test_short_output_protocol_version_is_sealed():
-    assert runner.GENERATION_PROTOCOL_VERSION == "v1.6-nonthinking-runtime-clarification"
+    assert runner.GENERATION_PROTOCOL_VERSION == "v1.7-transport-syntax-normalization"
     assert cli.scoring_fingerprint()["protocol_version"] == runner.GENERATION_PROTOCOL_VERSION
 
 
@@ -105,6 +105,79 @@ def test_thinking_configuration_changes_request_and_session_fingerprints(monkeyp
     assert cli.formal_session_fingerprint(pre) != baseline_session
 
 
+def test_transport_protocol_changes_session_but_not_request_fingerprint(monkeypatch):
+    pre = {
+        "retrieval_prediction_hashes": {method: f"{method}-hash" for method in cli.METHODS},
+        "materialized_artifact_hashes": {"queries_test.jsonl": "q", "evidence.jsonl": "e"},
+    }
+    current_session = cli.formal_session_fingerprint(pre)
+    monkeypatch.setattr(cli, "GENERATION_PROTOCOL_VERSION", "v1.6-nonthinking-runtime-clarification")
+    assert cli.formal_session_fingerprint(pre) != current_session
+    query = next(row for row in runner.queries() if row["query_id"] == "TEFV6-C0017-I01-current_cause_action-P2")
+    retrieval_row = next(row for row in runner.retrieval_predictions()["bm25"] if row["query_id"] == query["query_id"])
+    evidence = runner.evidence_map()
+    system, user = runner.build_prompt(query, [evidence[eid] for eid in retrieval_row["selected_evidence_ids"]], runner.schema())
+    assert runner.request_fingerprint(cli.OFFICIAL_ENDPOINT, system, user) == "540da1cc4c43bd83bf1e158636797a77610db90cdcd5a6b92dc0443bcfa425c1"
+
+
+@pytest.mark.parametrize(
+    "raw,mode,expected",
+    [
+        ('{"a":1}', "strict", {"a": 1}),
+        ('{"a":1}}', "single_extra_closing_brace", {"a": 1}),
+    ],
+)
+def test_generation_parser_accepts_only_strict_object_or_one_extra_brace(raw, mode, expected):
+    result, provenance = runner.parse_generation_json_object(raw)
+    assert result == expected
+    assert provenance["parse_mode"] == mode
+    assert runner.validate_parse_provenance(provenance) == []
+    if mode == "strict":
+        assert provenance["normalization_removed_chars"] == 0
+        assert provenance["accepted_json_text_sha256"] == provenance["cleaned_content_sha256"]
+    else:
+        assert provenance["normalization_removed_chars"] == 1
+        assert provenance["accepted_json_text_length"] == provenance["cleaned_content_length"] - 1
+
+
+@pytest.mark.parametrize(
+    "raw",
+    [
+        '{"a":1}}}',
+        '{"a":1} garbage',
+        '{"a":1} }',
+        '{"a":',
+        '{"a":"unterminated}',
+        '[1,2]}',
+    ],
+)
+def test_generation_parser_rejects_other_malformed_or_trailing_content(raw):
+    with pytest.raises((json.JSONDecodeError, ValueError)):
+        runner.parse_generation_json_object(raw)
+
+
+def test_strict_parser_does_not_change_valid_json():
+    raw = '  \ufeff{"a":1}  '
+    result, provenance = runner.parse_generation_json_object(raw)
+    assert result == {"a": 1}
+    assert provenance["parse_mode"] == "strict"
+    assert provenance["normalization_removed_chars"] == 0
+
+
+def test_cache_hit_restores_parse_provenance(monkeypatch, tmp_path):
+    monkeypatch.setattr(runner, "read_env", lambda: {"API_KEY": "test"})
+    system, user = "system", "user"
+    _, provenance = runner.parse_generation_json_object('{"ok":true}}')
+    request_hash = runner.request_fingerprint(runner.BASE_URL.rstrip("/") + "/chat/completions", system, user)
+    cache = tmp_path / "cache"
+    cache.mkdir()
+    (cache / f"{request_hash}.json").write_text(json.dumps({"result": {"ok": True}, "usage": {}, "parse_provenance": provenance}), encoding="utf-8")
+    monkeypatch.setattr(runner.urllib.request, "urlopen", lambda *args, **kwargs: pytest.fail("cache hit made a network request"))
+    client = runner.DeepSeekClient(cache, official=True)
+    assert client.call(system, user, "cache") == {"ok": True}
+    assert client.last_parse_provenance == provenance
+
+
 class _FakeResponse:
     def __init__(self, body: bytes):
         self.body = body
@@ -137,7 +210,7 @@ def test_finish_reason_length_is_transport_failure_before_json_parse(monkeypatch
     client, calls = _client_for_response(
         monkeypatch,
         tmp_path,
-        {"choices": [{"finish_reason": "length", "message": {"content": '{"partial":'}}], "usage": {"prompt_tokens": 10, "completion_tokens": 20, "total_tokens": 30, "completion_tokens_details": {"reasoning_tokens": 19}}},
+        {"choices": [{"finish_reason": "length", "message": {"content": '{"partial":1}}'}}], "usage": {"prompt_tokens": 10, "completion_tokens": 20, "total_tokens": 30, "completion_tokens_details": {"reasoning_tokens": 19}}},
     )
     with pytest.raises(RuntimeError, match="ValueError"):
         client.call("system", "user", "length")
@@ -160,6 +233,19 @@ def test_finish_reason_stop_valid_json_is_returned(monkeypatch, tmp_path):
     assert client.call("system", "user", "stop") == {"ok": True}
     assert len(calls) == 1
     assert client.stats["reasoning_tokens"] == 0
+
+
+def test_finish_reason_stop_extra_brace_uses_transport_normalization(monkeypatch, tmp_path):
+    client, calls = _client_for_response(
+        monkeypatch,
+        tmp_path,
+        {"choices": [{"finish_reason": "stop", "message": {"content": '{"ok":true}}'}}], "usage": {"prompt_tokens": 1, "completion_tokens": 2, "total_tokens": 3}},
+    )
+    assert client.call("system", "user", "normalized") == {"ok": True}
+    assert len(calls) == 1
+    assert client.last_parse_provenance["parse_mode"] == "single_extra_closing_brace"
+    cached = next((tmp_path / "cache").glob("*.json"))
+    assert json.loads(cached.read_text(encoding="utf-8"))["parse_provenance"]["parse_mode"] == "single_extra_closing_brace"
 
 
 def test_finish_reason_stop_malformed_json_keeps_parser_retry_behavior(monkeypatch, tmp_path):
@@ -453,12 +539,16 @@ def test_post_repair_invalid_prediction_is_retained_for_freeze_validation():
     repair_system, repair_user = runner.repair_prompt(query, records, initial, initial_errors, output_schema)
     final = {"still": "invalid"}
     final_errors = validate_generation_output(final, output_schema, set(selected), query["asset_id"])
+    _, initial_parse_provenance = runner.parse_generation_json_object(json.dumps(initial))
+    _, repair_parse_provenance = runner.parse_generation_json_object(json.dumps(final))
     row = {
         "generation": final,
         "repair_used": True,
         "initial_generation": initial,
         "initial_validation_errors": initial_errors,
         "validation_errors": final_errors,
+        "initial_parse_provenance": initial_parse_provenance,
+        "repair_parse_provenance": repair_parse_provenance,
         "session_fingerprint": "session",
         "initial_request_fingerprint": runner.request_fingerprint(cli.OFFICIAL_ENDPOINT, system, user),
         "repair_request_fingerprint": runner.request_fingerprint(cli.OFFICIAL_ENDPOINT, repair_system, repair_user),

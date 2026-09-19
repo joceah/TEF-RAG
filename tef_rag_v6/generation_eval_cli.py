@@ -47,6 +47,7 @@ from tef_rag_v6.generation_runner import (
     schema,
     sha256,
     sha_text,
+    validate_parse_provenance,
     visible_at,
     write_json,
     write_jsonl,
@@ -231,6 +232,28 @@ def ensure_clean_generation_restart(existing: dict[str, list[dict[str, Any]]], s
             )
 
 
+def _require_parse_provenance(value: Any, label: str) -> None:
+    errors = validate_parse_provenance(value)
+    if errors:
+        raise RuntimeError(f"{label}: invalid parse provenance: " + "; ".join(errors))
+
+
+def _validate_transport_parse_runtime(runtime: dict[str, Any]) -> None:
+    modes = runtime.get("transport_parse_modes")
+    by_phase = runtime.get("transport_parse_modes_by_phase")
+    allowed = {"strict", "single_extra_closing_brace"}
+    if not isinstance(modes, dict) or set(modes) != allowed:
+        raise RuntimeError("formal generation runtime transport parse modes missing or changed")
+    if not isinstance(by_phase, dict) or set(by_phase) != {"initial", "repair"}:
+        raise RuntimeError("formal generation runtime transport parse phase modes missing or changed")
+    for name, values in [("all", modes), *by_phase.items()]:
+        if not isinstance(values, dict) or set(values) != allowed or any(
+            not isinstance(value, int) or isinstance(value, bool) or value < 0
+            for value in values.values()
+        ):
+            raise RuntimeError(f"formal generation runtime transport parse counts invalid: {name}")
+
+
 def run_generation(methods: tuple[str, ...]) -> dict[str, Any]:
     if methods != METHODS:
         raise RuntimeError("formal generation requires --all five methods")
@@ -259,6 +282,7 @@ def run_generation(methods: tuple[str, ...]) -> dict[str, Any]:
             system, user = build_prompt(query, selected, output_schema)
             if row.get("initial_request_fingerprint") != request_fingerprint(OFFICIAL_ENDPOINT, system, user):
                 raise RuntimeError(f"{method}/{query['query_id']}: resume initial request mismatch")
+            _require_parse_provenance(row.get("initial_parse_provenance"), f"{method}/{query['query_id']}: initial parse")
             if row.get("repair_used"):
                 initial = row.get("initial_generation")
                 errors = validate_generation_output(initial, output_schema, set(selected_ids), query["asset_id"])
@@ -268,8 +292,11 @@ def run_generation(methods: tuple[str, ...]) -> dict[str, Any]:
                 repair_hash = request_fingerprint(OFFICIAL_ENDPOINT, repair_system, repair_user)
                 if row.get("repair_request_fingerprint") != repair_hash:
                     raise RuntimeError(f"{method}/{query['query_id']}: resume repair request mismatch")
+                _require_parse_provenance(row.get("repair_parse_provenance"), f"{method}/{query['query_id']}: repair parse")
             elif row.get("repair_request_fingerprint") is not None:
                 raise RuntimeError(f"{method}/{query['query_id']}: unexpected repair provenance")
+            elif "repair_parse_provenance" not in row or row.get("repair_parse_provenance") is not None:
+                raise RuntimeError(f"{method}/{query['query_id']}: unexpected repair parse provenance")
     client = DeepSeekClient(CACHE / "api_cache", official=True)
 
     for index, query in enumerate(qs):
@@ -284,10 +311,13 @@ def run_generation(methods: tuple[str, ...]) -> dict[str, Any]:
             initial = client.call(system, user, f"generate:{method}:{query['query_id']}")
             if client.last_request_hash != initial_hash:
                 raise RuntimeError("initial request fingerprint differs from actual client payload")
+            initial_parse_provenance = client.last_parse_provenance
+            _require_parse_provenance(initial_parse_provenance, f"{method}/{query['query_id']}: initial parse")
             errors = validate_generation_output(initial, output_schema, set(selected_ids), query["asset_id"])
             initial_errors = errors
             repair_used = False
             repair_hash = None
+            repair_parse_provenance = None
             final = initial
             if errors:
                 repair_used = True
@@ -296,6 +326,8 @@ def run_generation(methods: tuple[str, ...]) -> dict[str, Any]:
                 final = client.call(repair_system, repair_user, f"repair:{method}:{query['query_id']}")
                 if client.last_request_hash != repair_hash:
                     raise RuntimeError("repair request fingerprint differs from actual client payload")
+                repair_parse_provenance = client.last_parse_provenance
+                _require_parse_provenance(repair_parse_provenance, f"{method}/{query['query_id']}: repair parse")
                 errors = validate_generation_output(final, output_schema, set(selected_ids), query["asset_id"])
             row = {
                 "query_id": query["query_id"],
@@ -308,6 +340,8 @@ def run_generation(methods: tuple[str, ...]) -> dict[str, Any]:
                 "repair_request_fingerprint": repair_hash,
                 "initial_generation": initial if repair_used else None,
                 "initial_validation_errors": initial_errors if repair_used else None,
+                "initial_parse_provenance": initial_parse_provenance,
+                "repair_parse_provenance": repair_parse_provenance,
                 "request_provenance": {
                     "endpoint": client.endpoint,
                     "model": MODEL,
@@ -327,6 +361,22 @@ def run_generation(methods: tuple[str, ...]) -> dict[str, Any]:
         method: sum(bool(row["validation_errors"]) for row in rows)
         for method, rows in existing.items()
     }
+    parse_modes = {"strict": 0, "single_extra_closing_brace": 0}
+    parse_modes_by_phase = {
+        "initial": {"strict": 0, "single_extra_closing_brace": 0},
+        "repair": {"strict": 0, "single_extra_closing_brace": 0},
+    }
+    for rows in existing.values():
+        for row in rows:
+            for phase, key in (("initial", "initial_parse_provenance"), ("repair", "repair_parse_provenance")):
+                provenance = row.get(key)
+                if provenance is None:
+                    continue
+                mode = provenance.get("parse_mode")
+                if mode not in parse_modes:
+                    raise RuntimeError(f"invalid transport parse mode in {phase} provenance")
+                parse_modes[mode] += 1
+                parse_modes_by_phase[phase][mode] += 1
     runtime = {
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "methods": list(methods),
@@ -339,6 +389,8 @@ def run_generation(methods: tuple[str, ...]) -> dict[str, Any]:
         "schema_sha256": sha256(GEN_META / "schema.json"),
         "session_fingerprint": session,
         "unresolved": unresolved,
+        "transport_parse_modes": parse_modes,
+        "transport_parse_modes_by_phase": parse_modes_by_phase,
     }
     write_json(OUT / "generation_runtime.json", runtime)
     return runtime
@@ -383,6 +435,7 @@ def validate_generation_row(
     system, user = build_prompt(query, records, output_schema)
     if row.get("initial_request_fingerprint") != request_fingerprint(OFFICIAL_ENDPOINT, system, user):
         raise RuntimeError(f"{label}: initial request fingerprint changed")
+    _require_parse_provenance(row.get("initial_parse_provenance"), f"{label}: initial parse")
     if row.get("repair_used"):
         initial = row.get("initial_generation")
         initial_errors = validate_generation_output(initial, output_schema, set(selected), query["asset_id"])
@@ -391,8 +444,11 @@ def validate_generation_row(
         repair_system, repair_user = repair_prompt(query, records, initial, initial_errors, output_schema)
         if row.get("repair_request_fingerprint") != request_fingerprint(OFFICIAL_ENDPOINT, repair_system, repair_user):
             raise RuntimeError(f"{label}: repair request fingerprint changed")
+        _require_parse_provenance(row.get("repair_parse_provenance"), f"{label}: repair parse")
     elif row.get("repair_request_fingerprint") is not None:
         raise RuntimeError(f"{label}: unexpected repair fingerprint")
+    elif "repair_parse_provenance" not in row or row.get("repair_parse_provenance") is not None:
+        raise RuntimeError(f"{label}: unexpected repair parse provenance")
     if row.get("request_provenance") != {
         "endpoint": OFFICIAL_ENDPOINT,
         "model": MODEL,
@@ -418,6 +474,7 @@ def freeze() -> dict[str, Any]:
     runtime = read_json(OUT / "generation_runtime.json") if (OUT / "generation_runtime.json").exists() else {}
     if runtime.get("endpoint") != OFFICIAL_ENDPOINT or runtime.get("model") != MODEL or runtime.get("thinking_mode") != THINKING_MODE or runtime.get("prompt_sha256") != sha_text(generator_instructions()) or runtime.get("schema_sha256") != pre["generation_schema_sha256"] or runtime.get("session_fingerprint") != session or runtime.get("methods") != list(METHODS):
         raise RuntimeError("formal generation runtime provenance missing or changed")
+    _validate_transport_parse_runtime(runtime)
     manifest = {
         "status": "GENERATION_PREDICTIONS_FROZEN_BEFORE_PRIVATE_GOLD_ACCESS",
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
@@ -447,6 +504,8 @@ def freeze() -> dict[str, Any]:
         "private_generation_gold_accessed": False,
         "retrieval_relations_passed_to_generator": False,
         "method_identity_passed_to_generator": False,
+        "transport_parse_modes": runtime["transport_parse_modes"],
+        "transport_parse_modes_by_phase": runtime["transport_parse_modes_by_phase"],
         "runtime": runtime.get("client_stats", {}),
     }
     write_json(OUT / "generation_prediction_manifest.json", manifest)

@@ -35,7 +35,7 @@ MAX_TOKENS = 5000
 THINKING_MODE = "disabled"
 CALL_INTERVAL = 1.2
 PROMPT_VERSION = "tef-v6-generation-eval-v1.3"
-GENERATION_PROTOCOL_VERSION = "v1.6-nonthinking-runtime-clarification"
+GENERATION_PROTOCOL_VERSION = "v1.7-transport-syntax-normalization"
 
 
 def read_json(path: Path) -> Any:
@@ -176,6 +176,105 @@ Rules:
 """
 
 
+def _clean_generation_content(raw_content: str) -> str:
+    """Apply the existing transport cleanup without changing JSON semantics."""
+    content = raw_content.strip().lstrip("\ufeff")
+    if content.startswith("```"):
+        content = re.sub(r"^```(?:json)?\s*|\s*```$", "", content, flags=re.I).strip()
+    return content
+
+
+def parse_generation_json_object(raw_content: str) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Parse one provider response with the sole approved syntax normalization.
+
+    A complete JSON object followed by exactly one closing brace is a known
+    provider transport artifact. No other malformed or trailing content is
+    accepted, and semantic/schema validation remains the caller's job.
+    """
+    if not isinstance(raw_content, str):
+        raise TypeError("generation content must be a string")
+    cleaned = _clean_generation_content(raw_content)
+    provider_sha = sha_text(raw_content)
+    cleaned_sha = sha_text(cleaned)
+    base = {
+        "provider_content_sha256": provider_sha,
+        "cleaned_content_sha256": cleaned_sha,
+        "provider_content_length": len(raw_content),
+        "cleaned_content_length": len(cleaned),
+    }
+    try:
+        value = json.loads(cleaned)
+    except json.JSONDecodeError as strict_error:
+        if strict_error.msg != "Extra data":
+            raise
+        try:
+            value, end = json.JSONDecoder().raw_decode(cleaned)
+        except json.JSONDecodeError:
+            raise strict_error
+        trailing = cleaned[end:]
+        if not isinstance(value, dict) or trailing != "}" or len(trailing) != 1:
+            raise strict_error
+        normalized = cleaned[:end]
+        try:
+            verified = json.loads(normalized)
+        except json.JSONDecodeError:
+            raise strict_error
+        if not isinstance(verified, dict) or verified != value:
+            raise strict_error
+        provenance = {
+            **base,
+            "parse_mode": "single_extra_closing_brace",
+            "accepted_json_text_sha256": sha_text(normalized),
+            "accepted_json_text_length": len(normalized),
+            "normalization_removed_chars": 1,
+        }
+        return verified, provenance
+    if not isinstance(value, dict):
+        raise ValueError("JSON object required")
+    provenance = {
+        **base,
+        "parse_mode": "strict",
+        "accepted_json_text_sha256": cleaned_sha,
+        "accepted_json_text_length": len(cleaned),
+        "normalization_removed_chars": 0,
+    }
+    return value, provenance
+
+
+def validate_parse_provenance(value: Any) -> list[str]:
+    """Validate the non-content provenance persisted with a prediction row/cache."""
+    if not isinstance(value, dict):
+        return ["parse provenance must be an object"]
+    errors: list[str] = []
+    mode = value.get("parse_mode")
+    if mode not in {"strict", "single_extra_closing_brace"}:
+        errors.append("parse_mode is invalid")
+    for key in ("provider_content_sha256", "cleaned_content_sha256", "accepted_json_text_sha256"):
+        digest = value.get(key)
+        if not isinstance(digest, str) or len(digest) != 64 or any(char not in "0123456789abcdef" for char in digest):
+            errors.append(f"{key} is invalid")
+    for key in ("provider_content_length", "cleaned_content_length", "accepted_json_text_length", "normalization_removed_chars"):
+        number = value.get(key)
+        if not isinstance(number, int) or isinstance(number, bool) or number < 0:
+            errors.append(f"{key} is invalid")
+    if not errors:
+        if value["provider_content_length"] < value["cleaned_content_length"]:
+            errors.append("provider content length is shorter than cleaned content")
+        if mode == "strict":
+            if value["normalization_removed_chars"] != 0:
+                errors.append("strict parse removed characters")
+            if value["accepted_json_text_sha256"] != value["cleaned_content_sha256"]:
+                errors.append("strict parse accepted hash differs from cleaned hash")
+            if value["accepted_json_text_length"] != value["cleaned_content_length"]:
+                errors.append("strict parse accepted length differs from cleaned length")
+        elif mode == "single_extra_closing_brace":
+            if value["normalization_removed_chars"] != 1:
+                errors.append("normalized parse must remove exactly one character")
+            if value["accepted_json_text_length"] != value["cleaned_content_length"] - 1:
+                errors.append("normalized parse accepted length is invalid")
+    return errors
+
+
 def build_prompt(query: dict[str, Any], selected: list[dict[str, Any]], output_schema: dict[str, Any]) -> tuple[str, str]:
     payload = {
         "prompt_version": PROMPT_VERSION,
@@ -201,6 +300,7 @@ class DeepSeekClient:
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         self.last_call = 0.0
         self.last_request_hash: str | None = None
+        self.last_parse_provenance: dict[str, Any] | None = None
         self.stats = {
             "requests": 0, "cache_hits": 0, "retries": 0, "failures": 0,
             "prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0,
@@ -228,10 +328,17 @@ class DeepSeekClient:
         payload = request_payload(system, user)
         request_hash = request_fingerprint(self.endpoint, system, user)
         self.last_request_hash = request_hash
+        self.last_parse_provenance = None
         cache_path = self.cache_dir / f"{request_hash}.json"
         if cache_path.exists():
+            cached = read_json(cache_path)
+            parse_provenance = cached.get("parse_provenance")
+            provenance_errors = validate_parse_provenance(parse_provenance)
+            if provenance_errors:
+                raise RuntimeError("generation cache entry has invalid parse provenance: " + "; ".join(provenance_errors))
             self.stats["cache_hits"] += 1
-            return read_json(cache_path)["result"]
+            self.last_parse_provenance = parse_provenance
+            return cached["result"]
         wait = CALL_INTERVAL - (time.monotonic() - self.last_call)
         if wait > 0:
             time.sleep(wait)
@@ -260,16 +367,14 @@ class DeepSeekClient:
                 message = choice.get("message")
                 if not isinstance(message, dict):
                     raise ValueError("response message envelope is invalid")
-                content = str(message.get("content", "")).strip().lstrip("\ufeff")
-                if content.startswith("```"):
-                    content = re.sub(r"^```(?:json)?\s*|\s*```$", "", content, flags=re.I).strip()
-                result = json.loads(content)
-                if not isinstance(result, dict):
-                    raise ValueError("JSON object required")
+                content = str(message.get("content", ""))
+                result, parse_provenance = parse_generation_json_object(content)
+                self.last_parse_provenance = parse_provenance
                 write_json(cache_path, {
                     "logical_key": logical_key,
                     "request_hash": request_hash,
                     "usage": usage,
+                    "parse_provenance": parse_provenance,
                     "result": result,
                 })
                 return result
