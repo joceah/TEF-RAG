@@ -32,9 +32,10 @@ MODEL = "deepseek-flash"
 BASE_URL = "https://api.deepseek.com"
 TEMPERATURE = 0.0
 MAX_TOKENS = 5000
+THINKING_MODE = "disabled"
 CALL_INTERVAL = 1.2
 PROMPT_VERSION = "tef-v6-generation-eval-v1.3"
-GENERATION_PROTOCOL_VERSION = "v1.5-model-correction"
+GENERATION_PROTOCOL_VERSION = "v1.6-nonthinking-runtime-clarification"
 
 
 def read_json(path: Path) -> Any:
@@ -203,7 +204,25 @@ class DeepSeekClient:
         self.stats = {
             "requests": 0, "cache_hits": 0, "retries": 0, "failures": 0,
             "prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0,
+            "reasoning_tokens": 0,
         }
+
+    def _record_usage(self, usage: Any) -> None:
+        if not isinstance(usage, dict):
+            return
+        for key in ("prompt_tokens", "completion_tokens", "total_tokens"):
+            try:
+                self.stats[key] += int(usage.get(key) or 0)
+            except (TypeError, ValueError):
+                continue
+        details = usage.get("completion_tokens_details")
+        reasoning = usage.get("reasoning_tokens")
+        if reasoning is None and isinstance(details, dict):
+            reasoning = details.get("reasoning_tokens")
+        try:
+            self.stats["reasoning_tokens"] += int(reasoning or 0)
+        except (TypeError, ValueError):
+            pass
 
     def call(self, system: str, user: str, logical_key: str) -> dict[str, Any]:
         payload = request_payload(system, user)
@@ -228,15 +247,25 @@ class DeepSeekClient:
                 )
                 with urllib.request.urlopen(req, timeout=240) as response:
                     data = json.load(response)
-                content = str(data["choices"][0]["message"].get("content", "")).strip().lstrip("\ufeff")
+                if not isinstance(data, dict):
+                    raise ValueError("JSON response envelope must be an object")
+                usage = data.get("usage") or {}
+                self._record_usage(usage)
+                choices = data.get("choices")
+                if not isinstance(choices, list) or not choices or not isinstance(choices[0], dict):
+                    raise ValueError("response choices envelope is invalid")
+                choice = choices[0]
+                if choice.get("finish_reason") == "length":
+                    raise ValueError("incomplete generation: finish_reason=length")
+                message = choice.get("message")
+                if not isinstance(message, dict):
+                    raise ValueError("response message envelope is invalid")
+                content = str(message.get("content", "")).strip().lstrip("\ufeff")
                 if content.startswith("```"):
                     content = re.sub(r"^```(?:json)?\s*|\s*```$", "", content, flags=re.I).strip()
                 result = json.loads(content)
                 if not isinstance(result, dict):
                     raise ValueError("JSON object required")
-                usage = data.get("usage") or {}
-                for key in ("prompt_tokens", "completion_tokens", "total_tokens"):
-                    self.stats[key] += int(usage.get(key) or 0)
                 write_json(cache_path, {
                     "logical_key": logical_key,
                     "request_hash": request_hash,
@@ -264,6 +293,7 @@ def request_payload(system: str, user: str) -> dict[str, Any]:
         "temperature": TEMPERATURE,
         "max_tokens": MAX_TOKENS,
         "response_format": {"type": "json_object"},
+        "thinking": {"type": THINKING_MODE},
     }
 
 

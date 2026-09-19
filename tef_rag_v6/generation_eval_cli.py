@@ -27,6 +27,7 @@ from tef_rag_v6.generation_runner import (
     MODEL,
     BASE_URL,
     MAX_TOKENS,
+    THINKING_MODE,
     TEMPERATURE,
     PROMPT_VERSION,
     GENERATION_PROTOCOL_VERSION,
@@ -66,6 +67,11 @@ def scoring_fingerprint() -> dict[str, Any]:
         "alias_registry_sha256": sha256(GEN_META / "alias_registry.json"),
         "parameter_registry_sha256": sha256(GEN_META / "parameter_registry.json"),
         "evaluator_sha256": {name: sha256(ROOT / name) for name in EVALUATOR_FILES},
+        "model": MODEL,
+        "endpoint": OFFICIAL_ENDPOINT,
+        "temperature": TEMPERATURE,
+        "max_tokens": MAX_TOKENS,
+        "thinking_mode": THINKING_MODE,
         "protocol_version": GENERATION_PROTOCOL_VERSION,
     }
 
@@ -81,6 +87,7 @@ def formal_session_fingerprint(pre: dict[str, Any]) -> str:
         "temperature": TEMPERATURE,
         "max_tokens": MAX_TOKENS,
         "response_format": {"type": "json_object"},
+        "thinking": {"type": THINKING_MODE},
         "retrieval_prediction_hashes": pre["retrieval_prediction_hashes"],
         "materialized_artifact_hashes": pre["materialized_artifact_hashes"],
         "retrieval_manifest_sha256": sha256(RETRIEVAL_MANIFEST),
@@ -193,6 +200,7 @@ def preflight() -> dict[str, Any]:
         "protocol_version": GENERATION_PROTOCOL_VERSION,
         "model": MODEL,
         "temperature": TEMPERATURE,
+        "thinking_mode": THINKING_MODE,
     }
     write_json(OUT / "preflight.json", result)
     return result
@@ -307,6 +315,7 @@ def run_generation(methods: tuple[str, ...]) -> dict[str, Any]:
                     "schema_sha256": sha256(GEN_META / "schema.json"),
                     "temperature": TEMPERATURE,
                     "max_tokens": MAX_TOKENS,
+                    "thinking_mode": THINKING_MODE,
                 },
             }
             existing[method].append(row)
@@ -325,6 +334,7 @@ def run_generation(methods: tuple[str, ...]) -> dict[str, Any]:
         "client_stats": client.stats,
         "endpoint": client.endpoint,
         "model": MODEL,
+        "thinking_mode": THINKING_MODE,
         "prompt_sha256": sha_text(generator_instructions()),
         "schema_sha256": sha256(GEN_META / "schema.json"),
         "session_fingerprint": session,
@@ -390,6 +400,7 @@ def validate_generation_row(
         "schema_sha256": sha256(GEN_META / "schema.json"),
         "temperature": TEMPERATURE,
         "max_tokens": MAX_TOKENS,
+        "thinking_mode": THINKING_MODE,
     }:
         raise RuntimeError(f"{label}: missing or changed request provenance")
     errors = validate_generation_output(row.get("generation"), output_schema, set(selected), query["asset_id"])
@@ -405,7 +416,7 @@ def freeze() -> dict[str, Any]:
     session = formal_session_fingerprint(pre)
     hashes = validate_generation_files(session)
     runtime = read_json(OUT / "generation_runtime.json") if (OUT / "generation_runtime.json").exists() else {}
-    if runtime.get("endpoint") != OFFICIAL_ENDPOINT or runtime.get("model") != MODEL or runtime.get("prompt_sha256") != sha_text(generator_instructions()) or runtime.get("schema_sha256") != pre["generation_schema_sha256"] or runtime.get("session_fingerprint") != session or runtime.get("methods") != list(METHODS):
+    if runtime.get("endpoint") != OFFICIAL_ENDPOINT or runtime.get("model") != MODEL or runtime.get("thinking_mode") != THINKING_MODE or runtime.get("prompt_sha256") != sha_text(generator_instructions()) or runtime.get("schema_sha256") != pre["generation_schema_sha256"] or runtime.get("session_fingerprint") != session or runtime.get("methods") != list(METHODS):
         raise RuntimeError("formal generation runtime provenance missing or changed")
     manifest = {
         "status": "GENERATION_PREDICTIONS_FROZEN_BEFORE_PRIVATE_GOLD_ACCESS",
@@ -416,6 +427,7 @@ def freeze() -> dict[str, Any]:
             "base_url": BASE_URL,
             "model": MODEL,
             "temperature": TEMPERATURE,
+            "thinking_mode": THINKING_MODE,
             "prompt_version": PROMPT_VERSION,
             "repair_policy": "one repair max",
         },
@@ -429,7 +441,7 @@ def freeze() -> dict[str, Any]:
         "parameter_registry_sha256": pre["parameter_registry_sha256"],
         "prompt_sha256": sha_text(generator_instructions()),
         "scoring_fingerprint": scoring_fingerprint(),
-        "request_config": {"max_tokens": MAX_TOKENS, "response_format": "json_object"},
+        "request_config": {"max_tokens": MAX_TOKENS, "response_format": "json_object", "thinking_mode": THINKING_MODE},
         "private_generation_gold_expected_sha256": pre["private_generation_gold_expected_sha256"],
         "private_generation_index_expected_sha256": pre["private_generation_index_expected_sha256"],
         "private_generation_gold_accessed": False,
@@ -534,7 +546,7 @@ def evaluate(private_root: Path) -> dict[str, Any]:
     manifest = read_json(manifest_path)
     if manifest.get("scoring_fingerprint") != scoring_fingerprint():
         raise RuntimeError("frozen evaluator/schema/registry/config changed")
-    if manifest.get("prompt_sha256") != sha_text(generator_instructions()) or manifest.get("request_config") != {"max_tokens": MAX_TOKENS, "response_format": "json_object"}:
+    if manifest.get("prompt_sha256") != sha_text(generator_instructions()) or manifest.get("request_config") != {"max_tokens": MAX_TOKENS, "response_format": "json_object", "thinking_mode": THINKING_MODE}:
         raise RuntimeError("frozen prompt/request config changed")
     pre = preflight()
     validate_frozen_private_seal(manifest, pre)

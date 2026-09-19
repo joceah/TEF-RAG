@@ -35,7 +35,7 @@ def test_frozen_retrieval_length_distributions_are_preserved():
 
 
 def test_short_output_protocol_version_is_sealed():
-    assert runner.GENERATION_PROTOCOL_VERSION == "v1.5-model-correction"
+    assert runner.GENERATION_PROTOCOL_VERSION == "v1.6-nonthinking-runtime-clarification"
     assert cli.scoring_fingerprint()["protocol_version"] == runner.GENERATION_PROTOCOL_VERSION
 
 
@@ -45,6 +45,7 @@ def test_canonical_model_is_bound_in_request_payload_and_session():
     system, user = runner.build_prompt(query, [], schema())
     payload = runner.request_payload(system, user)
     assert payload["model"] == "deepseek-flash"
+    assert payload["thinking"] == {"type": "disabled"}
     pre = {
         "retrieval_prediction_hashes": {method: f"{method}-hash" for method in cli.METHODS},
         "materialized_artifact_hashes": {"queries_test.jsonl": "q", "evidence.jsonl": "e"},
@@ -56,7 +57,7 @@ def test_canonical_model_is_bound_in_request_payload_and_session():
         cli.MODEL = "deepseek-v4-flash"
         assert cli.formal_session_fingerprint(pre) != baseline
         cli.MODEL = original_model
-        cli.GENERATION_PROTOCOL_VERSION = "v1.4-short-output-clarification"
+        cli.GENERATION_PROTOCOL_VERSION = "v1.5-model-correction"
         assert cli.formal_session_fingerprint(pre) != baseline
     finally:
         cli.MODEL = original_model
@@ -87,6 +88,89 @@ def test_old_session_partial_rows_fail_closed_before_resume():
             {"bm25": [{"session_fingerprint": "a8db-deepseek-chat"}]},
             "v1.5-deepseek-flash",
         )
+
+
+def test_thinking_configuration_changes_request_and_session_fingerprints(monkeypatch):
+    query = {"query_id": "Q", "query_text": "test", "query_time": "2021-01-01T00:00:00+00:00", "asset_id": "Rack-A"}
+    system, user = runner.build_prompt(query, [], schema())
+    baseline_request = runner.request_fingerprint(cli.OFFICIAL_ENDPOINT, system, user)
+    pre = {
+        "retrieval_prediction_hashes": {method: f"{method}-hash" for method in cli.METHODS},
+        "materialized_artifact_hashes": {"queries_test.jsonl": "q", "evidence.jsonl": "e"},
+    }
+    baseline_session = cli.formal_session_fingerprint(pre)
+    monkeypatch.setattr(runner, "THINKING_MODE", "enabled")
+    monkeypatch.setattr(cli, "THINKING_MODE", "enabled")
+    assert runner.request_fingerprint(cli.OFFICIAL_ENDPOINT, system, user) != baseline_request
+    assert cli.formal_session_fingerprint(pre) != baseline_session
+
+
+class _FakeResponse:
+    def __init__(self, body: bytes):
+        self.body = body
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc, tb):
+        return False
+
+    def read(self):
+        return self.body
+
+
+def _client_for_response(monkeypatch, tmp_path, envelope):
+    monkeypatch.setattr(runner, "read_env", lambda: {"API_KEY": "test"})
+    monkeypatch.setattr(runner, "CALL_INTERVAL", 0.0)
+    calls = []
+    body = json.dumps(envelope, ensure_ascii=False).encode("utf-8")
+
+    def fake_urlopen(*args, **kwargs):
+        calls.append((args, kwargs))
+        return _FakeResponse(body)
+
+    monkeypatch.setattr(runner.urllib.request, "urlopen", fake_urlopen)
+    return runner.DeepSeekClient(tmp_path / "cache", official=True), calls
+
+
+def test_finish_reason_length_is_transport_failure_before_json_parse(monkeypatch, tmp_path):
+    client, calls = _client_for_response(
+        monkeypatch,
+        tmp_path,
+        {"choices": [{"finish_reason": "length", "message": {"content": '{"partial":'}}], "usage": {"prompt_tokens": 10, "completion_tokens": 20, "total_tokens": 30, "completion_tokens_details": {"reasoning_tokens": 19}}},
+    )
+    with pytest.raises(RuntimeError, match="ValueError"):
+        client.call("system", "user", "length")
+    assert len(calls) == 3
+    assert client.stats["failures"] == 1
+    assert client.stats["retries"] == 2
+    assert client.stats["prompt_tokens"] == 30
+    assert client.stats["completion_tokens"] == 60
+    assert client.stats["total_tokens"] == 90
+    assert client.stats["reasoning_tokens"] == 57
+    assert not list((tmp_path / "cache").glob("*.json"))
+
+
+def test_finish_reason_stop_valid_json_is_returned(monkeypatch, tmp_path):
+    client, calls = _client_for_response(
+        monkeypatch,
+        tmp_path,
+        {"choices": [{"finish_reason": "stop", "message": {"content": '{"ok":true}'}}], "usage": {"prompt_tokens": 1, "completion_tokens": 2, "total_tokens": 3, "completion_tokens_details": {"reasoning_tokens": 0}}},
+    )
+    assert client.call("system", "user", "stop") == {"ok": True}
+    assert len(calls) == 1
+    assert client.stats["reasoning_tokens"] == 0
+
+
+def test_finish_reason_stop_malformed_json_keeps_parser_retry_behavior(monkeypatch, tmp_path):
+    client, calls = _client_for_response(
+        monkeypatch,
+        tmp_path,
+        {"choices": [{"finish_reason": "stop", "message": {"content": '{"bad":'}}], "usage": {"prompt_tokens": 1, "completion_tokens": 2, "total_tokens": 3}},
+    )
+    with pytest.raises(RuntimeError, match="JSONDecodeError"):
+        client.call("system", "user", "malformed")
+    assert len(calls) == 3
 
 
 def _visible_evidence(evidence_id: str) -> dict[str, object]:
@@ -378,7 +462,7 @@ def test_post_repair_invalid_prediction_is_retained_for_freeze_validation():
         "session_fingerprint": "session",
         "initial_request_fingerprint": runner.request_fingerprint(cli.OFFICIAL_ENDPOINT, system, user),
         "repair_request_fingerprint": runner.request_fingerprint(cli.OFFICIAL_ENDPOINT, repair_system, repair_user),
-        "request_provenance": {"endpoint": cli.OFFICIAL_ENDPOINT, "model": runner.MODEL, "prompt_sha256": runner.sha_text(runner.generator_instructions()), "schema_sha256": runner.sha256(runner.GEN_META / "schema.json"), "temperature": runner.TEMPERATURE, "max_tokens": runner.MAX_TOKENS},
+        "request_provenance": {"endpoint": cli.OFFICIAL_ENDPOINT, "model": runner.MODEL, "prompt_sha256": runner.sha_text(runner.generator_instructions()), "schema_sha256": runner.sha256(runner.GEN_META / "schema.json"), "temperature": runner.TEMPERATURE, "max_tokens": runner.MAX_TOKENS, "thinking_mode": "disabled"},
     }
     assert cli.validate_generation_row(row, query, selected, records, output_schema, "session") == final_errors
     assert final_errors
