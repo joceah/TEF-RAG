@@ -121,7 +121,10 @@ class Canonicalizer:
         if lu != ru:
             return False
         if isinstance(lv, (int, float, Decimal)) and not isinstance(lv, bool) and isinstance(rv, (int, float, Decimal)) and not isinstance(rv, bool):
-            return abs(Decimal(str(lv)) - Decimal(str(rv))) <= Decimal(str(self.numeric_tolerance))
+            try:
+                return abs(Decimal(str(lv)) - Decimal(str(rv))) <= Decimal(str(self.numeric_tolerance))
+            except (ArithmeticError, ValueError):
+                return False
         return self.text(lv) == self.text(rv) if isinstance(lv, str) and isinstance(rv, str) else lv == rv
 
     def parameters_equal(self, left: Any, right: Any) -> bool:
