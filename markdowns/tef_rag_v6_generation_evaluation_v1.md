@@ -10,10 +10,11 @@ All five frozen retrieval methods use exactly the same downstream generator:
 - base URL: official DeepSeek API
 - temperature: `0`
 - prompt version: `tef-v6-generation-eval-v1.3`
+- protocol version: `v1.4-short-output-clarification`
 - one repair attempt maximum
 - identical JSON schema and canonicalization registries
 
-The generator receives only the public query and the five selected evidence records. It does **not** receive retrieval method identity, retrieval score, TEF relation edges, graph diagnostics, or generation gold.
+The generator receives only the public query and the exact frozen selected evidence records, up to the Top-5 budget. A method/query may provide zero records. It does **not** receive retrieval method identity, retrieval score, TEF relation edges, graph diagnostics, or generation gold.
 
 ## Formal sequence
 
@@ -24,7 +25,7 @@ python scripts/run_tef_rag_v6_generation_eval.py freeze
 python scripts/run_tef_rag_v6_generation_eval.py evaluate --private-root ../.tef_v6_generation_gold_private
 ```
 
-`generate --all` is the only formal mode. It interleaves calls query-major across all five methods; `--method` is rejected. The v1.3 integrity clarification is in `plans/TEF_RAG_v6_generation_evaluation_protocol_v1_3_integrity_clarification.md`.
+`generate --all` is the only formal mode. It interleaves calls query-major across all five methods; `--method` is rejected. The v1.4 short-output clarification is in `plans/TEF_RAG_v6_generation_evaluation_protocol_v1_4_short_retrieval_output_clarification.md`.
 
 `freeze` must complete before private generation gold is read. It hashes every generation prediction file and records `private_generation_gold_accessed=false`.
 

@@ -1,7 +1,8 @@
 """Frozen TEF-RAG v6 downstream generation runtime.
 
-The generator receives only query text/context and the five selected evidence
-records. Method-specific scores/relations and generation gold are hidden.
+The generator receives only query text/context and the exact frozen selected
+evidence records, up to the Top-5 budget. Method-specific scores/relations and
+generation gold are hidden.
 """
 from __future__ import annotations
 
@@ -33,7 +34,7 @@ TEMPERATURE = 0.0
 MAX_TOKENS = 5000
 CALL_INTERVAL = 1.2
 PROMPT_VERSION = "tef-v6-generation-eval-v1.3"
-GENERATION_PROTOCOL_VERSION = "v1.3-integrity-clarification"
+GENERATION_PROTOCOL_VERSION = "v1.4-short-output-clarification"
 
 
 def read_json(path: Path) -> Any:

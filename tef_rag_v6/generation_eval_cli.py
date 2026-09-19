@@ -72,6 +72,7 @@ def scoring_fingerprint() -> dict[str, Any]:
 
 def formal_session_fingerprint(pre: dict[str, Any]) -> str:
     payload = {
+        "protocol_version": GENERATION_PROTOCOL_VERSION,
         "runner_sha256": sha256(ROOT / "tef_rag_v6/generation_runner.py"),
         "instructions_sha256": sha_text(generator_instructions()),
         "schema_sha256": sha256(GEN_META / "schema.json"),
@@ -90,6 +91,37 @@ def formal_session_fingerprint(pre: dict[str, Any]) -> str:
 def expected_retrieval_hashes() -> dict[str, str]:
     manifest = read_json(RETRIEVAL_MANIFEST)
     return {method: manifest["predictions"][method]["prediction_sha256"] for method in METHODS}
+
+
+def validate_selected_evidence_ids(
+    query: dict[str, Any],
+    prediction: dict[str, Any],
+    evidence: dict[str, dict[str, Any]],
+) -> list[str]:
+    """Validate a frozen retrieval row without requiring a full Top-5 result.
+
+    Top-5 is the retrieval budget upper bound.  A sealed row may contain any
+    number of unique, visible evidence IDs from zero through that bound, and
+    the exact list is passed downstream unchanged.
+    """
+    ids = prediction.get("selected_evidence_ids")
+    if not isinstance(ids, list):
+        return ["selected_evidence_ids must be a list"]
+    problems: list[str] = []
+    if len(ids) > 5:
+        problems.append("selected_evidence_ids exceeds Top-5 budget")
+    if any(not isinstance(evidence_id, str) for evidence_id in ids):
+        problems.append("selected_evidence_ids must contain only strings")
+    else:
+        if len(ids) != len(set(ids)):
+            problems.append("selected_evidence_ids contains duplicates")
+        for evidence_id in ids:
+            record = evidence.get(evidence_id)
+            if record is None:
+                problems.append(f"unknown evidence {evidence_id}")
+            elif not visible_at(record, query):
+                problems.append(f"non-visible evidence {evidence_id}")
+    return problems
 
 
 def preflight() -> dict[str, Any]:
@@ -138,15 +170,8 @@ def preflight() -> dict[str, Any]:
             problems.append(f"{method}: query order/count mismatch")
             continue
         for query, row in zip(qs, rows):
-            ids = row.get("selected_evidence_ids", [])
-            if len(ids) != 5 or len(set(ids)) != 5:
-                problems.append(f"{method}/{query['query_id']}: expected exactly 5 unique evidence IDs")
-                continue
-            for evidence_id in ids:
-                if evidence_id not in evidence:
-                    problems.append(f"{method}/{query['query_id']}: unknown evidence {evidence_id}")
-                elif not visible_at(evidence[evidence_id], query):
-                    problems.append(f"{method}/{query['query_id']}: non-visible evidence {evidence_id}")
+            for problem in validate_selected_evidence_ids(query, row, evidence):
+                problems.append(f"{method}/{query['query_id']}: {problem}")
     if problems:
         raise RuntimeError("preflight failed:\n- " + "\n- ".join(problems[:30]))
 
@@ -274,6 +299,7 @@ def run_generation(methods: tuple[str, ...]) -> dict[str, Any]:
     runtime = {
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "methods": list(methods),
+        "protocol_version": GENERATION_PROTOCOL_VERSION,
         "client_stats": client.stats,
         "endpoint": client.endpoint,
         "model": MODEL,

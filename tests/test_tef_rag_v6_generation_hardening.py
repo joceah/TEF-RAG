@@ -14,6 +14,75 @@ from scripts.reconstruct_tef_v6_generation_private_index import reconstruct_inde
 from test_tef_rag_v6_generation_eval import canon, gold, schema
 
 
+def test_frozen_retrieval_length_distributions_are_preserved():
+    expected = {
+        "bm25": {5: 470, 3: 10},
+        "bge_reranker": {5: 470, 3: 10},
+        "temporal_bm25": {5: 470, 3: 10},
+        "ta_rag": {5: 435, 3: 10, 0: 35},
+        "tef_rag_stage3d": {5: 470, 3: 10},
+    }
+    actual = {}
+    manifest = runner.read_json(runner.RETRIEVAL_MANIFEST)
+    for method, rows in runner.retrieval_predictions().items():
+        assert runner.sha256(runner.retrieval_paths()[method]) == manifest["predictions"][method]["prediction_sha256"]
+        counts = {}
+        for row in rows:
+            size = len(row["selected_evidence_ids"])
+            counts[size] = counts.get(size, 0) + 1
+        actual[method] = counts
+    assert actual == expected
+
+
+def test_short_output_protocol_version_is_sealed():
+    assert runner.GENERATION_PROTOCOL_VERSION == "v1.4-short-output-clarification"
+    assert cli.scoring_fingerprint()["protocol_version"] == runner.GENERATION_PROTOCOL_VERSION
+
+
+def _visible_evidence(evidence_id: str) -> dict[str, object]:
+    return {
+        "evidence_id": evidence_id,
+        "event_time": "2020-01-01T00:00:00+00:00",
+        "available_at": "2020-01-01T00:00:00+00:00",
+    }
+
+
+def _cardinality_query() -> dict[str, str]:
+    return {"query_id": "Q", "query_time": "2021-01-01T00:00:00+00:00", "asset_model": "M"}
+
+
+def test_short_retrieval_outputs_pass_without_padding_or_backfill():
+    query = _cardinality_query()
+    evidence = {f"E{i}": _visible_evidence(f"E{i}") for i in range(6)}
+    for size in (0, 3, 5):
+        row = {"selected_evidence_ids": [f"E{i}" for i in range(size)]}
+        original = list(row["selected_evidence_ids"])
+        assert cli.validate_selected_evidence_ids(query, row, evidence) == []
+        assert row["selected_evidence_ids"] == original
+    assert cli.validate_selected_evidence_ids(query, {"selected_evidence_ids": [f"E{i}" for i in range(6)]}, evidence)
+    assert cli.validate_selected_evidence_ids(query, {"selected_evidence_ids": ["E1", "E1"]}, evidence)
+    assert cli.validate_selected_evidence_ids(query, {"selected_evidence_ids": ["UNKNOWN"]}, evidence)
+    invisible = _visible_evidence("E-invisible")
+    invisible["available_at"] = "2022-01-01T00:00:00+00:00"
+    assert cli.validate_selected_evidence_ids(query, {"selected_evidence_ids": ["E-invisible"]}, {"E-invisible": invisible})
+
+
+def test_empty_selected_evidence_prompt_and_scoring_path_is_safe():
+    query = {"query_id": "Q", "query_text": "test", "query_time": "2021-01-01T00:00:00+00:00", "asset_id": "Rack-A"}
+    _, user = runner.build_prompt(query, [], schema())
+    assert json.loads(user)["selected_evidence"] == []
+    prediction = gold()
+    prediction["work_order"]["supporting_evidence_ids"] = []
+    for field in ("diagnosis", "applicable_procedure", "verification_or_uncertainty"):
+        prediction["work_order"][field]["supporting_evidence_ids"] = []
+    for action in prediction["action_plan"]:
+        action["supporting_evidence_ids"] = []
+    assert validate_generation_output(prediction, schema(), set(), "Rack-A") == []
+    result = evaluate_generation_prediction(prediction, gold(), schema(), canon(), set(), "Rack-A")
+    assert result["schema_validity"] == 1
+    assert result["evidence_support_recall"] == 0
+
+
 def test_unknown_dependency_never_gets_plan_or_dependency_credit():
     g = gold()
     p = copy.deepcopy(g)
