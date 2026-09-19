@@ -7,7 +7,6 @@ from __future__ import annotations
 
 from collections import deque
 from decimal import Decimal
-from itertools import combinations, permutations
 import json
 import math
 import re
@@ -228,15 +227,47 @@ def transitive_closure(actions: list[dict[str, Any]]) -> set[tuple[str, str]]:
     return closure
 
 
-def maximum_action_matching(pred_actions: list[dict[str, Any]], gold_actions: list[dict[str, Any]], canon: Canonicalizer) -> dict[str, str]:
+def _intrinsic_action_keys(value: dict[str, Any], canon: Canonicalizer) -> dict[str, str]:
+    actions = value["action_plan"]
+    by_id = {str(action["action_id"]): action for action in actions}
+    recommended = set(map(str, value["work_order"].get("recommended_actions", [])))
+    closure = transitive_closure(actions)
+    result: dict[str, str] = {}
+    for action in actions:
+        aid = str(action["action_id"])
+        def neighbor(other: str) -> str:
+            return canon.action_key(by_id[other]) if other in by_id else "<unknown>"
+        payload = (
+            canon.action_key(action),
+            aid in recommended,
+            sorted(map(str, action.get("supporting_evidence_ids", []))),
+            sorted(neighbor(source) for source, target in closure if target == aid),
+            sorted(neighbor(target) for source, target in closure if source == aid),
+            sorted(neighbor(parent) for parent in action.get("depends_on", [])),
+        )
+        result[aid] = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
+    return result
+
+
+def maximum_action_matching(pred: dict[str, Any], gold: dict[str, Any], canon: Canonicalizer) -> dict[str, str]:
+    pred_actions = pred["action_plan"]
+    gold_actions = gold["action_plan"]
+    pred_keys = _intrinsic_action_keys(pred, canon)
     gold_by_id = {str(a["action_id"]): a for a in gold_actions}
     adjacency = {
-        str(pred["action_id"]): [gid for gid, gold in gold_by_id.items() if canon.action_equal(pred, gold)]
-        for pred in pred_actions
+        str(action["action_id"]): sorted(
+            (gid for gid, gold_action in gold_by_id.items() if canon.action_equal(action, gold_action)),
+            key=lambda gid: canon.action_key(gold_by_id[gid]),
+        )
+        for action in pred_actions
     }
     match_gold: dict[str, str] = {}
 
     def augment(pid: str, seen: set[str]) -> bool:
+        for gid in adjacency.get(pid, []):
+            if gid not in match_gold:
+                match_gold[gid] = pid
+                return True
         for gid in adjacency.get(pid, []):
             if gid in seen:
                 continue
@@ -246,47 +277,15 @@ def maximum_action_matching(pred_actions: list[dict[str, Any]], gold_actions: li
                 return True
         return False
 
-    for pid in sorted(adjacency):
+    for pid in sorted(adjacency, key=lambda aid: pred_keys[aid]):
         augment(pid, set())
     return {pid: gid for gid, pid in match_gold.items()}
 
 
-def resolve_duplicate_matching(pred: dict[str, Any], gold: dict[str, Any], canon: Canonicalizer, initial: dict[str, str]) -> dict[str, str]:
-    """Choose a maximum matching using graph, recommendation and citation semantics."""
-    groups: dict[str, list[str]] = {}
-    for action in pred["action_plan"]:
-        aid = str(action["action_id"])
-        groups.setdefault(canon.action_key(action), []).append(aid)
-    candidates = [initial]
-    for pids in groups.values():
-        sample = next(action for action in pred["action_plan"] if str(action["action_id"]) == pids[0])
-        gids = [str(action["action_id"]) for action in gold["action_plan"] if canon.action_equal(sample, action)]
-        if len(pids) < 2 or not gids:
-            continue
-        count = min(len(pids), len(gids))
-        expanded = []
-        for mapping in candidates:
-            base = {pid: gid for pid, gid in mapping.items() if pid not in pids}
-            for selected in combinations(pids, count):
-                for ordered in permutations(gids, count):
-                    choice = {**base, **dict(zip(selected, ordered))}
-                    if len(choice) == len(initial) and len(set(choice.values())) == len(choice):
-                        expanded.append(choice)
-                        if len(expanded) > 50000:
-                            raise RuntimeError("ambiguous duplicate-action matching exceeds deterministic limit")
-        if expanded:
-            candidates = expanded
-    gold_closure = transitive_closure(gold["action_plan"])
-    gold_links = _claim_links(gold, None, canon, prediction=False)
-    gold_rec = set(map(str, gold["work_order"]["recommended_actions"]))
-    pred_rec = set(map(str, pred["work_order"]["recommended_actions"]))
-    def score(mapping: dict[str, str]) -> tuple[int, int, int]:
-        closure, _, _ = _map_closure(pred["action_plan"], mapping)
-        links = _claim_links(pred, mapping, canon, prediction=True)
-        return (len(closure & gold_closure) - len(closure - gold_closure),
-                len(links & gold_links) - len(links - gold_links),
-                len({mapping[x] for x in pred_rec if x in mapping} & gold_rec))
-    return max(candidates, key=score)
+def validate_gold_action_uniqueness(gold: dict[str, Any], canon: Canonicalizer) -> None:
+    actions = gold["action_plan"]
+    if any(canon.action_equal(left, right) for index, left in enumerate(actions) for right in actions[index + 1:]):
+        raise RuntimeError("gold has duplicate canonical actions; v1.3 requires independent adjudication before scoring")
 
 
 def f1(tp: int, fp: int, fn: int) -> tuple[float, float, float]:
@@ -312,6 +311,14 @@ def validate_generation_output(
     action_ids = _ids([a for a in actions if isinstance(a, dict)])
     if len(action_ids) != len(set(action_ids)):
         errors.append("duplicate action_id")
+    for action in actions:
+        if not isinstance(action, dict) or not isinstance(action.get("parameters"), dict):
+            continue
+        for entry in action["parameters"].values():
+            if isinstance(entry, dict) and isinstance(entry.get("value"), dict):
+                bounds = entry["value"]
+                if set(bounds) == {"lower", "upper"} and all(isinstance(bounds[key], (int, float)) and not isinstance(bounds[key], bool) for key in bounds) and bounds["lower"] > bounds["upper"]:
+                    errors.append("parameter range lower exceeds upper")
     if expected_asset_id is not None and work.get("asset_id") != expected_asset_id:
         errors.append("asset_id mismatch")
     if isinstance(work.get("recommended_actions"), list) and not set(map(str, work["recommended_actions"])).issubset(set(action_ids)):
@@ -341,9 +348,12 @@ def validate_generation_output(
 
 def _map_closure(actions: list[dict[str, Any]], mapping: dict[str, str]) -> tuple[set[tuple[str, str]], bool, int]:
     closure = transitive_closure(actions)
+    raw_edges = dependency_edges(actions)
     out: set[tuple[str, str]] = set()
     ok = True
-    unmatched_edges = 0
+    unmatched_edges = sum(source not in mapping or target not in mapping for source, target in raw_edges - closure)
+    if unmatched_edges:
+        ok = False
     for source, target in closure:
         if source not in mapping or target not in mapping:
             ok = False
@@ -418,12 +428,12 @@ def evaluate_generation_prediction(
     allowed_evidence_ids: set[str],
     expected_asset_id: str,
 ) -> dict[str, float]:
+    validate_gold_action_uniqueness(gold, canon)
     schema_errors = validate_generation_output(pred, schema, allowed_evidence_ids, expected_asset_id)
     schema_valid = float(not schema_errors)
     pred_actions = pred.get("action_plan", []) if isinstance(pred.get("action_plan"), list) else []
     gold_actions = gold.get("action_plan", []) if isinstance(gold.get("action_plan"), list) else []
-    mapping = maximum_action_matching(pred_actions, gold_actions, canon)
-    mapping = resolve_duplicate_matching(pred, gold, canon, mapping)
+    mapping = maximum_action_matching(pred, gold, canon)
     matched = len(mapping)
     ap, ar, af = f1(matched, len(pred_actions) - matched, len(gold_actions) - matched)
 

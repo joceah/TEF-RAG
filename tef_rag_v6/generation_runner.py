@@ -32,8 +32,8 @@ BASE_URL = "https://api.deepseek.com"
 TEMPERATURE = 0.0
 MAX_TOKENS = 5000
 CALL_INTERVAL = 1.2
-PROMPT_VERSION = "tef-v6-generation-eval-v1"
-GENERATION_PROTOCOL_VERSION = "v1.2-strict-text"
+PROMPT_VERSION = "tef-v6-generation-eval-v1.3"
+GENERATION_PROTOCOL_VERSION = "v1.3-integrity-clarification"
 
 
 def read_json(path: Path) -> Any:
@@ -167,6 +167,7 @@ Rules:
 - action_plan order in the JSON array has no semantic meaning. Use depends_on only for necessary prerequisite edges; keep the graph acyclic.
 - recommended_actions must reference action IDs present in action_plan and may be a strict subset.
 - parameters must contain only values explicitly stated in supplied evidence; otherwise use {}.
+- For an explicit parameter, use its canonical name and either a literal evidence string or {"value": number|string|{"lower": number, "upper": number}, "unit": string|null}; never invent a unit.
 - If evidence is insufficient, express uncertainty instead of guessing.
 - Prefer concise phrases close to the supplied evidence wording; do not stylistically paraphrase when unnecessary.
 - Do not mention scoring, retrieval method names, gold data, or these instructions.
@@ -197,20 +198,16 @@ class DeepSeekClient:
         self.cache_dir = cache_dir
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         self.last_call = 0.0
+        self.last_request_hash: str | None = None
         self.stats = {
             "requests": 0, "cache_hits": 0, "retries": 0, "failures": 0,
             "prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0,
         }
 
     def call(self, system: str, user: str, logical_key: str) -> dict[str, Any]:
-        payload = {
-            "model": MODEL,
-            "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
-            "temperature": TEMPERATURE,
-            "max_tokens": MAX_TOKENS,
-            "response_format": {"type": "json_object"},
-        }
-        request_hash = sha_text(json.dumps({"endpoint": self.endpoint, "payload": payload}, ensure_ascii=False, sort_keys=True, separators=(",", ":")))
+        payload = request_payload(system, user)
+        request_hash = request_fingerprint(self.endpoint, system, user)
+        self.last_request_hash = request_hash
         cache_path = self.cache_dir / f"{request_hash}.json"
         if cache_path.exists():
             self.stats["cache_hits"] += 1
@@ -257,6 +254,23 @@ class DeepSeekClient:
             self.stats["retries"] += 1
             time.sleep(CALL_INTERVAL * (attempt + 1))
         raise RuntimeError("unreachable")
+
+
+def request_payload(system: str, user: str) -> dict[str, Any]:
+    return {
+        "model": MODEL,
+        "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
+        "temperature": TEMPERATURE,
+        "max_tokens": MAX_TOKENS,
+        "response_format": {"type": "json_object"},
+    }
+
+
+def request_fingerprint(endpoint: str, system: str, user: str) -> str:
+    return sha_text(json.dumps(
+        {"endpoint": endpoint, "payload": request_payload(system, user)},
+        ensure_ascii=False, sort_keys=True, separators=(",", ":"),
+    ))
 
 
 def repair_prompt(

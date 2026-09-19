@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import os
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -10,6 +11,7 @@ from tef_rag_v6.generation_eval import (
     Canonicalizer,
     evaluate_generation_prediction,
     macro_average,
+    validate_gold_action_uniqueness,
     validate_generation_output,
 )
 from tef_rag_v6.generation_runner import (
@@ -38,6 +40,7 @@ from tef_rag_v6.generation_runner import (
     read_json,
     read_jsonl,
     repair_prompt,
+    request_fingerprint,
     retrieval_paths,
     retrieval_predictions,
     schema,
@@ -48,7 +51,13 @@ from tef_rag_v6.generation_runner import (
     write_jsonl,
 )
 
-EVALUATOR_FILES = ("tef_rag_v6/generation_eval.py", "tef_rag_v6/generation_eval_cli.py")
+EVALUATOR_FILES = (
+    "tef_rag_v6/generation_eval.py",
+    "tef_rag_v6/generation_eval_cli.py",
+    "tef_rag_v6/generation_runner.py",
+    "scripts/run_tef_rag_v6_generation_eval.py",
+)
+OFFICIAL_ENDPOINT = BASE_URL.rstrip("/") + "/chat/completions"
 
 
 def scoring_fingerprint() -> dict[str, Any]:
@@ -61,6 +70,23 @@ def scoring_fingerprint() -> dict[str, Any]:
     }
 
 
+def formal_session_fingerprint(pre: dict[str, Any]) -> str:
+    payload = {
+        "runner_sha256": sha256(ROOT / "tef_rag_v6/generation_runner.py"),
+        "instructions_sha256": sha_text(generator_instructions()),
+        "schema_sha256": sha256(GEN_META / "schema.json"),
+        "model": MODEL,
+        "endpoint": OFFICIAL_ENDPOINT,
+        "temperature": TEMPERATURE,
+        "max_tokens": MAX_TOKENS,
+        "response_format": {"type": "json_object"},
+        "retrieval_prediction_hashes": pre["retrieval_prediction_hashes"],
+        "materialized_artifact_hashes": pre["materialized_artifact_hashes"],
+        "retrieval_manifest_sha256": sha256(RETRIEVAL_MANIFEST),
+    }
+    return sha_text(json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")))
+
+
 def expected_retrieval_hashes() -> dict[str, str]:
     manifest = read_json(RETRIEVAL_MANIFEST)
     return {method: manifest["predictions"][method]["prediction_sha256"] for method in METHODS}
@@ -70,6 +96,8 @@ def preflight() -> dict[str, Any]:
     required = [
         PUBLIC / "queries_test.jsonl",
         PUBLIC / "evidence.jsonl",
+        PUBLIC.parent / "manifest.json",
+        PUBLIC.parent / "transport_manifest.json",
         RETRIEVAL_MANIFEST,
         GEN_META / "schema.json",
         GEN_META / "alias_registry.json",
@@ -83,9 +111,15 @@ def preflight() -> dict[str, Any]:
 
     qs = queries()
     materialized = read_json(GEN_META / "materialized_artifact_hashes.json")
+    benchmark_root = PUBLIC.parent
+    benchmark_manifest = read_json(benchmark_root / "manifest.json")
+    transport_manifest = read_json(benchmark_root / "transport_manifest.json")
     for name in ("queries_test.jsonl", "evidence.jsonl"):
         expected = materialized.get(name)
-        if not isinstance(expected, str) or sha256(PUBLIC / name) != expected:
+        if (not isinstance(expected, str)
+                or expected != benchmark_manifest["public_artifact_hashes"][f"public/{name}"]
+                or expected != transport_manifest[f"public/{name}"]["uncompressed_sha256"]
+                or sha256(PUBLIC / name) != expected):
             raise RuntimeError(f"materialized artifact hash missing or changed: {name}")
     qids = [query["query_id"] for query in qs]
     evidence = evidence_map()
@@ -142,19 +176,44 @@ def load_generation_rows(method: str) -> list[dict[str, Any]]:
 
 
 def run_generation(methods: tuple[str, ...]) -> dict[str, Any]:
+    if methods != METHODS:
+        raise RuntimeError("formal generation requires --all five methods")
     if (OUT / "generation_prediction_manifest.json").exists():
         raise RuntimeError("generation predictions already frozen")
-    preflight()
+    pre = preflight()
+    session = formal_session_fingerprint(pre)
     qs = queries()
     evidence = evidence_map()
     retrieval = retrieval_predictions()
     output_schema = schema()
-    client = DeepSeekClient(CACHE / "api_cache", official=True)
     existing = {method: load_generation_rows(method) for method in methods}
 
     for method in methods:
+        if len(existing[method]) > len(qs):
+            raise RuntimeError(f"{method}: existing generation progress exceeds query count")
         if any(row.get("query_id") != qs[index]["query_id"] for index, row in enumerate(existing[method])):
             raise RuntimeError(f"{method}: existing generation progress query order mismatch")
+        for index, row in enumerate(existing[method]):
+            query = qs[index]
+            selected_ids = list(retrieval[method][index]["selected_evidence_ids"])
+            selected = [evidence[eid] for eid in selected_ids]
+            if row.get("input_evidence_ids") != selected_ids or row.get("session_fingerprint") != session:
+                raise RuntimeError(f"{method}/{query['query_id']}: resume session mismatch")
+            system, user = build_prompt(query, selected, output_schema)
+            if row.get("initial_request_fingerprint") != request_fingerprint(OFFICIAL_ENDPOINT, system, user):
+                raise RuntimeError(f"{method}/{query['query_id']}: resume initial request mismatch")
+            if row.get("repair_used"):
+                initial = row.get("initial_generation")
+                errors = validate_generation_output(initial, output_schema, set(selected_ids), query["asset_id"])
+                if not errors or errors != row.get("initial_validation_errors"):
+                    raise RuntimeError(f"{method}/{query['query_id']}: resume repair input mismatch")
+                repair_system, repair_user = repair_prompt(query, selected, initial, errors, output_schema)
+                repair_hash = request_fingerprint(OFFICIAL_ENDPOINT, repair_system, repair_user)
+                if row.get("repair_request_fingerprint") != repair_hash:
+                    raise RuntimeError(f"{method}/{query['query_id']}: resume repair request mismatch")
+            elif row.get("repair_request_fingerprint") is not None:
+                raise RuntimeError(f"{method}/{query['query_id']}: unexpected repair provenance")
+    client = DeepSeekClient(CACHE / "api_cache", official=True)
 
     for index, query in enumerate(qs):
         for method in methods:
@@ -164,14 +223,22 @@ def run_generation(methods: tuple[str, ...]) -> dict[str, Any]:
             selected_ids = list(retrieval_row["selected_evidence_ids"])
             selected = [evidence[evidence_id] for evidence_id in selected_ids]
             system, user = build_prompt(query, selected, output_schema)
+            initial_hash = request_fingerprint(client.endpoint, system, user)
             initial = client.call(system, user, f"generate:{method}:{query['query_id']}")
+            if client.last_request_hash != initial_hash:
+                raise RuntimeError("initial request fingerprint differs from actual client payload")
             errors = validate_generation_output(initial, output_schema, set(selected_ids), query["asset_id"])
+            initial_errors = errors
             repair_used = False
+            repair_hash = None
             final = initial
             if errors:
                 repair_used = True
                 repair_system, repair_user = repair_prompt(query, selected, initial, errors, output_schema)
+                repair_hash = request_fingerprint(client.endpoint, repair_system, repair_user)
                 final = client.call(repair_system, repair_user, f"repair:{method}:{query['query_id']}")
+                if client.last_request_hash != repair_hash:
+                    raise RuntimeError("repair request fingerprint differs from actual client payload")
                 errors = validate_generation_output(final, output_schema, set(selected_ids), query["asset_id"])
             row = {
                 "query_id": query["query_id"],
@@ -179,6 +246,11 @@ def run_generation(methods: tuple[str, ...]) -> dict[str, Any]:
                 "generation": final,
                 "repair_used": repair_used,
                 "validation_errors": errors,
+                "session_fingerprint": session,
+                "initial_request_fingerprint": initial_hash,
+                "repair_request_fingerprint": repair_hash,
+                "initial_generation": initial if repair_used else None,
+                "initial_validation_errors": initial_errors if repair_used else None,
                 "request_provenance": {
                     "endpoint": client.endpoint,
                     "model": MODEL,
@@ -205,6 +277,7 @@ def run_generation(methods: tuple[str, ...]) -> dict[str, Any]:
         "model": MODEL,
         "prompt_sha256": sha_text(generator_instructions()),
         "schema_sha256": sha256(GEN_META / "schema.json"),
+        "session_fingerprint": session,
         "unresolved": unresolved,
     }
     write_json(OUT / "generation_runtime.json", runtime)
@@ -213,9 +286,10 @@ def run_generation(methods: tuple[str, ...]) -> dict[str, Any]:
     return runtime
 
 
-def validate_generation_files() -> dict[str, str]:
+def validate_generation_files(session: str) -> dict[str, str]:
     qs = queries()
     retrieval = retrieval_predictions()
+    evidence = evidence_map()
     output_schema = schema()
     hashes: dict[str, str] = {}
     for method in METHODS:
@@ -231,6 +305,22 @@ def validate_generation_files() -> dict[str, str]:
             selected = list(retrieval[method][index]["selected_evidence_ids"])
             if row.get("input_evidence_ids") != selected:
                 raise RuntimeError(f"{method}/{query['query_id']}: retrieval input changed")
+            if row.get("session_fingerprint") != session:
+                raise RuntimeError(f"{method}/{query['query_id']}: formal session mismatch")
+            records = [evidence[eid] for eid in selected]
+            system, user = build_prompt(query, records, output_schema)
+            if row.get("initial_request_fingerprint") != request_fingerprint(OFFICIAL_ENDPOINT, system, user):
+                raise RuntimeError(f"{method}/{query['query_id']}: initial request fingerprint changed")
+            if row.get("repair_used"):
+                initial = row.get("initial_generation")
+                initial_errors = validate_generation_output(initial, output_schema, set(selected), query["asset_id"])
+                if not initial_errors or initial_errors != row.get("initial_validation_errors"):
+                    raise RuntimeError(f"{method}/{query['query_id']}: repair input changed")
+                repair_system, repair_user = repair_prompt(query, records, initial, initial_errors, output_schema)
+                if row.get("repair_request_fingerprint") != request_fingerprint(OFFICIAL_ENDPOINT, repair_system, repair_user):
+                    raise RuntimeError(f"{method}/{query['query_id']}: repair request fingerprint changed")
+            elif row.get("repair_request_fingerprint") is not None:
+                raise RuntimeError(f"{method}/{query['query_id']}: unexpected repair fingerprint")
             if row.get("request_provenance") != {
                 "endpoint": BASE_URL.rstrip("/") + "/chat/completions",
                 "model": MODEL,
@@ -259,9 +349,10 @@ def freeze() -> dict[str, Any]:
     if (OUT / "generation_prediction_manifest.json").exists():
         raise RuntimeError("generation predictions already frozen")
     pre = preflight()
-    hashes = validate_generation_files()
+    session = formal_session_fingerprint(pre)
+    hashes = validate_generation_files(session)
     runtime = read_json(OUT / "generation_runtime.json") if (OUT / "generation_runtime.json").exists() else {}
-    if runtime.get("endpoint") != BASE_URL.rstrip("/") + "/chat/completions" or runtime.get("model") != MODEL or runtime.get("prompt_sha256") != sha_text(generator_instructions()) or runtime.get("schema_sha256") != pre["generation_schema_sha256"]:
+    if runtime.get("endpoint") != OFFICIAL_ENDPOINT or runtime.get("model") != MODEL or runtime.get("prompt_sha256") != sha_text(generator_instructions()) or runtime.get("schema_sha256") != pre["generation_schema_sha256"] or runtime.get("session_fingerprint") != session or runtime.get("methods") != list(METHODS):
         raise RuntimeError("formal generation runtime provenance missing or changed")
     manifest = {
         "status": "GENERATION_PREDICTIONS_FROZEN_BEFORE_PRIVATE_GOLD_ACCESS",
@@ -276,6 +367,7 @@ def freeze() -> dict[str, Any]:
             "repair_policy": "one repair max",
         },
         "protocol_version": GENERATION_PROTOCOL_VERSION,
+        "session_fingerprint": session,
         "retrieval_prediction_hashes": pre["retrieval_prediction_hashes"],
         "materialized_artifact_hashes": pre["materialized_artifact_hashes"],
         "generation_prediction_hashes": hashes,
@@ -298,14 +390,9 @@ def freeze() -> dict[str, Any]:
 def load_private_gold(root: Path) -> tuple[dict[str, dict[str, Any]], str]:
     gold_path = root / "gold_test.jsonl"
     index_path = root / "gold_test_index.jsonl"
+    expected, index_expected = private_seal_hashes()
     if not gold_path.exists() or not index_path.exists():
         raise RuntimeError("private generation gold/index missing")
-    metadata = read_json(GEN_META / "test_generation_gold_aggregate.json")
-    expected = metadata["private_gold_sha256"]
-    index_expected = metadata.get("private_index_sha256")
-    row_hashes = metadata.get("semantic_gold_sha256_by_id")
-    if not index_expected or not isinstance(row_hashes, dict) or len(row_hashes) != 240:
-        raise RuntimeError("sealed public metadata lacks private_index_sha256 and semantic_gold_sha256_by_id; cannot safely pair private gold and index")
     actual = sha256(gold_path)
     if actual != expected:
         raise RuntimeError(f"private generation gold SHA mismatch: {actual}")
@@ -316,36 +403,50 @@ def load_private_gold(root: Path) -> tuple[dict[str, dict[str, Any]], str]:
     if len(gold_rows) != 240 or len(index_rows) != 240:
         raise RuntimeError("expected 240 semantic private gold objects")
     by_query: dict[str, dict[str, Any]] = {}
-    gold_by_hash = {}
-    for gold in gold_rows:
-        digest = sha_text(json.dumps(gold, ensure_ascii=False, sort_keys=True, separators=(",", ":")))
-        if digest in gold_by_hash:
-            raise RuntimeError("duplicate private semantic gold object hash")
-        gold_by_hash[digest] = gold
-    if set(gold_by_hash) != set(row_hashes.values()):
-        raise RuntimeError("private semantic gold mapping hash mismatch")
     seen_semantic_ids: set[str] = set()
-    for index in index_rows:
+    for gold, index in zip(gold_rows, index_rows):
         semantic_id = index.get("semantic_gold_id")
-        if semantic_id not in row_hashes:
-            raise RuntimeError("private index semantic gold ID absent from frozen metadata")
-        if semantic_id in seen_semantic_ids:
+        if not isinstance(semantic_id, str) or not semantic_id or semantic_id in seen_semantic_ids:
             raise RuntimeError("duplicate private index semantic gold ID")
         seen_semantic_ids.add(semantic_id)
-        gold = gold_by_hash[row_hashes[semantic_id]]
         for query_id in index.get("query_ids", []):
             if query_id in by_query:
                 raise RuntimeError(f"duplicate private gold query id {query_id}")
             by_query[query_id] = gold
     if len(by_query) != 480:
         raise RuntimeError("private gold index must cover 480 query rows")
-    if seen_semantic_ids != set(row_hashes):
-        raise RuntimeError("private index does not cover frozen semantic IDs")
     return by_query, actual
 
 
+def private_seal_hashes() -> tuple[str, str]:
+    metadata = read_json(GEN_META / "test_generation_gold_aggregate.json")
+    expected = metadata["private_gold_sha256"]
+    index_expected = metadata.get("private_index_sha256")
+    if not isinstance(expected, str) or len(expected) != 64 or not isinstance(index_expected, str) or len(index_expected) != 64:
+        raise RuntimeError("sealed public metadata lacks private_index_sha256; cannot safely pair private gold and index")
+    return expected, index_expected
+
+
+def ensure_private_output_outside_repo(private_root: Path) -> None:
+    repo = ROOT.resolve()
+    for path in (private_root, private_root / "evaluation_details_v1"):
+        if path.resolve().is_relative_to(repo):
+            raise RuntimeError("private evaluation output must be outside repository root")
+
+
+def claim_formal_evaluation_once(start_path: Path, manifest_path: Path) -> None:
+    start_path.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        with os.fdopen(os.open(start_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600), "w", encoding="utf-8") as lock:
+            json.dump({"status": "FORMAL_EVALUATION_STARTED", "timestamp_utc": datetime.now(timezone.utc).isoformat(), "generation_prediction_manifest_sha256": sha256(manifest_path)}, lock)
+    except FileExistsError:
+        raise RuntimeError("formal generation evaluation already started") from None
+
+
 def evaluate(private_root: Path) -> dict[str, Any]:
-    if (OUT / "final_evaluation_manifest.json").exists() or (OUT / "metrics.json").exists():
+    ensure_private_output_outside_repo(private_root)
+    start_path = OUT / "evaluation_started.json"
+    if start_path.exists() or (OUT / "final_evaluation_manifest.json").exists() or (OUT / "metrics.json").exists():
         raise RuntimeError("formal generation evaluation already completed or artifacts exist")
     if (private_root / "evaluation_details_v1").exists():
         raise RuntimeError("private item-level evaluation artifacts already exist")
@@ -360,9 +461,14 @@ def evaluate(private_root: Path) -> dict[str, Any]:
     pre = preflight()
     if pre["retrieval_prediction_hashes"] != manifest.get("retrieval_prediction_hashes") or pre["materialized_artifact_hashes"] != manifest.get("materialized_artifact_hashes"):
         raise RuntimeError("frozen retrieval or materialized benchmark inputs changed")
-    current = validate_generation_files()
+    session = formal_session_fingerprint(pre)
+    if manifest.get("session_fingerprint") != session:
+        raise RuntimeError("frozen formal session changed")
+    current = validate_generation_files(session)
     if current != manifest["generation_prediction_hashes"]:
         raise RuntimeError("generation predictions changed after freeze")
+    private_seal_hashes()
+    claim_formal_evaluation_once(start_path, manifest_path)
 
     by_query, gold_hash = load_private_gold(private_root)
     if gold_hash != manifest["private_generation_gold_expected_sha256"]:
@@ -372,6 +478,8 @@ def evaluate(private_root: Path) -> dict[str, Any]:
     retrieval = retrieval_predictions()
     output_schema = schema()
     canon = Canonicalizer(aliases(), parameters())
+    for gold in by_query.values():
+        validate_gold_action_uniqueness(gold, canon)
     metrics: dict[str, Any] = {}
     private_details = private_root / "evaluation_details_v1"
     private_details.mkdir(parents=True, exist_ok=True)

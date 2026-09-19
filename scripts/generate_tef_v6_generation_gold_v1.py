@@ -314,6 +314,8 @@ def find_cycle(actions: list[dict[str, Any]]) -> bool:
 
 def validate_gold(gold: dict[str, Any], intent: dict[str, Any], chain: dict[str, Any]) -> list[str]:
     errors: list[str] = []
+    if list(Draft202012Validator(schema_document()).iter_errors(gold)):
+        errors.append("generation schema")
     visible = set(intent["visible_evidence_ids"])
     if set(gold) != {"work_order", "action_plan"}:
         errors.append("top-level keys")
@@ -584,9 +586,20 @@ def adjudicate_cases(cases: list[dict[str, Any]], pass_a: dict[str, Any], pass_b
 
 def schema_document() -> dict[str, Any]:
     citation = {"type": "array", "items": {"type": "string"}, "uniqueItems": True}
+    parameter_entry = {"oneOf": [
+        {"type": "string"},
+        {"type": "object", "additionalProperties": False, "required": ["value", "unit"], "properties": {
+            "value": {"oneOf": [
+                {"type": "number"}, {"type": "string"},
+                {"type": "object", "additionalProperties": False, "required": ["lower", "upper"],
+                 "properties": {"lower": {"type": "number"}, "upper": {"type": "number"}}},
+            ]},
+            "unit": {"type": ["string", "null"]},
+        }},
+    ]}
     return {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "tef-rag-v6-generation-gold-v1",
+        "$id": "tef-rag-v6-generation-gold-v1.3-compatible",
         "type": "object", "additionalProperties": False, "required": ["work_order", "action_plan"],
         "properties": {
             "work_order": {"type": "object", "additionalProperties": False, "required": ["asset_id", "diagnosis", "recommended_actions", "applicable_procedure", "verification_or_uncertainty", "supporting_evidence_ids"], "properties": {
@@ -597,7 +610,7 @@ def schema_document() -> dict[str, Any]:
                 "verification_or_uncertainty": {"type": "object", "additionalProperties": False, "required": ["status", "statement", "supporting_evidence_ids"], "properties": {"status": {"enum": sorted(VERIF_STATUSES)}, "statement": {"type": ["string", "null"]}, "supporting_evidence_ids": citation}},
                 "supporting_evidence_ids": citation,
             }},
-            "action_plan": {"type": "array", "items": {"type": "object", "additionalProperties": False, "required": ["action_id", "action_type", "target", "parameters", "depends_on", "supporting_evidence_ids"], "properties": {"action_id": {"type": "string"}, "action_type": {"enum": sorted(ACTION_TYPES)}, "target": {"type": ["string", "null"]}, "parameters": {"type": "object"}, "depends_on": {"type": "array", "items": {"type": "string"}, "uniqueItems": True}, "supporting_evidence_ids": citation}}},
+            "action_plan": {"type": "array", "items": {"type": "object", "additionalProperties": False, "required": ["action_id", "action_type", "target", "parameters", "depends_on", "supporting_evidence_ids"], "properties": {"action_id": {"type": "string"}, "action_type": {"enum": sorted(ACTION_TYPES)}, "target": {"type": ["string", "null"]}, "parameters": {"type": "object", "additionalProperties": parameter_entry}, "depends_on": {"type": "array", "items": {"type": "string"}, "uniqueItems": True}, "supporting_evidence_ids": citation}}},
         },
     }
 

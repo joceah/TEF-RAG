@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "tef-rag-v6-generation-gold-v1",
+  "$id": "tef-rag-v6-generation-gold-v1.3-compatible",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -173,7 +173,22 @@
             ]
           },
           "parameters": {
-            "type": "object"
+            "type": "object",
+            "additionalProperties": {
+              "oneOf": [
+                {"type": "string"},
+                {"type": "object", "additionalProperties": false, "required": ["value", "unit"],
+                 "properties": {
+                   "value": {"oneOf": [
+                     {"type": "number"},
+                     {"type": "string"},
+                     {"type": "object", "additionalProperties": false, "required": ["lower", "upper"],
+                      "properties": {"lower": {"type": "number"}, "upper": {"type": "number"}}}
+                   ]},
+                   "unit": {"type": ["string", "null"]}
+                 }}
+              ]
+            }
           },
           "depends_on": {
             "type": "array",
