@@ -1,7 +1,7 @@
 """Frozen TEF-RAG v6 structured-generation schema validation and evaluation.
 
 This module is deliberately retrieval-method agnostic. It scores only a generated
-work order/action plan against generation gold under protocol v1.2.
+work order/action plan against generation gold under protocol v1.3.
 """
 from __future__ import annotations
 
@@ -68,17 +68,17 @@ class Canonicalizer:
         if value is None:
             return None
         text = self.text(value)
-        return self.status_alias.get(text, text)
+        return self.status_alias.get(text, text) if isinstance(text, str) else text
 
     def action_type(self, value: Any) -> Any:
         if value is None:
             return None
         text = self.text(value)
-        return self.action_alias.get(text, text)
+        return self.action_alias.get(text, text) if isinstance(text, str) else text
 
     def parameter_key(self, value: Any) -> Any:
         text = self.text(value)
-        return self.parameter_alias.get(text, text)
+        return self.parameter_alias.get(text, text) if isinstance(text, str) else text
 
     def parameter_value(self, value: Any) -> Any:
         if isinstance(value, dict):
@@ -97,7 +97,7 @@ class Canonicalizer:
             "k": ("k", "1"), "°c": ("k", "1"), "℃": ("k", "1"),
         }
         key = self.text(unit) if unit is not None else None
-        if not isinstance(value, (int, float)) or isinstance(value, bool) or key not in units:
+        if not isinstance(value, (int, float)) or isinstance(value, bool) or not isinstance(key, str) or key not in units:
             return value, key
         target, factor = units[key]
         result = Decimal(str(value)) * Decimal(factor)
@@ -180,11 +180,36 @@ class Canonicalizer:
 
 
 def _ids(actions: list[dict[str, Any]]) -> list[str]:
-    return [str(a.get("action_id")) for a in actions]
+    return [
+        action["action_id"]
+        for action in actions
+        if isinstance(action, dict) and isinstance(action.get("action_id"), str)
+    ]
+
+
+def _valid_action_records(value: dict[str, Any]) -> list[dict[str, Any]]:
+    actions = value.get("action_plan") if isinstance(value, dict) else None
+    if not isinstance(actions, list):
+        return []
+    return [
+        action
+        for action in actions
+        if isinstance(action, dict) and isinstance(action.get("action_id"), str)
+    ]
 
 
 def dependency_edges(actions: list[dict[str, Any]]) -> set[tuple[str, str]]:
-    return {(str(parent), str(action.get("action_id"))) for action in actions for parent in action.get("depends_on", [])}
+    edges: set[tuple[str, str]] = set()
+    for action in actions:
+        if not isinstance(action, dict) or not isinstance(action.get("action_id"), str):
+            continue
+        depends_on = action.get("depends_on")
+        if not isinstance(depends_on, list):
+            continue
+        for parent in depends_on:
+            if isinstance(parent, str):
+                edges.add((parent, action["action_id"]))
+    return edges
 
 
 def has_cycle(actions: list[dict[str, Any]]) -> bool:
@@ -228,10 +253,11 @@ def transitive_closure(actions: list[dict[str, Any]]) -> set[tuple[str, str]]:
 
 
 def _intrinsic_action_keys(value: dict[str, Any], canon: Canonicalizer) -> dict[str, str]:
-    actions = [action for action in value.get("action_plan", []) if isinstance(action, dict) and isinstance(action.get("action_id"), str)]
+    actions = _valid_action_records(value)
     by_id = {str(action["action_id"]): action for action in actions}
     work = value.get("work_order") if isinstance(value.get("work_order"), dict) else {}
-    recommended = set(map(str, work.get("recommended_actions", [])))
+    recommended_value = work.get("recommended_actions")
+    recommended = set(map(str, recommended_value)) if isinstance(recommended_value, list) else set()
     closure = transitive_closure(actions)
     result: dict[str, str] = {}
     for action in actions:
@@ -241,18 +267,20 @@ def _intrinsic_action_keys(value: dict[str, Any], canon: Canonicalizer) -> dict[
         payload = (
             canon.action_key(action),
             aid in recommended,
-            sorted(map(str, action.get("supporting_evidence_ids", []))),
+            sorted(map(str, action.get("supporting_evidence_ids"))) if isinstance(action.get("supporting_evidence_ids"), list) else [],
             sorted(neighbor(source) for source, target in closure if target == aid),
             sorted(neighbor(target) for source, target in closure if source == aid),
-            sorted(neighbor(parent) for parent in action.get("depends_on", [])),
+            sorted(neighbor(parent) for parent in action.get("depends_on", []) if isinstance(parent, str))
+            if isinstance(action.get("depends_on"), list)
+            else [],
         )
         result[aid] = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
     return result
 
 
 def maximum_action_matching(pred: dict[str, Any], gold: dict[str, Any], canon: Canonicalizer) -> dict[str, str]:
-    pred_actions = [action for action in pred.get("action_plan", []) if isinstance(action, dict) and isinstance(action.get("action_id"), str)]
-    gold_actions = [action for action in gold.get("action_plan", []) if isinstance(action, dict) and isinstance(action.get("action_id"), str)]
+    pred_actions = _valid_action_records(pred)
+    gold_actions = _valid_action_records(gold)
     pred_keys = _intrinsic_action_keys(pred, canon)
     gold_by_id = {str(a["action_id"]): a for a in gold_actions}
     adjacency = {
@@ -322,7 +350,8 @@ def validate_generation_output(
                     errors.append("parameter range lower exceeds upper")
     if expected_asset_id is not None and work.get("asset_id") != expected_asset_id:
         errors.append("asset_id mismatch")
-    if isinstance(work.get("recommended_actions"), list) and not set(map(str, work["recommended_actions"])).issubset(set(action_ids)):
+    recommended = work.get("recommended_actions")
+    if isinstance(recommended, list) and not set(map(str, recommended)).issubset(set(action_ids)):
         errors.append("recommended_actions outside action_plan")
     if has_cycle([a for a in actions if isinstance(a, dict)]):
         errors.append("dependency graph invalid/cyclic")
@@ -365,6 +394,8 @@ def _map_closure(actions: list[dict[str, Any]], mapping: dict[str, str]) -> tupl
 
 
 def _semantic_obj_equal(pred_obj: dict[str, Any], gold_obj: dict[str, Any], canon: Canonicalizer, fields: tuple[str, ...]) -> bool:
+    if not isinstance(pred_obj, dict) or not isinstance(gold_obj, dict):
+        return False
     for field in fields:
         p = pred_obj.get(field)
         g = gold_obj.get(field)
@@ -392,9 +423,12 @@ def _claim_links(value: dict[str, Any], mapping: dict[str, str] | None, canon: C
     for name in ("diagnosis", "applicable_procedure", "verification_or_uncertainty"):
         claim_obj = work.get(name) if isinstance(work.get(name), dict) else {}
         claim = _work_claim_key(name, claim_obj, canon)
-        for eid in claim_obj.get("supporting_evidence_ids", []):
-            links.add((claim, str(eid)))
-    for action in value.get("action_plan", []):
+        refs = claim_obj.get("supporting_evidence_ids")
+        if isinstance(refs, list):
+            for eid in refs:
+                links.add((claim, str(eid)))
+    actions = value.get("action_plan") if isinstance(value.get("action_plan"), list) else []
+    for action in actions:
         if not isinstance(action, dict) or not isinstance(action.get("action_id"), str):
             continue
         aid = str(action["action_id"])
@@ -403,8 +437,10 @@ def _claim_links(value: dict[str, Any], mapping: dict[str, str] | None, canon: C
             claim = f"action:{key}" if key else "unmatched:" + canon.action_key(action)
         else:
             claim = f"action:{aid}"
-        for eid in action.get("supporting_evidence_ids", []):
-            links.add((claim, str(eid)))
+        refs = action.get("supporting_evidence_ids")
+        if isinstance(refs, list):
+            for eid in refs:
+                links.add((claim, str(eid)))
     return links
 
 
@@ -413,13 +449,16 @@ def _required_claim_support(gold: dict[str, Any], pred: dict[str, Any], mapping:
     gw = gold.get("work_order") if isinstance(gold.get("work_order"), dict) else {}
     for name in ("diagnosis", "applicable_procedure", "verification_or_uncertainty"):
         claim_obj = gw.get(name) if isinstance(gw.get(name), dict) else {}
-        refs = set(map(str, claim_obj.get("supporting_evidence_ids", [])))
+        raw_refs = claim_obj.get("supporting_evidence_ids")
+        refs = set(map(str, raw_refs)) if isinstance(raw_refs, list) else set()
         if refs:
             required.append((_work_claim_key(name, claim_obj, canon), refs))
-    for action in gold.get("action_plan", []):
+    gold_actions = gold.get("action_plan") if isinstance(gold.get("action_plan"), list) else []
+    for action in gold_actions:
         if not isinstance(action, dict) or not isinstance(action.get("action_id"), str):
             continue
-        refs = set(map(str, action.get("supporting_evidence_ids", [])))
+        raw_refs = action.get("supporting_evidence_ids")
+        refs = set(map(str, raw_refs)) if isinstance(raw_refs, list) else set()
         if refs:
             required.append((f"action:{action['action_id']}", refs))
     pred_links = _claim_links(pred, mapping, canon, prediction=True)
@@ -462,13 +501,17 @@ def evaluate_generation_prediction(
     rec_mapping_ok = True
     pred_work = pred.get("work_order") if isinstance(pred.get("work_order"), dict) else {}
     gold_work = gold.get("work_order") if isinstance(gold.get("work_order"), dict) else {}
-    for aid in pred_work.get("recommended_actions", []):
+    pred_recommended = pred_work.get("recommended_actions")
+    pred_recommended = pred_recommended if isinstance(pred_recommended, list) else []
+    for aid in pred_recommended:
         gid = mapping.get(str(aid))
         if gid is None:
             rec_mapping_ok = False
         else:
             mapped_rec.append(gid)
-    gold_rec = sorted(map(str, gold_work.get("recommended_actions", [])))
+    gold_recommended = gold_work.get("recommended_actions")
+    gold_recommended = gold_recommended if isinstance(gold_recommended, list) else []
+    gold_rec = sorted(map(str, gold_recommended))
 
     pred_work_sem = canon.work_semantic(pred_work, mapped_rec)
     gold_work_sem = canon.work_semantic(gold_work, gold_rec)

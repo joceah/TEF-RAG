@@ -76,6 +76,40 @@ def test_published_gold_parameter_compatibility_and_malformed_rejection():
     assert "parameter range lower exceeds upper" in validate_generation_output(bad, actual_schema, {"E1", "E2"}, "Rack-A")
 
 
+@pytest.mark.parametrize(
+    "mutate",
+    [
+        lambda prediction: prediction["action_plan"][1].__setitem__("depends_on", None),
+        lambda prediction: prediction["action_plan"][0].__setitem__("supporting_evidence_ids", None),
+        lambda prediction: prediction["work_order"].__setitem__("recommended_actions", None),
+        lambda prediction: prediction["action_plan"][0].__setitem__("action_type", {}),
+        lambda prediction: prediction["action_plan"][0].__setitem__("parameters", None),
+        lambda prediction: prediction["action_plan"].append("not an action object"),
+        lambda prediction: prediction.__setitem__("work_order", []),
+        lambda prediction: prediction["work_order"].__setitem__("diagnosis", []),
+    ],
+    ids=[
+        "depends_on-none",
+        "supporting-evidence-none",
+        "recommended-actions-none",
+        "action-type-object",
+        "parameters-none",
+        "action-plan-non-object",
+        "work-order-wrong-type",
+        "diagnosis-wrong-type",
+    ],
+)
+def test_malformed_json_object_prediction_is_safe_and_conservative(mutate):
+    prediction = gold()
+    mutate(prediction)
+    errors = validate_generation_output(prediction, schema(), {"E1", "E2"}, "Rack-A")
+    assert errors
+    result = evaluate_generation_prediction(prediction, gold(), schema(), canon(), {"E1", "E2"}, "Rack-A")
+    assert result["schema_validity"] == 0
+    assert result["plan_em_strict"] == 0
+    assert result["task_success"] == 0
+
+
 def test_duplicate_canonical_gold_fails_closed():
     g = gold()
     g["action_plan"].append({**copy.deepcopy(g["action_plan"][0]), "action_id": "A3", "supporting_evidence_ids": ["E2"]})
