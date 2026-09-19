@@ -1,0 +1,396 @@
+{
+  "chain_id": "TEFV6-C0317",
+  "split": "development",
+  "pass": "B",
+  "status": "accepted",
+  "repair_used": true,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0317-I01-before_cutoff": [],
+    "TEFV6-C0317-I02-after_cutoff": [],
+    "TEFV6-C0317-I03-uncertainty_over_time": []
+  },
+  "initial_result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0317-I01-before_cutoff",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-16",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "轻微偏离原因未定，保留早期实体异常与采集链路偏移两个分支",
+              "supporting_evidence_ids": [
+                "TEFV6-C0317-E01",
+                "TEFV6-C0317-E02",
+                "TEFV6-C0317-E03",
+                "TEFV6-C0317-E04"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "not_available",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "截至15:35，仅有一次接近测量重复性边界的复测，第二轮复测尚不可见，无法确定唯一原因，需保留两个分支。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0317-E01",
+                "TEFV6-C0317-E02",
+                "TEFV6-C0317-E03",
+                "TEFV6-C0317-E04"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0317-E01",
+              "TEFV6-C0317-E02",
+              "TEFV6-C0317-E03",
+              "TEFV6-C0317-E04"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0317-I02-after_cutoff",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-16",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "第二轮复测到达后仍无法稳定区分早期实体异常与采集链路偏移两个分支",
+              "supporting_evidence_ids": [
+                "TEFV6-C0317-E05",
+                "TEFV6-C0317-E06"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0317-A02",
+              "TEFV6-C0317-A03"
+            ],
+            "applicable_procedure": {
+              "status": "not_available",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "第二轮独立复测仍不足以收敛唯一诊断，维持双分支，继续保守监测并安排下一次可重复区分测试。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0317-E05",
+                "TEFV6-C0317-E06",
+                "TEFV6-C0317-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0317-E05",
+              "TEFV6-C0317-E06",
+              "TEFV6-C0317-E07"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0317-A01",
+              "action_type": "monitor",
+              "target": "R-16号电池簇",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0317-E07"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0317-A02",
+              "action_type": "diagnose",
+              "target": "R-16号电池簇",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0317-E07"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0317-A03",
+              "action_type": "verify",
+              "target": "R-16号电池簇",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0317-A02"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0317-E07"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0317-I03-uncertainty_over_time",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-16",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "跨过时间边界后第二轮复测仍无法稳定区分早期实体异常与采集链路偏移两个分支",
+              "supporting_evidence_ids": [
+                "TEFV6-C0317-E05",
+                "TEFV6-C0317-E06"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0317-A02",
+              "TEFV6-C0317-A03"
+            ],
+            "applicable_procedure": {
+              "status": "not_available",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "第二轮复测虽已到达，但仍不足以收敛唯一诊断，故不是晚到即纠正，需维持双分支并继续保守监测。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0317-E05",
+                "TEFV6-C0317-E06",
+                "TEFV6-C0317-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0317-E05",
+              "TEFV6-C0317-E06",
+              "TEFV6-C0317-E07"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0317-A01",
+              "action_type": "monitor",
+              "target": "R-16号电池簇",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0317-E07"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0317-A02",
+              "action_type": "diagnose",
+              "target": "R-16号电池簇",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0317-E07"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0317-A03",
+              "action_type": "verify",
+              "target": "R-16号电池簇",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0317-A02"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0317-E07"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0317-I01-before_cutoff",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-16",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "轻微偏离原因未定，保留早期实体异常与采集链路偏移两个分支",
+              "supporting_evidence_ids": [
+                "TEFV6-C0317-E01",
+                "TEFV6-C0317-E02",
+                "TEFV6-C0317-E03",
+                "TEFV6-C0317-E04"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "截至15:35，仅有一次接近测量重复性边界的复测，第二轮复测尚不可见，无法确定唯一原因，需保留两个分支。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0317-E01",
+                "TEFV6-C0317-E02",
+                "TEFV6-C0317-E03",
+                "TEFV6-C0317-E04"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0317-E01",
+              "TEFV6-C0317-E02",
+              "TEFV6-C0317-E03",
+              "TEFV6-C0317-E04"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0317-I02-after_cutoff",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-16",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "第二轮复测到达后仍无法稳定区分早期实体异常与采集链路偏移两个分支",
+              "supporting_evidence_ids": [
+                "TEFV6-C0317-E05",
+                "TEFV6-C0317-E06"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0317-A02",
+              "TEFV6-C0317-A03"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "第二轮独立复测仍不足以收敛唯一诊断，维持双分支，继续保守监测并安排下一次可重复区分测试。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0317-E05",
+                "TEFV6-C0317-E06",
+                "TEFV6-C0317-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0317-E05",
+              "TEFV6-C0317-E06",
+              "TEFV6-C0317-E07"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0317-A01",
+              "action_type": "monitor",
+              "target": "R-16号电池簇",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0317-E07"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0317-A02",
+              "action_type": "diagnose",
+              "target": "R-16号电池簇",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0317-E07"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0317-A03",
+              "action_type": "verify",
+              "target": "R-16号电池簇",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0317-A02"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0317-E07"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0317-I03-uncertainty_over_time",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-16",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "跨过时间边界后第二轮复测仍无法稳定区分早期实体异常与采集链路偏移两个分支",
+              "supporting_evidence_ids": [
+                "TEFV6-C0317-E05",
+                "TEFV6-C0317-E06"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0317-A02",
+              "TEFV6-C0317-A03"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "第二轮复测虽已到达，但仍不足以收敛唯一诊断，故不是晚到即纠正，需维持双分支并继续保守监测。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0317-E05",
+                "TEFV6-C0317-E06",
+                "TEFV6-C0317-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0317-E05",
+              "TEFV6-C0317-E06",
+              "TEFV6-C0317-E07"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0317-A01",
+              "action_type": "monitor",
+              "target": "R-16号电池簇",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0317-E07"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0317-A02",
+              "action_type": "diagnose",
+              "target": "R-16号电池簇",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0317-E07"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0317-A03",
+              "action_type": "verify",
+              "target": "R-16号电池簇",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0317-A02"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0317-E07"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:39:57.236042"
+}

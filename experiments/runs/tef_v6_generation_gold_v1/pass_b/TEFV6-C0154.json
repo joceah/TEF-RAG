@@ -1,0 +1,398 @@
+{
+  "chain_id": "TEFV6-C0154",
+  "split": "validation",
+  "pass": "B",
+  "status": "accepted",
+  "repair_used": true,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0154-I01-uncertain_status": [],
+    "TEFV6-C0154-I02-why_uncertain": [],
+    "TEFV6-C0154-I03-next_discriminator": []
+  },
+  "initial_result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0154-I01-uncertain_status",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V01",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "轻微单点偏离存在两个可解释分支（早期实体异常 vs 采集链路偏移），现有证据不足以收敛为唯一原因",
+              "supporting_evidence_ids": [
+                "TEFV6-C0154-E01",
+                "TEFV6-C0154-E02",
+                "TEFV6-C0154-E03",
+                "TEFV6-C0154-E04",
+                "TEFV6-C0154-E05",
+                "TEFV6-C0154-E06",
+                "TEFV6-C0154-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "not_available",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "当前不批准写入唯一诊断，应保留两个可解释分支并继续获取区分证据；限制状态未被解除。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0154-E07",
+                "TEFV6-C0154-E11"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0154-E01",
+              "TEFV6-C0154-E02",
+              "TEFV6-C0154-E03",
+              "TEFV6-C0154-E04",
+              "TEFV6-C0154-E05",
+              "TEFV6-C0154-E06",
+              "TEFV6-C0154-E07",
+              "TEFV6-C0154-E08",
+              "TEFV6-C0154-E11"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "C-V01 直流汇流回路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0154-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-V01 直流汇流回路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0154-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0154-I02-why_uncertain",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V01",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "轻微单点偏离存在两个可解释分支（早期实体异常 vs 采集链路偏移），现有证据不足以收敛为唯一原因",
+              "supporting_evidence_ids": [
+                "TEFV6-C0154-E01",
+                "TEFV6-C0154-E02",
+                "TEFV6-C0154-E03",
+                "TEFV6-C0154-E04",
+                "TEFV6-C0154-E05",
+                "TEFV6-C0154-E06",
+                "TEFV6-C0154-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "not_available",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "当前不批准写入唯一诊断，应保留两个可解释分支并继续获取区分证据；限制状态未被解除。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0154-E07",
+                "TEFV6-C0154-E11"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0154-E01",
+              "TEFV6-C0154-E02",
+              "TEFV6-C0154-E03",
+              "TEFV6-C0154-E04",
+              "TEFV6-C0154-E05",
+              "TEFV6-C0154-E06",
+              "TEFV6-C0154-E07",
+              "TEFV6-C0154-E11"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0154-I03-next_discriminator",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V01",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "轻微单点偏离存在两个可解释分支（早期实体异常 vs 采集链路偏移），现有证据不足以收敛为唯一原因",
+              "supporting_evidence_ids": [
+                "TEFV6-C0154-E01",
+                "TEFV6-C0154-E02",
+                "TEFV6-C0154-E03",
+                "TEFV6-C0154-E04",
+                "TEFV6-C0154-E05",
+                "TEFV6-C0154-E06",
+                "TEFV6-C0154-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "not_available",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "当前不批准写入唯一诊断，应保留两个可解释分支并继续获取区分证据；限制状态未被解除。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0154-E07",
+                "TEFV6-C0154-E11"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0154-E01",
+              "TEFV6-C0154-E02",
+              "TEFV6-C0154-E03",
+              "TEFV6-C0154-E04",
+              "TEFV6-C0154-E05",
+              "TEFV6-C0154-E06",
+              "TEFV6-C0154-E07",
+              "TEFV6-C0154-E08",
+              "TEFV6-C0154-E11"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "C-V01 直流汇流回路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0154-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-V01 直流汇流回路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0154-E08"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0154-I01-uncertain_status",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V01",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "轻微单点偏离存在两个可解释分支（早期实体异常 vs 采集链路偏移），现有证据不足以收敛为唯一原因",
+              "supporting_evidence_ids": [
+                "TEFV6-C0154-E01",
+                "TEFV6-C0154-E02",
+                "TEFV6-C0154-E03",
+                "TEFV6-C0154-E04",
+                "TEFV6-C0154-E05",
+                "TEFV6-C0154-E06",
+                "TEFV6-C0154-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "当前不批准写入唯一诊断，应保留两个可解释分支并继续获取区分证据；限制状态未被解除。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0154-E07",
+                "TEFV6-C0154-E11"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0154-E01",
+              "TEFV6-C0154-E02",
+              "TEFV6-C0154-E03",
+              "TEFV6-C0154-E04",
+              "TEFV6-C0154-E05",
+              "TEFV6-C0154-E06",
+              "TEFV6-C0154-E07",
+              "TEFV6-C0154-E08",
+              "TEFV6-C0154-E11"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "C-V01 直流汇流回路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0154-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-V01 直流汇流回路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0154-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0154-I02-why_uncertain",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V01",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "轻微单点偏离存在两个可解释分支（早期实体异常 vs 采集链路偏移），现有证据不足以收敛为唯一原因",
+              "supporting_evidence_ids": [
+                "TEFV6-C0154-E01",
+                "TEFV6-C0154-E02",
+                "TEFV6-C0154-E03",
+                "TEFV6-C0154-E04",
+                "TEFV6-C0154-E05",
+                "TEFV6-C0154-E06",
+                "TEFV6-C0154-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "当前不批准写入唯一诊断，应保留两个可解释分支并继续获取区分证据；限制状态未被解除。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0154-E07",
+                "TEFV6-C0154-E11"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0154-E01",
+              "TEFV6-C0154-E02",
+              "TEFV6-C0154-E03",
+              "TEFV6-C0154-E04",
+              "TEFV6-C0154-E05",
+              "TEFV6-C0154-E06",
+              "TEFV6-C0154-E07",
+              "TEFV6-C0154-E11"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0154-I03-next_discriminator",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V01",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "轻微单点偏离存在两个可解释分支（早期实体异常 vs 采集链路偏移），现有证据不足以收敛为唯一原因",
+              "supporting_evidence_ids": [
+                "TEFV6-C0154-E01",
+                "TEFV6-C0154-E02",
+                "TEFV6-C0154-E03",
+                "TEFV6-C0154-E04",
+                "TEFV6-C0154-E05",
+                "TEFV6-C0154-E06",
+                "TEFV6-C0154-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "当前不批准写入唯一诊断，应保留两个可解释分支并继续获取区分证据；限制状态未被解除。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0154-E07",
+                "TEFV6-C0154-E11"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0154-E01",
+              "TEFV6-C0154-E02",
+              "TEFV6-C0154-E03",
+              "TEFV6-C0154-E04",
+              "TEFV6-C0154-E05",
+              "TEFV6-C0154-E06",
+              "TEFV6-C0154-E07",
+              "TEFV6-C0154-E08",
+              "TEFV6-C0154-E11"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "C-V01 直流汇流回路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0154-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-V01 直流汇流回路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0154-E08"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:59:20.620414"
+}

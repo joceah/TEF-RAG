@@ -1,0 +1,15 @@
+{
+  "chain_id": "TEFV6-C0064",
+  "split": "development",
+  "status": "REVIEW_UNRESOLVED",
+  "used_adjudication": false,
+  "structural_repairs": [],
+  "disagreement_intents": [],
+  "disagreement_fields": {},
+  "summary": {
+    "pass_a_pass_b_canonical_equal": true,
+    "disagreement_count": 0,
+    "disagreement_fields": {}
+  },
+  "result": null
+}

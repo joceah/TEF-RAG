@@ -1,0 +1,339 @@
+{
+  "chain_id": "TEFV6-C0350",
+  "split": "validation",
+  "pass": "A",
+  "status": "REVIEW_UNRESOLVED",
+  "repair_used": true,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0350-I01-current_cause_action": [],
+    "TEFV6-C0350-I02-episode_compare": [],
+    "TEFV6-C0350-I03-decision_boundary": [
+      "top citation union"
+    ]
+  },
+  "initial_result": {
+    "type": "json_object",
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0350-I01-current_cause_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-47",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "冷却通道受阻",
+              "supporting_evidence_ids": [
+                "TEFV6-C0350-E05",
+                "TEFV6-C0350-E06",
+                "TEFV6-C0350-E07",
+                "TEFV6-C0350-E08",
+                "TEFV6-C0350-E11"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP",
+              "supporting_evidence_ids": [
+                "TEFV6-C0350-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单要求处理风道阻塞并复测温差，复测结果尚未产生。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0350-E09"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0350-E05",
+              "TEFV6-C0350-E06",
+              "TEFV6-C0350-E07",
+              "TEFV6-C0350-E08",
+              "TEFV6-C0350-E09",
+              "TEFV6-C0350-E11"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "风道阻塞",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0350-E07",
+                "TEFV6-C0350-E08",
+                "TEFV6-C0350-E09",
+                "TEFV6-C0350-E11"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "温差",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0350-E09"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0350-I02-episode_compare",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-47",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为冷却通道受阻，上次为温度采集通道偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0350-E01",
+                "TEFV6-C0350-E02",
+                "TEFV6-C0350-E03",
+                "TEFV6-C0350-E05",
+                "TEFV6-C0350-E06",
+                "TEFV6-C0350-E07",
+                "TEFV6-C0350-E08",
+                "TEFV6-C0350-E11"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "not_applicable",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "not_available",
+              "statement": null,
+              "supporting_evidence_ids": []
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0350-E01",
+              "TEFV6-C0350-E02",
+              "TEFV6-C0350-E03",
+              "TEFV6-C0350-E05",
+              "TEFV6-C0350-E06",
+              "TEFV6-C0350-E07",
+              "TEFV6-C0350-E08",
+              "TEFV6-C0350-E11"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0350-I03-decision_boundary",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-47",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "冷却通道受阻",
+              "supporting_evidence_ids": [
+                "TEFV6-C0350-E05",
+                "TEFV6-C0350-E06",
+                "TEFV6-C0350-E07",
+                "TEFV6-C0350-E08",
+                "TEFV6-C0350-E11"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "not_applicable",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "not_available",
+              "statement": null,
+              "supporting_evidence_ids": []
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0350-E01",
+              "TEFV6-C0350-E02",
+              "TEFV6-C0350-E03",
+              "TEFV6-C0350-E05",
+              "TEFV6-C0350-E06",
+              "TEFV6-C0350-E07",
+              "TEFV6-C0350-E08",
+              "TEFV6-C0350-E11"
+            ]
+          },
+          "action_plan": []
+        }
+      }
+    ]
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0350-I01-current_cause_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-47",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "冷却通道受阻",
+              "supporting_evidence_ids": [
+                "TEFV6-C0350-E05",
+                "TEFV6-C0350-E06",
+                "TEFV6-C0350-E07",
+                "TEFV6-C0350-E08",
+                "TEFV6-C0350-E11"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP",
+              "supporting_evidence_ids": [
+                "TEFV6-C0350-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单要求处理风道阻塞并复测温差，复测结果尚未产生。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0350-E09"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0350-E05",
+              "TEFV6-C0350-E06",
+              "TEFV6-C0350-E07",
+              "TEFV6-C0350-E08",
+              "TEFV6-C0350-E09",
+              "TEFV6-C0350-E11"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "风道阻塞",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0350-E07",
+                "TEFV6-C0350-E08",
+                "TEFV6-C0350-E09",
+                "TEFV6-C0350-E11"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "温差",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0350-E09"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0350-I02-episode_compare",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-47",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为冷却通道受阻，上次为温度采集通道偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0350-E01",
+                "TEFV6-C0350-E02",
+                "TEFV6-C0350-E03",
+                "TEFV6-C0350-E05",
+                "TEFV6-C0350-E06",
+                "TEFV6-C0350-E07",
+                "TEFV6-C0350-E08",
+                "TEFV6-C0350-E11"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "not_applicable",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "not_available",
+              "statement": null,
+              "supporting_evidence_ids": []
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0350-E01",
+              "TEFV6-C0350-E02",
+              "TEFV6-C0350-E03",
+              "TEFV6-C0350-E05",
+              "TEFV6-C0350-E06",
+              "TEFV6-C0350-E07",
+              "TEFV6-C0350-E08",
+              "TEFV6-C0350-E11"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0350-I03-decision_boundary",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-47",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "冷却通道受阻",
+              "supporting_evidence_ids": [
+                "TEFV6-C0350-E05",
+                "TEFV6-C0350-E06",
+                "TEFV6-C0350-E07",
+                "TEFV6-C0350-E08",
+                "TEFV6-C0350-E11"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "not_applicable",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "not_available",
+              "statement": null,
+              "supporting_evidence_ids": []
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0350-E01",
+              "TEFV6-C0350-E02",
+              "TEFV6-C0350-E03",
+              "TEFV6-C0350-E05",
+              "TEFV6-C0350-E06",
+              "TEFV6-C0350-E07",
+              "TEFV6-C0350-E08",
+              "TEFV6-C0350-E11"
+            ]
+          },
+          "action_plan": []
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:54:52.336193"
+}

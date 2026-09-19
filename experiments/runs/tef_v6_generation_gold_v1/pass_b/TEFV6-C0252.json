@@ -1,0 +1,440 @@
+{
+  "chain_id": "TEFV6-C0252",
+  "split": "development",
+  "pass": "B",
+  "status": "accepted",
+  "repair_used": false,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0252-I01-routine_status": [],
+    "TEFV6-C0252-I02-routine_basis": [],
+    "TEFV6-C0252-I03-routine_followup": []
+  },
+  "initial_result": {
+    "type": "json_object",
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0252-I01-routine_status",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-10",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "温度采集链路处于常规稳定状态，无足够证据支持故障升级",
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E01",
+                "TEFV6-C0252-E02",
+                "TEFV6-C0252-E03",
+                "TEFV6-C0252-E05"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0252-I01-A01",
+              "TEFV6-C0252-I01-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E04"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "跨源状态一致且无持续异常，工单保持例行监测，不新增部件维修任务",
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E02",
+                "TEFV6-C0252-E06"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0252-E01",
+              "TEFV6-C0252-E02",
+              "TEFV6-C0252-E03",
+              "TEFV6-C0252-E04",
+              "TEFV6-C0252-E05",
+              "TEFV6-C0252-E06"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0252-I01-A01",
+              "action_type": "monitor",
+              "target": "R-10 温度采集链路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E04",
+                "TEFV6-C0252-E06"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0252-I01-A02",
+              "action_type": "verify",
+              "target": "R-10 温度采集链路",
+              "parameters": {
+                "timing": "下次班次"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E06"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0252-I02-routine_basis",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-10",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "温度采集链路处于常规稳定状态，无足够证据支持故障升级",
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E01",
+                "TEFV6-C0252-E02",
+                "TEFV6-C0252-E03",
+                "TEFV6-C0252-E05"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0252-I02-A01"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E04"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "关键遥测稳定、辅助系统反馈与指令一致、巡检无可见异常，且无足够证据支持故障升级",
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E01",
+                "TEFV6-C0252-E02",
+                "TEFV6-C0252-E03",
+                "TEFV6-C0252-E05"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0252-E01",
+              "TEFV6-C0252-E02",
+              "TEFV6-C0252-E03",
+              "TEFV6-C0252-E04",
+              "TEFV6-C0252-E05"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0252-I02-A01",
+              "action_type": "monitor",
+              "target": "R-10 温度采集链路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E04"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0252-I03-routine_followup",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-10",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "温度采集链路处于常规稳定状态，无足够证据支持故障升级",
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E01",
+                "TEFV6-C0252-E02",
+                "TEFV6-C0252-E03",
+                "TEFV6-C0252-E05"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0252-I03-A01",
+              "TEFV6-C0252-I03-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E04"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "交接记录确认例行监测安排已进入下一班次清单",
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0252-E01",
+              "TEFV6-C0252-E02",
+              "TEFV6-C0252-E03",
+              "TEFV6-C0252-E04",
+              "TEFV6-C0252-E05",
+              "TEFV6-C0252-E06",
+              "TEFV6-C0252-E07"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0252-I03-A01",
+              "action_type": "monitor",
+              "target": "R-10 温度采集链路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E04",
+                "TEFV6-C0252-E06"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0252-I03-A02",
+              "action_type": "document",
+              "target": "R-10 温度采集链路趋势记录",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E04"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0252-I03-A03",
+              "action_type": "verify",
+              "target": "R-10 温度采集链路",
+              "parameters": {
+                "timing": "下次班次"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E06",
+                "TEFV6-C0252-E07"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "result": {
+    "type": "json_object",
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0252-I01-routine_status",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-10",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "温度采集链路处于常规稳定状态，无足够证据支持故障升级",
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E01",
+                "TEFV6-C0252-E02",
+                "TEFV6-C0252-E03",
+                "TEFV6-C0252-E05"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0252-I01-A01",
+              "TEFV6-C0252-I01-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E04"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "跨源状态一致且无持续异常，工单保持例行监测，不新增部件维修任务",
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E02",
+                "TEFV6-C0252-E06"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0252-E01",
+              "TEFV6-C0252-E02",
+              "TEFV6-C0252-E03",
+              "TEFV6-C0252-E04",
+              "TEFV6-C0252-E05",
+              "TEFV6-C0252-E06"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0252-I01-A01",
+              "action_type": "monitor",
+              "target": "R-10 温度采集链路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E04",
+                "TEFV6-C0252-E06"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0252-I01-A02",
+              "action_type": "verify",
+              "target": "R-10 温度采集链路",
+              "parameters": {
+                "timing": "下次班次"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E06"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0252-I02-routine_basis",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-10",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "温度采集链路处于常规稳定状态，无足够证据支持故障升级",
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E01",
+                "TEFV6-C0252-E02",
+                "TEFV6-C0252-E03",
+                "TEFV6-C0252-E05"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0252-I02-A01"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E04"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "关键遥测稳定、辅助系统反馈与指令一致、巡检无可见异常，且无足够证据支持故障升级",
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E01",
+                "TEFV6-C0252-E02",
+                "TEFV6-C0252-E03",
+                "TEFV6-C0252-E05"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0252-E01",
+              "TEFV6-C0252-E02",
+              "TEFV6-C0252-E03",
+              "TEFV6-C0252-E04",
+              "TEFV6-C0252-E05"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0252-I02-A01",
+              "action_type": "monitor",
+              "target": "R-10 温度采集链路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E04"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0252-I03-routine_followup",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-10",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "温度采集链路处于常规稳定状态，无足够证据支持故障升级",
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E01",
+                "TEFV6-C0252-E02",
+                "TEFV6-C0252-E03",
+                "TEFV6-C0252-E05"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0252-I03-A01",
+              "TEFV6-C0252-I03-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E04"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "交接记录确认例行监测安排已进入下一班次清单",
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0252-E01",
+              "TEFV6-C0252-E02",
+              "TEFV6-C0252-E03",
+              "TEFV6-C0252-E04",
+              "TEFV6-C0252-E05",
+              "TEFV6-C0252-E06",
+              "TEFV6-C0252-E07"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0252-I03-A01",
+              "action_type": "monitor",
+              "target": "R-10 温度采集链路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E04",
+                "TEFV6-C0252-E06"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0252-I03-A02",
+              "action_type": "document",
+              "target": "R-10 温度采集链路趋势记录",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E04"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0252-I03-A03",
+              "action_type": "verify",
+              "target": "R-10 温度采集链路",
+              "parameters": {
+                "timing": "下次班次"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0252-E06",
+                "TEFV6-C0252-E07"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:33:39.931654"
+}

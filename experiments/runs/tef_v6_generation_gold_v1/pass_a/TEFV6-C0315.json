@@ -1,0 +1,488 @@
+{
+  "chain_id": "TEFV6-C0315",
+  "split": "development",
+  "pass": "A",
+  "status": "accepted",
+  "repair_used": false,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0315-I01-current_rule": [],
+    "TEFV6-C0315-I02-cross_source_rule": [],
+    "TEFV6-C0315-I03-version_source_interaction": []
+  },
+  "initial_result": {
+    "type": "json_object",
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0315-I01-current_rule",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-50",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "R-50号电池簇主遥测持续偏离，跨源证据共同支持当前定位",
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E04",
+                "TEFV6-C0315-E09",
+                "TEFV6-C0315-E05",
+                "TEFV6-C0315-E06",
+                "TEFV6-C0315-E07",
+                "TEFV6-C0315-E10"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0315-A01",
+              "TEFV6-C0315-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "C2-1处置V3自2026-05-06起生效并取代V2，为当前适用程序版本。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E03"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0315-E03",
+              "TEFV6-C0315-E04",
+              "TEFV6-C0315-E09",
+              "TEFV6-C0315-E05",
+              "TEFV6-C0315-E06",
+              "TEFV6-C0315-E07",
+              "TEFV6-C0315-E10",
+              "TEFV6-C0315-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0315-A01",
+              "action_type": "repair",
+              "target": "R-50号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E08",
+                "TEFV6-C0315-E07",
+                "TEFV6-C0315-E10"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0315-A02",
+              "action_type": "verify",
+              "target": "R-50号电池簇已处理部件",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0315-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0315-I02-cross_source_rule",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-50",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "R-50号电池簇主遥测持续偏离，跨源证据共同支持当前定位",
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E04",
+                "TEFV6-C0315-E09",
+                "TEFV6-C0315-E05",
+                "TEFV6-C0315-E06",
+                "TEFV6-C0315-E07",
+                "TEFV6-C0315-E10"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0315-A01",
+              "TEFV6-C0315-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "按C2-1 V3，扩大范围前必须同时具备遥测、现场和辅助系统三类来源证据。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E03",
+                "TEFV6-C0315-E04",
+                "TEFV6-C0315-E09",
+                "TEFV6-C0315-E05",
+                "TEFV6-C0315-E06"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0315-E03",
+              "TEFV6-C0315-E04",
+              "TEFV6-C0315-E09",
+              "TEFV6-C0315-E05",
+              "TEFV6-C0315-E06",
+              "TEFV6-C0315-E07",
+              "TEFV6-C0315-E10",
+              "TEFV6-C0315-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0315-A01",
+              "action_type": "repair",
+              "target": "R-50号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E08",
+                "TEFV6-C0315-E07",
+                "TEFV6-C0315-E10"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0315-A02",
+              "action_type": "verify",
+              "target": "R-50号电池簇已处理部件",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0315-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0315-I03-version_source_interaction",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-50",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "R-50号电池簇主遥测持续偏离，跨源证据共同支持当前定位",
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E04",
+                "TEFV6-C0315-E09",
+                "TEFV6-C0315-E05",
+                "TEFV6-C0315-E06",
+                "TEFV6-C0315-E07",
+                "TEFV6-C0315-E10"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0315-A01",
+              "TEFV6-C0315-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "当前结论同时依赖V3版本适用性与遥测、现场、辅助系统跨源证据齐备；仅版本正确而跨源证据不全不能形成当前结论。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E03",
+                "TEFV6-C0315-E04",
+                "TEFV6-C0315-E09",
+                "TEFV6-C0315-E05",
+                "TEFV6-C0315-E06",
+                "TEFV6-C0315-E07",
+                "TEFV6-C0315-E10"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0315-E03",
+              "TEFV6-C0315-E04",
+              "TEFV6-C0315-E09",
+              "TEFV6-C0315-E05",
+              "TEFV6-C0315-E06",
+              "TEFV6-C0315-E07",
+              "TEFV6-C0315-E10",
+              "TEFV6-C0315-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0315-A01",
+              "action_type": "repair",
+              "target": "R-50号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E08",
+                "TEFV6-C0315-E07",
+                "TEFV6-C0315-E10"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0315-A02",
+              "action_type": "verify",
+              "target": "R-50号电池簇已处理部件",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0315-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E08"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "result": {
+    "type": "json_object",
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0315-I01-current_rule",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-50",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "R-50号电池簇主遥测持续偏离，跨源证据共同支持当前定位",
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E04",
+                "TEFV6-C0315-E09",
+                "TEFV6-C0315-E05",
+                "TEFV6-C0315-E06",
+                "TEFV6-C0315-E07",
+                "TEFV6-C0315-E10"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0315-A01",
+              "TEFV6-C0315-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "C2-1处置V3自2026-05-06起生效并取代V2，为当前适用程序版本。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E03"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0315-E03",
+              "TEFV6-C0315-E04",
+              "TEFV6-C0315-E09",
+              "TEFV6-C0315-E05",
+              "TEFV6-C0315-E06",
+              "TEFV6-C0315-E07",
+              "TEFV6-C0315-E10",
+              "TEFV6-C0315-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0315-A01",
+              "action_type": "repair",
+              "target": "R-50号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E08",
+                "TEFV6-C0315-E07",
+                "TEFV6-C0315-E10"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0315-A02",
+              "action_type": "verify",
+              "target": "R-50号电池簇已处理部件",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0315-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0315-I02-cross_source_rule",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-50",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "R-50号电池簇主遥测持续偏离，跨源证据共同支持当前定位",
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E04",
+                "TEFV6-C0315-E09",
+                "TEFV6-C0315-E05",
+                "TEFV6-C0315-E06",
+                "TEFV6-C0315-E07",
+                "TEFV6-C0315-E10"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0315-A01",
+              "TEFV6-C0315-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "按C2-1 V3，扩大范围前必须同时具备遥测、现场和辅助系统三类来源证据。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E03",
+                "TEFV6-C0315-E04",
+                "TEFV6-C0315-E09",
+                "TEFV6-C0315-E05",
+                "TEFV6-C0315-E06"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0315-E03",
+              "TEFV6-C0315-E04",
+              "TEFV6-C0315-E09",
+              "TEFV6-C0315-E05",
+              "TEFV6-C0315-E06",
+              "TEFV6-C0315-E07",
+              "TEFV6-C0315-E10",
+              "TEFV6-C0315-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0315-A01",
+              "action_type": "repair",
+              "target": "R-50号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E08",
+                "TEFV6-C0315-E07",
+                "TEFV6-C0315-E10"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0315-A02",
+              "action_type": "verify",
+              "target": "R-50号电池簇已处理部件",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0315-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0315-I03-version_source_interaction",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-50",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "R-50号电池簇主遥测持续偏离，跨源证据共同支持当前定位",
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E04",
+                "TEFV6-C0315-E09",
+                "TEFV6-C0315-E05",
+                "TEFV6-C0315-E06",
+                "TEFV6-C0315-E07",
+                "TEFV6-C0315-E10"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0315-A01",
+              "TEFV6-C0315-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "当前结论同时依赖V3版本适用性与遥测、现场、辅助系统跨源证据齐备；仅版本正确而跨源证据不全不能形成当前结论。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E03",
+                "TEFV6-C0315-E04",
+                "TEFV6-C0315-E09",
+                "TEFV6-C0315-E05",
+                "TEFV6-C0315-E06",
+                "TEFV6-C0315-E07",
+                "TEFV6-C0315-E10"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0315-E03",
+              "TEFV6-C0315-E04",
+              "TEFV6-C0315-E09",
+              "TEFV6-C0315-E05",
+              "TEFV6-C0315-E06",
+              "TEFV6-C0315-E07",
+              "TEFV6-C0315-E10",
+              "TEFV6-C0315-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0315-A01",
+              "action_type": "repair",
+              "target": "R-50号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E08",
+                "TEFV6-C0315-E07",
+                "TEFV6-C0315-E10"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0315-A02",
+              "action_type": "verify",
+              "target": "R-50号电池簇已处理部件",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0315-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0315-E08"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:16:39.138646"
+}

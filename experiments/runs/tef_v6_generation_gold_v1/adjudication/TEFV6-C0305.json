@@ -1,0 +1,223 @@
+{
+  "chain_id": "TEFV6-C0305",
+  "split": "development",
+  "status": "adjudicated",
+  "used_adjudication": true,
+  "structural_repairs": [],
+  "disagreement_intents": [
+    "TEFV6-C0305-I01-before_cutoff",
+    "TEFV6-C0305-I02-after_cutoff",
+    "TEFV6-C0305-I03-uncertainty_over_time"
+  ],
+  "disagreement_fields": {
+    "TEFV6-C0305-I01-before_cutoff": [
+      "work_order.diagnosis",
+      "work_order.verification_or_uncertainty",
+      "work_order.recommended_actions",
+      "action_plan"
+    ],
+    "TEFV6-C0305-I02-after_cutoff": [
+      "work_order.diagnosis",
+      "work_order.verification_or_uncertainty",
+      "work_order.recommended_actions",
+      "action_plan"
+    ],
+    "TEFV6-C0305-I03-uncertainty_over_time": [
+      "work_order.diagnosis",
+      "work_order.verification_or_uncertainty",
+      "work_order.recommended_actions",
+      "action_plan"
+    ]
+  },
+  "summary": {
+    "pass_a_pass_b_canonical_equal": false,
+    "disagreement_count": 3,
+    "disagreement_fields": {
+      "TEFV6-C0305-I01-before_cutoff": [
+        "work_order.diagnosis",
+        "work_order.verification_or_uncertainty",
+        "work_order.recommended_actions",
+        "action_plan"
+      ],
+      "TEFV6-C0305-I02-after_cutoff": [
+        "work_order.diagnosis",
+        "work_order.verification_or_uncertainty",
+        "work_order.recommended_actions",
+        "action_plan"
+      ],
+      "TEFV6-C0305-I03-uncertainty_over_time": [
+        "work_order.diagnosis",
+        "work_order.verification_or_uncertainty",
+        "work_order.recommended_actions",
+        "action_plan"
+      ]
+    }
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0305-I01-before_cutoff",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-20",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "轻微偏离幅度不足以单独定位原因，第一次现场复测接近测量重复性边界，早期实体异常分支与采集链路偏移分支均保留，无法确定唯一原因。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0305-E01",
+                "TEFV6-C0305-E02",
+                "TEFV6-C0305-E03",
+                "TEFV6-C0305-E04"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "not_applicable",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "截至11:35，仅可见第一次复测与两条保留分支记录，第二轮复测尚不可见，无法收敛唯一诊断，需保留早期实体异常与采集链路偏移两个分支。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0305-E01",
+                "TEFV6-C0305-E02",
+                "TEFV6-C0305-E03",
+                "TEFV6-C0305-E04"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0305-E01",
+              "TEFV6-C0305-E02",
+              "TEFV6-C0305-E03",
+              "TEFV6-C0305-E04"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0305-I02-after_cutoff",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-20",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "第二轮独立复测仍无法稳定区分早期实体异常与采集链路偏移两个分支，结果到达后仍不足以收敛唯一诊断，维持双分支。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0305-E05",
+                "TEFV6-C0305-E06"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0305-A01",
+              "TEFV6-C0305-A02"
+            ],
+            "applicable_procedure": {
+              "status": "not_applicable",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "截至12:02，第二轮复测已到达但仍无法稳定区分两个分支，维持双分支不确定性，需继续保守监测并安排下一次可重复区分测试，不扩大检修。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0305-E05",
+                "TEFV6-C0305-E06",
+                "TEFV6-C0305-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0305-E05",
+              "TEFV6-C0305-E06",
+              "TEFV6-C0305-E07"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0305-A01",
+              "action_type": "monitor",
+              "target": "R-20号电池簇",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0305-E07"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0305-A02",
+              "action_type": "diagnose",
+              "target": "R-20号电池簇",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0305-E07"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0305-I03-uncertainty_over_time",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-20",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "跨过时间边界后，第二轮独立复测仍无法稳定区分早期实体异常与采集链路偏移两个分支，诊断维持双分支不确定性。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0305-E05",
+                "TEFV6-C0305-E06"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0305-A01",
+              "TEFV6-C0305-A02"
+            ],
+            "applicable_procedure": {
+              "status": "not_applicable",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "该问题既是 cutoff 问题又不是“晚到即纠正”：11:35 前第二轮复测尚不可见，故当时只能保留双分支；11:24 的第二轮复测于 11:46 才可见，且其内容仍无法稳定区分两个分支，11:50 记录确认结果到达后仍不足以收敛唯一诊断，因此跨过时间边界后不确定性依然持续。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0305-E05",
+                "TEFV6-C0305-E06",
+                "TEFV6-C0305-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0305-E05",
+              "TEFV6-C0305-E06",
+              "TEFV6-C0305-E07"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0305-A01",
+              "action_type": "monitor",
+              "target": "R-20号电池簇",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0305-E07"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0305-A02",
+              "action_type": "diagnose",
+              "target": "R-20号电池簇",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0305-E07"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

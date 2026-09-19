@@ -1,0 +1,407 @@
+{
+  "chain_id": "TEFV6-C0320",
+  "split": "development",
+  "pass": "A",
+  "status": "REVIEW_UNRESOLVED",
+  "repair_used": true,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0320-I01-differentiate": [
+      "top citation union"
+    ],
+    "TEFV6-C0320-I02-current_action": [],
+    "TEFV6-C0320-I03-history_role": [
+      "top citation union"
+    ]
+  },
+  "initial_result": {
+    "type": "json_object",
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0320-I01-differentiate",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-40",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E05",
+                "TEFV6-C0320-E06",
+                "TEFV6-C0320-E07",
+                "TEFV6-C0320-E08"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0320-A01"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "本次独立检查在固定物理位置发现一致性异常且信号不随通道切换移动，第二种测量来源方向一致，已排除单一采集通道偏移的简单解释",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E06",
+                "TEFV6-C0320-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0320-E01",
+              "TEFV6-C0320-E02",
+              "TEFV6-C0320-E03",
+              "TEFV6-C0320-E04",
+              "TEFV6-C0320-E05",
+              "TEFV6-C0320-E06",
+              "TEFV6-C0320-E07",
+              "TEFV6-C0320-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0320-A01",
+              "action_type": "diagnose",
+              "target": "R-40 温度采集链路实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E06",
+                "TEFV6-C0320-E07",
+                "TEFV6-C0320-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0320-I02-current_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-40",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，不沿用历史采集链路偏移结论",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E05",
+                "TEFV6-C0320-E06",
+                "TEFV6-C0320-E07",
+                "TEFV6-C0320-E08"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0320-A01",
+              "TEFV6-C0320-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单要求处理本次定位部件并复测，复测结果尚未给出",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E09"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0320-E05",
+              "TEFV6-C0320-E06",
+              "TEFV6-C0320-E07",
+              "TEFV6-C0320-E08",
+              "TEFV6-C0320-E09"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0320-A01",
+              "action_type": "repair",
+              "target": "R-40 温度采集链路实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E08",
+                "TEFV6-C0320-E09"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0320-A02",
+              "action_type": "verify",
+              "target": "R-40 温度采集链路处理后复测",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0320-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E09"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0320-I03-history_role",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-40",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，历史采集链路偏移结论仅作对照",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E03",
+                "TEFV6-C0320-E04",
+                "TEFV6-C0320-E06",
+                "TEFV6-C0320-E07",
+                "TEFV6-C0320-E08"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0320-A01"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "历史事件信号随采集链路切换移动且未发现实体异常，本次信号固定在物理位置且第二种测量来源方向一致，故历史结论不能迁移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E02",
+                "TEFV6-C0320-E06",
+                "TEFV6-C0320-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0320-E01",
+              "TEFV6-C0320-E02",
+              "TEFV6-C0320-E03",
+              "TEFV6-C0320-E04",
+              "TEFV6-C0320-E06",
+              "TEFV6-C0320-E07",
+              "TEFV6-C0320-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0320-A01",
+              "action_type": "diagnose",
+              "target": "R-40 温度采集链路实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E06",
+                "TEFV6-C0320-E07",
+                "TEFV6-C0320-E08"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0320-I01-differentiate",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-40",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E05",
+                "TEFV6-C0320-E06",
+                "TEFV6-C0320-E07",
+                "TEFV6-C0320-E08"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0320-A01"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "本次独立检查在固定物理位置发现一致性异常且信号不随通道切换移动，第二种测量来源方向一致，已排除单一采集通道偏移的简单解释",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E06",
+                "TEFV6-C0320-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0320-E01",
+              "TEFV6-C0320-E02",
+              "TEFV6-C0320-E03",
+              "TEFV6-C0320-E04",
+              "TEFV6-C0320-E05",
+              "TEFV6-C0320-E06",
+              "TEFV6-C0320-E07",
+              "TEFV6-C0320-E08",
+              "TEFV6-C0320-E09"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0320-A01",
+              "action_type": "diagnose",
+              "target": "R-40 温度采集链路实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E06",
+                "TEFV6-C0320-E07",
+                "TEFV6-C0320-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0320-I02-current_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-40",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，不沿用历史采集链路偏移结论",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E05",
+                "TEFV6-C0320-E06",
+                "TEFV6-C0320-E07",
+                "TEFV6-C0320-E08"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0320-A01",
+              "TEFV6-C0320-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单要求处理本次定位部件并复测，复测结果尚未给出",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E09"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0320-E05",
+              "TEFV6-C0320-E06",
+              "TEFV6-C0320-E07",
+              "TEFV6-C0320-E08",
+              "TEFV6-C0320-E09"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0320-A01",
+              "action_type": "repair",
+              "target": "R-40 温度采集链路实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E08",
+                "TEFV6-C0320-E09"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0320-A02",
+              "action_type": "verify",
+              "target": "R-40 温度采集链路处理后复测",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0320-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E09"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0320-I03-history_role",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-40",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，历史采集链路偏移结论仅作对照",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E03",
+                "TEFV6-C0320-E04",
+                "TEFV6-C0320-E06",
+                "TEFV6-C0320-E07",
+                "TEFV6-C0320-E08"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0320-A01"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "历史事件信号随采集链路切换移动且未发现实体异常，本次信号固定在物理位置且第二种测量来源方向一致，故历史结论不能迁移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E02",
+                "TEFV6-C0320-E06",
+                "TEFV6-C0320-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0320-E01",
+              "TEFV6-C0320-E02",
+              "TEFV6-C0320-E03",
+              "TEFV6-C0320-E04",
+              "TEFV6-C0320-E06",
+              "TEFV6-C0320-E07",
+              "TEFV6-C0320-E08",
+              "TEFV6-C0320-E09"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0320-A01",
+              "action_type": "diagnose",
+              "target": "R-40 温度采集链路实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E06",
+                "TEFV6-C0320-E07",
+                "TEFV6-C0320-E08"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:17:13.955432"
+}

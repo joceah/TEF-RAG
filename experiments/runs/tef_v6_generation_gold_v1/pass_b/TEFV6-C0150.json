@@ -1,0 +1,440 @@
+{
+  "chain_id": "TEFV6-C0150",
+  "split": "development",
+  "pass": "B",
+  "status": "accepted",
+  "repair_used": false,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0150-I01-uncertain_status": [],
+    "TEFV6-C0150-I02-why_uncertain": [],
+    "TEFV6-C0150-I03-next_discriminator": []
+  },
+  "initial_result": {
+    "type": "json_object",
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0150-I01-uncertain_status",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D29",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "C-D29 温度采集链路存在轻微缓慢单点偏离，两个候选分支（早期实体异常 vs 采集链路偏移）均无法排除，不能确定唯一原因",
+              "supporting_evidence_ids": [
+                "TEFV6-C0150-E01",
+                "TEFV6-C0150-E02",
+                "TEFV6-C0150-E03",
+                "TEFV6-C0150-E04",
+                "TEFV6-C0150-E05",
+                "TEFV6-C0150-E06",
+                "TEFV6-C0150-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": [
+                "TEFV6-C0150-E07",
+                "TEFV6-C0150-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "现有证据不足以从两个候选原因中选定唯一诊断；需保留两个可解释分支并继续获取可重复的区分证据",
+              "supporting_evidence_ids": [
+                "TEFV6-C0150-E05",
+                "TEFV6-C0150-E06",
+                "TEFV6-C0150-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0150-E01",
+              "TEFV6-C0150-E02",
+              "TEFV6-C0150-E03",
+              "TEFV6-C0150-E04",
+              "TEFV6-C0150-E05",
+              "TEFV6-C0150-E06",
+              "TEFV6-C0150-E07",
+              "TEFV6-C0150-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "C-D29 温度采集链路",
+              "parameters": {
+                "mode": "保守运行限制"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0150-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-D29 温度采集链路",
+              "parameters": {
+                "method": "独立复测",
+                "acceptance": "出现可重复区分证据后再收敛诊断"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0150-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0150-I02-why_uncertain",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D29",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "C-D29 温度采集链路轻微偏差的证据强度不足且不可重复，无法直接判定为传感器故障或实体异常",
+              "supporting_evidence_ids": [
+                "TEFV6-C0150-E02",
+                "TEFV6-C0150-E03",
+                "TEFV6-C0150-E04",
+                "TEFV6-C0150-E05",
+                "TEFV6-C0150-E06",
+                "TEFV6-C0150-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": [
+                "TEFV6-C0150-E07"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "偏差幅度不足以单独证明某一原因；独立测量接近现场测量重复性范围且未发现明确实体热点；采集链路比对重复测试结果不稳定，尚不能确认传感器漂移；两个候选分支均缺少稳定可重复证据，故不批准写入唯一诊断",
+              "supporting_evidence_ids": [
+                "TEFV6-C0150-E02",
+                "TEFV6-C0150-E03",
+                "TEFV6-C0150-E04",
+                "TEFV6-C0150-E05",
+                "TEFV6-C0150-E06",
+                "TEFV6-C0150-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0150-E02",
+              "TEFV6-C0150-E03",
+              "TEFV6-C0150-E04",
+              "TEFV6-C0150-E05",
+              "TEFV6-C0150-E06",
+              "TEFV6-C0150-E07"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "document",
+              "target": "C-D29 温度采集链路诊断记录",
+              "parameters": {
+                "content": "保留两个可解释分支，不写入唯一诊断"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0150-E07"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0150-I03-next_discriminator",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D29",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "C-D29 温度采集链路需通过独立复测获取可重复的区分证据，才能收敛诊断",
+              "supporting_evidence_ids": [
+                "TEFV6-C0150-E07",
+                "TEFV6-C0150-E08"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": [
+                "TEFV6-C0150-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "独立复测尚未完成，需等待出现可重复区分证据后再收敛诊断",
+              "supporting_evidence_ids": [
+                "TEFV6-C0150-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0150-E07",
+              "TEFV6-C0150-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "C-D29 温度采集链路",
+              "parameters": {
+                "mode": "保守运行限制"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0150-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-D29 温度采集链路",
+              "parameters": {
+                "method": "独立复测",
+                "acceptance": "出现可重复区分证据后再收敛诊断"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0150-E08"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "result": {
+    "type": "json_object",
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0150-I01-uncertain_status",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D29",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "C-D29 温度采集链路存在轻微缓慢单点偏离，两个候选分支（早期实体异常 vs 采集链路偏移）均无法排除，不能确定唯一原因",
+              "supporting_evidence_ids": [
+                "TEFV6-C0150-E01",
+                "TEFV6-C0150-E02",
+                "TEFV6-C0150-E03",
+                "TEFV6-C0150-E04",
+                "TEFV6-C0150-E05",
+                "TEFV6-C0150-E06",
+                "TEFV6-C0150-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": [
+                "TEFV6-C0150-E07",
+                "TEFV6-C0150-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "现有证据不足以从两个候选原因中选定唯一诊断；需保留两个可解释分支并继续获取可重复的区分证据",
+              "supporting_evidence_ids": [
+                "TEFV6-C0150-E05",
+                "TEFV6-C0150-E06",
+                "TEFV6-C0150-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0150-E01",
+              "TEFV6-C0150-E02",
+              "TEFV6-C0150-E03",
+              "TEFV6-C0150-E04",
+              "TEFV6-C0150-E05",
+              "TEFV6-C0150-E06",
+              "TEFV6-C0150-E07",
+              "TEFV6-C0150-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "C-D29 温度采集链路",
+              "parameters": {
+                "mode": "保守运行限制"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0150-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-D29 温度采集链路",
+              "parameters": {
+                "method": "独立复测",
+                "acceptance": "出现可重复区分证据后再收敛诊断"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0150-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0150-I02-why_uncertain",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D29",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "C-D29 温度采集链路轻微偏差的证据强度不足且不可重复，无法直接判定为传感器故障或实体异常",
+              "supporting_evidence_ids": [
+                "TEFV6-C0150-E02",
+                "TEFV6-C0150-E03",
+                "TEFV6-C0150-E04",
+                "TEFV6-C0150-E05",
+                "TEFV6-C0150-E06",
+                "TEFV6-C0150-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": [
+                "TEFV6-C0150-E07"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "偏差幅度不足以单独证明某一原因；独立测量接近现场测量重复性范围且未发现明确实体热点；采集链路比对重复测试结果不稳定，尚不能确认传感器漂移；两个候选分支均缺少稳定可重复证据，故不批准写入唯一诊断",
+              "supporting_evidence_ids": [
+                "TEFV6-C0150-E02",
+                "TEFV6-C0150-E03",
+                "TEFV6-C0150-E04",
+                "TEFV6-C0150-E05",
+                "TEFV6-C0150-E06",
+                "TEFV6-C0150-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0150-E02",
+              "TEFV6-C0150-E03",
+              "TEFV6-C0150-E04",
+              "TEFV6-C0150-E05",
+              "TEFV6-C0150-E06",
+              "TEFV6-C0150-E07"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "document",
+              "target": "C-D29 温度采集链路诊断记录",
+              "parameters": {
+                "content": "保留两个可解释分支，不写入唯一诊断"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0150-E07"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0150-I03-next_discriminator",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D29",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "C-D29 温度采集链路需通过独立复测获取可重复的区分证据，才能收敛诊断",
+              "supporting_evidence_ids": [
+                "TEFV6-C0150-E07",
+                "TEFV6-C0150-E08"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": [
+                "TEFV6-C0150-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "独立复测尚未完成，需等待出现可重复区分证据后再收敛诊断",
+              "supporting_evidence_ids": [
+                "TEFV6-C0150-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0150-E07",
+              "TEFV6-C0150-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "C-D29 温度采集链路",
+              "parameters": {
+                "mode": "保守运行限制"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0150-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-D29 温度采集链路",
+              "parameters": {
+                "method": "独立复测",
+                "acceptance": "出现可重复区分证据后再收敛诊断"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0150-E08"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:27:17.503051"
+}

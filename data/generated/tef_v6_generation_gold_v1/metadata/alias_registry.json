@@ -1,0 +1,85 @@
+{
+  "version": "generation-canonical-v1.2",
+  "unicode": "NFKC",
+  "status_aliases": {
+    "confirmed": [
+      "confirmed",
+      "确诊",
+      "确认"
+    ],
+    "provisional": [
+      "provisional",
+      "初步",
+      "疑似"
+    ],
+    "persistent_uncertainty": [
+      "persistent_uncertainty",
+      "持续不确定",
+      "无法确认"
+    ],
+    "not_available": [
+      "not_available",
+      "未知",
+      "无证据"
+    ]
+  },
+  "action_type_aliases": {
+    "inspect": [
+      "inspect",
+      "inspection",
+      "检查",
+      "核查"
+    ],
+    "diagnose": [
+      "diagnose",
+      "diagnosis",
+      "诊断",
+      "分析"
+    ],
+    "isolate": [
+      "isolate",
+      "隔离"
+    ],
+    "adjust": [
+      "adjust",
+      "调整",
+      "恢复参数"
+    ],
+    "repair": [
+      "repair",
+      "维修",
+      "修复",
+      "处理"
+    ],
+    "replace": [
+      "replace",
+      "更换"
+    ],
+    "verify": [
+      "verify",
+      "verification",
+      "验证",
+      "复测"
+    ],
+    "monitor": [
+      "monitor",
+      "监测",
+      "观察"
+    ],
+    "document": [
+      "document",
+      "记录",
+      "归档"
+    ]
+  },
+  "unknown_policy": "canonicalized_raw_phrase; no fuzzy matching",
+  "text_slot_matching": {
+    "diagnosis.concept": "registered_alias_or_normalized_literal_exact",
+    "verification_or_uncertainty.statement": "registered_alias_or_normalized_literal_exact",
+    "action.target": "registered_alias_or_normalized_literal_exact",
+    "fuzzy_matching": false,
+    "embedding_matching": false,
+    "llm_judge": false,
+    "interpretation": "strict protocol-conformance metric; unregistered paraphrases are not merged"
+  }
+}

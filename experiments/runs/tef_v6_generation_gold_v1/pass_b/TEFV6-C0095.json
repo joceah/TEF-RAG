@@ -1,0 +1,380 @@
+{
+  "chain_id": "TEFV6-C0095",
+  "split": "validation",
+  "pass": "B",
+  "status": "accepted",
+  "repair_used": false,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0095-I01-v1_applicability": [],
+    "TEFV6-C0095-I02-v2_applicability": [],
+    "TEFV6-C0095-I03-v3_applicability": []
+  },
+  "initial_result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0095-I01-v1_applicability",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V01",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "单通道持续偏高，人工独立测温同位置偏高",
+              "supporting_evidence_ids": [
+                "TEFV6-C0095-E04"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V1",
+              "supporting_evidence_ids": [
+                "TEFV6-C0095-E01"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "旧事件按V1执行独立测温后进入部件检查，记录未引用后续版本规则",
+              "supporting_evidence_ids": [
+                "TEFV6-C0095-E05"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0095-E01",
+              "TEFV6-C0095-E04",
+              "TEFV6-C0095-E05"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "diagnose",
+              "target": "C-V01单通道温升位置",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0095-E01",
+                "TEFV6-C0095-E04"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "inspect",
+              "target": "C-V01部件",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0095-E01",
+                "TEFV6-C0095-E05"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0095-I02-v2_applicability",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V01",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "单通道偏高但红外对应区域无热点",
+              "supporting_evidence_ids": [
+                "TEFV6-C0095-E06"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V2",
+              "supporting_evidence_ids": [
+                "TEFV6-C0095-E02"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "中期事件按V2停止直接扩大部件检查，继续核对测温链路与气流状态",
+              "supporting_evidence_ids": [
+                "TEFV6-C0095-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0095-E02",
+              "TEFV6-C0095-E06",
+              "TEFV6-C0095-E07"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "verify",
+              "target": "C-V01测温链路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0095-E02",
+                "TEFV6-C0095-E07"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "inspect",
+              "target": "C-V01气流状态",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0095-E02",
+                "TEFV6-C0095-E07"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0095-I03-v3_applicability",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V01",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "单通道偏高，红外无热点，通道对调后偏差随通道移动",
+              "supporting_evidence_ids": [
+                "TEFV6-C0095-E08"
+              ]
+            },
+            "recommended_actions": [
+              "A1"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0095-E03",
+                "TEFV6-C0095-E10"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "工单系统确认当前适用型号为M280-D，V3处于有效期",
+              "supporting_evidence_ids": [
+                "TEFV6-C0095-E10"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0095-E03",
+              "TEFV6-C0095-E08",
+              "TEFV6-C0095-E09",
+              "TEFV6-C0095-E10"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "diagnose",
+              "target": "C-V01采集链路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0095-E03",
+                "TEFV6-C0095-E08",
+                "TEFV6-C0095-E09"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0095-I01-v1_applicability",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V01",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "单通道持续偏高，人工独立测温同位置偏高",
+              "supporting_evidence_ids": [
+                "TEFV6-C0095-E04"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V1",
+              "supporting_evidence_ids": [
+                "TEFV6-C0095-E01"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "旧事件按V1执行独立测温后进入部件检查，记录未引用后续版本规则",
+              "supporting_evidence_ids": [
+                "TEFV6-C0095-E05"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0095-E01",
+              "TEFV6-C0095-E04",
+              "TEFV6-C0095-E05"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "diagnose",
+              "target": "C-V01单通道温升位置",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0095-E01",
+                "TEFV6-C0095-E04"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "inspect",
+              "target": "C-V01部件",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0095-E01",
+                "TEFV6-C0095-E05"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0095-I02-v2_applicability",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V01",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "单通道偏高但红外对应区域无热点",
+              "supporting_evidence_ids": [
+                "TEFV6-C0095-E06"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V2",
+              "supporting_evidence_ids": [
+                "TEFV6-C0095-E02"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "中期事件按V2停止直接扩大部件检查，继续核对测温链路与气流状态",
+              "supporting_evidence_ids": [
+                "TEFV6-C0095-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0095-E02",
+              "TEFV6-C0095-E06",
+              "TEFV6-C0095-E07"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "verify",
+              "target": "C-V01测温链路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0095-E02",
+                "TEFV6-C0095-E07"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "inspect",
+              "target": "C-V01气流状态",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0095-E02",
+                "TEFV6-C0095-E07"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0095-I03-v3_applicability",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V01",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "单通道偏高，红外无热点，通道对调后偏差随通道移动",
+              "supporting_evidence_ids": [
+                "TEFV6-C0095-E08"
+              ]
+            },
+            "recommended_actions": [
+              "A1"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0095-E03",
+                "TEFV6-C0095-E10"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "工单系统确认当前适用型号为M280-D，V3处于有效期",
+              "supporting_evidence_ids": [
+                "TEFV6-C0095-E10"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0095-E03",
+              "TEFV6-C0095-E08",
+              "TEFV6-C0095-E09",
+              "TEFV6-C0095-E10"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "diagnose",
+              "target": "C-V01采集链路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0095-E03",
+                "TEFV6-C0095-E08",
+                "TEFV6-C0095-E09"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:58:07.877042"
+}

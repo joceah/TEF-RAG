@@ -1,0 +1,425 @@
+{
+  "chain_id": "TEFV6-C0291",
+  "split": "development",
+  "pass": "A",
+  "status": "REVIEW_UNRESOLVED",
+  "repair_used": true,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0291-I01-pre_arrival": [
+      "procedure status/value"
+    ],
+    "TEFV6-C0291-I02-post_arrival": [],
+    "TEFV6-C0291-I03-arrival_effect": []
+  },
+  "initial_result": {
+    "type": "json_object",
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0291-I01-pre_arrival",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-18",
+            "diagnosis": {
+              "status": "provisional",
+              "concept": "长期运行波动（暂定解释，待现场复核）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0291-E01",
+                "TEFV6-C0291-E02",
+                "TEFV6-C0291-E03"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "not_available",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "现场离线记录尚未到达，暂定解释明确标注待复核，需等待现场核验结果。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0291-E02",
+                "TEFV6-C0291-E03",
+                "TEFV6-C0291-E04"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0291-E01",
+              "TEFV6-C0291-E02",
+              "TEFV6-C0291-E03",
+              "TEFV6-C0291-E04"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "R-18 直流汇流回路关键指标",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0291-E01",
+                "TEFV6-C0291-E04"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "inspect",
+              "target": "R-18 直流汇流回路现场",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0291-E02",
+                "TEFV6-C0291-E04"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0291-I02-post_arrival",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-18",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "可定位的局部部件异常（关键接口附近）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0291-E05",
+                "TEFV6-C0291-E06",
+                "TEFV6-C0291-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（按更新工单要求）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0291-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "需由合格人员按批准SOP处理已定位部件并完成复测。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0291-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0291-E05",
+              "TEFV6-C0291-E06",
+              "TEFV6-C0291-E07",
+              "TEFV6-C0291-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "R-18 直流汇流回路已定位局部部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0291-E07",
+                "TEFV6-C0291-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "R-18 直流汇流回路已处理部件",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0291-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0291-I03-arrival_effect",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-18",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "可定位的局部部件异常（关键接口附近）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0291-E05",
+                "TEFV6-C0291-E06",
+                "TEFV6-C0291-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（按更新工单要求）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0291-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "晚到记录（event_time 09:25/09:31，available_at 09:58）进入系统后撤销原暂定解释，需按批准SOP处理并复测。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0291-E05",
+                "TEFV6-C0291-E06",
+                "TEFV6-C0291-E07",
+                "TEFV6-C0291-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0291-E05",
+              "TEFV6-C0291-E06",
+              "TEFV6-C0291-E07",
+              "TEFV6-C0291-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "R-18 直流汇流回路已定位局部部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0291-E07",
+                "TEFV6-C0291-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "R-18 直流汇流回路已处理部件",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0291-E08"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0291-I01-pre_arrival",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-18",
+            "diagnosis": {
+              "status": "provisional",
+              "concept": "长期运行波动（暂定解释，待现场复核）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0291-E01",
+                "TEFV6-C0291-E02",
+                "TEFV6-C0291-E03"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "not_available",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "现场离线记录尚未到达，暂定解释明确标注待复核，需等待现场核验结果。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0291-E02",
+                "TEFV6-C0291-E03",
+                "TEFV6-C0291-E04"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0291-E01",
+              "TEFV6-C0291-E02",
+              "TEFV6-C0291-E03",
+              "TEFV6-C0291-E04"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "R-18 直流汇流回路关键指标",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0291-E01",
+                "TEFV6-C0291-E04"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "inspect",
+              "target": "R-18 直流汇流回路现场",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0291-E02",
+                "TEFV6-C0291-E04"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0291-I02-post_arrival",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-18",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "可定位的局部部件异常（关键接口附近）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0291-E05",
+                "TEFV6-C0291-E06",
+                "TEFV6-C0291-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（按更新工单要求）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0291-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "需由合格人员按批准SOP处理已定位部件并完成复测。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0291-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0291-E05",
+              "TEFV6-C0291-E06",
+              "TEFV6-C0291-E07",
+              "TEFV6-C0291-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "R-18 直流汇流回路已定位局部部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0291-E07",
+                "TEFV6-C0291-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "R-18 直流汇流回路已处理部件",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0291-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0291-I03-arrival_effect",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-18",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "可定位的局部部件异常（关键接口附近）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0291-E05",
+                "TEFV6-C0291-E06",
+                "TEFV6-C0291-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（按更新工单要求）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0291-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "晚到记录（event_time 09:25/09:31，available_at 09:58）进入系统后撤销原暂定解释，需按批准SOP处理并复测。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0291-E05",
+                "TEFV6-C0291-E06",
+                "TEFV6-C0291-E07",
+                "TEFV6-C0291-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0291-E05",
+              "TEFV6-C0291-E06",
+              "TEFV6-C0291-E07",
+              "TEFV6-C0291-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "R-18 直流汇流回路已定位局部部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0291-E07",
+                "TEFV6-C0291-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "R-18 直流汇流回路已处理部件",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0291-E08"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:13:59.784633"
+}

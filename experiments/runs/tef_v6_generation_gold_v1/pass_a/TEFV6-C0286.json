@@ -1,0 +1,339 @@
+{
+  "chain_id": "TEFV6-C0286",
+  "split": "development",
+  "pass": "A",
+  "status": "REVIEW_UNRESOLVED",
+  "repair_used": true,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0286-I01-cross_source_action": [],
+    "TEFV6-C0286-I02-cross_source_cause": [
+      "top citation union"
+    ],
+    "TEFV6-C0286-I03-cross_source_precedent": []
+  },
+  "initial_result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0286-I01-cross_source_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-28",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常导致R-28温度采集链路多测点同步偏离，不支持仅凭单一来源扩大故障范围",
+              "supporting_evidence_ids": [
+                "TEFV6-C0286-E01",
+                "TEFV6-C0286-E02",
+                "TEFV6-C0286-E04",
+                "TEFV6-C0286-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0286-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "按批准SOP先处理已确认辅助部件并进行跨源复测；若复测不通过，再进入下一层排查",
+              "supporting_evidence_ids": [
+                "TEFV6-C0286-E08",
+                "TEFV6-C0286-E06"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0286-E01",
+              "TEFV6-C0286-E02",
+              "TEFV6-C0286-E04",
+              "TEFV6-C0286-E06",
+              "TEFV6-C0286-E07",
+              "TEFV6-C0286-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "已确认的辅助系统局部异常部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0286-E04",
+                "TEFV6-C0286-E07",
+                "TEFV6-C0286-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "R-28温度采集链路多测点趋势",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0286-E08",
+                "TEFV6-C0286-E06"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0286-I02-cross_source_cause",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-28",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常导致R-28温度采集链路多测点同步偏离，需综合BMS、SCADA和现场检查，单一来源不足以形成完整诊断",
+              "supporting_evidence_ids": [
+                "TEFV6-C0286-E01",
+                "TEFV6-C0286-E02",
+                "TEFV6-C0286-E04",
+                "TEFV6-C0286-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0286-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "跨源证据已支持当前原因判断，但复测尚未完成",
+              "supporting_evidence_ids": [
+                "TEFV6-C0286-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0286-E01",
+              "TEFV6-C0286-E02",
+              "TEFV6-C0286-E03",
+              "TEFV6-C0286-E04",
+              "TEFV6-C0286-E07"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0286-I03-cross_source_precedent",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-28",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常导致R-28温度采集链路多测点同步偏离；历史工单仅作相似先例参考，不能替代当前现场证据和适用规程",
+              "supporting_evidence_ids": [
+                "TEFV6-C0286-E01",
+                "TEFV6-C0286-E02",
+                "TEFV6-C0286-E04",
+                "TEFV6-C0286-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0286-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "历史工单提供相似组合信号先例，但当前决策仍以现场证据和现行V3规程为准，复测待完成",
+              "supporting_evidence_ids": [
+                "TEFV6-C0286-E05",
+                "TEFV6-C0286-E06",
+                "TEFV6-C0286-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0286-E05",
+              "TEFV6-C0286-E06",
+              "TEFV6-C0286-E07",
+              "TEFV6-C0286-E08"
+            ]
+          },
+          "action_plan": []
+        }
+      }
+    ]
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0286-I01-cross_source_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-28",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常导致R-28温度采集链路多测点同步偏离，不支持仅凭单一来源扩大故障范围",
+              "supporting_evidence_ids": [
+                "TEFV6-C0286-E01",
+                "TEFV6-C0286-E02",
+                "TEFV6-C0286-E04",
+                "TEFV6-C0286-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0286-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "按批准SOP先处理已确认辅助部件并进行跨源复测；若复测不通过，再进入下一层排查",
+              "supporting_evidence_ids": [
+                "TEFV6-C0286-E08",
+                "TEFV6-C0286-E06"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0286-E01",
+              "TEFV6-C0286-E02",
+              "TEFV6-C0286-E04",
+              "TEFV6-C0286-E06",
+              "TEFV6-C0286-E07",
+              "TEFV6-C0286-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "已确认的辅助系统局部异常部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0286-E04",
+                "TEFV6-C0286-E07",
+                "TEFV6-C0286-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "R-28温度采集链路多测点趋势",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0286-E08",
+                "TEFV6-C0286-E06"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0286-I02-cross_source_cause",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-28",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常导致R-28温度采集链路多测点同步偏离，需综合BMS、SCADA和现场检查，单一来源不足以形成完整诊断",
+              "supporting_evidence_ids": [
+                "TEFV6-C0286-E01",
+                "TEFV6-C0286-E02",
+                "TEFV6-C0286-E04",
+                "TEFV6-C0286-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0286-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "跨源证据已支持当前原因判断，但复测尚未完成",
+              "supporting_evidence_ids": [
+                "TEFV6-C0286-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0286-E01",
+              "TEFV6-C0286-E02",
+              "TEFV6-C0286-E03",
+              "TEFV6-C0286-E04",
+              "TEFV6-C0286-E06",
+              "TEFV6-C0286-E07",
+              "TEFV6-C0286-E08"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0286-I03-cross_source_precedent",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-28",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常导致R-28温度采集链路多测点同步偏离；历史工单仅作相似先例参考，不能替代当前现场证据和适用规程",
+              "supporting_evidence_ids": [
+                "TEFV6-C0286-E01",
+                "TEFV6-C0286-E02",
+                "TEFV6-C0286-E04",
+                "TEFV6-C0286-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0286-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "历史工单提供相似组合信号先例，但当前决策仍以现场证据和现行V3规程为准，复测待完成",
+              "supporting_evidence_ids": [
+                "TEFV6-C0286-E05",
+                "TEFV6-C0286-E06",
+                "TEFV6-C0286-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0286-E01",
+              "TEFV6-C0286-E02",
+              "TEFV6-C0286-E04",
+              "TEFV6-C0286-E05",
+              "TEFV6-C0286-E06",
+              "TEFV6-C0286-E07",
+              "TEFV6-C0286-E08"
+            ]
+          },
+          "action_plan": []
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:13:28.766929"
+}

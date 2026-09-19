@@ -1,0 +1,464 @@
+{
+  "chain_id": "TEFV6-C0036",
+  "split": "validation",
+  "pass": "B",
+  "status": "accepted",
+  "repair_used": false,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0036-I01-status_before_cutoff": [],
+    "TEFV6-C0036-I02-status_after_cutoff": [],
+    "TEFV6-C0036-I03-cutoff_explanation": []
+  },
+  "initial_result": {
+    "type": "json_object",
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0036-I01-status_before_cutoff",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V01",
+            "diagnosis": {
+              "status": "provisional",
+              "concept": "局部热异常待确认",
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E01",
+                "TEFV6-C0036-E11",
+                "TEFV6-C0036-E02",
+                "TEFV6-C0036-E12"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "现场复核结果尚不可见，临时工单要求保持保守运行限制并等待现场复核，不执行扩大拆检。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E02",
+                "TEFV6-C0036-E03"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0036-E01",
+              "TEFV6-C0036-E11",
+              "TEFV6-C0036-E02",
+              "TEFV6-C0036-E12",
+              "TEFV6-C0036-E03"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "C-V01号电池簇",
+              "parameters": {
+                "mode": "保守运行限制"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E03"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "inspect",
+              "target": "C-V01号电池簇",
+              "parameters": {
+                "scope": "现场复核"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E03"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0036-I02-status_after_cutoff",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V01",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "采集通道偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E04",
+                "TEFV6-C0036-E05",
+                "TEFV6-C0036-E06"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "更新工单",
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E07",
+                "TEFV6-C0036-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "值班记录确认更新工单已经替代临时工单。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0036-E04",
+              "TEFV6-C0036-E05",
+              "TEFV6-C0036-E06",
+              "TEFV6-C0036-E07",
+              "TEFV6-C0036-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "verify",
+              "target": "采集链路",
+              "parameters": {
+                "performed_by": "合格人员",
+                "procedure": "批准流程"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E07"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "monitor",
+              "target": "C-V01号电池簇",
+              "parameters": {
+                "mode": "保留必要的运行限制",
+                "until": "复测通过"
+              },
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E07"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0036-I03-cutoff_explanation",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V01",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "采集通道偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E04",
+                "TEFV6-C0036-E05",
+                "TEFV6-C0036-E06"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "更新工单",
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E07",
+                "TEFV6-C0036-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "13:30时点现场复核记录尚未上传（E04 available_at 13:38、E05 available_at 13:40），故当时只能依据临时诊断与临时工单；13:43更正撤销局部热异常判断，13:48更新工单替代临时工单，13:52值班记录确认替代，因此两个时点答案不同但各自合法。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E04",
+                "TEFV6-C0036-E05",
+                "TEFV6-C0036-E06",
+                "TEFV6-C0036-E07",
+                "TEFV6-C0036-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0036-E04",
+              "TEFV6-C0036-E05",
+              "TEFV6-C0036-E06",
+              "TEFV6-C0036-E07",
+              "TEFV6-C0036-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "verify",
+              "target": "采集链路",
+              "parameters": {
+                "performed_by": "合格人员",
+                "procedure": "批准流程"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E07"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "monitor",
+              "target": "C-V01号电池簇",
+              "parameters": {
+                "mode": "保留必要的运行限制",
+                "until": "复测通过"
+              },
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E07"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "result": {
+    "type": "json_object",
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0036-I01-status_before_cutoff",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V01",
+            "diagnosis": {
+              "status": "provisional",
+              "concept": "局部热异常待确认",
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E01",
+                "TEFV6-C0036-E11",
+                "TEFV6-C0036-E02",
+                "TEFV6-C0036-E12"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "现场复核结果尚不可见，临时工单要求保持保守运行限制并等待现场复核，不执行扩大拆检。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E02",
+                "TEFV6-C0036-E03"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0036-E01",
+              "TEFV6-C0036-E11",
+              "TEFV6-C0036-E02",
+              "TEFV6-C0036-E12",
+              "TEFV6-C0036-E03"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "C-V01号电池簇",
+              "parameters": {
+                "mode": "保守运行限制"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E03"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "inspect",
+              "target": "C-V01号电池簇",
+              "parameters": {
+                "scope": "现场复核"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E03"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0036-I02-status_after_cutoff",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V01",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "采集通道偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E04",
+                "TEFV6-C0036-E05",
+                "TEFV6-C0036-E06"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "更新工单",
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E07",
+                "TEFV6-C0036-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "值班记录确认更新工单已经替代临时工单。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0036-E04",
+              "TEFV6-C0036-E05",
+              "TEFV6-C0036-E06",
+              "TEFV6-C0036-E07",
+              "TEFV6-C0036-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "verify",
+              "target": "采集链路",
+              "parameters": {
+                "performed_by": "合格人员",
+                "procedure": "批准流程"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E07"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "monitor",
+              "target": "C-V01号电池簇",
+              "parameters": {
+                "mode": "保留必要的运行限制",
+                "until": "复测通过"
+              },
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E07"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0036-I03-cutoff_explanation",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V01",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "采集通道偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E04",
+                "TEFV6-C0036-E05",
+                "TEFV6-C0036-E06"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "更新工单",
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E07",
+                "TEFV6-C0036-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "13:30时点现场复核记录尚未上传（E04 available_at 13:38、E05 available_at 13:40），故当时只能依据临时诊断与临时工单；13:43更正撤销局部热异常判断，13:48更新工单替代临时工单，13:52值班记录确认替代，因此两个时点答案不同但各自合法。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E04",
+                "TEFV6-C0036-E05",
+                "TEFV6-C0036-E06",
+                "TEFV6-C0036-E07",
+                "TEFV6-C0036-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0036-E04",
+              "TEFV6-C0036-E05",
+              "TEFV6-C0036-E06",
+              "TEFV6-C0036-E07",
+              "TEFV6-C0036-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "verify",
+              "target": "采集链路",
+              "parameters": {
+                "performed_by": "合格人员",
+                "procedure": "批准流程"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E07"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "monitor",
+              "target": "C-V01号电池簇",
+              "parameters": {
+                "mode": "保留必要的运行限制",
+                "until": "复测通过"
+              },
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0036-E07"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:56:57.188962"
+}

@@ -1,0 +1,404 @@
+{
+  "chain_id": "TEFV6-C0123",
+  "split": "development",
+  "pass": "A",
+  "status": "REVIEW_UNRESOLVED",
+  "repair_used": true,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0123-I01-differentiate": [
+      "top citation union"
+    ],
+    "TEFV6-C0123-I02-current_action": [
+      "top citation union"
+    ],
+    "TEFV6-C0123-I03-history_role": [
+      "top citation union"
+    ]
+  },
+  "initial_result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0123-I01-differentiate",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D15",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移；表面症状相似但证据指向不同原因。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0123-E04",
+                "TEFV6-C0123-E05",
+                "TEFV6-C0123-E06",
+                "TEFV6-C0123-E07"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0123-I01-A01"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单引用）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0123-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单要求处理本次定位部件并复测，复测结果尚未记录。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0123-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0123-E01",
+              "TEFV6-C0123-E02",
+              "TEFV6-C0123-E03",
+              "TEFV6-C0123-E04",
+              "TEFV6-C0123-E05",
+              "TEFV6-C0123-E06",
+              "TEFV6-C0123-E07",
+              "TEFV6-C0123-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0123-I01-A01",
+              "action_type": "diagnose",
+              "target": "C-D15号电池簇实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0123-E05",
+                "TEFV6-C0123-E06",
+                "TEFV6-C0123-E07"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0123-I02-current_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D15",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，不沿用历史采集链路偏移结论。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0123-E05",
+                "TEFV6-C0123-E06",
+                "TEFV6-C0123-E07"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0123-I02-A01",
+              "TEFV6-C0123-I02-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单引用）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0123-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单要求处理本次定位部件并复测，复测结果尚未记录。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0123-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0123-E04",
+              "TEFV6-C0123-E05",
+              "TEFV6-C0123-E06",
+              "TEFV6-C0123-E07",
+              "TEFV6-C0123-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0123-I02-A01",
+              "action_type": "repair",
+              "target": "C-D15号电池簇本次定位的实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0123-E07",
+                "TEFV6-C0123-E08"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0123-I02-A02",
+              "action_type": "verify",
+              "target": "C-D15号电池簇处理后复测",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0123-I02-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0123-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0123-I03-history_role",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D15",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "历史事件归因于采集链路偏移，仅可作为本次相似症状的对照；本次已定位为实体连接/辅助部件异常。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0123-E02",
+                "TEFV6-C0123-E03",
+                "TEFV6-C0123-E05",
+                "TEFV6-C0123-E06",
+                "TEFV6-C0123-E07"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0123-I03-A01"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单引用）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0123-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单要求处理本次定位部件并复测，复测结果尚未记录。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0123-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0123-E01",
+              "TEFV6-C0123-E02",
+              "TEFV6-C0123-E03",
+              "TEFV6-C0123-E04",
+              "TEFV6-C0123-E05",
+              "TEFV6-C0123-E06",
+              "TEFV6-C0123-E07",
+              "TEFV6-C0123-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0123-I03-A01",
+              "action_type": "document",
+              "target": "C-D15号电池簇历史事件与本次事件的差异对照",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0123-E02",
+                "TEFV6-C0123-E03",
+                "TEFV6-C0123-E05",
+                "TEFV6-C0123-E06",
+                "TEFV6-C0123-E07"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0123-I01-differentiate",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D15",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移；表面症状相似但证据指向不同原因。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0123-E04",
+                "TEFV6-C0123-E05",
+                "TEFV6-C0123-E06",
+                "TEFV6-C0123-E07"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0123-I01-A01"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单引用）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0123-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单要求处理本次定位部件并复测，复测结果尚未记录。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0123-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0123-E01",
+              "TEFV6-C0123-E02",
+              "TEFV6-C0123-E03",
+              "TEFV6-C0123-E04",
+              "TEFV6-C0123-E05",
+              "TEFV6-C0123-E06",
+              "TEFV6-C0123-E07",
+              "TEFV6-C0123-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0123-I01-A01",
+              "action_type": "diagnose",
+              "target": "C-D15号电池簇实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0123-E05",
+                "TEFV6-C0123-E06",
+                "TEFV6-C0123-E07"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0123-I02-current_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D15",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，不沿用历史采集链路偏移结论。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0123-E05",
+                "TEFV6-C0123-E06",
+                "TEFV6-C0123-E07"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0123-I02-A01",
+              "TEFV6-C0123-I02-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单引用）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0123-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单要求处理本次定位部件并复测，复测结果尚未记录。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0123-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0123-E04",
+              "TEFV6-C0123-E05",
+              "TEFV6-C0123-E06",
+              "TEFV6-C0123-E07",
+              "TEFV6-C0123-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0123-I02-A01",
+              "action_type": "repair",
+              "target": "C-D15号电池簇本次定位的实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0123-E07",
+                "TEFV6-C0123-E08"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0123-I02-A02",
+              "action_type": "verify",
+              "target": "C-D15号电池簇处理后复测",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0123-I02-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0123-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0123-I03-history_role",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D15",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "历史事件归因于采集链路偏移，仅可作为本次相似症状的对照；本次已定位为实体连接/辅助部件异常。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0123-E02",
+                "TEFV6-C0123-E03",
+                "TEFV6-C0123-E05",
+                "TEFV6-C0123-E06",
+                "TEFV6-C0123-E07"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0123-I03-A01"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单引用）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0123-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单要求处理本次定位部件并复测，复测结果尚未记录。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0123-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0123-E01",
+              "TEFV6-C0123-E02",
+              "TEFV6-C0123-E03",
+              "TEFV6-C0123-E04",
+              "TEFV6-C0123-E05",
+              "TEFV6-C0123-E06",
+              "TEFV6-C0123-E07",
+              "TEFV6-C0123-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0123-I03-A01",
+              "action_type": "document",
+              "target": "C-D15号电池簇历史事件与本次事件的差异对照",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0123-E02",
+                "TEFV6-C0123-E03",
+                "TEFV6-C0123-E05",
+                "TEFV6-C0123-E06",
+                "TEFV6-C0123-E07"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:12:37.929451"
+}

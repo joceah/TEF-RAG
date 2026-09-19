@@ -1,0 +1,36 @@
+{
+  "chain_id": "TEFV6-C0045",
+  "split": "development",
+  "status": "REVIEW_UNRESOLVED",
+  "used_adjudication": true,
+  "structural_repairs": [],
+  "disagreement_intents": [
+    "TEFV6-C0045-I02-post_arrival",
+    "TEFV6-C0045-I03-arrival_effect"
+  ],
+  "disagreement_fields": {
+    "TEFV6-C0045-I02-post_arrival": [
+      "work_order.verification_or_uncertainty",
+      "action_plan"
+    ],
+    "TEFV6-C0045-I03-arrival_effect": [
+      "work_order.verification_or_uncertainty",
+      "action_plan"
+    ]
+  },
+  "summary": {
+    "pass_a_pass_b_canonical_equal": false,
+    "disagreement_count": 2,
+    "disagreement_fields": {
+      "TEFV6-C0045-I02-post_arrival": [
+        "work_order.verification_or_uncertainty",
+        "action_plan"
+      ],
+      "TEFV6-C0045-I03-arrival_effect": [
+        "work_order.verification_or_uncertainty",
+        "action_plan"
+      ]
+    }
+  },
+  "result": null
+}

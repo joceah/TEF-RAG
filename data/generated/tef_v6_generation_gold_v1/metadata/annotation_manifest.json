@@ -1,0 +1,61 @@
+{
+  "protocol": "plans\\TEF_RAG_v6_generation_evaluation_protocol_v1.md",
+  "protocol_sha256": "5f1c2153698991924c8958cd028d49cf43f5d29b87db584b030d82acf0996d1e",
+  "benchmark_seal_commit": "4cd74c51bf874beac3c72df7fa64ae89f73438b8",
+  "branch": "tef-rag-v6-generation-gold-v1",
+  "chain_counts": {
+    "development": 240,
+    "validation": 80,
+    "test": 80
+  },
+  "semantic_gold_counts": {
+    "development": 720,
+    "validation": 240,
+    "test": 240
+  },
+  "public_hashes": {
+    "data\\generated\\tef_v6_generation_gold_v1\\public\\gold_development.jsonl": "228cb5df61d21275c3c6503969298b5ebb96c48974c998cb55b8e48b1901ead1",
+    "data\\generated\\tef_v6_generation_gold_v1\\public\\gold_development_index.jsonl": "5e19dda0670480b8242a2c445273fbbadccb666f001fb1b3d7c0630554b24071",
+    "data\\generated\\tef_v6_generation_gold_v1\\public\\gold_validation.jsonl": "d83fe1cc52c4a72e8eb6ee762dd0b5e08ea9d54f5184e3cd9878d31b2ceed96d",
+    "data\\generated\\tef_v6_generation_gold_v1\\public\\gold_validation_index.jsonl": "a41ef0a76b5720f0cc09df800238e402838707e2cb8093e8a5a56b62bb52d661"
+  },
+  "private_test_gold_sha256": "dccf5a831b9b145d5aab26288088d14d2e9af6fafd06d4eced3a22983a7c9aea",
+  "deepseek": {
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-chat",
+    "temperature": 0,
+    "api_key_persisted": false
+  },
+  "llm_runtime": {
+    "requests": 289,
+    "cache_hits": 0,
+    "retries": 0,
+    "failures": 0,
+    "prompt_tokens": 2646734,
+    "completion_tokens": 338128,
+    "total_tokens": 2984862
+  },
+  "retrieval_predictions_accessed": false,
+  "retrieval_test_metrics_accessed": false,
+  "retrieval_sealed_evaluator_accessed": false,
+  "generation_evaluation_run": false,
+  "review_unresolved": 0,
+  "generation_gold_ready": true,
+  "protocol_version": "v1.1-addendum",
+  "canonicalization_addendum": "plans\\TEF_RAG_v6_generation_evaluation_protocol_v1_1_addendum.md",
+  "canonicalization_addendum_sha256": "8f209531985b362c4a754e27fb0983af6de9d62270502db79657e2b09e3a350e",
+  "llm_calls": 0,
+  "deterministic_repairs": {
+    "top_citation_union": 275,
+    "procedure_canonicalization": 552,
+    "object_citation_dedupe": 118
+  },
+  "canonicalization_audit": "data/generated/tef_v6_generation_gold_v1/metadata/canonicalization_audit.json",
+  "evaluation_metric_version": "v1.2-strict-text",
+  "metric_clarification": "plans/TEF_RAG_v6_generation_evaluation_protocol_v1_2_metric_clarification.md",
+  "metric_clarification_sha256": "673a7c8b3557acf840b94ce3b7d42551dc60373ce2f671f4c6e01adb88b1c730",
+  "public_test_metadata_policy": "aggregate_only",
+  "test_item_level_generation_gold_committed": false,
+  "test_item_level_disagreement_metadata_committed": false,
+  "alias_registry_version": "generation-canonical-v1.2"
+}

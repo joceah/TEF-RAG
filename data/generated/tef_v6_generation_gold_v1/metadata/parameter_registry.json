@@ -1,0 +1,36 @@
+{
+  "version": "generation-parameter-v1",
+  "name_policy": "canonicalized evidence phrase; no common-sense additions",
+  "unit_policy": "explicit evidence units only; normalize equivalent SI spellings",
+  "numeric_tolerance": 1e-06,
+  "aliases": {
+    "temperature": [
+      "temperature",
+      "温度"
+    ],
+    "voltage": [
+      "voltage",
+      "电压"
+    ],
+    "current": [
+      "current",
+      "电流"
+    ],
+    "resistance": [
+      "resistance",
+      "电阻"
+    ],
+    "pressure": [
+      "pressure",
+      "压力"
+    ],
+    "time": [
+      "time",
+      "时间"
+    ],
+    "rate": [
+      "rate",
+      "速率"
+    ]
+  }
+}

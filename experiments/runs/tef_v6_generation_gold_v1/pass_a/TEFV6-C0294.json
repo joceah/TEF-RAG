@@ -1,0 +1,341 @@
+{
+  "chain_id": "TEFV6-C0294",
+  "split": "development",
+  "pass": "A",
+  "status": "REVIEW_UNRESOLVED",
+  "repair_used": true,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0294-I01-cross_source_action": [],
+    "TEFV6-C0294-I02-cross_source_cause": [],
+    "TEFV6-C0294-I03-cross_source_precedent": [
+      "top citation union"
+    ]
+  },
+  "initial_result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0294-I01-cross_source_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-42",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常导致R-42温度采集链路多测点同步偏离，单一传感器故障不能解释全部变化",
+              "supporting_evidence_ids": [
+                "TEFV6-C0294-E01",
+                "TEFV6-C0294-E02",
+                "TEFV6-C0294-E04",
+                "TEFV6-C0294-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0294-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "按批准SOP先处理已确认辅助部件并进行跨源复测；若复测不通过，再进入下一层排查。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0294-E08",
+                "TEFV6-C0294-E06"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0294-E01",
+              "TEFV6-C0294-E02",
+              "TEFV6-C0294-E04",
+              "TEFV6-C0294-E06",
+              "TEFV6-C0294-E07",
+              "TEFV6-C0294-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "已确认的辅助系统局部异常部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0294-E04",
+                "TEFV6-C0294-E07",
+                "TEFV6-C0294-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "R-42温度采集链路跨源复测",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0294-E06",
+                "TEFV6-C0294-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0294-I02-cross_source_cause",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-42",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常导致R-42温度采集链路多测点同步偏离，单一传感器故障不能解释全部变化",
+              "supporting_evidence_ids": [
+                "TEFV6-C0294-E01",
+                "TEFV6-C0294-E02",
+                "TEFV6-C0294-E04",
+                "TEFV6-C0294-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0294-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前原因判断依赖BMS、SCADA与现场检查相互独立记录的共同支持，单一来源不足以形成完整诊断。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0294-E01",
+                "TEFV6-C0294-E02",
+                "TEFV6-C0294-E04",
+                "TEFV6-C0294-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0294-E01",
+              "TEFV6-C0294-E02",
+              "TEFV6-C0294-E04",
+              "TEFV6-C0294-E07"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0294-I03-cross_source_precedent",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-42",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常导致R-42温度采集链路多测点同步偏离，单一传感器故障不能解释全部变化",
+              "supporting_evidence_ids": [
+                "TEFV6-C0294-E01",
+                "TEFV6-C0294-E02",
+                "TEFV6-C0294-E04",
+                "TEFV6-C0294-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0294-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "历史工单仅提供相似组合信号与修复后趋势恢复的先例参考，不能替代当前现场证据和现行V3规程；当前决策以现场证据和适用规程为准。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0294-E05",
+                "TEFV6-C0294-E06",
+                "TEFV6-C0294-E04",
+                "TEFV6-C0294-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0294-E05",
+              "TEFV6-C0294-E06",
+              "TEFV6-C0294-E04",
+              "TEFV6-C0294-E07"
+            ]
+          },
+          "action_plan": []
+        }
+      }
+    ]
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0294-I01-cross_source_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-42",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常导致R-42温度采集链路多测点同步偏离，单一传感器故障不能解释全部变化",
+              "supporting_evidence_ids": [
+                "TEFV6-C0294-E01",
+                "TEFV6-C0294-E02",
+                "TEFV6-C0294-E04",
+                "TEFV6-C0294-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0294-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "按批准SOP先处理已确认辅助部件并进行跨源复测；若复测不通过，再进入下一层排查。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0294-E08",
+                "TEFV6-C0294-E06"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0294-E01",
+              "TEFV6-C0294-E02",
+              "TEFV6-C0294-E04",
+              "TEFV6-C0294-E06",
+              "TEFV6-C0294-E07",
+              "TEFV6-C0294-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "已确认的辅助系统局部异常部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0294-E04",
+                "TEFV6-C0294-E07",
+                "TEFV6-C0294-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "R-42温度采集链路跨源复测",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0294-E06",
+                "TEFV6-C0294-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0294-I02-cross_source_cause",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-42",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常导致R-42温度采集链路多测点同步偏离，单一传感器故障不能解释全部变化",
+              "supporting_evidence_ids": [
+                "TEFV6-C0294-E01",
+                "TEFV6-C0294-E02",
+                "TEFV6-C0294-E04",
+                "TEFV6-C0294-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0294-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前原因判断依赖BMS、SCADA与现场检查相互独立记录的共同支持，单一来源不足以形成完整诊断。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0294-E01",
+                "TEFV6-C0294-E02",
+                "TEFV6-C0294-E04",
+                "TEFV6-C0294-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0294-E01",
+              "TEFV6-C0294-E02",
+              "TEFV6-C0294-E04",
+              "TEFV6-C0294-E06",
+              "TEFV6-C0294-E07"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0294-I03-cross_source_precedent",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-42",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常导致R-42温度采集链路多测点同步偏离，单一传感器故障不能解释全部变化",
+              "supporting_evidence_ids": [
+                "TEFV6-C0294-E01",
+                "TEFV6-C0294-E02",
+                "TEFV6-C0294-E04",
+                "TEFV6-C0294-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0294-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "历史工单仅提供相似组合信号与修复后趋势恢复的先例参考，不能替代当前现场证据和现行V3规程；当前决策以现场证据和适用规程为准。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0294-E05",
+                "TEFV6-C0294-E06",
+                "TEFV6-C0294-E04",
+                "TEFV6-C0294-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0294-E05",
+              "TEFV6-C0294-E06",
+              "TEFV6-C0294-E04",
+              "TEFV6-C0294-E07"
+            ]
+          },
+          "action_plan": []
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:14:17.814185"
+}

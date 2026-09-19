@@ -1,0 +1,372 @@
+{
+  "chain_id": "TEFV6-C0278",
+  "split": "development",
+  "pass": "B",
+  "status": "REVIEW_UNRESOLVED",
+  "repair_used": true,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0278-I01-cross_source_action": [],
+    "TEFV6-C0278-I02-cross_source_cause": [
+      "top citation union"
+    ],
+    "TEFV6-C0278-I03-cross_source_precedent": []
+  },
+  "initial_result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0278-I01-cross_source_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-14",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常导致R-14温度采集链路多测点同步偏离，不支持仅凭单一来源扩大故障范围",
+              "supporting_evidence_ids": [
+                "TEFV6-C0278-E01",
+                "TEFV6-C0278-E02",
+                "TEFV6-C0278-E04",
+                "TEFV6-C0278-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2",
+              "A3"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0278-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "按批准SOP先处理已确认辅助部件并进行跨源复测；若复测不通过，再进入下一层排查。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0278-E06",
+                "TEFV6-C0278-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0278-E01",
+              "TEFV6-C0278-E02",
+              "TEFV6-C0278-E04",
+              "TEFV6-C0278-E06",
+              "TEFV6-C0278-E07",
+              "TEFV6-C0278-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "已确认的辅助系统局部异常部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0278-E04",
+                "TEFV6-C0278-E06",
+                "TEFV6-C0278-E07",
+                "TEFV6-C0278-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "R-14温度采集链路多测点趋势",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0278-E06",
+                "TEFV6-C0278-E08"
+              ]
+            },
+            {
+              "action_id": "A3",
+              "action_type": "inspect",
+              "target": "下一层排查范围",
+              "parameters": {},
+              "depends_on": [
+                "A2"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0278-E06",
+                "TEFV6-C0278-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0278-I02-cross_source_cause",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-14",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常导致R-14温度采集链路多测点同步偏离，需综合BMS、SCADA与现场检查，单一来源不足以形成完整诊断",
+              "supporting_evidence_ids": [
+                "TEFV6-C0278-E01",
+                "TEFV6-C0278-E02",
+                "TEFV6-C0278-E04",
+                "TEFV6-C0278-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0278-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "诊断依赖BMS、SCADA与现场检查的相互独立记录共同支持；单一来源不足以形成完整诊断。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0278-E01",
+                "TEFV6-C0278-E02",
+                "TEFV6-C0278-E04",
+                "TEFV6-C0278-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0278-E01",
+              "TEFV6-C0278-E02",
+              "TEFV6-C0278-E03",
+              "TEFV6-C0278-E04",
+              "TEFV6-C0278-E07"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0278-I03-cross_source_precedent",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-14",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常导致R-14温度采集链路多测点同步偏离；历史工单仅作先例参考，不能替代当前现场证据和适用规程",
+              "supporting_evidence_ids": [
+                "TEFV6-C0278-E01",
+                "TEFV6-C0278-E02",
+                "TEFV6-C0278-E04",
+                "TEFV6-C0278-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0278-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "历史工单记录相似组合信号并修复辅助部件后恢复，仅作为先例参考；当前决策仍以现场证据和现行V3规程为准。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0278-E05",
+                "TEFV6-C0278-E06"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0278-E05",
+              "TEFV6-C0278-E06",
+              "TEFV6-C0278-E01",
+              "TEFV6-C0278-E02",
+              "TEFV6-C0278-E04",
+              "TEFV6-C0278-E07"
+            ]
+          },
+          "action_plan": []
+        }
+      }
+    ]
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0278-I01-cross_source_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-14",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常导致R-14温度采集链路多测点同步偏离，不支持仅凭单一来源扩大故障范围",
+              "supporting_evidence_ids": [
+                "TEFV6-C0278-E01",
+                "TEFV6-C0278-E02",
+                "TEFV6-C0278-E04",
+                "TEFV6-C0278-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2",
+              "A3"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0278-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "按批准SOP先处理已确认辅助部件并进行跨源复测；若复测不通过，再进入下一层排查。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0278-E06",
+                "TEFV6-C0278-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0278-E01",
+              "TEFV6-C0278-E02",
+              "TEFV6-C0278-E04",
+              "TEFV6-C0278-E06",
+              "TEFV6-C0278-E07",
+              "TEFV6-C0278-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "已确认的辅助系统局部异常部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0278-E04",
+                "TEFV6-C0278-E06",
+                "TEFV6-C0278-E07",
+                "TEFV6-C0278-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "R-14温度采集链路多测点趋势",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0278-E06",
+                "TEFV6-C0278-E08"
+              ]
+            },
+            {
+              "action_id": "A3",
+              "action_type": "inspect",
+              "target": "下一层排查范围",
+              "parameters": {},
+              "depends_on": [
+                "A2"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0278-E06",
+                "TEFV6-C0278-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0278-I02-cross_source_cause",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-14",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常导致R-14温度采集链路多测点同步偏离，需综合BMS、SCADA与现场检查，单一来源不足以形成完整诊断",
+              "supporting_evidence_ids": [
+                "TEFV6-C0278-E01",
+                "TEFV6-C0278-E02",
+                "TEFV6-C0278-E04",
+                "TEFV6-C0278-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0278-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "诊断依赖BMS、SCADA与现场检查的相互独立记录共同支持；单一来源不足以形成完整诊断。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0278-E01",
+                "TEFV6-C0278-E02",
+                "TEFV6-C0278-E04",
+                "TEFV6-C0278-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0278-E01",
+              "TEFV6-C0278-E02",
+              "TEFV6-C0278-E03",
+              "TEFV6-C0278-E04",
+              "TEFV6-C0278-E07"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0278-I03-cross_source_precedent",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-14",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常导致R-14温度采集链路多测点同步偏离；历史工单仅作先例参考，不能替代当前现场证据和适用规程",
+              "supporting_evidence_ids": [
+                "TEFV6-C0278-E01",
+                "TEFV6-C0278-E02",
+                "TEFV6-C0278-E04",
+                "TEFV6-C0278-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0278-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "历史工单记录相似组合信号并修复辅助部件后恢复，仅作为先例参考；当前决策仍以现场证据和现行V3规程为准。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0278-E05",
+                "TEFV6-C0278-E06"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0278-E05",
+              "TEFV6-C0278-E06",
+              "TEFV6-C0278-E01",
+              "TEFV6-C0278-E02",
+              "TEFV6-C0278-E04",
+              "TEFV6-C0278-E07"
+            ]
+          },
+          "action_plan": []
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:35:43.226494"
+}

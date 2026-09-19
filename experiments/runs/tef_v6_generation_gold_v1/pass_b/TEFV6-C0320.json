@@ -1,0 +1,444 @@
+{
+  "chain_id": "TEFV6-C0320",
+  "split": "development",
+  "pass": "B",
+  "status": "REVIEW_UNRESOLVED",
+  "repair_used": true,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0320-I01-differentiate": [
+      "top citation union"
+    ],
+    "TEFV6-C0320-I02-current_action": [],
+    "TEFV6-C0320-I03-history_role": [
+      "top citation union"
+    ]
+  },
+  "initial_result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0320-I01-differentiate",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-40",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E05",
+                "TEFV6-C0320-E06",
+                "TEFV6-C0320-E07",
+                "TEFV6-C0320-E08"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0320-A01"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单要求处理本次定位部件并复测，复测结果尚未给出",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E09"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0320-E01",
+              "TEFV6-C0320-E02",
+              "TEFV6-C0320-E03",
+              "TEFV6-C0320-E04",
+              "TEFV6-C0320-E05",
+              "TEFV6-C0320-E06",
+              "TEFV6-C0320-E07",
+              "TEFV6-C0320-E08",
+              "TEFV6-C0320-E09"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0320-A01",
+              "action_type": "repair",
+              "target": "本次定位的实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E08",
+                "TEFV6-C0320-E09"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0320-A02",
+              "action_type": "verify",
+              "target": "R-40 温度采集链路",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0320-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E09"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0320-I02-current_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-40",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E05",
+                "TEFV6-C0320-E06",
+                "TEFV6-C0320-E07",
+                "TEFV6-C0320-E08"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0320-A01"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单要求处理本次定位部件并复测，复测结果尚未给出",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E09"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0320-E05",
+              "TEFV6-C0320-E06",
+              "TEFV6-C0320-E07",
+              "TEFV6-C0320-E08",
+              "TEFV6-C0320-E09"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0320-A01",
+              "action_type": "repair",
+              "target": "本次定位的实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E08",
+                "TEFV6-C0320-E09"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0320-A02",
+              "action_type": "verify",
+              "target": "R-40 温度采集链路",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0320-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E09"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0320-I03-history_role",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-40",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E05",
+                "TEFV6-C0320-E06",
+                "TEFV6-C0320-E07",
+                "TEFV6-C0320-E08"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0320-A01"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单要求处理本次定位部件并复测，复测结果尚未给出",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E09"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0320-E01",
+              "TEFV6-C0320-E02",
+              "TEFV6-C0320-E03",
+              "TEFV6-C0320-E04",
+              "TEFV6-C0320-E05",
+              "TEFV6-C0320-E06",
+              "TEFV6-C0320-E07",
+              "TEFV6-C0320-E08",
+              "TEFV6-C0320-E09"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0320-A01",
+              "action_type": "repair",
+              "target": "本次定位的实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E08",
+                "TEFV6-C0320-E09"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0320-A02",
+              "action_type": "verify",
+              "target": "R-40 温度采集链路",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0320-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E09"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0320-I01-differentiate",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-40",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E05",
+                "TEFV6-C0320-E06",
+                "TEFV6-C0320-E07",
+                "TEFV6-C0320-E08"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0320-A01"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单要求处理本次定位部件并复测，复测结果尚未给出",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E09"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0320-E01",
+              "TEFV6-C0320-E02",
+              "TEFV6-C0320-E03",
+              "TEFV6-C0320-E04",
+              "TEFV6-C0320-E05",
+              "TEFV6-C0320-E06",
+              "TEFV6-C0320-E07",
+              "TEFV6-C0320-E08",
+              "TEFV6-C0320-E09"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0320-A01",
+              "action_type": "repair",
+              "target": "本次定位的实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E08",
+                "TEFV6-C0320-E09"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0320-A02",
+              "action_type": "verify",
+              "target": "R-40 温度采集链路",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0320-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E09"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0320-I02-current_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-40",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E05",
+                "TEFV6-C0320-E06",
+                "TEFV6-C0320-E07",
+                "TEFV6-C0320-E08"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0320-A01"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单要求处理本次定位部件并复测，复测结果尚未给出",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E09"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0320-E05",
+              "TEFV6-C0320-E06",
+              "TEFV6-C0320-E07",
+              "TEFV6-C0320-E08",
+              "TEFV6-C0320-E09"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0320-A01",
+              "action_type": "repair",
+              "target": "本次定位的实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E08",
+                "TEFV6-C0320-E09"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0320-A02",
+              "action_type": "verify",
+              "target": "R-40 温度采集链路",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0320-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E09"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0320-I03-history_role",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-40",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E05",
+                "TEFV6-C0320-E06",
+                "TEFV6-C0320-E07",
+                "TEFV6-C0320-E08"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0320-A01"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单要求处理本次定位部件并复测，复测结果尚未给出",
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E09"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0320-E01",
+              "TEFV6-C0320-E02",
+              "TEFV6-C0320-E03",
+              "TEFV6-C0320-E04",
+              "TEFV6-C0320-E05",
+              "TEFV6-C0320-E06",
+              "TEFV6-C0320-E07",
+              "TEFV6-C0320-E08",
+              "TEFV6-C0320-E09"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0320-A01",
+              "action_type": "repair",
+              "target": "本次定位的实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E08",
+                "TEFV6-C0320-E09"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0320-A02",
+              "action_type": "verify",
+              "target": "R-40 温度采集链路",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0320-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0320-E09"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:40:16.796982"
+}

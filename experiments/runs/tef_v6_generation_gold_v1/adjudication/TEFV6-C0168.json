@@ -1,0 +1,51 @@
+{
+  "chain_id": "TEFV6-C0168",
+  "split": "development",
+  "status": "REVIEW_UNRESOLVED",
+  "used_adjudication": true,
+  "structural_repairs": [],
+  "disagreement_intents": [
+    "TEFV6-C0168-I01-before_cutoff",
+    "TEFV6-C0168-I02-after_cutoff",
+    "TEFV6-C0168-I03-uncertainty_over_time"
+  ],
+  "disagreement_fields": {
+    "TEFV6-C0168-I01-before_cutoff": [
+      "work_order.diagnosis",
+      "work_order.verification_or_uncertainty",
+      "work_order.recommended_actions",
+      "action_plan"
+    ],
+    "TEFV6-C0168-I02-after_cutoff": [
+      "action_plan"
+    ],
+    "TEFV6-C0168-I03-uncertainty_over_time": [
+      "work_order.diagnosis",
+      "work_order.verification_or_uncertainty",
+      "work_order.supporting_evidence_ids",
+      "action_plan"
+    ]
+  },
+  "summary": {
+    "pass_a_pass_b_canonical_equal": false,
+    "disagreement_count": 3,
+    "disagreement_fields": {
+      "TEFV6-C0168-I01-before_cutoff": [
+        "work_order.diagnosis",
+        "work_order.verification_or_uncertainty",
+        "work_order.recommended_actions",
+        "action_plan"
+      ],
+      "TEFV6-C0168-I02-after_cutoff": [
+        "action_plan"
+      ],
+      "TEFV6-C0168-I03-uncertainty_over_time": [
+        "work_order.diagnosis",
+        "work_order.verification_or_uncertainty",
+        "work_order.supporting_evidence_ids",
+        "action_plan"
+      ]
+    }
+  },
+  "result": null
+}

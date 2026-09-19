@@ -1,0 +1,432 @@
+{
+  "chain_id": "TEFV6-C0166",
+  "split": "development",
+  "pass": "B",
+  "status": "accepted",
+  "repair_used": false,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0166-I01-current_rule": [],
+    "TEFV6-C0166-I02-cross_source_rule": [],
+    "TEFV6-C0166-I03-version_source_interaction": []
+  },
+  "initial_result": {
+    "type": "json_object",
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0166-I01-current_rule",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D18",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "C-D18号电池簇主遥测持续偏离，辅助系统同时间窗性能下降，现场检查发现一致的局部异常，跨源证据共同支持当前定位。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E04",
+                "TEFV6-C0166-E05",
+                "TEFV6-C0166-E06",
+                "TEFV6-C0166-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单按V3先处理已确认部件并复测，不直接扩大范围；复测结果尚未产生。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0166-E03",
+              "TEFV6-C0166-E04",
+              "TEFV6-C0166-E05",
+              "TEFV6-C0166-E06",
+              "TEFV6-C0166-E07",
+              "TEFV6-C0166-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "C-D18号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-D18号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0166-I02-cross_source_rule",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D18",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "C-D18号电池簇主遥测持续偏离，辅助系统同时间窗性能下降，现场检查发现一致的局部异常，跨源证据共同支持当前定位。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E04",
+                "TEFV6-C0166-E05",
+                "TEFV6-C0166-E06",
+                "TEFV6-C0166-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单按V3先处理已确认部件并复测，不直接扩大范围；复测结果尚未产生。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0166-E03",
+              "TEFV6-C0166-E04",
+              "TEFV6-C0166-E05",
+              "TEFV6-C0166-E06",
+              "TEFV6-C0166-E07",
+              "TEFV6-C0166-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "C-D18号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-D18号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0166-I03-version_source_interaction",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D18",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "C-D18号电池簇主遥测持续偏离，辅助系统同时间窗性能下降，现场检查发现一致的局部异常，跨源证据共同支持当前定位。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E04",
+                "TEFV6-C0166-E05",
+                "TEFV6-C0166-E06",
+                "TEFV6-C0166-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单按V3先处理已确认部件并复测，不直接扩大范围；复测结果尚未产生。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0166-E03",
+              "TEFV6-C0166-E04",
+              "TEFV6-C0166-E05",
+              "TEFV6-C0166-E06",
+              "TEFV6-C0166-E07",
+              "TEFV6-C0166-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "C-D18号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-D18号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E08"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "result": {
+    "type": "json_object",
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0166-I01-current_rule",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D18",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "C-D18号电池簇主遥测持续偏离，辅助系统同时间窗性能下降，现场检查发现一致的局部异常，跨源证据共同支持当前定位。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E04",
+                "TEFV6-C0166-E05",
+                "TEFV6-C0166-E06",
+                "TEFV6-C0166-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单按V3先处理已确认部件并复测，不直接扩大范围；复测结果尚未产生。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0166-E03",
+              "TEFV6-C0166-E04",
+              "TEFV6-C0166-E05",
+              "TEFV6-C0166-E06",
+              "TEFV6-C0166-E07",
+              "TEFV6-C0166-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "C-D18号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-D18号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0166-I02-cross_source_rule",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D18",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "C-D18号电池簇主遥测持续偏离，辅助系统同时间窗性能下降，现场检查发现一致的局部异常，跨源证据共同支持当前定位。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E04",
+                "TEFV6-C0166-E05",
+                "TEFV6-C0166-E06",
+                "TEFV6-C0166-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单按V3先处理已确认部件并复测，不直接扩大范围；复测结果尚未产生。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0166-E03",
+              "TEFV6-C0166-E04",
+              "TEFV6-C0166-E05",
+              "TEFV6-C0166-E06",
+              "TEFV6-C0166-E07",
+              "TEFV6-C0166-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "C-D18号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-D18号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0166-I03-version_source_interaction",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D18",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "C-D18号电池簇主遥测持续偏离，辅助系统同时间窗性能下降，现场检查发现一致的局部异常，跨源证据共同支持当前定位。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E04",
+                "TEFV6-C0166-E05",
+                "TEFV6-C0166-E06",
+                "TEFV6-C0166-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单按V3先处理已确认部件并复测，不直接扩大范围；复测结果尚未产生。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0166-E03",
+              "TEFV6-C0166-E04",
+              "TEFV6-C0166-E05",
+              "TEFV6-C0166-E06",
+              "TEFV6-C0166-E07",
+              "TEFV6-C0166-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "C-D18号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-D18号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0166-E08"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:28:07.878426"
+}

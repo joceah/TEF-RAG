@@ -1,0 +1,210 @@
+{
+  "chain_id": "TEFV6-C0107",
+  "split": "development",
+  "status": "adjudicated",
+  "used_adjudication": true,
+  "structural_repairs": [],
+  "disagreement_intents": [
+    "TEFV6-C0107-I01-cross_source_action",
+    "TEFV6-C0107-I02-cross_source_cause",
+    "TEFV6-C0107-I03-cross_source_precedent"
+  ],
+  "disagreement_fields": {
+    "TEFV6-C0107-I01-cross_source_action": [
+      "work_order.diagnosis",
+      "action_plan"
+    ],
+    "TEFV6-C0107-I02-cross_source_cause": [
+      "work_order.diagnosis",
+      "work_order.verification_or_uncertainty"
+    ],
+    "TEFV6-C0107-I03-cross_source_precedent": [
+      "work_order.diagnosis",
+      "work_order.verification_or_uncertainty",
+      "work_order.supporting_evidence_ids"
+    ]
+  },
+  "summary": {
+    "pass_a_pass_b_canonical_equal": false,
+    "disagreement_count": 3,
+    "disagreement_fields": {
+      "TEFV6-C0107-I01-cross_source_action": [
+        "work_order.diagnosis",
+        "action_plan"
+      ],
+      "TEFV6-C0107-I02-cross_source_cause": [
+        "work_order.diagnosis",
+        "work_order.verification_or_uncertainty"
+      ],
+      "TEFV6-C0107-I03-cross_source_precedent": [
+        "work_order.diagnosis",
+        "work_order.verification_or_uncertainty",
+        "work_order.supporting_evidence_ids"
+      ]
+    }
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0107-I01-cross_source_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D12",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常导致C-D12温度采集链路多测点同步偏离，单一传感器故障不能解释全部变化",
+              "supporting_evidence_ids": [
+                "TEFV6-C0107-E01",
+                "TEFV6-C0107-E02",
+                "TEFV6-C0107-E04",
+                "TEFV6-C0107-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0107-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "按批准SOP先处理已确认辅助部件并进行跨源复测；复测不通过再进入下一层排查",
+              "supporting_evidence_ids": [
+                "TEFV6-C0107-E08",
+                "TEFV6-C0107-E06"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0107-E01",
+              "TEFV6-C0107-E02",
+              "TEFV6-C0107-E04",
+              "TEFV6-C0107-E06",
+              "TEFV6-C0107-E07",
+              "TEFV6-C0107-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "已确认的辅助系统局部异常部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0107-E04",
+                "TEFV6-C0107-E07",
+                "TEFV6-C0107-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-D12温度采集链路跨源复测",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0107-E08",
+                "TEFV6-C0107-E06"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0107-I02-cross_source_cause",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D12",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "综合BMS、SCADA与现场检查，当前优先定位到辅助系统局部异常；单一来源不足以形成完整诊断",
+              "supporting_evidence_ids": [
+                "TEFV6-C0107-E01",
+                "TEFV6-C0107-E02",
+                "TEFV6-C0107-E04",
+                "TEFV6-C0107-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0107-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "需跨源复测确认辅助系统局部异常处理效果，复测不通过再扩大排查",
+              "supporting_evidence_ids": [
+                "TEFV6-C0107-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0107-E01",
+              "TEFV6-C0107-E02",
+              "TEFV6-C0107-E04",
+              "TEFV6-C0107-E06",
+              "TEFV6-C0107-E07",
+              "TEFV6-C0107-E08"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0107-I03-cross_source_precedent",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D12",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "历史工单仅作相似组合信号先例参考，不能替代当前现场证据与适用规程；当前原因仍由BMS、SCADA与现场检查共同支持",
+              "supporting_evidence_ids": [
+                "TEFV6-C0107-E05",
+                "TEFV6-C0107-E01",
+                "TEFV6-C0107-E02",
+                "TEFV6-C0107-E04",
+                "TEFV6-C0107-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0107-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "历史案例不能替代当前现场证据和适用规程，需按现行规程跨源复测",
+              "supporting_evidence_ids": [
+                "TEFV6-C0107-E05",
+                "TEFV6-C0107-E06",
+                "TEFV6-C0107-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0107-E05",
+              "TEFV6-C0107-E06",
+              "TEFV6-C0107-E01",
+              "TEFV6-C0107-E02",
+              "TEFV6-C0107-E04",
+              "TEFV6-C0107-E07",
+              "TEFV6-C0107-E08"
+            ]
+          },
+          "action_plan": []
+        }
+      }
+    ]
+  }
+}

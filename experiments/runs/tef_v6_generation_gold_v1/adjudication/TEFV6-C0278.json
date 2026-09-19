@@ -1,0 +1,53 @@
+{
+  "chain_id": "TEFV6-C0278",
+  "split": "development",
+  "status": "REVIEW_UNRESOLVED",
+  "used_adjudication": true,
+  "structural_repairs": [],
+  "disagreement_intents": [
+    "TEFV6-C0278-I01-cross_source_action",
+    "TEFV6-C0278-I02-cross_source_cause",
+    "TEFV6-C0278-I03-cross_source_precedent"
+  ],
+  "disagreement_fields": {
+    "TEFV6-C0278-I01-cross_source_action": [
+      "work_order.diagnosis",
+      "work_order.verification_or_uncertainty",
+      "work_order.recommended_actions",
+      "action_plan"
+    ],
+    "TEFV6-C0278-I02-cross_source_cause": [
+      "work_order.diagnosis",
+      "work_order.verification_or_uncertainty",
+      "work_order.supporting_evidence_ids"
+    ],
+    "TEFV6-C0278-I03-cross_source_precedent": [
+      "work_order.diagnosis",
+      "work_order.verification_or_uncertainty",
+      "work_order.supporting_evidence_ids"
+    ]
+  },
+  "summary": {
+    "pass_a_pass_b_canonical_equal": false,
+    "disagreement_count": 3,
+    "disagreement_fields": {
+      "TEFV6-C0278-I01-cross_source_action": [
+        "work_order.diagnosis",
+        "work_order.verification_or_uncertainty",
+        "work_order.recommended_actions",
+        "action_plan"
+      ],
+      "TEFV6-C0278-I02-cross_source_cause": [
+        "work_order.diagnosis",
+        "work_order.verification_or_uncertainty",
+        "work_order.supporting_evidence_ids"
+      ],
+      "TEFV6-C0278-I03-cross_source_precedent": [
+        "work_order.diagnosis",
+        "work_order.verification_or_uncertainty",
+        "work_order.supporting_evidence_ids"
+      ]
+    }
+  },
+  "result": null
+}

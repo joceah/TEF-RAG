@@ -1,0 +1,416 @@
+{
+  "chain_id": "TEFV6-C0022",
+  "split": "development",
+  "pass": "B",
+  "status": "REVIEW_UNRESOLVED",
+  "repair_used": true,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0022-I01-status_before_cutoff": [],
+    "TEFV6-C0022-I02-status_after_cutoff": [
+      "top citation union"
+    ],
+    "TEFV6-C0022-I03-cutoff_explanation": []
+  },
+  "initial_result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0022-I01-status_before_cutoff",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D09",
+            "diagnosis": {
+              "status": "provisional",
+              "concept": "局部热异常待确认",
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E01",
+                "TEFV6-C0022-E02"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "现场复核结果尚不可见，临时工单要求保持保守运行限制并等待现场复核，不执行扩大拆检。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E02",
+                "TEFV6-C0022-E03"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0022-E01",
+              "TEFV6-C0022-E02",
+              "TEFV6-C0022-E03"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "C-D09号电池簇",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E03"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-D09号电池簇现场复核",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E03"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0022-I02-status_after_cutoff",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D09",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "采集通道偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E05",
+                "TEFV6-C0022-E06"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": null,
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E07"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "值班记录确认更新工单已经替代临时工单。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0022-E04",
+              "TEFV6-C0022-E05",
+              "TEFV6-C0022-E06",
+              "TEFV6-C0022-E07",
+              "TEFV6-C0022-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "verify",
+              "target": "C-D09号电池簇采集链路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E07"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "monitor",
+              "target": "C-D09号电池簇运行限制",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E07"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0022-I03-cutoff_explanation",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D09",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "采集通道偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E05",
+                "TEFV6-C0022-E06"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": null,
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E07"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "10:30时点离线复核记录尚未上传，仅可见临时诊断与临时工单；10:38后复核记录上传，10:43更正诊断，10:48更新工单，10:52确认替代，故两个时点答案不同但各自合法。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E02",
+                "TEFV6-C0022-E03",
+                "TEFV6-C0022-E04",
+                "TEFV6-C0022-E05",
+                "TEFV6-C0022-E06",
+                "TEFV6-C0022-E07",
+                "TEFV6-C0022-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0022-E02",
+              "TEFV6-C0022-E03",
+              "TEFV6-C0022-E04",
+              "TEFV6-C0022-E05",
+              "TEFV6-C0022-E06",
+              "TEFV6-C0022-E07",
+              "TEFV6-C0022-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "verify",
+              "target": "C-D09号电池簇采集链路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E07"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "monitor",
+              "target": "C-D09号电池簇运行限制",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E07"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0022-I01-status_before_cutoff",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D09",
+            "diagnosis": {
+              "status": "provisional",
+              "concept": "局部热异常待确认",
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E01",
+                "TEFV6-C0022-E02"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "现场复核结果尚不可见，临时工单要求保持保守运行限制并等待现场复核，不执行扩大拆检。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E02",
+                "TEFV6-C0022-E03"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0022-E01",
+              "TEFV6-C0022-E02",
+              "TEFV6-C0022-E03"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "C-D09号电池簇",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E03"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-D09号电池簇现场复核",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E03"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0022-I02-status_after_cutoff",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D09",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "采集通道偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E05",
+                "TEFV6-C0022-E06"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": null,
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E07"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "值班记录确认更新工单已经替代临时工单。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0022-E04",
+              "TEFV6-C0022-E05",
+              "TEFV6-C0022-E06",
+              "TEFV6-C0022-E07",
+              "TEFV6-C0022-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "verify",
+              "target": "C-D09号电池簇采集链路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E07"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "monitor",
+              "target": "C-D09号电池簇运行限制",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E07"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0022-I03-cutoff_explanation",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D09",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "采集通道偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E05",
+                "TEFV6-C0022-E06"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": null,
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E07"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "10:30时点离线复核记录尚未上传，仅可见临时诊断与临时工单；10:38后复核记录上传，10:43更正诊断，10:48更新工单，10:52确认替代，故两个时点答案不同但各自合法。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E02",
+                "TEFV6-C0022-E03",
+                "TEFV6-C0022-E04",
+                "TEFV6-C0022-E05",
+                "TEFV6-C0022-E06",
+                "TEFV6-C0022-E07",
+                "TEFV6-C0022-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0022-E02",
+              "TEFV6-C0022-E03",
+              "TEFV6-C0022-E04",
+              "TEFV6-C0022-E05",
+              "TEFV6-C0022-E06",
+              "TEFV6-C0022-E07",
+              "TEFV6-C0022-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "verify",
+              "target": "C-D09号电池簇采集链路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E07"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "monitor",
+              "target": "C-D09号电池簇运行限制",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0022-E07"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:18:32.082472"
+}

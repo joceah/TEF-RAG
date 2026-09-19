@@ -1,0 +1,454 @@
+{
+  "chain_id": "TEFV6-C0167",
+  "split": "development",
+  "pass": "B",
+  "status": "REVIEW_UNRESOLVED",
+  "repair_used": true,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0167-I01-differentiate": [
+      "top citation union"
+    ],
+    "TEFV6-C0167-I02-current_action": [
+      "top citation union"
+    ],
+    "TEFV6-C0167-I03-history_role": [
+      "top citation union"
+    ]
+  },
+  "initial_result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0167-I01-differentiate",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D21",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移；关键区分证据是本次异常在固定物理位置一致且不随采集通道切换移动，且第二种测量来源与现场结果方向一致。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E05",
+                "TEFV6-C0167-E06",
+                "TEFV6-C0167-E07",
+                "TEFV6-C0167-E08"
+              ]
+            },
+            "recommended_actions": [
+              "A1"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单要求处理本次定位部件并复测；交接班记录确认当前限制状态未被解除，复测结果尚未给出。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E09",
+                "TEFV6-C0167-E12"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0167-E01",
+              "TEFV6-C0167-E02",
+              "TEFV6-C0167-E03",
+              "TEFV6-C0167-E04",
+              "TEFV6-C0167-E05",
+              "TEFV6-C0167-E06",
+              "TEFV6-C0167-E07",
+              "TEFV6-C0167-E08",
+              "TEFV6-C0167-E09",
+              "TEFV6-C0167-E12"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "本次定位的实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E08",
+                "TEFV6-C0167-E09"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "处理后的本次定位部件",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E09"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0167-I02-current_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D21",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次应处理实体连接/辅助部件，而不是校验采集链路；依据是本次诊断定位为实体连接/辅助部件异常，且当前工单明确不执行历史校验工单。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E06",
+                "TEFV6-C0167-E07",
+                "TEFV6-C0167-E08",
+                "TEFV6-C0167-E09"
+              ]
+            },
+            "recommended_actions": [
+              "A1"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单要求由合格人员按批准SOP处理本次定位部件并复测；复测结果尚未给出。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E09"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0167-E05",
+              "TEFV6-C0167-E06",
+              "TEFV6-C0167-E07",
+              "TEFV6-C0167-E08",
+              "TEFV6-C0167-E09"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "本次定位的实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E08",
+                "TEFV6-C0167-E09"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "处理后的本次定位部件",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E09"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0167-I03-history_role",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D21",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "历史工单应作为对照而非本次结论：历史事件归因于采集链路偏移并完成校验，但本次诊断明确不沿用该历史结论，定位为实体连接/辅助部件异常。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E02",
+                "TEFV6-C0167-E03",
+                "TEFV6-C0167-E04",
+                "TEFV6-C0167-E06",
+                "TEFV6-C0167-E07",
+                "TEFV6-C0167-E08"
+              ]
+            },
+            "recommended_actions": [
+              "A1"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单要求处理本次定位部件并复测，不执行历史校验工单；复测结果尚未给出。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E09"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0167-E01",
+              "TEFV6-C0167-E02",
+              "TEFV6-C0167-E03",
+              "TEFV6-C0167-E04",
+              "TEFV6-C0167-E05",
+              "TEFV6-C0167-E06",
+              "TEFV6-C0167-E07",
+              "TEFV6-C0167-E08",
+              "TEFV6-C0167-E09"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "本次定位的实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E08",
+                "TEFV6-C0167-E09"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "处理后的本次定位部件",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E09"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0167-I01-differentiate",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D21",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移；关键区分证据是本次异常在固定物理位置一致且不随采集通道切换移动，且第二种测量来源与现场结果方向一致。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E05",
+                "TEFV6-C0167-E06",
+                "TEFV6-C0167-E07",
+                "TEFV6-C0167-E08"
+              ]
+            },
+            "recommended_actions": [
+              "A1"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单要求处理本次定位部件并复测；交接班记录确认当前限制状态未被解除，复测结果尚未给出。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E09",
+                "TEFV6-C0167-E12"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0167-E01",
+              "TEFV6-C0167-E02",
+              "TEFV6-C0167-E03",
+              "TEFV6-C0167-E04",
+              "TEFV6-C0167-E05",
+              "TEFV6-C0167-E06",
+              "TEFV6-C0167-E07",
+              "TEFV6-C0167-E08",
+              "TEFV6-C0167-E09",
+              "TEFV6-C0167-E12"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "本次定位的实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E08",
+                "TEFV6-C0167-E09"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "处理后的本次定位部件",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E09"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0167-I02-current_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D21",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次应处理实体连接/辅助部件，而不是校验采集链路；依据是本次诊断定位为实体连接/辅助部件异常，且当前工单明确不执行历史校验工单。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E06",
+                "TEFV6-C0167-E07",
+                "TEFV6-C0167-E08",
+                "TEFV6-C0167-E09"
+              ]
+            },
+            "recommended_actions": [
+              "A1"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单要求由合格人员按批准SOP处理本次定位部件并复测；复测结果尚未给出。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E09"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0167-E05",
+              "TEFV6-C0167-E06",
+              "TEFV6-C0167-E07",
+              "TEFV6-C0167-E08",
+              "TEFV6-C0167-E09"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "本次定位的实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E08",
+                "TEFV6-C0167-E09"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "处理后的本次定位部件",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E09"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0167-I03-history_role",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D21",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "历史工单应作为对照而非本次结论：历史事件归因于采集链路偏移并完成校验，但本次诊断明确不沿用该历史结论，定位为实体连接/辅助部件异常。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E02",
+                "TEFV6-C0167-E03",
+                "TEFV6-C0167-E04",
+                "TEFV6-C0167-E06",
+                "TEFV6-C0167-E07",
+                "TEFV6-C0167-E08"
+              ]
+            },
+            "recommended_actions": [
+              "A1"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单要求处理本次定位部件并复测，不执行历史校验工单；复测结果尚未给出。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E09"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0167-E01",
+              "TEFV6-C0167-E02",
+              "TEFV6-C0167-E03",
+              "TEFV6-C0167-E04",
+              "TEFV6-C0167-E05",
+              "TEFV6-C0167-E06",
+              "TEFV6-C0167-E07",
+              "TEFV6-C0167-E08",
+              "TEFV6-C0167-E09"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "本次定位的实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E08",
+                "TEFV6-C0167-E09"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "处理后的本次定位部件",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0167-E09"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:28:16.909322"
+}

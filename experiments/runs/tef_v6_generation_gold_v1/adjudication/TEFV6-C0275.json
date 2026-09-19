@@ -1,0 +1,61 @@
+{
+  "chain_id": "TEFV6-C0275",
+  "split": "development",
+  "status": "REVIEW_UNRESOLVED",
+  "used_adjudication": true,
+  "structural_repairs": [],
+  "disagreement_intents": [
+    "TEFV6-C0275-I01-pre_arrival",
+    "TEFV6-C0275-I02-post_arrival",
+    "TEFV6-C0275-I03-arrival_effect"
+  ],
+  "disagreement_fields": {
+    "TEFV6-C0275-I01-pre_arrival": [
+      "work_order.applicable_procedure",
+      "work_order.verification_or_uncertainty",
+      "work_order.recommended_actions",
+      "action_plan"
+    ],
+    "TEFV6-C0275-I02-post_arrival": [
+      "work_order.diagnosis",
+      "work_order.applicable_procedure",
+      "work_order.verification_or_uncertainty",
+      "work_order.recommended_actions",
+      "action_plan"
+    ],
+    "TEFV6-C0275-I03-arrival_effect": [
+      "work_order.diagnosis",
+      "work_order.applicable_procedure",
+      "work_order.verification_or_uncertainty",
+      "work_order.recommended_actions",
+      "action_plan"
+    ]
+  },
+  "summary": {
+    "pass_a_pass_b_canonical_equal": false,
+    "disagreement_count": 3,
+    "disagreement_fields": {
+      "TEFV6-C0275-I01-pre_arrival": [
+        "work_order.applicable_procedure",
+        "work_order.verification_or_uncertainty",
+        "work_order.recommended_actions",
+        "action_plan"
+      ],
+      "TEFV6-C0275-I02-post_arrival": [
+        "work_order.diagnosis",
+        "work_order.applicable_procedure",
+        "work_order.verification_or_uncertainty",
+        "work_order.recommended_actions",
+        "action_plan"
+      ],
+      "TEFV6-C0275-I03-arrival_effect": [
+        "work_order.diagnosis",
+        "work_order.applicable_procedure",
+        "work_order.verification_or_uncertainty",
+        "work_order.recommended_actions",
+        "action_plan"
+      ]
+    }
+  },
+  "result": null
+}

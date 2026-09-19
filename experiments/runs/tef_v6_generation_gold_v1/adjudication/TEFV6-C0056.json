@@ -1,0 +1,237 @@
+{
+  "chain_id": "TEFV6-C0056",
+  "split": "validation",
+  "status": "adjudicated",
+  "used_adjudication": true,
+  "structural_repairs": [],
+  "disagreement_intents": [
+    "TEFV6-C0056-I02-post_arrival",
+    "TEFV6-C0056-I03-arrival_effect"
+  ],
+  "disagreement_fields": {
+    "TEFV6-C0056-I02-post_arrival": [
+      "work_order.applicable_procedure",
+      "work_order.recommended_actions",
+      "action_plan"
+    ],
+    "TEFV6-C0056-I03-arrival_effect": [
+      "work_order.diagnosis",
+      "work_order.applicable_procedure",
+      "work_order.verification_or_uncertainty",
+      "work_order.recommended_actions",
+      "action_plan"
+    ]
+  },
+  "summary": {
+    "pass_a_pass_b_canonical_equal": false,
+    "disagreement_count": 2,
+    "disagreement_fields": {
+      "TEFV6-C0056-I02-post_arrival": [
+        "work_order.applicable_procedure",
+        "work_order.recommended_actions",
+        "action_plan"
+      ],
+      "TEFV6-C0056-I03-arrival_effect": [
+        "work_order.diagnosis",
+        "work_order.applicable_procedure",
+        "work_order.verification_or_uncertainty",
+        "work_order.recommended_actions",
+        "action_plan"
+      ]
+    }
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0056-I01-pre_arrival",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V08",
+            "diagnosis": {
+              "status": "provisional",
+              "concept": "长期运行波动（暂定解释，待现场复核）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0056-E01",
+                "TEFV6-C0056-E02",
+                "TEFV6-C0056-E03"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "现场离线记录尚未到达，暂定解释待现场复核确认。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0056-E02",
+                "TEFV6-C0056-E03",
+                "TEFV6-C0056-E04"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0056-E01",
+              "TEFV6-C0056-E02",
+              "TEFV6-C0056-E03",
+              "TEFV6-C0056-E04"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "C-V08 液冷机组关键指标",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0056-E01",
+                "TEFV6-C0056-E04"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "inspect",
+              "target": "C-V08 液冷机组现场",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0056-E02",
+                "TEFV6-C0056-E04"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0056-I02-post_arrival",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V08",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "可定位的局部部件异常（关键接口附近）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0056-E05",
+                "TEFV6-C0056-E06",
+                "TEFV6-C0056-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A3",
+              "A4"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP",
+              "supporting_evidence_ids": [
+                "TEFV6-C0056-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "需由合格人员按批准SOP处理已定位部件并完成复测。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0056-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0056-E05",
+              "TEFV6-C0056-E06",
+              "TEFV6-C0056-E07",
+              "TEFV6-C0056-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A3",
+              "action_type": "repair",
+              "target": "C-V08 液冷机组已定位局部部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0056-E05",
+                "TEFV6-C0056-E07",
+                "TEFV6-C0056-E08"
+              ]
+            },
+            {
+              "action_id": "A4",
+              "action_type": "verify",
+              "target": "C-V08 液冷机组已定位部件处理后复测",
+              "parameters": {},
+              "depends_on": [
+                "A3"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0056-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0056-I03-arrival_effect",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V08",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "可定位的局部部件异常（关键接口附近），原长期运行波动解释被撤销",
+              "supporting_evidence_ids": [
+                "TEFV6-C0056-E05",
+                "TEFV6-C0056-E06",
+                "TEFV6-C0056-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A5"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP",
+              "supporting_evidence_ids": [
+                "TEFV6-C0056-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "晚到现场记录（event_time 09:25/09:31，available_at 09:58）在10:02后进入系统，触发解释撤销与工单更新；需按批准SOP处理并复测。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0056-E05",
+                "TEFV6-C0056-E06",
+                "TEFV6-C0056-E07",
+                "TEFV6-C0056-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0056-E05",
+              "TEFV6-C0056-E06",
+              "TEFV6-C0056-E07",
+              "TEFV6-C0056-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A5",
+              "action_type": "document",
+              "target": "C-V08 液冷机组晚到证据与结论变更记录",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0056-E05",
+                "TEFV6-C0056-E06",
+                "TEFV6-C0056-E07",
+                "TEFV6-C0056-E08"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,462 @@
+{
+  "chain_id": "TEFV6-C0327",
+  "split": "validation",
+  "pass": "B",
+  "status": "accepted",
+  "repair_used": false,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0327-I01-routine_status": [],
+    "TEFV6-C0327-I02-routine_basis": [],
+    "TEFV6-C0327-I03-routine_followup": []
+  },
+  "initial_result": {
+    "type": "json_object",
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0327-I01-routine_status",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-31",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "母排连接点处于常规稳定状态，无持续异常，无需故障升级",
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E01",
+                "TEFV6-C0327-E02",
+                "TEFV6-C0327-E03",
+                "TEFV6-C0327-E05"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0327-A01",
+              "TEFV6-C0327-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E04"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "跨源状态一致且无持续异常，工单保持例行监测，不新增部件维修任务",
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E02",
+                "TEFV6-C0327-E06"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0327-E01",
+              "TEFV6-C0327-E02",
+              "TEFV6-C0327-E03",
+              "TEFV6-C0327-E04",
+              "TEFV6-C0327-E05",
+              "TEFV6-C0327-E06"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0327-A01",
+              "action_type": "monitor",
+              "target": "R-31 母排连接点",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E01",
+                "TEFV6-C0327-E04",
+                "TEFV6-C0327-E06"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0327-A02",
+              "action_type": "document",
+              "target": "R-31 母排连接点趋势记录",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E04"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0327-I02-routine_basis",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-31",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "母排连接点处于常规稳定状态，无持续异常，无需扩大处置",
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E01",
+                "TEFV6-C0327-E02",
+                "TEFV6-C0327-E03",
+                "TEFV6-C0327-E05"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0327-A01",
+              "TEFV6-C0327-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E04"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "热监测趋势稳定、辅助系统反馈一致、巡检无可见异常，且无足够证据支持故障升级",
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E01",
+                "TEFV6-C0327-E02",
+                "TEFV6-C0327-E03",
+                "TEFV6-C0327-E05"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0327-E01",
+              "TEFV6-C0327-E02",
+              "TEFV6-C0327-E03",
+              "TEFV6-C0327-E04",
+              "TEFV6-C0327-E05"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0327-A01",
+              "action_type": "monitor",
+              "target": "R-31 母排连接点",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E01",
+                "TEFV6-C0327-E04"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0327-A02",
+              "action_type": "document",
+              "target": "R-31 母排连接点趋势记录",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E04"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0327-I03-routine_followup",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-31",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "母排连接点处于常规稳定状态，无持续异常，无需故障升级",
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E01",
+                "TEFV6-C0327-E02",
+                "TEFV6-C0327-E03",
+                "TEFV6-C0327-E05"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0327-A01",
+              "TEFV6-C0327-A02",
+              "TEFV6-C0327-A03"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E04"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "交接记录确认例行监测安排已进入下一班次清单",
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0327-E01",
+              "TEFV6-C0327-E02",
+              "TEFV6-C0327-E03",
+              "TEFV6-C0327-E04",
+              "TEFV6-C0327-E05",
+              "TEFV6-C0327-E06",
+              "TEFV6-C0327-E07"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0327-A01",
+              "action_type": "monitor",
+              "target": "R-31 母排连接点",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E01",
+                "TEFV6-C0327-E04",
+                "TEFV6-C0327-E06"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0327-A02",
+              "action_type": "document",
+              "target": "R-31 母排连接点趋势记录",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E04"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0327-A03",
+              "action_type": "verify",
+              "target": "R-31 母排连接点下一班次复核",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E06",
+                "TEFV6-C0327-E07"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "result": {
+    "type": "json_object",
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0327-I01-routine_status",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-31",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "母排连接点处于常规稳定状态，无持续异常，无需故障升级",
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E01",
+                "TEFV6-C0327-E02",
+                "TEFV6-C0327-E03",
+                "TEFV6-C0327-E05"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0327-A01",
+              "TEFV6-C0327-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E04"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "跨源状态一致且无持续异常，工单保持例行监测，不新增部件维修任务",
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E02",
+                "TEFV6-C0327-E06"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0327-E01",
+              "TEFV6-C0327-E02",
+              "TEFV6-C0327-E03",
+              "TEFV6-C0327-E04",
+              "TEFV6-C0327-E05",
+              "TEFV6-C0327-E06"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0327-A01",
+              "action_type": "monitor",
+              "target": "R-31 母排连接点",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E01",
+                "TEFV6-C0327-E04",
+                "TEFV6-C0327-E06"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0327-A02",
+              "action_type": "document",
+              "target": "R-31 母排连接点趋势记录",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E04"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0327-I02-routine_basis",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-31",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "母排连接点处于常规稳定状态，无持续异常，无需扩大处置",
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E01",
+                "TEFV6-C0327-E02",
+                "TEFV6-C0327-E03",
+                "TEFV6-C0327-E05"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0327-A01",
+              "TEFV6-C0327-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E04"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "热监测趋势稳定、辅助系统反馈一致、巡检无可见异常，且无足够证据支持故障升级",
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E01",
+                "TEFV6-C0327-E02",
+                "TEFV6-C0327-E03",
+                "TEFV6-C0327-E05"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0327-E01",
+              "TEFV6-C0327-E02",
+              "TEFV6-C0327-E03",
+              "TEFV6-C0327-E04",
+              "TEFV6-C0327-E05"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0327-A01",
+              "action_type": "monitor",
+              "target": "R-31 母排连接点",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E01",
+                "TEFV6-C0327-E04"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0327-A02",
+              "action_type": "document",
+              "target": "R-31 母排连接点趋势记录",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E04"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0327-I03-routine_followup",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-31",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "母排连接点处于常规稳定状态，无持续异常，无需故障升级",
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E01",
+                "TEFV6-C0327-E02",
+                "TEFV6-C0327-E03",
+                "TEFV6-C0327-E05"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0327-A01",
+              "TEFV6-C0327-A02",
+              "TEFV6-C0327-A03"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E04"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "交接记录确认例行监测安排已进入下一班次清单",
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0327-E01",
+              "TEFV6-C0327-E02",
+              "TEFV6-C0327-E03",
+              "TEFV6-C0327-E04",
+              "TEFV6-C0327-E05",
+              "TEFV6-C0327-E06",
+              "TEFV6-C0327-E07"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0327-A01",
+              "action_type": "monitor",
+              "target": "R-31 母排连接点",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E01",
+                "TEFV6-C0327-E04",
+                "TEFV6-C0327-E06"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0327-A02",
+              "action_type": "document",
+              "target": "R-31 母排连接点趋势记录",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E04"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0327-A03",
+              "action_type": "verify",
+              "target": "R-31 母排连接点下一班次复核",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0327-E06",
+                "TEFV6-C0327-E07"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T02:00:55.865664"
+}

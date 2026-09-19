@@ -1,0 +1,412 @@
+{
+  "chain_id": "TEFV6-C0152",
+  "split": "development",
+  "pass": "A",
+  "status": "accepted",
+  "repair_used": false,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0152-I01-uncertain_status": [],
+    "TEFV6-C0152-I02-why_uncertain": [],
+    "TEFV6-C0152-I03-next_discriminator": []
+  },
+  "initial_result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0152-I01-uncertain_status",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D01",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "轻微单点偏离存在两个可解释分支（早期实体异常 vs 采集链路偏移），当前证据不足以确定唯一原因",
+              "supporting_evidence_ids": [
+                "TEFV6-C0152-E01",
+                "TEFV6-C0152-E02",
+                "TEFV6-C0152-E03",
+                "TEFV6-C0152-E04",
+                "TEFV6-C0152-E05",
+                "TEFV6-C0152-E06",
+                "TEFV6-C0152-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": "not_available",
+              "supporting_evidence_ids": [
+                "TEFV6-C0152-E07",
+                "TEFV6-C0152-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "当前不批准写入唯一诊断，应保留两个可解释分支并继续获取区分证据；工单保持保守运行限制并安排独立复测，只有出现可重复区分证据后再收敛诊断。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0152-E07",
+                "TEFV6-C0152-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0152-E01",
+              "TEFV6-C0152-E02",
+              "TEFV6-C0152-E03",
+              "TEFV6-C0152-E04",
+              "TEFV6-C0152-E05",
+              "TEFV6-C0152-E06",
+              "TEFV6-C0152-E07",
+              "TEFV6-C0152-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "C-D01号电池簇",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0152-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-D01号电池簇",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0152-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0152-I02-why_uncertain",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D01",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "轻微单点偏离存在两个可解释分支（早期实体异常 vs 采集链路偏移），当前证据不足以确定唯一原因",
+              "supporting_evidence_ids": [
+                "TEFV6-C0152-E01",
+                "TEFV6-C0152-E02",
+                "TEFV6-C0152-E03",
+                "TEFV6-C0152-E04",
+                "TEFV6-C0152-E05",
+                "TEFV6-C0152-E06",
+                "TEFV6-C0152-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": "not_available",
+              "supporting_evidence_ids": [
+                "TEFV6-C0152-E07",
+                "TEFV6-C0152-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "当前不批准写入唯一诊断，应保留两个可解释分支并继续获取区分证据；工单保持保守运行限制并安排独立复测，只有出现可重复区分证据后再收敛诊断。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0152-E07",
+                "TEFV6-C0152-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0152-E01",
+              "TEFV6-C0152-E02",
+              "TEFV6-C0152-E03",
+              "TEFV6-C0152-E04",
+              "TEFV6-C0152-E05",
+              "TEFV6-C0152-E06",
+              "TEFV6-C0152-E07",
+              "TEFV6-C0152-E08"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0152-I03-next_discriminator",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D01",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "轻微单点偏离存在两个可解释分支（早期实体异常 vs 采集链路偏移），当前证据不足以确定唯一原因",
+              "supporting_evidence_ids": [
+                "TEFV6-C0152-E01",
+                "TEFV6-C0152-E02",
+                "TEFV6-C0152-E03",
+                "TEFV6-C0152-E04",
+                "TEFV6-C0152-E05",
+                "TEFV6-C0152-E06",
+                "TEFV6-C0152-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": "not_available",
+              "supporting_evidence_ids": [
+                "TEFV6-C0152-E07",
+                "TEFV6-C0152-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "当前不批准写入唯一诊断，应保留两个可解释分支并继续获取区分证据；工单保持保守运行限制并安排独立复测，只有出现可重复区分证据后再收敛诊断。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0152-E07",
+                "TEFV6-C0152-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0152-E01",
+              "TEFV6-C0152-E02",
+              "TEFV6-C0152-E03",
+              "TEFV6-C0152-E04",
+              "TEFV6-C0152-E05",
+              "TEFV6-C0152-E06",
+              "TEFV6-C0152-E07",
+              "TEFV6-C0152-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "C-D01号电池簇",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0152-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-D01号电池簇",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0152-E08"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0152-I01-uncertain_status",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D01",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "轻微单点偏离存在两个可解释分支（早期实体异常 vs 采集链路偏移），当前证据不足以确定唯一原因",
+              "supporting_evidence_ids": [
+                "TEFV6-C0152-E01",
+                "TEFV6-C0152-E02",
+                "TEFV6-C0152-E03",
+                "TEFV6-C0152-E04",
+                "TEFV6-C0152-E05",
+                "TEFV6-C0152-E06",
+                "TEFV6-C0152-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": "not_available",
+              "supporting_evidence_ids": [
+                "TEFV6-C0152-E07",
+                "TEFV6-C0152-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "当前不批准写入唯一诊断，应保留两个可解释分支并继续获取区分证据；工单保持保守运行限制并安排独立复测，只有出现可重复区分证据后再收敛诊断。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0152-E07",
+                "TEFV6-C0152-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0152-E01",
+              "TEFV6-C0152-E02",
+              "TEFV6-C0152-E03",
+              "TEFV6-C0152-E04",
+              "TEFV6-C0152-E05",
+              "TEFV6-C0152-E06",
+              "TEFV6-C0152-E07",
+              "TEFV6-C0152-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "C-D01号电池簇",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0152-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-D01号电池簇",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0152-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0152-I02-why_uncertain",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D01",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "轻微单点偏离存在两个可解释分支（早期实体异常 vs 采集链路偏移），当前证据不足以确定唯一原因",
+              "supporting_evidence_ids": [
+                "TEFV6-C0152-E01",
+                "TEFV6-C0152-E02",
+                "TEFV6-C0152-E03",
+                "TEFV6-C0152-E04",
+                "TEFV6-C0152-E05",
+                "TEFV6-C0152-E06",
+                "TEFV6-C0152-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": "not_available",
+              "supporting_evidence_ids": [
+                "TEFV6-C0152-E07",
+                "TEFV6-C0152-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "当前不批准写入唯一诊断，应保留两个可解释分支并继续获取区分证据；工单保持保守运行限制并安排独立复测，只有出现可重复区分证据后再收敛诊断。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0152-E07",
+                "TEFV6-C0152-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0152-E01",
+              "TEFV6-C0152-E02",
+              "TEFV6-C0152-E03",
+              "TEFV6-C0152-E04",
+              "TEFV6-C0152-E05",
+              "TEFV6-C0152-E06",
+              "TEFV6-C0152-E07",
+              "TEFV6-C0152-E08"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0152-I03-next_discriminator",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D01",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "轻微单点偏离存在两个可解释分支（早期实体异常 vs 采集链路偏移），当前证据不足以确定唯一原因",
+              "supporting_evidence_ids": [
+                "TEFV6-C0152-E01",
+                "TEFV6-C0152-E02",
+                "TEFV6-C0152-E03",
+                "TEFV6-C0152-E04",
+                "TEFV6-C0152-E05",
+                "TEFV6-C0152-E06",
+                "TEFV6-C0152-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": "not_available",
+              "supporting_evidence_ids": [
+                "TEFV6-C0152-E07",
+                "TEFV6-C0152-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "当前不批准写入唯一诊断，应保留两个可解释分支并继续获取区分证据；工单保持保守运行限制并安排独立复测，只有出现可重复区分证据后再收敛诊断。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0152-E07",
+                "TEFV6-C0152-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0152-E01",
+              "TEFV6-C0152-E02",
+              "TEFV6-C0152-E03",
+              "TEFV6-C0152-E04",
+              "TEFV6-C0152-E05",
+              "TEFV6-C0152-E06",
+              "TEFV6-C0152-E07",
+              "TEFV6-C0152-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "C-D01号电池簇",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0152-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-D01号电池簇",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0152-E08"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T00:53:36.042548"
+}

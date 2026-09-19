@@ -1,0 +1,329 @@
+{
+  "chain_id": "TEFV6-C0134",
+  "split": "validation",
+  "pass": "A",
+  "status": "REVIEW_UNRESOLVED",
+  "repair_used": true,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0134-I01-differentiate": [
+      "top citation union"
+    ],
+    "TEFV6-C0134-I02-current_action": [],
+    "TEFV6-C0134-I03-history_role": [
+      "top citation union"
+    ]
+  },
+  "initial_result": {
+    "type": "json_object",
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0134-I01-differentiate",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V04",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0134-E05",
+                "TEFV6-C0134-E06",
+                "TEFV6-C0134-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "not_available",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "本次独立检查在固定物理位置发现一致性异常且信号未随采集通道切换而移动，第二种测量来源与现场结果方向一致，排除了单一采集通道偏移的简单解释",
+              "supporting_evidence_ids": [
+                "TEFV6-C0134-E05",
+                "TEFV6-C0134-E06"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0134-E01",
+              "TEFV6-C0134-E02",
+              "TEFV6-C0134-E03",
+              "TEFV6-C0134-E04",
+              "TEFV6-C0134-E05",
+              "TEFV6-C0134-E06",
+              "TEFV6-C0134-E07"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0134-I02-current_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V04",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0134-E05",
+                "TEFV6-C0134-E06",
+                "TEFV6-C0134-E07"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0134-I02-A01",
+              "TEFV6-C0134-I02-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP",
+              "supporting_evidence_ids": [
+                "TEFV6-C0134-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单要求处理本次定位部件并复测，复测结果尚未记录",
+              "supporting_evidence_ids": [
+                "TEFV6-C0134-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0134-E05",
+              "TEFV6-C0134-E06",
+              "TEFV6-C0134-E07",
+              "TEFV6-C0134-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0134-I02-A01",
+              "action_type": "repair",
+              "target": "本次定位的实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0134-E07",
+                "TEFV6-C0134-E08"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0134-I02-A02",
+              "action_type": "verify",
+              "target": "本次定位部件处理后复测",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0134-I02-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0134-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0134-I03-history_role",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V04",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0134-E05",
+                "TEFV6-C0134-E06",
+                "TEFV6-C0134-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "not_available",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "历史事件归因于采集链路偏移且信号随采集链路切换而移动，本次信号未随采集通道切换而移动且第二种测量来源方向一致，历史结论仅可作对照不可直接迁移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0134-E02",
+                "TEFV6-C0134-E03",
+                "TEFV6-C0134-E05",
+                "TEFV6-C0134-E06",
+                "TEFV6-C0134-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0134-E01",
+              "TEFV6-C0134-E02",
+              "TEFV6-C0134-E03",
+              "TEFV6-C0134-E04",
+              "TEFV6-C0134-E05",
+              "TEFV6-C0134-E06",
+              "TEFV6-C0134-E07"
+            ]
+          },
+          "action_plan": []
+        }
+      }
+    ]
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0134-I01-differentiate",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V04",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0134-E05",
+                "TEFV6-C0134-E06",
+                "TEFV6-C0134-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "not_applicable",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "本次独立检查在固定物理位置发现一致性异常且信号未随采集通道切换而移动，第二种测量来源与现场结果方向一致，排除了单一采集通道偏移的简单解释",
+              "supporting_evidence_ids": [
+                "TEFV6-C0134-E05",
+                "TEFV6-C0134-E06"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0134-E01",
+              "TEFV6-C0134-E02",
+              "TEFV6-C0134-E03",
+              "TEFV6-C0134-E04",
+              "TEFV6-C0134-E05",
+              "TEFV6-C0134-E06",
+              "TEFV6-C0134-E07"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0134-I02-current_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V04",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0134-E05",
+                "TEFV6-C0134-E06",
+                "TEFV6-C0134-E07"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0134-I02-A01",
+              "TEFV6-C0134-I02-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP",
+              "supporting_evidence_ids": [
+                "TEFV6-C0134-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单要求处理本次定位部件并复测，复测结果尚未记录",
+              "supporting_evidence_ids": [
+                "TEFV6-C0134-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0134-E05",
+              "TEFV6-C0134-E06",
+              "TEFV6-C0134-E07",
+              "TEFV6-C0134-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0134-I02-A01",
+              "action_type": "repair",
+              "target": "本次定位的实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0134-E07",
+                "TEFV6-C0134-E08"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0134-I02-A02",
+              "action_type": "verify",
+              "target": "本次定位部件处理后复测",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0134-I02-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0134-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0134-I03-history_role",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V04",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0134-E05",
+                "TEFV6-C0134-E06",
+                "TEFV6-C0134-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "not_applicable",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "历史事件归因于采集链路偏移且信号随采集链路切换而移动，本次信号未随采集通道切换而移动且第二种测量来源方向一致，历史结论仅可作对照不可直接迁移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0134-E02",
+                "TEFV6-C0134-E03",
+                "TEFV6-C0134-E05",
+                "TEFV6-C0134-E06",
+                "TEFV6-C0134-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0134-E01",
+              "TEFV6-C0134-E02",
+              "TEFV6-C0134-E03",
+              "TEFV6-C0134-E04",
+              "TEFV6-C0134-E05",
+              "TEFV6-C0134-E06",
+              "TEFV6-C0134-E07"
+            ]
+          },
+          "action_plan": []
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:51:06.772263"
+}

@@ -1,0 +1,225 @@
+{
+  "chain_id": "TEFV6-C0277",
+  "split": "development",
+  "status": "adjudicated",
+  "used_adjudication": true,
+  "structural_repairs": [],
+  "disagreement_intents": [
+    "TEFV6-C0277-I01-v1_applicability",
+    "TEFV6-C0277-I02-v2_applicability",
+    "TEFV6-C0277-I03-v3_applicability"
+  ],
+  "disagreement_fields": {
+    "TEFV6-C0277-I01-v1_applicability": [
+      "work_order.verification_or_uncertainty",
+      "action_plan"
+    ],
+    "TEFV6-C0277-I02-v2_applicability": [
+      "work_order.verification_or_uncertainty"
+    ],
+    "TEFV6-C0277-I03-v3_applicability": [
+      "action_plan"
+    ]
+  },
+  "summary": {
+    "pass_a_pass_b_canonical_equal": false,
+    "disagreement_count": 3,
+    "disagreement_fields": {
+      "TEFV6-C0277-I01-v1_applicability": [
+        "work_order.verification_or_uncertainty",
+        "action_plan"
+      ],
+      "TEFV6-C0277-I02-v2_applicability": [
+        "work_order.verification_or_uncertainty"
+      ],
+      "TEFV6-C0277-I03-v3_applicability": [
+        "action_plan"
+      ]
+    }
+  },
+  "result": {
+    "type": "json_object",
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0277-I01-v1_applicability",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-06",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "单通道持续偏高且人工独立测温同位置偏高",
+              "supporting_evidence_ids": [
+                "TEFV6-C0277-E04"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V1",
+              "supporting_evidence_ids": [
+                "TEFV6-C0277-E01"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "旧事件当时按V1执行独立测温后进入部件检查，记录未引用后续版本规则。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0277-E05"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0277-E01",
+              "TEFV6-C0277-E04",
+              "TEFV6-C0277-E05"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "inspect",
+              "target": "R-06号电池簇单通道偏高位置",
+              "parameters": {
+                "method": "人工独立测温"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0277-E01",
+                "TEFV6-C0277-E04"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "inspect",
+              "target": "R-06号电池簇部件",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0277-E01",
+                "TEFV6-C0277-E05"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0277-I02-v2_applicability",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-06",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "单通道偏高但红外对应区域无热点",
+              "supporting_evidence_ids": [
+                "TEFV6-C0277-E06"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V2",
+              "supporting_evidence_ids": [
+                "TEFV6-C0277-E02"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "中期事件当时按V2停止直接扩大部件检查，继续核对测温链路与气流状态。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0277-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0277-E02",
+              "TEFV6-C0277-E06",
+              "TEFV6-C0277-E07"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "inspect",
+              "target": "R-06号电池簇测温链路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0277-E02",
+                "TEFV6-C0277-E07"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "inspect",
+              "target": "R-06号电池簇气流状态",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0277-E02",
+                "TEFV6-C0277-E07"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0277-I03-v3_applicability",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-06",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "单通道偏高、红外无热点且通道对调后偏差随通道移动",
+              "supporting_evidence_ids": [
+                "TEFV6-C0277-E08"
+              ]
+            },
+            "recommended_actions": [
+              "A1"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0277-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "工单系统确认当前适用型号为M280-B，V3处于有效期。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0277-E10"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0277-E03",
+              "TEFV6-C0277-E08",
+              "TEFV6-C0277-E09",
+              "TEFV6-C0277-E10"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "diagnose",
+              "target": "R-06号电池簇采集链路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0277-E03",
+                "TEFV6-C0277-E08",
+                "TEFV6-C0277-E09"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

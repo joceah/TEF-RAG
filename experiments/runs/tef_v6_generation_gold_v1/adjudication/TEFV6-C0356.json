@@ -1,0 +1,255 @@
+{
+  "chain_id": "TEFV6-C0356",
+  "split": "validation",
+  "status": "adjudicated",
+  "used_adjudication": true,
+  "structural_repairs": [],
+  "disagreement_intents": [
+    "TEFV6-C0356-I01-before_cutoff",
+    "TEFV6-C0356-I02-after_cutoff",
+    "TEFV6-C0356-I03-uncertainty_over_time"
+  ],
+  "disagreement_fields": {
+    "TEFV6-C0356-I01-before_cutoff": [
+      "work_order.diagnosis",
+      "work_order.applicable_procedure",
+      "work_order.verification_or_uncertainty",
+      "action_plan"
+    ],
+    "TEFV6-C0356-I02-after_cutoff": [
+      "work_order.diagnosis",
+      "work_order.applicable_procedure",
+      "work_order.verification_or_uncertainty",
+      "action_plan"
+    ],
+    "TEFV6-C0356-I03-uncertainty_over_time": [
+      "work_order.diagnosis",
+      "work_order.applicable_procedure",
+      "work_order.verification_or_uncertainty",
+      "work_order.supporting_evidence_ids",
+      "action_plan"
+    ]
+  },
+  "summary": {
+    "pass_a_pass_b_canonical_equal": false,
+    "disagreement_count": 3,
+    "disagreement_fields": {
+      "TEFV6-C0356-I01-before_cutoff": [
+        "work_order.diagnosis",
+        "work_order.applicable_procedure",
+        "work_order.verification_or_uncertainty",
+        "action_plan"
+      ],
+      "TEFV6-C0356-I02-after_cutoff": [
+        "work_order.diagnosis",
+        "work_order.applicable_procedure",
+        "work_order.verification_or_uncertainty",
+        "action_plan"
+      ],
+      "TEFV6-C0356-I03-uncertainty_over_time": [
+        "work_order.diagnosis",
+        "work_order.applicable_procedure",
+        "work_order.verification_or_uncertainty",
+        "work_order.supporting_evidence_ids",
+        "action_plan"
+      ]
+    }
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0356-I01-before_cutoff",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-25",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "R-25 温度采集链路出现轻微偏离，早期实体异常与采集链路偏移两个分支均未被排除，无法确定唯一原因",
+              "supporting_evidence_ids": [
+                "TEFV6-C0356-E01",
+                "TEFV6-C0356-E02",
+                "TEFV6-C0356-E03",
+                "TEFV6-C0356-E04"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "截至13:35，第一次现场复测接近测量重复性边界且未见明确异常，第二轮复测尚不可见，无法确定唯一原因，需保留早期实体异常与采集链路偏移两个分支。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0356-E01",
+                "TEFV6-C0356-E02",
+                "TEFV6-C0356-E03",
+                "TEFV6-C0356-E04"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0356-E01",
+              "TEFV6-C0356-E02",
+              "TEFV6-C0356-E03",
+              "TEFV6-C0356-E04"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "R-25 温度采集链路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0356-E01",
+                "TEFV6-C0356-E02"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "diagnose",
+              "target": "R-25 温度采集链路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0356-E03",
+                "TEFV6-C0356-E04"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0356-I02-after_cutoff",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-25",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "R-25 温度采集链路第二轮独立复测仍无法稳定区分早期实体异常与采集链路偏移两个分支",
+              "supporting_evidence_ids": [
+                "TEFV6-C0356-E05",
+                "TEFV6-C0356-E06"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "截至14:02，第二轮复测结果已到达但仍不足以收敛唯一诊断，维持双分支，继续保守监测并安排下一次可重复区分测试，不扩大检修。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0356-E05",
+                "TEFV6-C0356-E06",
+                "TEFV6-C0356-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0356-E05",
+              "TEFV6-C0356-E06",
+              "TEFV6-C0356-E07"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "R-25 温度采集链路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0356-E07"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "diagnose",
+              "target": "R-25 温度采集链路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0356-E05",
+                "TEFV6-C0356-E06",
+                "TEFV6-C0356-E07"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0356-I03-uncertainty_over_time",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-25",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "R-25 温度采集链路跨过时间边界后仍无法收敛唯一诊断，早期实体异常与采集链路偏移两个分支持续并存",
+              "supporting_evidence_ids": [
+                "TEFV6-C0356-E05",
+                "TEFV6-C0356-E06"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "该问题既是 cutoff 问题又不是“晚到即纠正”：第二轮复测在13:24已执行但记录13:46才可见，且其结果到达后仍不足以收敛唯一诊断，故时间边界跨过后仍需保留不确定性。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0356-E05",
+                "TEFV6-C0356-E06",
+                "TEFV6-C0356-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0356-E05",
+              "TEFV6-C0356-E06",
+              "TEFV6-C0356-E07"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "R-25 温度采集链路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0356-E07"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "diagnose",
+              "target": "R-25 温度采集链路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0356-E05",
+                "TEFV6-C0356-E06",
+                "TEFV6-C0356-E07"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

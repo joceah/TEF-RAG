@@ -1,0 +1,374 @@
+{
+  "chain_id": "TEFV6-C0101",
+  "split": "development",
+  "pass": "B",
+  "status": "accepted",
+  "repair_used": false,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0101-I01-cross_source_action": [],
+    "TEFV6-C0101-I02-cross_source_cause": [],
+    "TEFV6-C0101-I03-cross_source_precedent": []
+  },
+  "initial_result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0101-I01-cross_source_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D06",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常导致C-D06温度采集链路多测点同步偏离，不支持仅凭单一来源扩大故障范围",
+              "supporting_evidence_ids": [
+                "TEFV6-C0101-E01",
+                "TEFV6-C0101-E02",
+                "TEFV6-C0101-E04",
+                "TEFV6-C0101-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2",
+              "A3"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0101-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "按批准SOP先处理已确认辅助部件并进行跨源复测；复测不通过再进入下一层排查，当前复测结果尚未给出。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0101-E08",
+                "TEFV6-C0101-E11"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0101-E01",
+              "TEFV6-C0101-E02",
+              "TEFV6-C0101-E04",
+              "TEFV6-C0101-E06",
+              "TEFV6-C0101-E07",
+              "TEFV6-C0101-E08",
+              "TEFV6-C0101-E11"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "已确认的辅助系统局部异常部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0101-E04",
+                "TEFV6-C0101-E07",
+                "TEFV6-C0101-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-D06温度采集链路跨源复测",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0101-E08"
+              ]
+            },
+            {
+              "action_id": "A3",
+              "action_type": "inspect",
+              "target": "下一层排查范围",
+              "parameters": {},
+              "depends_on": [
+                "A2"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0101-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0101-I02-cross_source_cause",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D06",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常导致C-D06温度采集链路多测点同步偏离，单一来源不足以形成完整诊断",
+              "supporting_evidence_ids": [
+                "TEFV6-C0101-E01",
+                "TEFV6-C0101-E02",
+                "TEFV6-C0101-E04",
+                "TEFV6-C0101-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0101-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "跨源复测尚未完成，复测结果未给出。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0101-E08",
+                "TEFV6-C0101-E11"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0101-E01",
+              "TEFV6-C0101-E02",
+              "TEFV6-C0101-E04",
+              "TEFV6-C0101-E06",
+              "TEFV6-C0101-E07",
+              "TEFV6-C0101-E08",
+              "TEFV6-C0101-E11"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0101-I03-cross_source_precedent",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D06",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常导致C-D06温度采集链路多测点同步偏离，历史工单仅作先例参考，不能替代当前现场证据和适用规程",
+              "supporting_evidence_ids": [
+                "TEFV6-C0101-E01",
+                "TEFV6-C0101-E02",
+                "TEFV6-C0101-E04",
+                "TEFV6-C0101-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0101-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "历史工单仅提供相似组合信号的先例，当前决策仍以现场证据和现行规程为准，跨源复测尚未完成。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0101-E05",
+                "TEFV6-C0101-E06",
+                "TEFV6-C0101-E08",
+                "TEFV6-C0101-E11"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0101-E01",
+              "TEFV6-C0101-E02",
+              "TEFV6-C0101-E04",
+              "TEFV6-C0101-E05",
+              "TEFV6-C0101-E06",
+              "TEFV6-C0101-E07",
+              "TEFV6-C0101-E08",
+              "TEFV6-C0101-E11"
+            ]
+          },
+          "action_plan": []
+        }
+      }
+    ]
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0101-I01-cross_source_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D06",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常导致C-D06温度采集链路多测点同步偏离，不支持仅凭单一来源扩大故障范围",
+              "supporting_evidence_ids": [
+                "TEFV6-C0101-E01",
+                "TEFV6-C0101-E02",
+                "TEFV6-C0101-E04",
+                "TEFV6-C0101-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2",
+              "A3"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0101-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "按批准SOP先处理已确认辅助部件并进行跨源复测；复测不通过再进入下一层排查，当前复测结果尚未给出。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0101-E08",
+                "TEFV6-C0101-E11"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0101-E01",
+              "TEFV6-C0101-E02",
+              "TEFV6-C0101-E04",
+              "TEFV6-C0101-E06",
+              "TEFV6-C0101-E07",
+              "TEFV6-C0101-E08",
+              "TEFV6-C0101-E11"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "已确认的辅助系统局部异常部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0101-E04",
+                "TEFV6-C0101-E07",
+                "TEFV6-C0101-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-D06温度采集链路跨源复测",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0101-E08"
+              ]
+            },
+            {
+              "action_id": "A3",
+              "action_type": "inspect",
+              "target": "下一层排查范围",
+              "parameters": {},
+              "depends_on": [
+                "A2"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0101-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0101-I02-cross_source_cause",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D06",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常导致C-D06温度采集链路多测点同步偏离，单一来源不足以形成完整诊断",
+              "supporting_evidence_ids": [
+                "TEFV6-C0101-E01",
+                "TEFV6-C0101-E02",
+                "TEFV6-C0101-E04",
+                "TEFV6-C0101-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0101-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "跨源复测尚未完成，复测结果未给出。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0101-E08",
+                "TEFV6-C0101-E11"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0101-E01",
+              "TEFV6-C0101-E02",
+              "TEFV6-C0101-E04",
+              "TEFV6-C0101-E06",
+              "TEFV6-C0101-E07",
+              "TEFV6-C0101-E08",
+              "TEFV6-C0101-E11"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0101-I03-cross_source_precedent",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D06",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常导致C-D06温度采集链路多测点同步偏离，历史工单仅作先例参考，不能替代当前现场证据和适用规程",
+              "supporting_evidence_ids": [
+                "TEFV6-C0101-E01",
+                "TEFV6-C0101-E02",
+                "TEFV6-C0101-E04",
+                "TEFV6-C0101-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0101-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "历史工单仅提供相似组合信号的先例，当前决策仍以现场证据和现行规程为准，跨源复测尚未完成。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0101-E05",
+                "TEFV6-C0101-E06",
+                "TEFV6-C0101-E08",
+                "TEFV6-C0101-E11"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0101-E01",
+              "TEFV6-C0101-E02",
+              "TEFV6-C0101-E04",
+              "TEFV6-C0101-E05",
+              "TEFV6-C0101-E06",
+              "TEFV6-C0101-E07",
+              "TEFV6-C0101-E08",
+              "TEFV6-C0101-E11"
+            ]
+          },
+          "action_plan": []
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:23:20.436232"
+}

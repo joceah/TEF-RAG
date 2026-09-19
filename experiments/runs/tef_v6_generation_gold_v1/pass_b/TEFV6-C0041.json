@@ -1,0 +1,406 @@
+{
+  "chain_id": "TEFV6-C0041",
+  "split": "development",
+  "pass": "B",
+  "status": "REVIEW_UNRESOLVED",
+  "repair_used": true,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0041-I01-pre_arrival": [
+      "procedure status/value"
+    ],
+    "TEFV6-C0041-I02-post_arrival": [],
+    "TEFV6-C0041-I03-arrival_effect": []
+  },
+  "initial_result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0041-I01-pre_arrival",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D15",
+            "diagnosis": {
+              "status": "provisional",
+              "concept": "长期运行波动（暂定解释，待现场复核）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0041-E01",
+                "TEFV6-C0041-E02",
+                "TEFV6-C0041-E03"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "not_available",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "现场离线记录尚未到达，暂定解释待复核；临时工单仅安排加强监测和现场复核，不做原因特异性维修处置。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0041-E03",
+                "TEFV6-C0041-E04",
+                "TEFV6-C0041-E10"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0041-E01",
+              "TEFV6-C0041-E02",
+              "TEFV6-C0041-E03",
+              "TEFV6-C0041-E04",
+              "TEFV6-C0041-E10"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "C-D15 直流汇流回路关键指标",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0041-E01",
+                "TEFV6-C0041-E04"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "inspect",
+              "target": "C-D15 直流汇流回路现场",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0041-E02",
+                "TEFV6-C0041-E04"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0041-I02-post_arrival",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D15",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "可定位的局部部件异常（关键接口附近）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0041-E05",
+                "TEFV6-C0041-E06",
+                "TEFV6-C0041-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A3",
+              "A4"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（按更新工单要求）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0041-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "需由合格人员按批准SOP处理已定位部件并完成复测；原仅监测工单不再作为最终处置。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0041-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0041-E05",
+              "TEFV6-C0041-E06",
+              "TEFV6-C0041-E07",
+              "TEFV6-C0041-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A3",
+              "action_type": "repair",
+              "target": "C-D15 直流汇流回路已定位局部部件（关键接口附近）",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0041-E05",
+                "TEFV6-C0041-E07",
+                "TEFV6-C0041-E08"
+              ]
+            },
+            {
+              "action_id": "A4",
+              "action_type": "verify",
+              "target": "C-D15 直流汇流回路已处理部件",
+              "parameters": {},
+              "depends_on": [
+                "A3"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0041-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0041-I03-arrival_effect",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D15",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "可定位的局部部件异常（关键接口附近），由晚到现场证据确认",
+              "supporting_evidence_ids": [
+                "TEFV6-C0041-E05",
+                "TEFV6-C0041-E06",
+                "TEFV6-C0041-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A5"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（按更新工单要求）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0041-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "E05/E06 的 event_time 分别为11:25和11:31，但 available_at 均为11:58；在11:45截止时不可见，故当时只能保留暂定解释；12:02 E07 撤销原解释，12:08 E08 更新工单，说明必须同时考虑 event_time 与 available_at。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0041-E05",
+                "TEFV6-C0041-E06",
+                "TEFV6-C0041-E07",
+                "TEFV6-C0041-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0041-E05",
+              "TEFV6-C0041-E06",
+              "TEFV6-C0041-E07",
+              "TEFV6-C0041-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A5",
+              "action_type": "document",
+              "target": "C-D15 直流汇流回路晚到证据与结论变更记录",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0041-E05",
+                "TEFV6-C0041-E06",
+                "TEFV6-C0041-E07",
+                "TEFV6-C0041-E08"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0041-I01-pre_arrival",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D15",
+            "diagnosis": {
+              "status": "provisional",
+              "concept": "长期运行波动（暂定解释，待现场复核）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0041-E01",
+                "TEFV6-C0041-E02",
+                "TEFV6-C0041-E03"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "not_available",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "现场离线记录尚未到达，暂定解释待复核；临时工单仅安排加强监测和现场复核，不做原因特异性维修处置。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0041-E03",
+                "TEFV6-C0041-E04",
+                "TEFV6-C0041-E10"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0041-E01",
+              "TEFV6-C0041-E02",
+              "TEFV6-C0041-E03",
+              "TEFV6-C0041-E04",
+              "TEFV6-C0041-E10"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "C-D15 直流汇流回路关键指标",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0041-E01",
+                "TEFV6-C0041-E04"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "inspect",
+              "target": "C-D15 直流汇流回路现场",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0041-E02",
+                "TEFV6-C0041-E04"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0041-I02-post_arrival",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D15",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "可定位的局部部件异常（关键接口附近）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0041-E05",
+                "TEFV6-C0041-E06",
+                "TEFV6-C0041-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A3",
+              "A4"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（按更新工单要求）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0041-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "需由合格人员按批准SOP处理已定位部件并完成复测；原仅监测工单不再作为最终处置。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0041-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0041-E05",
+              "TEFV6-C0041-E06",
+              "TEFV6-C0041-E07",
+              "TEFV6-C0041-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A3",
+              "action_type": "repair",
+              "target": "C-D15 直流汇流回路已定位局部部件（关键接口附近）",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0041-E05",
+                "TEFV6-C0041-E07",
+                "TEFV6-C0041-E08"
+              ]
+            },
+            {
+              "action_id": "A4",
+              "action_type": "verify",
+              "target": "C-D15 直流汇流回路已处理部件",
+              "parameters": {},
+              "depends_on": [
+                "A3"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0041-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0041-I03-arrival_effect",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D15",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "可定位的局部部件异常（关键接口附近），由晚到现场证据确认",
+              "supporting_evidence_ids": [
+                "TEFV6-C0041-E05",
+                "TEFV6-C0041-E06",
+                "TEFV6-C0041-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A5"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（按更新工单要求）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0041-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "E05/E06 的 event_time 分别为11:25和11:31，但 available_at 均为11:58；在11:45截止时不可见，故当时只能保留暂定解释；12:02 E07 撤销原解释，12:08 E08 更新工单，说明必须同时考虑 event_time 与 available_at。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0041-E05",
+                "TEFV6-C0041-E06",
+                "TEFV6-C0041-E07",
+                "TEFV6-C0041-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0041-E05",
+              "TEFV6-C0041-E06",
+              "TEFV6-C0041-E07",
+              "TEFV6-C0041-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A5",
+              "action_type": "document",
+              "target": "C-D15 直流汇流回路晚到证据与结论变更记录",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0041-E05",
+                "TEFV6-C0041-E06",
+                "TEFV6-C0041-E07",
+                "TEFV6-C0041-E08"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:19:44.586575"
+}

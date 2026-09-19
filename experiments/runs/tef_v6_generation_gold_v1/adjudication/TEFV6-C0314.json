@@ -1,0 +1,27 @@
+{
+  "chain_id": "TEFV6-C0314",
+  "split": "development",
+  "status": "REVIEW_UNRESOLVED",
+  "used_adjudication": true,
+  "structural_repairs": [],
+  "disagreement_intents": [
+    "TEFV6-C0314-I03-temporal_change"
+  ],
+  "disagreement_fields": {
+    "TEFV6-C0314-I03-temporal_change": [
+      "work_order.diagnosis",
+      "work_order.verification_or_uncertainty"
+    ]
+  },
+  "summary": {
+    "pass_a_pass_b_canonical_equal": false,
+    "disagreement_count": 1,
+    "disagreement_fields": {
+      "TEFV6-C0314-I03-temporal_change": [
+        "work_order.diagnosis",
+        "work_order.verification_or_uncertainty"
+      ]
+    }
+  },
+  "result": null
+}

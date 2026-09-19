@@ -1,0 +1,345 @@
+{
+  "chain_id": "TEFV6-C0316",
+  "split": "development",
+  "pass": "B",
+  "status": "REVIEW_UNRESOLVED",
+  "repair_used": true,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0316-I01-differentiate": [],
+    "TEFV6-C0316-I02-current_action": [],
+    "TEFV6-C0316-I03-history_role": [
+      "top citation union"
+    ]
+  },
+  "initial_result": {
+    "type": "json_object",
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0316-I01-differentiate",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-08",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0316-E05",
+                "TEFV6-C0316-E06",
+                "TEFV6-C0316-E07",
+                "TEFV6-C0316-E08"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0316-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "本次诊断已由第二种测量来源与现场结果方向一致确认，排除单一采集通道偏移的简单解释",
+              "supporting_evidence_ids": [
+                "TEFV6-C0316-E07",
+                "TEFV6-C0316-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0316-E01",
+              "TEFV6-C0316-E02",
+              "TEFV6-C0316-E03",
+              "TEFV6-C0316-E04",
+              "TEFV6-C0316-E05",
+              "TEFV6-C0316-E06",
+              "TEFV6-C0316-E07",
+              "TEFV6-C0316-E08",
+              "TEFV6-C0316-E09"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0316-I02-current_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-08",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0316-E05",
+                "TEFV6-C0316-E06",
+                "TEFV6-C0316-E07",
+                "TEFV6-C0316-E08"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0316-A01",
+              "TEFV6-C0316-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0316-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "本次诊断已由第二种测量来源与现场结果方向一致确认，排除单一采集通道偏移的简单解释",
+              "supporting_evidence_ids": [
+                "TEFV6-C0316-E07",
+                "TEFV6-C0316-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0316-E05",
+              "TEFV6-C0316-E06",
+              "TEFV6-C0316-E07",
+              "TEFV6-C0316-E08",
+              "TEFV6-C0316-E09"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0316-A01",
+              "action_type": "repair",
+              "target": "本次定位的实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0316-E08",
+                "TEFV6-C0316-E09"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0316-A02",
+              "action_type": "verify",
+              "target": "R-08 温度采集链路",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0316-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0316-E09"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0316-I03-history_role",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-08",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0316-E05",
+                "TEFV6-C0316-E06",
+                "TEFV6-C0316-E07",
+                "TEFV6-C0316-E08"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0316-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "历史事件仅作为对照，本次诊断已由第二种测量来源与现场结果方向一致确认，排除单一采集通道偏移的简单解释",
+              "supporting_evidence_ids": [
+                "TEFV6-C0316-E02",
+                "TEFV6-C0316-E03",
+                "TEFV6-C0316-E06",
+                "TEFV6-C0316-E07",
+                "TEFV6-C0316-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0316-E01",
+              "TEFV6-C0316-E02",
+              "TEFV6-C0316-E03",
+              "TEFV6-C0316-E04",
+              "TEFV6-C0316-E05",
+              "TEFV6-C0316-E06",
+              "TEFV6-C0316-E07",
+              "TEFV6-C0316-E08",
+              "TEFV6-C0316-E09"
+            ]
+          },
+          "action_plan": []
+        }
+      }
+    ]
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0316-I01-differentiate",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-08",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0316-E05",
+                "TEFV6-C0316-E06",
+                "TEFV6-C0316-E07",
+                "TEFV6-C0316-E08"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0316-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "本次诊断已由第二种测量来源与现场结果方向一致确认，排除单一采集通道偏移的简单解释",
+              "supporting_evidence_ids": [
+                "TEFV6-C0316-E07",
+                "TEFV6-C0316-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0316-E05",
+              "TEFV6-C0316-E06",
+              "TEFV6-C0316-E07",
+              "TEFV6-C0316-E08",
+              "TEFV6-C0316-E09"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0316-I02-current_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-08",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0316-E05",
+                "TEFV6-C0316-E06",
+                "TEFV6-C0316-E07",
+                "TEFV6-C0316-E08"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0316-A01",
+              "TEFV6-C0316-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0316-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "本次诊断已由第二种测量来源与现场结果方向一致确认，排除单一采集通道偏移的简单解释",
+              "supporting_evidence_ids": [
+                "TEFV6-C0316-E07",
+                "TEFV6-C0316-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0316-E05",
+              "TEFV6-C0316-E06",
+              "TEFV6-C0316-E07",
+              "TEFV6-C0316-E08",
+              "TEFV6-C0316-E09"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0316-A01",
+              "action_type": "repair",
+              "target": "本次定位的实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0316-E08",
+                "TEFV6-C0316-E09"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0316-A02",
+              "action_type": "verify",
+              "target": "R-08 温度采集链路",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0316-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0316-E09"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0316-I03-history_role",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-08",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0316-E05",
+                "TEFV6-C0316-E06",
+                "TEFV6-C0316-E07",
+                "TEFV6-C0316-E08"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0316-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "历史事件仅作为对照，本次诊断已由第二种测量来源与现场结果方向一致确认，排除单一采集通道偏移的简单解释",
+              "supporting_evidence_ids": [
+                "TEFV6-C0316-E02",
+                "TEFV6-C0316-E03",
+                "TEFV6-C0316-E06",
+                "TEFV6-C0316-E07",
+                "TEFV6-C0316-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0316-E05",
+              "TEFV6-C0316-E06",
+              "TEFV6-C0316-E07",
+              "TEFV6-C0316-E08",
+              "TEFV6-C0316-E09"
+            ]
+          },
+          "action_plan": []
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:39:49.673113"
+}

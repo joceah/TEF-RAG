@@ -1,0 +1,339 @@
+{
+  "chain_id": "TEFV6-C0112",
+  "split": "development",
+  "pass": "A",
+  "status": "accepted",
+  "repair_used": true,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0112-I01-cross_source_action": [],
+    "TEFV6-C0112-I02-cross_source_cause": [],
+    "TEFV6-C0112-I03-cross_source_precedent": []
+  },
+  "initial_result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0112-I01-cross_source_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D17",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常（已确认辅助部件问题），不支持仅凭单一来源扩大故障范围",
+              "supporting_evidence_ids": [
+                "TEFV6-C0112-E01",
+                "TEFV6-C0112-E02",
+                "TEFV6-C0112-E04",
+                "TEFV6-C0112-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0112-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "按批准SOP先处理已确认辅助部件并进行跨源复测；复测结果尚未产生，若复测不通过再进入下一层排查。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0112-E08",
+                "TEFV6-C0112-E06"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0112-E01",
+              "TEFV6-C0112-E02",
+              "TEFV6-C0112-E04",
+              "TEFV6-C0112-E06",
+              "TEFV6-C0112-E07",
+              "TEFV6-C0112-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "已确认的辅助系统局部异常部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0112-E04",
+                "TEFV6-C0112-E07",
+                "TEFV6-C0112-E06",
+                "TEFV6-C0112-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "辅助系统处理后跨源复测",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0112-E08",
+                "TEFV6-C0112-E06"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0112-I02-cross_source_cause",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D17",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常；由BMS、SCADA与现场检查相互独立记录共同支持，单一来源不足以形成完整诊断",
+              "supporting_evidence_ids": [
+                "TEFV6-C0112-E01",
+                "TEFV6-C0112-E02",
+                "TEFV6-C0112-E04",
+                "TEFV6-C0112-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0112-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "跨源复测尚未完成，复测结果待产生。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0112-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0112-E01",
+              "TEFV6-C0112-E02",
+              "TEFV6-C0112-E04",
+              "TEFV6-C0112-E07"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0112-I03-cross_source_precedent",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D17",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常；历史工单仅作相似先例参考，不能替代当前现场证据与现行规程",
+              "supporting_evidence_ids": [
+                "TEFV6-C0112-E01",
+                "TEFV6-C0112-E02",
+                "TEFV6-C0112-E04",
+                "TEFV6-C0112-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0112-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "历史工单为同型号相似组合信号的先例，但当前决策仍以现场证据和现行V3规程为准，复测结果待产生。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0112-E05",
+                "TEFV6-C0112-E06",
+                "TEFV6-C0112-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0112-E05",
+              "TEFV6-C0112-E06",
+              "TEFV6-C0112-E01",
+              "TEFV6-C0112-E02",
+              "TEFV6-C0112-E04",
+              "TEFV6-C0112-E07"
+            ]
+          },
+          "action_plan": []
+        }
+      }
+    ]
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0112-I01-cross_source_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D17",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常（已确认辅助部件问题），不支持仅凭单一来源扩大故障范围",
+              "supporting_evidence_ids": [
+                "TEFV6-C0112-E01",
+                "TEFV6-C0112-E02",
+                "TEFV6-C0112-E04",
+                "TEFV6-C0112-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0112-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "按批准SOP先处理已确认辅助部件并进行跨源复测；复测结果尚未产生，若复测不通过再进入下一层排查。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0112-E08",
+                "TEFV6-C0112-E06"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0112-E01",
+              "TEFV6-C0112-E02",
+              "TEFV6-C0112-E04",
+              "TEFV6-C0112-E06",
+              "TEFV6-C0112-E07",
+              "TEFV6-C0112-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "已确认的辅助系统局部异常部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0112-E04",
+                "TEFV6-C0112-E07",
+                "TEFV6-C0112-E06",
+                "TEFV6-C0112-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "辅助系统处理后跨源复测",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0112-E08",
+                "TEFV6-C0112-E06"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0112-I02-cross_source_cause",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D17",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常；由BMS、SCADA与现场检查相互独立记录共同支持，单一来源不足以形成完整诊断",
+              "supporting_evidence_ids": [
+                "TEFV6-C0112-E01",
+                "TEFV6-C0112-E02",
+                "TEFV6-C0112-E04",
+                "TEFV6-C0112-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0112-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "跨源复测尚未完成，复测结果待产生。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0112-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0112-E01",
+              "TEFV6-C0112-E02",
+              "TEFV6-C0112-E04",
+              "TEFV6-C0112-E06",
+              "TEFV6-C0112-E07",
+              "TEFV6-C0112-E08"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0112-I03-cross_source_precedent",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D17",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "辅助系统局部异常；历史工单仅作相似先例参考，不能替代当前现场证据与现行规程",
+              "supporting_evidence_ids": [
+                "TEFV6-C0112-E01",
+                "TEFV6-C0112-E02",
+                "TEFV6-C0112-E04",
+                "TEFV6-C0112-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0112-E06"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "历史工单为同型号相似组合信号的先例，但当前决策仍以现场证据和现行V3规程为准，复测结果待产生。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0112-E05",
+                "TEFV6-C0112-E06",
+                "TEFV6-C0112-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0112-E05",
+              "TEFV6-C0112-E06",
+              "TEFV6-C0112-E01",
+              "TEFV6-C0112-E02",
+              "TEFV6-C0112-E04",
+              "TEFV6-C0112-E07",
+              "TEFV6-C0112-E08"
+            ]
+          },
+          "action_plan": []
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T00:51:00.605513"
+}

@@ -1,0 +1,241 @@
+{
+  "chain_id": "TEFV6-C0313",
+  "split": "development",
+  "status": "adjudicated",
+  "used_adjudication": true,
+  "structural_repairs": [],
+  "disagreement_intents": [
+    "TEFV6-C0313-I01-before_cutoff",
+    "TEFV6-C0313-I02-after_cutoff",
+    "TEFV6-C0313-I03-uncertainty_over_time"
+  ],
+  "disagreement_fields": {
+    "TEFV6-C0313-I01-before_cutoff": [
+      "work_order.diagnosis",
+      "work_order.verification_or_uncertainty"
+    ],
+    "TEFV6-C0313-I02-after_cutoff": [
+      "work_order.diagnosis",
+      "work_order.verification_or_uncertainty",
+      "work_order.supporting_evidence_ids",
+      "action_plan"
+    ],
+    "TEFV6-C0313-I03-uncertainty_over_time": [
+      "work_order.diagnosis",
+      "work_order.verification_or_uncertainty",
+      "work_order.supporting_evidence_ids",
+      "action_plan"
+    ]
+  },
+  "summary": {
+    "pass_a_pass_b_canonical_equal": false,
+    "disagreement_count": 3,
+    "disagreement_fields": {
+      "TEFV6-C0313-I01-before_cutoff": [
+        "work_order.diagnosis",
+        "work_order.verification_or_uncertainty"
+      ],
+      "TEFV6-C0313-I02-after_cutoff": [
+        "work_order.diagnosis",
+        "work_order.verification_or_uncertainty",
+        "work_order.supporting_evidence_ids",
+        "action_plan"
+      ],
+      "TEFV6-C0313-I03-uncertainty_over_time": [
+        "work_order.diagnosis",
+        "work_order.verification_or_uncertainty",
+        "work_order.supporting_evidence_ids",
+        "action_plan"
+      ]
+    }
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0313-I01-before_cutoff",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-34",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "轻微偏离原因未定，早期实体异常与采集链路偏移两个分支均无法排除",
+              "supporting_evidence_ids": [
+                "TEFV6-C0313-E01",
+                "TEFV6-C0313-E02",
+                "TEFV6-C0313-E03",
+                "TEFV6-C0313-E04"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "截至11:35，仅有一次接近测量重复性边界的复测，两个分支均保留，无法确定唯一原因",
+              "supporting_evidence_ids": [
+                "TEFV6-C0313-E01",
+                "TEFV6-C0313-E02",
+                "TEFV6-C0313-E03",
+                "TEFV6-C0313-E04"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0313-E01",
+              "TEFV6-C0313-E02",
+              "TEFV6-C0313-E03",
+              "TEFV6-C0313-E04"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0313-I02-after_cutoff",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-34",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "第二轮独立复测仍无法稳定区分早期实体异常与采集链路偏移两个分支，诊断未收敛",
+              "supporting_evidence_ids": [
+                "TEFV6-C0313-E05",
+                "TEFV6-C0313-E06"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0313-A02",
+              "TEFV6-C0313-A03"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "第二轮结果到达后仍不足以收敛唯一诊断，维持双分支",
+              "supporting_evidence_ids": [
+                "TEFV6-C0313-E05",
+                "TEFV6-C0313-E06"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0313-E05",
+              "TEFV6-C0313-E06",
+              "TEFV6-C0313-E07"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0313-A01",
+              "action_type": "monitor",
+              "target": "R-34号电池簇",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0313-E07"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0313-A02",
+              "action_type": "diagnose",
+              "target": "R-34号电池簇",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0313-E07"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0313-A03",
+              "action_type": "verify",
+              "target": "R-34号电池簇",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0313-A02"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0313-E07"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0313-I03-uncertainty_over_time",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-34",
+            "diagnosis": {
+              "status": "persistent_uncertainty",
+              "concept": "跨过时间边界后新增的第二轮复测仍无法区分早期实体异常与采集链路偏移，诊断持续不确定",
+              "supporting_evidence_ids": [
+                "TEFV6-C0313-E05",
+                "TEFV6-C0313-E06"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0313-A02",
+              "TEFV6-C0313-A03"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "persistent_uncertainty",
+              "statement": "第二轮结果到达后仍不足以收敛唯一诊断，维持双分支",
+              "supporting_evidence_ids": [
+                "TEFV6-C0313-E05",
+                "TEFV6-C0313-E06"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0313-E05",
+              "TEFV6-C0313-E06",
+              "TEFV6-C0313-E07"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0313-A01",
+              "action_type": "monitor",
+              "target": "R-34号电池簇",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0313-E07"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0313-A02",
+              "action_type": "diagnose",
+              "target": "R-34号电池簇",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0313-E07"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0313-A03",
+              "action_type": "verify",
+              "target": "R-34号电池簇",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0313-A02"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0313-E07"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

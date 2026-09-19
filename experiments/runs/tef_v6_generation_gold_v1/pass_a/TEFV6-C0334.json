@@ -1,0 +1,436 @@
+{
+  "chain_id": "TEFV6-C0334",
+  "split": "validation",
+  "pass": "A",
+  "status": "accepted",
+  "repair_used": false,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0334-I01-routine_status": [],
+    "TEFV6-C0334-I02-routine_basis": [],
+    "TEFV6-C0334-I03-routine_followup": []
+  },
+  "initial_result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0334-I01-routine_status",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-37",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "R-37 PCS通信链路处于常规稳定状态，无持续异常，无需升级为故障工单",
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E01",
+                "TEFV6-C0334-E02",
+                "TEFV6-C0334-E03",
+                "TEFV6-C0334-E05"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0334-A01",
+              "TEFV6-C0334-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E04"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "工单保持例行监测和下次班次复核，不新增部件维修任务",
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E06"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0334-E01",
+              "TEFV6-C0334-E02",
+              "TEFV6-C0334-E03",
+              "TEFV6-C0334-E04",
+              "TEFV6-C0334-E05",
+              "TEFV6-C0334-E06"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0334-A01",
+              "action_type": "monitor",
+              "target": "R-37 PCS通信链路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E04",
+                "TEFV6-C0334-E06"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0334-A02",
+              "action_type": "verify",
+              "target": "R-37 PCS通信链路",
+              "parameters": {
+                "schedule": "下次班次"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E06"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0334-I02-routine_basis",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-37",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "R-37 PCS通信链路处于常规稳定状态，无持续异常，无需扩大处置",
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E01",
+                "TEFV6-C0334-E02",
+                "TEFV6-C0334-E03",
+                "TEFV6-C0334-E05"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0334-A01"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E04"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "当前没有足够证据支持故障升级，记录为常规稳定状态",
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E05"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0334-E01",
+              "TEFV6-C0334-E02",
+              "TEFV6-C0334-E03",
+              "TEFV6-C0334-E04",
+              "TEFV6-C0334-E05"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0334-A01",
+              "action_type": "monitor",
+              "target": "R-37 PCS通信链路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E04"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0334-I03-routine_followup",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-37",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "R-37 PCS通信链路处于常规稳定状态，无故障升级，需保留例行监测与趋势记录",
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E01",
+                "TEFV6-C0334-E02",
+                "TEFV6-C0334-E03",
+                "TEFV6-C0334-E05"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0334-A01",
+              "TEFV6-C0334-A02",
+              "TEFV6-C0334-A03"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E04"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "交接记录确认例行监测安排已进入下一班次清单",
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0334-E01",
+              "TEFV6-C0334-E02",
+              "TEFV6-C0334-E03",
+              "TEFV6-C0334-E04",
+              "TEFV6-C0334-E05",
+              "TEFV6-C0334-E06",
+              "TEFV6-C0334-E07"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0334-A01",
+              "action_type": "monitor",
+              "target": "R-37 PCS通信链路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E04",
+                "TEFV6-C0334-E06"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0334-A02",
+              "action_type": "verify",
+              "target": "R-37 PCS通信链路",
+              "parameters": {
+                "schedule": "下次班次"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E06",
+                "TEFV6-C0334-E07"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0334-A03",
+              "action_type": "document",
+              "target": "R-37 PCS通信链路",
+              "parameters": {
+                "content": "趋势记录"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E04"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0334-I01-routine_status",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-37",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "R-37 PCS通信链路处于常规稳定状态，无持续异常，无需升级为故障工单",
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E01",
+                "TEFV6-C0334-E02",
+                "TEFV6-C0334-E03",
+                "TEFV6-C0334-E05"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0334-A01",
+              "TEFV6-C0334-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E04"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "工单保持例行监测和下次班次复核，不新增部件维修任务",
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E06"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0334-E01",
+              "TEFV6-C0334-E02",
+              "TEFV6-C0334-E03",
+              "TEFV6-C0334-E04",
+              "TEFV6-C0334-E05",
+              "TEFV6-C0334-E06"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0334-A01",
+              "action_type": "monitor",
+              "target": "R-37 PCS通信链路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E04",
+                "TEFV6-C0334-E06"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0334-A02",
+              "action_type": "verify",
+              "target": "R-37 PCS通信链路",
+              "parameters": {
+                "schedule": "下次班次"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E06"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0334-I02-routine_basis",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-37",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "R-37 PCS通信链路处于常规稳定状态，无持续异常，无需扩大处置",
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E01",
+                "TEFV6-C0334-E02",
+                "TEFV6-C0334-E03",
+                "TEFV6-C0334-E05"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0334-A01"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E04"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "当前没有足够证据支持故障升级，记录为常规稳定状态",
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E05"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0334-E01",
+              "TEFV6-C0334-E02",
+              "TEFV6-C0334-E03",
+              "TEFV6-C0334-E04",
+              "TEFV6-C0334-E05"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0334-A01",
+              "action_type": "monitor",
+              "target": "R-37 PCS通信链路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E04"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0334-I03-routine_followup",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-37",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "R-37 PCS通信链路处于常规稳定状态，无故障升级，需保留例行监测与趋势记录",
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E01",
+                "TEFV6-C0334-E02",
+                "TEFV6-C0334-E03",
+                "TEFV6-C0334-E05"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0334-A01",
+              "TEFV6-C0334-A02",
+              "TEFV6-C0334-A03"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E04"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "交接记录确认例行监测安排已进入下一班次清单",
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0334-E01",
+              "TEFV6-C0334-E02",
+              "TEFV6-C0334-E03",
+              "TEFV6-C0334-E04",
+              "TEFV6-C0334-E05",
+              "TEFV6-C0334-E06",
+              "TEFV6-C0334-E07"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0334-A01",
+              "action_type": "monitor",
+              "target": "R-37 PCS通信链路",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E04",
+                "TEFV6-C0334-E06"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0334-A02",
+              "action_type": "verify",
+              "target": "R-37 PCS通信链路",
+              "parameters": {
+                "schedule": "下次班次"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E06",
+                "TEFV6-C0334-E07"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0334-A03",
+              "action_type": "document",
+              "target": "R-37 PCS通信链路",
+              "parameters": {
+                "content": "趋势记录"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0334-E04"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:53:33.818026"
+}

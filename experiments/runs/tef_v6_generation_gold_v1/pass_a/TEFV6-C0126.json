@@ -1,0 +1,310 @@
+{
+  "chain_id": "TEFV6-C0126",
+  "split": "development",
+  "pass": "A",
+  "status": "REVIEW_UNRESOLVED",
+  "repair_used": true,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0126-I01-differentiate": [
+      "top citation union"
+    ],
+    "TEFV6-C0126-I02-current_action": [],
+    "TEFV6-C0126-I03-history_role": [
+      "top citation union"
+    ]
+  },
+  "initial_result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0126-I01-differentiate",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D18",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0126-E04",
+                "TEFV6-C0126-E05",
+                "TEFV6-C0126-E06",
+                "TEFV6-C0126-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "not_available",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "not_available",
+              "statement": null,
+              "supporting_evidence_ids": []
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0126-E01",
+              "TEFV6-C0126-E02",
+              "TEFV6-C0126-E03",
+              "TEFV6-C0126-E04",
+              "TEFV6-C0126-E05",
+              "TEFV6-C0126-E06",
+              "TEFV6-C0126-E07"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0126-I02-current_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D18",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0126-E04",
+                "TEFV6-C0126-E05",
+                "TEFV6-C0126-E06",
+                "TEFV6-C0126-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "not_available",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "not_available",
+              "statement": null,
+              "supporting_evidence_ids": []
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0126-E04",
+              "TEFV6-C0126-E05",
+              "TEFV6-C0126-E06",
+              "TEFV6-C0126-E07",
+              "TEFV6-C0126-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "本次定位的实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0126-E07",
+                "TEFV6-C0126-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "本次定位部件处理后复测",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0126-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0126-I03-history_role",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D18",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0126-E04",
+                "TEFV6-C0126-E05",
+                "TEFV6-C0126-E06",
+                "TEFV6-C0126-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "not_available",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "not_available",
+              "statement": null,
+              "supporting_evidence_ids": []
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0126-E01",
+              "TEFV6-C0126-E02",
+              "TEFV6-C0126-E03",
+              "TEFV6-C0126-E04",
+              "TEFV6-C0126-E05",
+              "TEFV6-C0126-E06",
+              "TEFV6-C0126-E07"
+            ]
+          },
+          "action_plan": []
+        }
+      }
+    ]
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0126-I01-differentiate",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D18",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0126-E04",
+                "TEFV6-C0126-E05",
+                "TEFV6-C0126-E06",
+                "TEFV6-C0126-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "not_applicable",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "not_available",
+              "statement": null,
+              "supporting_evidence_ids": []
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0126-E01",
+              "TEFV6-C0126-E02",
+              "TEFV6-C0126-E03",
+              "TEFV6-C0126-E04",
+              "TEFV6-C0126-E05",
+              "TEFV6-C0126-E06",
+              "TEFV6-C0126-E07"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0126-I02-current_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D18",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0126-E04",
+                "TEFV6-C0126-E05",
+                "TEFV6-C0126-E06",
+                "TEFV6-C0126-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "not_applicable",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "not_available",
+              "statement": null,
+              "supporting_evidence_ids": []
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0126-E04",
+              "TEFV6-C0126-E05",
+              "TEFV6-C0126-E06",
+              "TEFV6-C0126-E07",
+              "TEFV6-C0126-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "本次定位的实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0126-E07",
+                "TEFV6-C0126-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "本次定位部件处理后复测",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0126-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0126-I03-history_role",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D18",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0126-E04",
+                "TEFV6-C0126-E05",
+                "TEFV6-C0126-E06",
+                "TEFV6-C0126-E07"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "not_applicable",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "not_available",
+              "statement": null,
+              "supporting_evidence_ids": []
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0126-E01",
+              "TEFV6-C0126-E02",
+              "TEFV6-C0126-E03",
+              "TEFV6-C0126-E04",
+              "TEFV6-C0126-E05",
+              "TEFV6-C0126-E06",
+              "TEFV6-C0126-E07"
+            ]
+          },
+          "action_plan": []
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:12:37.993662"
+}

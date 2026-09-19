@@ -1,0 +1,466 @@
+{
+  "chain_id": "TEFV6-C0162",
+  "split": "development",
+  "pass": "A",
+  "status": "accepted",
+  "repair_used": false,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0162-I01-current_rule": [],
+    "TEFV6-C0162-I02-cross_source_rule": [],
+    "TEFV6-C0162-I03-version_source_interaction": []
+  },
+  "initial_result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0162-I01-current_rule",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D06",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "C-D06号电池簇主遥测持续偏离，跨源证据共同支持当前定位",
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E04",
+                "TEFV6-C0162-E13",
+                "TEFV6-C0162-E05",
+                "TEFV6-C0162-E06",
+                "TEFV6-C0162-E07",
+                "TEFV6-C0162-E14"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0162-A01",
+              "TEFV6-C0162-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单按V3先处理已确认部件并复测，不直接扩大范围；限制状态尚未解除。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E08",
+                "TEFV6-C0162-E11"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0162-E03",
+              "TEFV6-C0162-E04",
+              "TEFV6-C0162-E13",
+              "TEFV6-C0162-E05",
+              "TEFV6-C0162-E06",
+              "TEFV6-C0162-E07",
+              "TEFV6-C0162-E14",
+              "TEFV6-C0162-E08",
+              "TEFV6-C0162-E11"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0162-A01",
+              "action_type": "repair",
+              "target": "C-D06号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E08"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0162-A02",
+              "action_type": "verify",
+              "target": "C-D06号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0162-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0162-I02-cross_source_rule",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D06",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "C-D06号电池簇主遥测持续偏离，跨源证据共同支持当前定位",
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E04",
+                "TEFV6-C0162-E13",
+                "TEFV6-C0162-E05",
+                "TEFV6-C0162-E06",
+                "TEFV6-C0162-E07",
+                "TEFV6-C0162-E14"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0162-A01",
+              "TEFV6-C0162-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单按V3先处理已确认部件并复测，不直接扩大范围；限制状态尚未解除。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E08",
+                "TEFV6-C0162-E11"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0162-E03",
+              "TEFV6-C0162-E04",
+              "TEFV6-C0162-E13",
+              "TEFV6-C0162-E05",
+              "TEFV6-C0162-E06",
+              "TEFV6-C0162-E07",
+              "TEFV6-C0162-E14",
+              "TEFV6-C0162-E08",
+              "TEFV6-C0162-E11"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0162-A01",
+              "action_type": "repair",
+              "target": "C-D06号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E08"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0162-A02",
+              "action_type": "verify",
+              "target": "C-D06号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0162-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0162-I03-version_source_interaction",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D06",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "C-D06号电池簇主遥测持续偏离，跨源证据共同支持当前定位",
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E04",
+                "TEFV6-C0162-E13",
+                "TEFV6-C0162-E05",
+                "TEFV6-C0162-E06",
+                "TEFV6-C0162-E07",
+                "TEFV6-C0162-E14"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0162-A01",
+              "TEFV6-C0162-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单按V3先处理已确认部件并复测，不直接扩大范围；限制状态尚未解除。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E08",
+                "TEFV6-C0162-E11"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0162-E03",
+              "TEFV6-C0162-E04",
+              "TEFV6-C0162-E13",
+              "TEFV6-C0162-E05",
+              "TEFV6-C0162-E06",
+              "TEFV6-C0162-E07",
+              "TEFV6-C0162-E14",
+              "TEFV6-C0162-E08",
+              "TEFV6-C0162-E11"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0162-A01",
+              "action_type": "repair",
+              "target": "C-D06号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E08"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0162-A02",
+              "action_type": "verify",
+              "target": "C-D06号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0162-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E08"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0162-I01-current_rule",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D06",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "C-D06号电池簇主遥测持续偏离，跨源证据共同支持当前定位",
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E04",
+                "TEFV6-C0162-E13",
+                "TEFV6-C0162-E05",
+                "TEFV6-C0162-E06",
+                "TEFV6-C0162-E07",
+                "TEFV6-C0162-E14"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0162-A01",
+              "TEFV6-C0162-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单按V3先处理已确认部件并复测，不直接扩大范围；限制状态尚未解除。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E08",
+                "TEFV6-C0162-E11"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0162-E03",
+              "TEFV6-C0162-E04",
+              "TEFV6-C0162-E13",
+              "TEFV6-C0162-E05",
+              "TEFV6-C0162-E06",
+              "TEFV6-C0162-E07",
+              "TEFV6-C0162-E14",
+              "TEFV6-C0162-E08",
+              "TEFV6-C0162-E11"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0162-A01",
+              "action_type": "repair",
+              "target": "C-D06号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E08"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0162-A02",
+              "action_type": "verify",
+              "target": "C-D06号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0162-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0162-I02-cross_source_rule",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D06",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "C-D06号电池簇主遥测持续偏离，跨源证据共同支持当前定位",
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E04",
+                "TEFV6-C0162-E13",
+                "TEFV6-C0162-E05",
+                "TEFV6-C0162-E06",
+                "TEFV6-C0162-E07",
+                "TEFV6-C0162-E14"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0162-A01",
+              "TEFV6-C0162-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单按V3先处理已确认部件并复测，不直接扩大范围；限制状态尚未解除。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E08",
+                "TEFV6-C0162-E11"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0162-E03",
+              "TEFV6-C0162-E04",
+              "TEFV6-C0162-E13",
+              "TEFV6-C0162-E05",
+              "TEFV6-C0162-E06",
+              "TEFV6-C0162-E07",
+              "TEFV6-C0162-E14",
+              "TEFV6-C0162-E08",
+              "TEFV6-C0162-E11"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0162-A01",
+              "action_type": "repair",
+              "target": "C-D06号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E08"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0162-A02",
+              "action_type": "verify",
+              "target": "C-D06号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0162-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0162-I03-version_source_interaction",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D06",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "C-D06号电池簇主遥测持续偏离，跨源证据共同支持当前定位",
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E04",
+                "TEFV6-C0162-E13",
+                "TEFV6-C0162-E05",
+                "TEFV6-C0162-E06",
+                "TEFV6-C0162-E07",
+                "TEFV6-C0162-E14"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0162-A01",
+              "TEFV6-C0162-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前工单按V3先处理已确认部件并复测，不直接扩大范围；限制状态尚未解除。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E08",
+                "TEFV6-C0162-E11"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0162-E03",
+              "TEFV6-C0162-E04",
+              "TEFV6-C0162-E13",
+              "TEFV6-C0162-E05",
+              "TEFV6-C0162-E06",
+              "TEFV6-C0162-E07",
+              "TEFV6-C0162-E14",
+              "TEFV6-C0162-E08",
+              "TEFV6-C0162-E11"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0162-A01",
+              "action_type": "repair",
+              "target": "C-D06号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E08"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0162-A02",
+              "action_type": "verify",
+              "target": "C-D06号电池簇已确认部件",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0162-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0162-E08"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T00:53:47.548240"
+}

@@ -1,0 +1,4172 @@
+{
+  "version": "v1.1",
+  "public_chain_records": [
+    {
+      "chain_id": "TEFV6-C0001",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 1,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0002",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0003",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0004",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0005",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0006",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 1,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0007",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0008",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 1,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0009",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 1,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0010",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0011",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0012",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 1,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0021",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 1
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0022",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0023",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0024",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 1
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0025",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0026",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0027",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0028",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0029",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0030",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0031",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0032",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0041",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0042",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 3
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0043",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0044",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0045",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 2
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0046",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0047",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0048",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 3
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0049",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0050",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0051",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 1
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0052",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0061",
+      "split": "development",
+      "status": "accepted_agreement",
+      "used_adjudication": false,
+      "pass_a_pass_b_canonical_equal": true,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0062",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0063",
+      "split": "development",
+      "status": "accepted_agreement",
+      "used_adjudication": false,
+      "pass_a_pass_b_canonical_equal": true,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0064",
+      "split": "development",
+      "status": "accepted_agreement",
+      "used_adjudication": false,
+      "pass_a_pass_b_canonical_equal": true,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0065",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0066",
+      "split": "development",
+      "status": "accepted_agreement",
+      "used_adjudication": false,
+      "pass_a_pass_b_canonical_equal": true,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0067",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0068",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0069",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0070",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0071",
+      "split": "development",
+      "status": "accepted_agreement",
+      "used_adjudication": false,
+      "pass_a_pass_b_canonical_equal": true,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0072",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0081",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0082",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0083",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0084",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0085",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0086",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0087",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0088",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0089",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0090",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0091",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0092",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0101",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0102",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 5
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0103",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0104",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 4
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0105",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0106",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 3
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0107",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 3
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0108",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 1
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0109",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0110",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 3
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0111",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0112",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 4
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0121",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0122",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 1,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0123",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0124",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0125",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0126",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0127",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0128",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 1,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0129",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0130",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 1,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0131",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0132",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0141",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0142",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0143",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0144",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0145",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0146",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0147",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0148",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0149",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0150",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0151",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0152",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0161",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0162",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 3
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0163",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0164",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0165",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 2
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0166",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0167",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0168",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 4
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0169",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0170",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0171",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0172",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0173",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0174",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 3
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0175",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0176",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0177",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 1
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0178",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0179",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0180",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 4
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0181",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0182",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0183",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0184",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0201",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0202",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0203",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0204",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0205",
+      "split": "development",
+      "status": "accepted_agreement",
+      "used_adjudication": false,
+      "pass_a_pass_b_canonical_equal": true,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0206",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0207",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0208",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0209",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0210",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0211",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0212",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0213",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0214",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0215",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0216",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0217",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0218",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0219",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0220",
+      "split": "development",
+      "status": "accepted_agreement",
+      "used_adjudication": false,
+      "pass_a_pass_b_canonical_equal": true,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0221",
+      "split": "development",
+      "status": "accepted_agreement",
+      "used_adjudication": false,
+      "pass_a_pass_b_canonical_equal": true,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0222",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0223",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0224",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0225",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0226",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0227",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0228",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0229",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0230",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0231",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0232",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0233",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0234",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0235",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0236",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0237",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0238",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0239",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0240",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0241",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0242",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0243",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0244",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0245",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0246",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0247",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0248",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0249",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0250",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0251",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0252",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0253",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0254",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0255",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0256",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0257",
+      "split": "development",
+      "status": "accepted_agreement",
+      "used_adjudication": false,
+      "pass_a_pass_b_canonical_equal": true,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0258",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0259",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0260",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0261",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0262",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0263",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0264",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0265",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0266",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0267",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0268",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0269",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0270",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0271",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0272",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0273",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0274",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0275",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0276",
+      "split": "development",
+      "status": "accepted_agreement",
+      "used_adjudication": false,
+      "pass_a_pass_b_canonical_equal": true,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0277",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0278",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0279",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0280",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0281",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 1,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0282",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0283",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0284",
+      "split": "development",
+      "status": "accepted_agreement",
+      "used_adjudication": false,
+      "pass_a_pass_b_canonical_equal": true,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0285",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0286",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 2
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0287",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0288",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0289",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 1,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0290",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0291",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0292",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0293",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0294",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 2
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0295",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0296",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0297",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 1,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0298",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0299",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0300",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0301",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0302",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0303",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0304",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0305",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0306",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0307",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0308",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0309",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0310",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0311",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0312",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0313",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0314",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0315",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 8
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0316",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0317",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0318",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0319",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0320",
+      "split": "development",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0013",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 1,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0014",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0015",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 5
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0016",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0033",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0034",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0035",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0036",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 1
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0053",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0054",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 2
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0055",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0056",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0073",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0074",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0075",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0076",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0093",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0094",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0095",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0096",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0113",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 2
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0114",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 4
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0115",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 5
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0116",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 4
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0133",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0134",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 1,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0135",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0136",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0153",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0154",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0155",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0156",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0185",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0186",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0187",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0188",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0189",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 1
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0190",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0191",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0192",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 4
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0321",
+      "split": "validation",
+      "status": "accepted_agreement",
+      "used_adjudication": false,
+      "pass_a_pass_b_canonical_equal": true,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0322",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0323",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0324",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0325",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0326",
+      "split": "validation",
+      "status": "accepted_agreement",
+      "used_adjudication": false,
+      "pass_a_pass_b_canonical_equal": true,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0327",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0328",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0329",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0330",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0331",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0332",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0333",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0334",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0335",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0336",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0337",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0338",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0339",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0340",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0341",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0342",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0343",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0344",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0345",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0346",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0347",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0348",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0349",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0350",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 1,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0351",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 1,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0352",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0353",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0354",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 1,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0355",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0356",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0357",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 2,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 1
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0358",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 0,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0359",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 3,
+        "procedure_canonicalization": 1,
+        "object_citation_dedupe": 0
+      }
+    },
+    {
+      "chain_id": "TEFV6-C0360",
+      "split": "validation",
+      "status": "adjudicated",
+      "used_adjudication": true,
+      "pass_a_pass_b_canonical_equal": false,
+      "semantic_gold_objects": 3,
+      "repairs": {
+        "top_citation_union": 0,
+        "procedure_canonicalization": 3,
+        "object_citation_dedupe": 0
+      }
+    }
+  ],
+  "private_test_aggregate": {
+    "chains": 80,
+    "accepted_chains": 80,
+    "review_unresolved_chains": 0,
+    "semantic_gold_objects": 240
+  },
+  "contains_item_level_test_answers": false
+}

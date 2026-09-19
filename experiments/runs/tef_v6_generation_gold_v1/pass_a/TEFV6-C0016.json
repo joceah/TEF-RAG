@@ -1,0 +1,462 @@
+{
+  "chain_id": "TEFV6-C0016",
+  "split": "validation",
+  "pass": "A",
+  "status": "accepted",
+  "repair_used": false,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0016-I01-current_cause_action": [],
+    "TEFV6-C0016-I02-episode_compare": [],
+    "TEFV6-C0016-I03-decision_boundary": []
+  },
+  "initial_result": {
+    "type": "json_object",
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0016-I01-current_cause_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V04",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "冷却通道受阻导致本次持续温升，非上次的采集通道偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E05",
+                "TEFV6-C0016-E06",
+                "TEFV6-C0016-E07",
+                "TEFV6-C0016-E08"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（处理风道阻塞并复测温差）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前限制状态未被解除，需按SOP处理风道阻塞并复测温差以验证",
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E09",
+                "TEFV6-C0016-E12"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0016-E05",
+              "TEFV6-C0016-E06",
+              "TEFV6-C0016-E07",
+              "TEFV6-C0016-E08",
+              "TEFV6-C0016-E09",
+              "TEFV6-C0016-E12"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "回风格栅/冷却风道",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E07",
+                "TEFV6-C0016-E08",
+                "TEFV6-C0016-E09"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "温差复测",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E09"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0016-I02-episode_compare",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V04",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "上次为温度采集通道偏移，本次为冷却通道受阻，两次原因不同",
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E01",
+                "TEFV6-C0016-E02",
+                "TEFV6-C0016-E03",
+                "TEFV6-C0016-E05",
+                "TEFV6-C0016-E06",
+                "TEFV6-C0016-E07",
+                "TEFV6-C0016-E08"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（处理风道阻塞并复测温差）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前限制状态未被解除，需按SOP处理风道阻塞并复测温差以验证",
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E09",
+                "TEFV6-C0016-E12"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0016-E01",
+              "TEFV6-C0016-E02",
+              "TEFV6-C0016-E03",
+              "TEFV6-C0016-E05",
+              "TEFV6-C0016-E06",
+              "TEFV6-C0016-E07",
+              "TEFV6-C0016-E08",
+              "TEFV6-C0016-E09",
+              "TEFV6-C0016-E12"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "回风格栅/冷却风道",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E07",
+                "TEFV6-C0016-E08",
+                "TEFV6-C0016-E09"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "温差复测",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E09"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0016-I03-decision_boundary",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V04",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为冷却通道受阻，不能仅凭温升表面症状复用上次采集通道偏移工单",
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E05",
+                "TEFV6-C0016-E06",
+                "TEFV6-C0016-E07",
+                "TEFV6-C0016-E08"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（处理风道阻塞并复测温差）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前限制状态未被解除，需按SOP处理风道阻塞并复测温差以验证",
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E09",
+                "TEFV6-C0016-E12"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0016-E05",
+              "TEFV6-C0016-E06",
+              "TEFV6-C0016-E07",
+              "TEFV6-C0016-E08",
+              "TEFV6-C0016-E09",
+              "TEFV6-C0016-E12"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "回风格栅/冷却风道",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E07",
+                "TEFV6-C0016-E08",
+                "TEFV6-C0016-E09"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "温差复测",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E09"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "result": {
+    "type": "json_object",
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0016-I01-current_cause_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V04",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "冷却通道受阻导致本次持续温升，非上次的采集通道偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E05",
+                "TEFV6-C0016-E06",
+                "TEFV6-C0016-E07",
+                "TEFV6-C0016-E08"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（处理风道阻塞并复测温差）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前限制状态未被解除，需按SOP处理风道阻塞并复测温差以验证",
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E09",
+                "TEFV6-C0016-E12"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0016-E05",
+              "TEFV6-C0016-E06",
+              "TEFV6-C0016-E07",
+              "TEFV6-C0016-E08",
+              "TEFV6-C0016-E09",
+              "TEFV6-C0016-E12"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "回风格栅/冷却风道",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E07",
+                "TEFV6-C0016-E08",
+                "TEFV6-C0016-E09"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "温差复测",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E09"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0016-I02-episode_compare",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V04",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "上次为温度采集通道偏移，本次为冷却通道受阻，两次原因不同",
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E01",
+                "TEFV6-C0016-E02",
+                "TEFV6-C0016-E03",
+                "TEFV6-C0016-E05",
+                "TEFV6-C0016-E06",
+                "TEFV6-C0016-E07",
+                "TEFV6-C0016-E08"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（处理风道阻塞并复测温差）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前限制状态未被解除，需按SOP处理风道阻塞并复测温差以验证",
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E09",
+                "TEFV6-C0016-E12"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0016-E01",
+              "TEFV6-C0016-E02",
+              "TEFV6-C0016-E03",
+              "TEFV6-C0016-E05",
+              "TEFV6-C0016-E06",
+              "TEFV6-C0016-E07",
+              "TEFV6-C0016-E08",
+              "TEFV6-C0016-E09",
+              "TEFV6-C0016-E12"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "回风格栅/冷却风道",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E07",
+                "TEFV6-C0016-E08",
+                "TEFV6-C0016-E09"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "温差复测",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E09"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0016-I03-decision_boundary",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-V04",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为冷却通道受阻，不能仅凭温升表面症状复用上次采集通道偏移工单",
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E05",
+                "TEFV6-C0016-E06",
+                "TEFV6-C0016-E07",
+                "TEFV6-C0016-E08"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（处理风道阻塞并复测温差）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "当前限制状态未被解除，需按SOP处理风道阻塞并复测温差以验证",
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E09",
+                "TEFV6-C0016-E12"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0016-E05",
+              "TEFV6-C0016-E06",
+              "TEFV6-C0016-E07",
+              "TEFV6-C0016-E08",
+              "TEFV6-C0016-E09",
+              "TEFV6-C0016-E12"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "回风格栅/冷却风道",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E07",
+                "TEFV6-C0016-E08",
+                "TEFV6-C0016-E09"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "温差复测",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0016-E09"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:48:38.838269"
+}

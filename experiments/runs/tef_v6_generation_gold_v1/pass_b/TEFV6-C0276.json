@@ -1,0 +1,424 @@
+{
+  "chain_id": "TEFV6-C0276",
+  "split": "development",
+  "pass": "B",
+  "status": "REVIEW_UNRESOLVED",
+  "repair_used": true,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0276-I01-current_valid": [],
+    "TEFV6-C0276-I02-supersession_basis": [
+      "top citation union"
+    ],
+    "TEFV6-C0276-I03-action_revision": [
+      "top citation union"
+    ]
+  },
+  "initial_result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0276-I01-current_valid",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-48",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "驱动部件退化",
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E05",
+                "TEFV6-C0276-E06"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "第二版工单（重开修订版）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E07",
+                "TEFV6-C0276-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "第二版工单已生效，旧工单不再作为当前执行依据。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0276-E05",
+              "TEFV6-C0276-E06",
+              "TEFV6-C0276-E07",
+              "TEFV6-C0276-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "驱动部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E06",
+                "TEFV6-C0276-E07"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "关键指标",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E07"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0276-I02-supersession_basis",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-48",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "驱动部件退化",
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E05",
+                "TEFV6-C0276-E06"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "第二版工单（重开修订版）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E07",
+                "TEFV6-C0276-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "第二版工单已生效，旧工单不再作为当前执行依据。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0276-E04",
+              "TEFV6-C0276-E05",
+              "TEFV6-C0276-E06",
+              "TEFV6-C0276-E07",
+              "TEFV6-C0276-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "驱动部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E06",
+                "TEFV6-C0276-E07"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "关键指标",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E07"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0276-I03-action_revision",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-48",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "驱动部件退化",
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E05",
+                "TEFV6-C0276-E06"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "第二版工单（重开修订版）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E07",
+                "TEFV6-C0276-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "第二版工单已生效，旧工单不再作为当前执行依据。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0276-E03",
+              "TEFV6-C0276-E06",
+              "TEFV6-C0276-E07",
+              "TEFV6-C0276-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "驱动部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E06",
+                "TEFV6-C0276-E07"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "关键指标",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E07"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0276-I01-current_valid",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-48",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "驱动部件退化",
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E05",
+                "TEFV6-C0276-E06"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "第二版工单（重开修订版）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E07",
+                "TEFV6-C0276-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "第二版工单已生效，旧工单不再作为当前执行依据。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0276-E05",
+              "TEFV6-C0276-E06",
+              "TEFV6-C0276-E07",
+              "TEFV6-C0276-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "驱动部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E06",
+                "TEFV6-C0276-E07"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "关键指标",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E07"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0276-I02-supersession_basis",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-48",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "驱动部件退化",
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E05",
+                "TEFV6-C0276-E06"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "第二版工单（重开修订版）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E07",
+                "TEFV6-C0276-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "第二版工单已生效，旧工单不再作为当前执行依据。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0276-E04",
+              "TEFV6-C0276-E05",
+              "TEFV6-C0276-E06",
+              "TEFV6-C0276-E07",
+              "TEFV6-C0276-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "驱动部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E06",
+                "TEFV6-C0276-E07"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "关键指标",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E07"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0276-I03-action_revision",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-48",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "驱动部件退化",
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E05",
+                "TEFV6-C0276-E06"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "第二版工单（重开修订版）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E07",
+                "TEFV6-C0276-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "第二版工单已生效，旧工单不再作为当前执行依据。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0276-E03",
+              "TEFV6-C0276-E06",
+              "TEFV6-C0276-E07",
+              "TEFV6-C0276-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "驱动部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E06",
+                "TEFV6-C0276-E07"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "关键指标",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0276-E07"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:35:31.801534"
+}

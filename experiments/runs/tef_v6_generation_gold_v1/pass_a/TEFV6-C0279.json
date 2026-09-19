@@ -1,0 +1,459 @@
+{
+  "chain_id": "TEFV6-C0279",
+  "split": "development",
+  "pass": "A",
+  "status": "REVIEW_UNRESOLVED",
+  "repair_used": true,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0279-I01-differentiate": [
+      "top citation union"
+    ],
+    "TEFV6-C0279-I02-current_action": [],
+    "TEFV6-C0279-I03-history_role": [
+      "top citation union"
+    ]
+  },
+  "initial_result": {
+    "type": "json_object",
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0279-I01-differentiate",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-22",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E04",
+                "TEFV6-C0279-E05",
+                "TEFV6-C0279-E06",
+                "TEFV6-C0279-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "第二种测量来源与现场结果方向一致，排除单一采集通道偏移；本次诊断定位为实体连接/辅助部件异常",
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E05",
+                "TEFV6-C0279-E06",
+                "TEFV6-C0279-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0279-E01",
+              "TEFV6-C0279-E02",
+              "TEFV6-C0279-E03",
+              "TEFV6-C0279-E04",
+              "TEFV6-C0279-E05",
+              "TEFV6-C0279-E06",
+              "TEFV6-C0279-E07"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "本次定位的实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E07",
+                "TEFV6-C0279-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "本次定位部件处理后复测",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0279-I02-current_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-22",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，不沿用历史采集链路偏移结论",
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E04",
+                "TEFV6-C0279-E05",
+                "TEFV6-C0279-E06",
+                "TEFV6-C0279-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "第二种测量来源与现场结果方向一致，排除单一采集通道偏移；当前工单按批准SOP处理本次定位部件并复测",
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E05",
+                "TEFV6-C0279-E06",
+                "TEFV6-C0279-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0279-E04",
+              "TEFV6-C0279-E05",
+              "TEFV6-C0279-E06",
+              "TEFV6-C0279-E07",
+              "TEFV6-C0279-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "本次定位的实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E07",
+                "TEFV6-C0279-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "本次定位部件处理后复测",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0279-I03-history_role",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-22",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常；历史采集链路偏移结论仅作对照，不迁移为本次结论",
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E03",
+                "TEFV6-C0279-E04",
+                "TEFV6-C0279-E05",
+                "TEFV6-C0279-E06",
+                "TEFV6-C0279-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "历史事件独立复核未发现实体异常且信号随采集链路切换移动，本次固定物理位置一致性异常且第二种测量来源方向一致，故历史结论仅作对照",
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E02",
+                "TEFV6-C0279-E05",
+                "TEFV6-C0279-E06"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0279-E01",
+              "TEFV6-C0279-E02",
+              "TEFV6-C0279-E03",
+              "TEFV6-C0279-E04",
+              "TEFV6-C0279-E05",
+              "TEFV6-C0279-E06",
+              "TEFV6-C0279-E07"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "本次定位的实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E07",
+                "TEFV6-C0279-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "本次定位部件处理后复测",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E08"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0279-I01-differentiate",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-22",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，而非历史采集链路偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E04",
+                "TEFV6-C0279-E05",
+                "TEFV6-C0279-E06",
+                "TEFV6-C0279-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "第二种测量来源与现场结果方向一致，排除单一采集通道偏移；本次诊断定位为实体连接/辅助部件异常",
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E05",
+                "TEFV6-C0279-E06",
+                "TEFV6-C0279-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0279-E01",
+              "TEFV6-C0279-E02",
+              "TEFV6-C0279-E03",
+              "TEFV6-C0279-E04",
+              "TEFV6-C0279-E05",
+              "TEFV6-C0279-E06",
+              "TEFV6-C0279-E07",
+              "TEFV6-C0279-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "本次定位的实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E07",
+                "TEFV6-C0279-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "本次定位部件处理后复测",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0279-I02-current_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-22",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常，不沿用历史采集链路偏移结论",
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E04",
+                "TEFV6-C0279-E05",
+                "TEFV6-C0279-E06",
+                "TEFV6-C0279-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "第二种测量来源与现场结果方向一致，排除单一采集通道偏移；当前工单按批准SOP处理本次定位部件并复测",
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E05",
+                "TEFV6-C0279-E06",
+                "TEFV6-C0279-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0279-E04",
+              "TEFV6-C0279-E05",
+              "TEFV6-C0279-E06",
+              "TEFV6-C0279-E07",
+              "TEFV6-C0279-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "本次定位的实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E07",
+                "TEFV6-C0279-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "本次定位部件处理后复测",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0279-I03-history_role",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-22",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次为实体连接/辅助部件异常；历史采集链路偏移结论仅作对照，不迁移为本次结论",
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E03",
+                "TEFV6-C0279-E04",
+                "TEFV6-C0279-E05",
+                "TEFV6-C0279-E06",
+                "TEFV6-C0279-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（当前工单）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "历史事件独立复核未发现实体异常且信号随采集链路切换移动，本次固定物理位置一致性异常且第二种测量来源方向一致，故历史结论仅作对照",
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E02",
+                "TEFV6-C0279-E05",
+                "TEFV6-C0279-E06"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0279-E01",
+              "TEFV6-C0279-E02",
+              "TEFV6-C0279-E03",
+              "TEFV6-C0279-E04",
+              "TEFV6-C0279-E05",
+              "TEFV6-C0279-E06",
+              "TEFV6-C0279-E07",
+              "TEFV6-C0279-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "本次定位的实体连接/辅助部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E07",
+                "TEFV6-C0279-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "本次定位部件处理后复测",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0279-E08"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:12:38.484361"
+}

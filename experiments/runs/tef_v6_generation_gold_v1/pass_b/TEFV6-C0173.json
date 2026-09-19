@@ -1,0 +1,429 @@
+{
+  "chain_id": "TEFV6-C0173",
+  "split": "development",
+  "pass": "B",
+  "status": "REVIEW_UNRESOLVED",
+  "repair_used": true,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0173-I01-before_arrival": [],
+    "TEFV6-C0173-I02-after_supersession": [],
+    "TEFV6-C0173-I03-temporal_change": [
+      "top citation union"
+    ]
+  },
+  "initial_result": {
+    "type": "json_object",
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0173-I01-before_arrival",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D09",
+            "diagnosis": {
+              "status": "provisional",
+              "concept": "外部通道轻度受阻（待现场复核）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E01",
+                "TEFV6-C0173-E02"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "初诊标记为待现场复核，现场检查记录尚未可见。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E02",
+                "TEFV6-C0173-E03"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0173-E01",
+              "TEFV6-C0173-E02",
+              "TEFV6-C0173-E03"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "C-D09 液冷机组",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E03"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "inspect",
+              "target": "C-D09 液冷机组外部通道",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E02",
+                "TEFV6-C0173-E03"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0173-I02-after_supersession",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D09",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "驱动部件退化",
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E04",
+                "TEFV6-C0173-E05",
+                "TEFV6-C0173-E06"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP",
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E07"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "交接记录确认新工单已替代临时工单。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0173-E04",
+              "TEFV6-C0173-E05",
+              "TEFV6-C0173-E06",
+              "TEFV6-C0173-E07",
+              "TEFV6-C0173-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "C-D09 液冷机组驱动部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E06",
+                "TEFV6-C0173-E07"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-D09 液冷机组驱动部件",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E07"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0173-I03-temporal_change",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D09",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "驱动部件退化（晚到证据进入后取代初诊的外部通道轻度受阻）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E04",
+                "TEFV6-C0173-E05",
+                "TEFV6-C0173-E06"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP",
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E07"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "交接记录确认新工单已替代临时工单；晚到证据（现场检查与独立测量）在15:45后同步并触发诊断覆盖。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E04",
+                "TEFV6-C0173-E05",
+                "TEFV6-C0173-E06",
+                "TEFV6-C0173-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0173-E02",
+              "TEFV6-C0173-E03",
+              "TEFV6-C0173-E04",
+              "TEFV6-C0173-E05",
+              "TEFV6-C0173-E06",
+              "TEFV6-C0173-E07",
+              "TEFV6-C0173-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "C-D09 液冷机组驱动部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E06",
+                "TEFV6-C0173-E07"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-D09 液冷机组驱动部件",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E07"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0173-I01-before_arrival",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D09",
+            "diagnosis": {
+              "status": "provisional",
+              "concept": "外部通道轻度受阻（待现场复核）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E01",
+                "TEFV6-C0173-E02"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "初诊标记为待现场复核，现场检查记录尚未可见。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E02",
+                "TEFV6-C0173-E03"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0173-E01",
+              "TEFV6-C0173-E02",
+              "TEFV6-C0173-E03"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "C-D09 液冷机组",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E03"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "inspect",
+              "target": "C-D09 液冷机组外部通道",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E02",
+                "TEFV6-C0173-E03"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0173-I02-after_supersession",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D09",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "驱动部件退化",
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E04",
+                "TEFV6-C0173-E05",
+                "TEFV6-C0173-E06"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP",
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E07"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "交接记录确认新工单已替代临时工单。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0173-E04",
+              "TEFV6-C0173-E05",
+              "TEFV6-C0173-E06",
+              "TEFV6-C0173-E07",
+              "TEFV6-C0173-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "C-D09 液冷机组驱动部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E06",
+                "TEFV6-C0173-E07"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-D09 液冷机组驱动部件",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E07"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0173-I03-temporal_change",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D09",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "驱动部件退化（晚到证据进入后取代初诊的外部通道轻度受阻）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E04",
+                "TEFV6-C0173-E05",
+                "TEFV6-C0173-E06"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP",
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E07"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "交接记录确认新工单已替代临时工单；晚到证据（现场检查与独立测量）在15:45后同步并触发诊断覆盖。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E04",
+                "TEFV6-C0173-E05",
+                "TEFV6-C0173-E06",
+                "TEFV6-C0173-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0173-E02",
+              "TEFV6-C0173-E03",
+              "TEFV6-C0173-E04",
+              "TEFV6-C0173-E05",
+              "TEFV6-C0173-E06",
+              "TEFV6-C0173-E07",
+              "TEFV6-C0173-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "C-D09 液冷机组驱动部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E06",
+                "TEFV6-C0173-E07"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-D09 液冷机组驱动部件",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0173-E07"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:28:59.479032"
+}

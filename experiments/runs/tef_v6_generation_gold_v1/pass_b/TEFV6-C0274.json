@@ -1,0 +1,453 @@
+{
+  "chain_id": "TEFV6-C0274",
+  "split": "development",
+  "pass": "B",
+  "status": "REVIEW_UNRESOLVED",
+  "repair_used": true,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0274-I01-status_before_cutoff": [
+      "procedure status/value"
+    ],
+    "TEFV6-C0274-I02-status_after_cutoff": [
+      "top citation union"
+    ],
+    "TEFV6-C0274-I03-cutoff_explanation": []
+  },
+  "initial_result": {
+    "type": "json_object",
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0274-I01-status_before_cutoff",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-32",
+            "diagnosis": {
+              "status": "provisional",
+              "concept": "局部热异常待确认",
+              "supporting_evidence_ids": [
+                "TEFV6-C0274-E01",
+                "TEFV6-C0274-E02"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0274-A01",
+              "TEFV6-C0274-A02"
+            ],
+            "applicable_procedure": {
+              "status": "not_available",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "现场复核结果尚不可见，诊断仍为待确认状态。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0274-E02",
+                "TEFV6-C0274-E03"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0274-E01",
+              "TEFV6-C0274-E02",
+              "TEFV6-C0274-E03"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0274-A01",
+              "action_type": "monitor",
+              "target": "R-32 温度采集链路",
+              "parameters": {
+                "mode": "保守运行限制"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0274-E03"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0274-A02",
+              "action_type": "inspect",
+              "target": "R-32 温度采集链路",
+              "parameters": {
+                "purpose": "等待现场复核"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0274-E03"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0274-I02-status_after_cutoff",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-32",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "采集通道偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0274-E05",
+                "TEFV6-C0274-E06"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0274-A03",
+              "TEFV6-C0274-A04"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准流程",
+              "supporting_evidence_ids": [
+                "TEFV6-C0274-E07"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "需保留必要的运行限制直至复测通过。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0274-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0274-E04",
+              "TEFV6-C0274-E05",
+              "TEFV6-C0274-E06",
+              "TEFV6-C0274-E07",
+              "TEFV6-C0274-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0274-A03",
+              "action_type": "verify",
+              "target": "R-32 温度采集链路",
+              "parameters": {
+                "performed_by": "合格人员",
+                "procedure": "批准流程"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0274-E07"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0274-A04",
+              "action_type": "monitor",
+              "target": "R-32 温度采集链路",
+              "parameters": {
+                "mode": "保留必要的运行限制",
+                "until": "复测通过"
+              },
+              "depends_on": [
+                "TEFV6-C0274-A03"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0274-E07"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0274-I03-cutoff_explanation",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-32",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "采集通道偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0274-E05",
+                "TEFV6-C0274-E06"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0274-A03",
+              "TEFV6-C0274-A04"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准流程",
+              "supporting_evidence_ids": [
+                "TEFV6-C0274-E07"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "14:30 时点仅可见临时诊断与临时工单；14:38 后离线复核记录上传，14:43 更正诊断，14:48 更新工单，14:52 确认替代，因此两个时点答案不同但各自合法。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0274-E02",
+                "TEFV6-C0274-E03",
+                "TEFV6-C0274-E04",
+                "TEFV6-C0274-E06",
+                "TEFV6-C0274-E07",
+                "TEFV6-C0274-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0274-E02",
+              "TEFV6-C0274-E03",
+              "TEFV6-C0274-E04",
+              "TEFV6-C0274-E05",
+              "TEFV6-C0274-E06",
+              "TEFV6-C0274-E07",
+              "TEFV6-C0274-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0274-A03",
+              "action_type": "verify",
+              "target": "R-32 温度采集链路",
+              "parameters": {
+                "performed_by": "合格人员",
+                "procedure": "批准流程"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0274-E07"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0274-A04",
+              "action_type": "monitor",
+              "target": "R-32 温度采集链路",
+              "parameters": {
+                "mode": "保留必要的运行限制",
+                "until": "复测通过"
+              },
+              "depends_on": [
+                "TEFV6-C0274-A03"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0274-E07"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0274-I01-status_before_cutoff",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-32",
+            "diagnosis": {
+              "status": "provisional",
+              "concept": "局部热异常待确认",
+              "supporting_evidence_ids": [
+                "TEFV6-C0274-E01",
+                "TEFV6-C0274-E02"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0274-A01",
+              "TEFV6-C0274-A02"
+            ],
+            "applicable_procedure": {
+              "status": "not_available",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "现场复核结果尚不可见，诊断仍为待确认状态。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0274-E02",
+                "TEFV6-C0274-E03"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0274-E01",
+              "TEFV6-C0274-E02",
+              "TEFV6-C0274-E03"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0274-A01",
+              "action_type": "monitor",
+              "target": "R-32 温度采集链路",
+              "parameters": {
+                "mode": "保守运行限制"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0274-E03"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0274-A02",
+              "action_type": "inspect",
+              "target": "R-32 温度采集链路",
+              "parameters": {
+                "purpose": "等待现场复核"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0274-E03"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0274-I02-status_after_cutoff",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-32",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "采集通道偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0274-E05",
+                "TEFV6-C0274-E06"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0274-A03",
+              "TEFV6-C0274-A04"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准流程",
+              "supporting_evidence_ids": [
+                "TEFV6-C0274-E07"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "需保留必要的运行限制直至复测通过。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0274-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0274-E04",
+              "TEFV6-C0274-E05",
+              "TEFV6-C0274-E06",
+              "TEFV6-C0274-E07",
+              "TEFV6-C0274-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0274-A03",
+              "action_type": "verify",
+              "target": "R-32 温度采集链路",
+              "parameters": {
+                "performed_by": "合格人员",
+                "procedure": "批准流程"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0274-E07"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0274-A04",
+              "action_type": "monitor",
+              "target": "R-32 温度采集链路",
+              "parameters": {
+                "mode": "保留必要的运行限制",
+                "until": "复测通过"
+              },
+              "depends_on": [
+                "TEFV6-C0274-A03"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0274-E07"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0274-I03-cutoff_explanation",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-32",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "采集通道偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0274-E05",
+                "TEFV6-C0274-E06"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0274-A03",
+              "TEFV6-C0274-A04"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准流程",
+              "supporting_evidence_ids": [
+                "TEFV6-C0274-E07"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "14:30 时点仅可见临时诊断与临时工单；14:38 后离线复核记录上传，14:43 更正诊断，14:48 更新工单，14:52 确认替代，因此两个时点答案不同但各自合法。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0274-E02",
+                "TEFV6-C0274-E03",
+                "TEFV6-C0274-E04",
+                "TEFV6-C0274-E06",
+                "TEFV6-C0274-E07",
+                "TEFV6-C0274-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0274-E02",
+              "TEFV6-C0274-E03",
+              "TEFV6-C0274-E04",
+              "TEFV6-C0274-E05",
+              "TEFV6-C0274-E06",
+              "TEFV6-C0274-E07",
+              "TEFV6-C0274-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0274-A03",
+              "action_type": "verify",
+              "target": "R-32 温度采集链路",
+              "parameters": {
+                "performed_by": "合格人员",
+                "procedure": "批准流程"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0274-E07"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0274-A04",
+              "action_type": "monitor",
+              "target": "R-32 温度采集链路",
+              "parameters": {
+                "mode": "保留必要的运行限制",
+                "until": "复测通过"
+              },
+              "depends_on": [
+                "TEFV6-C0274-A03"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0274-E07"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:35:17.356304"
+}

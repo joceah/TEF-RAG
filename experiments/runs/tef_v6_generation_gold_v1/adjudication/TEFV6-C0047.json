@@ -1,0 +1,259 @@
+{
+  "chain_id": "TEFV6-C0047",
+  "split": "development",
+  "status": "adjudicated",
+  "used_adjudication": true,
+  "structural_repairs": [],
+  "disagreement_intents": [
+    "TEFV6-C0047-I01-pre_arrival",
+    "TEFV6-C0047-I02-post_arrival",
+    "TEFV6-C0047-I03-arrival_effect"
+  ],
+  "disagreement_fields": {
+    "TEFV6-C0047-I01-pre_arrival": [
+      "action_plan"
+    ],
+    "TEFV6-C0047-I02-post_arrival": [
+      "work_order.diagnosis",
+      "work_order.applicable_procedure",
+      "work_order.verification_or_uncertainty",
+      "work_order.recommended_actions",
+      "action_plan"
+    ],
+    "TEFV6-C0047-I03-arrival_effect": [
+      "work_order.diagnosis",
+      "work_order.applicable_procedure",
+      "work_order.verification_or_uncertainty",
+      "work_order.recommended_actions",
+      "action_plan"
+    ]
+  },
+  "summary": {
+    "pass_a_pass_b_canonical_equal": false,
+    "disagreement_count": 3,
+    "disagreement_fields": {
+      "TEFV6-C0047-I01-pre_arrival": [
+        "action_plan"
+      ],
+      "TEFV6-C0047-I02-post_arrival": [
+        "work_order.diagnosis",
+        "work_order.applicable_procedure",
+        "work_order.verification_or_uncertainty",
+        "work_order.recommended_actions",
+        "action_plan"
+      ],
+      "TEFV6-C0047-I03-arrival_effect": [
+        "work_order.diagnosis",
+        "work_order.applicable_procedure",
+        "work_order.verification_or_uncertainty",
+        "work_order.recommended_actions",
+        "action_plan"
+      ]
+    }
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0047-I01-pre_arrival",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D21",
+            "diagnosis": {
+              "status": "provisional",
+              "concept": "长期运行波动（暂定解释，待现场复核）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0047-E01",
+                "TEFV6-C0047-E02",
+                "TEFV6-C0047-E03"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "现场离线记录尚未到达，暂定解释明确标注待复核，需等待现场核验结果。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0047-E02",
+                "TEFV6-C0047-E03",
+                "TEFV6-C0047-E04"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0047-E01",
+              "TEFV6-C0047-E02",
+              "TEFV6-C0047-E03",
+              "TEFV6-C0047-E04"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "C-D21号电池簇",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0047-E04"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "inspect",
+              "target": "C-D21号电池簇",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0047-E02",
+                "TEFV6-C0047-E04"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0047-I02-post_arrival",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D21",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "可定位的局部部件异常（关键接口附近持续性异常）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0047-E05",
+                "TEFV6-C0047-E06",
+                "TEFV6-C0047-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A3",
+              "A4"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（未提供具体版本号）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0047-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "更新工单要求处理已定位部件后完成复测，复测结果尚未产生。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0047-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0047-E05",
+              "TEFV6-C0047-E06",
+              "TEFV6-C0047-E07",
+              "TEFV6-C0047-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A3",
+              "action_type": "repair",
+              "target": "C-D21号电池簇关键接口附近已定位部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0047-E05",
+                "TEFV6-C0047-E07",
+                "TEFV6-C0047-E08"
+              ]
+            },
+            {
+              "action_id": "A4",
+              "action_type": "verify",
+              "target": "C-D21号电池簇已定位部件",
+              "parameters": {},
+              "depends_on": [
+                "A3"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0047-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0047-I03-arrival_effect",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D21",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "可定位的局部部件异常（关键接口附近持续性异常）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0047-E05",
+                "TEFV6-C0047-E06",
+                "TEFV6-C0047-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A3",
+              "A4"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（未提供具体版本号）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0047-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "晚到现场证据（event_time 13:25/13:31，available_at 13:58）进入系统后撤销原暂定解释，改为可定位的局部部件异常；更新工单要求处理并复测，复测结果尚未产生。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0047-E05",
+                "TEFV6-C0047-E06",
+                "TEFV6-C0047-E07",
+                "TEFV6-C0047-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0047-E05",
+              "TEFV6-C0047-E06",
+              "TEFV6-C0047-E07",
+              "TEFV6-C0047-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A3",
+              "action_type": "repair",
+              "target": "C-D21号电池簇关键接口附近已定位部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0047-E05",
+                "TEFV6-C0047-E07",
+                "TEFV6-C0047-E08"
+              ]
+            },
+            {
+              "action_id": "A4",
+              "action_type": "verify",
+              "target": "C-D21号电池簇已定位部件",
+              "parameters": {},
+              "depends_on": [
+                "A3"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0047-E08"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

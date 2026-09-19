@@ -1,0 +1,45 @@
+{
+  "chain_id": "TEFV6-C0126",
+  "split": "development",
+  "status": "REVIEW_UNRESOLVED",
+  "used_adjudication": true,
+  "structural_repairs": [],
+  "disagreement_intents": [
+    "TEFV6-C0126-I01-differentiate",
+    "TEFV6-C0126-I02-current_action",
+    "TEFV6-C0126-I03-history_role"
+  ],
+  "disagreement_fields": {
+    "TEFV6-C0126-I01-differentiate": [
+      "work_order.applicable_procedure",
+      "work_order.verification_or_uncertainty"
+    ],
+    "TEFV6-C0126-I02-current_action": [
+      "work_order.applicable_procedure",
+      "work_order.verification_or_uncertainty"
+    ],
+    "TEFV6-C0126-I03-history_role": [
+      "work_order.applicable_procedure",
+      "work_order.verification_or_uncertainty"
+    ]
+  },
+  "summary": {
+    "pass_a_pass_b_canonical_equal": false,
+    "disagreement_count": 3,
+    "disagreement_fields": {
+      "TEFV6-C0126-I01-differentiate": [
+        "work_order.applicable_procedure",
+        "work_order.verification_or_uncertainty"
+      ],
+      "TEFV6-C0126-I02-current_action": [
+        "work_order.applicable_procedure",
+        "work_order.verification_or_uncertainty"
+      ],
+      "TEFV6-C0126-I03-history_role": [
+        "work_order.applicable_procedure",
+        "work_order.verification_or_uncertainty"
+      ]
+    }
+  },
+  "result": null
+}

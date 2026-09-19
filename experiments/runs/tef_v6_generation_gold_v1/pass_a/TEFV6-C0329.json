@@ -1,0 +1,382 @@
+{
+  "chain_id": "TEFV6-C0329",
+  "split": "validation",
+  "pass": "A",
+  "status": "accepted",
+  "repair_used": false,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0329-I01-routine_status": [],
+    "TEFV6-C0329-I02-routine_basis": [],
+    "TEFV6-C0329-I03-routine_followup": []
+  },
+  "initial_result": {
+    "type": "json_object",
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0329-I01-routine_status",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-47",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "常规稳定状态，无足够证据支持故障升级",
+              "supporting_evidence_ids": [
+                "TEFV6-C0329-E01",
+                "TEFV6-C0329-E02",
+                "TEFV6-C0329-E03",
+                "TEFV6-C0329-E05"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0329-E04"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "工单保持例行监测和下次班次复核，不新增部件维修任务。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0329-E06"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0329-E01",
+              "TEFV6-C0329-E02",
+              "TEFV6-C0329-E03",
+              "TEFV6-C0329-E04",
+              "TEFV6-C0329-E05",
+              "TEFV6-C0329-E06"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "R-47 液冷机组",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0329-E04",
+                "TEFV6-C0329-E06"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "document",
+              "target": "R-47 液冷机组趋势记录",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0329-E04"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0329-I02-routine_basis",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-47",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "常规稳定状态，无足够证据支持故障升级",
+              "supporting_evidence_ids": [
+                "TEFV6-C0329-E01",
+                "TEFV6-C0329-E02",
+                "TEFV6-C0329-E03",
+                "TEFV6-C0329-E05"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0329-E04"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "not_available",
+              "statement": null,
+              "supporting_evidence_ids": []
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0329-E01",
+              "TEFV6-C0329-E02",
+              "TEFV6-C0329-E03",
+              "TEFV6-C0329-E04",
+              "TEFV6-C0329-E05"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0329-I03-routine_followup",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-47",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "常规稳定状态，无足够证据支持故障升级",
+              "supporting_evidence_ids": [
+                "TEFV6-C0329-E05"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0329-E04"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "交接记录确认例行监测安排已进入下一班次清单。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0329-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0329-E04",
+              "TEFV6-C0329-E05",
+              "TEFV6-C0329-E06",
+              "TEFV6-C0329-E07"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "R-47 液冷机组",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0329-E04",
+                "TEFV6-C0329-E06"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "document",
+              "target": "R-47 液冷机组趋势记录",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0329-E04"
+              ]
+            },
+            {
+              "action_id": "A3",
+              "action_type": "verify",
+              "target": "R-47 液冷机组下一班次复核",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0329-E06",
+                "TEFV6-C0329-E07"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "result": {
+    "type": "json_object",
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0329-I01-routine_status",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-47",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "常规稳定状态，无足够证据支持故障升级",
+              "supporting_evidence_ids": [
+                "TEFV6-C0329-E01",
+                "TEFV6-C0329-E02",
+                "TEFV6-C0329-E03",
+                "TEFV6-C0329-E05"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0329-E04"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "工单保持例行监测和下次班次复核，不新增部件维修任务。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0329-E06"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0329-E01",
+              "TEFV6-C0329-E02",
+              "TEFV6-C0329-E03",
+              "TEFV6-C0329-E04",
+              "TEFV6-C0329-E05",
+              "TEFV6-C0329-E06"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "R-47 液冷机组",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0329-E04",
+                "TEFV6-C0329-E06"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "document",
+              "target": "R-47 液冷机组趋势记录",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0329-E04"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0329-I02-routine_basis",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-47",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "常规稳定状态，无足够证据支持故障升级",
+              "supporting_evidence_ids": [
+                "TEFV6-C0329-E01",
+                "TEFV6-C0329-E02",
+                "TEFV6-C0329-E03",
+                "TEFV6-C0329-E05"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0329-E04"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "not_available",
+              "statement": null,
+              "supporting_evidence_ids": []
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0329-E01",
+              "TEFV6-C0329-E02",
+              "TEFV6-C0329-E03",
+              "TEFV6-C0329-E04",
+              "TEFV6-C0329-E05"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0329-I03-routine_followup",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-47",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "常规稳定状态，无足够证据支持故障升级",
+              "supporting_evidence_ids": [
+                "TEFV6-C0329-E05"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "V3",
+              "supporting_evidence_ids": [
+                "TEFV6-C0329-E04"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "交接记录确认例行监测安排已进入下一班次清单。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0329-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0329-E04",
+              "TEFV6-C0329-E05",
+              "TEFV6-C0329-E06",
+              "TEFV6-C0329-E07"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "R-47 液冷机组",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0329-E04",
+                "TEFV6-C0329-E06"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "document",
+              "target": "R-47 液冷机组趋势记录",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0329-E04"
+              ]
+            },
+            {
+              "action_id": "A3",
+              "action_type": "verify",
+              "target": "R-47 液冷机组下一班次复核",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0329-E06",
+                "TEFV6-C0329-E07"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:53:13.679665"
+}

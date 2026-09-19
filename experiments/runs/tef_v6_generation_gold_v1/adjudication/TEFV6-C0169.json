@@ -1,0 +1,237 @@
+{
+  "chain_id": "TEFV6-C0169",
+  "split": "development",
+  "status": "adjudicated",
+  "used_adjudication": true,
+  "structural_repairs": [],
+  "disagreement_intents": [
+    "TEFV6-C0169-I01-before_arrival",
+    "TEFV6-C0169-I03-temporal_change"
+  ],
+  "disagreement_fields": {
+    "TEFV6-C0169-I01-before_arrival": [
+      "work_order.applicable_procedure",
+      "work_order.verification_or_uncertainty"
+    ],
+    "TEFV6-C0169-I03-temporal_change": [
+      "work_order.diagnosis",
+      "work_order.verification_or_uncertainty"
+    ]
+  },
+  "summary": {
+    "pass_a_pass_b_canonical_equal": false,
+    "disagreement_count": 2,
+    "disagreement_fields": {
+      "TEFV6-C0169-I01-before_arrival": [
+        "work_order.applicable_procedure",
+        "work_order.verification_or_uncertainty"
+      ],
+      "TEFV6-C0169-I03-temporal_change": [
+        "work_order.diagnosis",
+        "work_order.verification_or_uncertainty"
+      ]
+    }
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0169-I01-before_arrival",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D27",
+            "diagnosis": {
+              "status": "provisional",
+              "concept": "外部通道轻度受阻（待现场复核）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0169-E01",
+                "TEFV6-C0169-E02"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": [
+                "TEFV6-C0169-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "初诊标记为待现场复核，现场检查记录尚未同步，结论未确认。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0169-E02",
+                "TEFV6-C0169-E03"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0169-E01",
+              "TEFV6-C0169-E02",
+              "TEFV6-C0169-E03"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "C-D27 液冷机组",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0169-E03"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "inspect",
+              "target": "C-D27 液冷机组外部通道",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0169-E02",
+                "TEFV6-C0169-E03"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0169-I02-after_supersession",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D27",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "驱动部件退化",
+              "supporting_evidence_ids": [
+                "TEFV6-C0169-E04",
+                "TEFV6-C0169-E05",
+                "TEFV6-C0169-E06"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP",
+              "supporting_evidence_ids": [
+                "TEFV6-C0169-E07"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "交接记录确认新工单已替代临时工单。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0169-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0169-E04",
+              "TEFV6-C0169-E05",
+              "TEFV6-C0169-E06",
+              "TEFV6-C0169-E07",
+              "TEFV6-C0169-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "C-D27 液冷机组驱动部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0169-E07"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-D27 液冷机组驱动部件",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0169-E07"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0169-I03-temporal_change",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D27",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "驱动部件退化（取代初诊外部通道轻度受阻）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0169-E04",
+                "TEFV6-C0169-E05",
+                "TEFV6-C0169-E06"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP",
+              "supporting_evidence_ids": [
+                "TEFV6-C0169-E07"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "晚到证据（现场检查与独立测量）在稍后同步后触发初诊被取代，交接记录确认新工单已替代临时工单。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0169-E04",
+                "TEFV6-C0169-E05",
+                "TEFV6-C0169-E06",
+                "TEFV6-C0169-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0169-E04",
+              "TEFV6-C0169-E05",
+              "TEFV6-C0169-E06",
+              "TEFV6-C0169-E07",
+              "TEFV6-C0169-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "C-D27 液冷机组驱动部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0169-E07"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-D27 液冷机组驱动部件",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0169-E07"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

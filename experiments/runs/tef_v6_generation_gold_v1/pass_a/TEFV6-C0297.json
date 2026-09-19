@@ -1,0 +1,356 @@
+{
+  "chain_id": "TEFV6-C0297",
+  "split": "development",
+  "pass": "A",
+  "status": "REVIEW_UNRESOLVED",
+  "repair_used": true,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0297-I01-current_cause_action": [],
+    "TEFV6-C0297-I02-episode_compare": [
+      "top citation union"
+    ],
+    "TEFV6-C0297-I03-decision_boundary": [
+      "top citation union"
+    ]
+  },
+  "initial_result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0297-I01-current_cause_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-16",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "冷却通道受阻（回风格栅局部被异物遮挡导致风道压差升高、风量下降），非上次的采集通道偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0297-E05",
+                "TEFV6-C0297-E06",
+                "TEFV6-C0297-E07",
+                "TEFV6-C0297-E08"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（处理风道阻塞并复测温差）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0297-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "需按批准SOP处理风道阻塞后复测温差以确认处置效果",
+              "supporting_evidence_ids": [
+                "TEFV6-C0297-E09"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0297-E05",
+              "TEFV6-C0297-E06",
+              "TEFV6-C0297-E07",
+              "TEFV6-C0297-E08",
+              "TEFV6-C0297-E09"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "R-16号电池簇回风格栅/冷却风道",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0297-E06",
+                "TEFV6-C0297-E07",
+                "TEFV6-C0297-E08",
+                "TEFV6-C0297-E09"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "R-16号电池簇温差",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0297-E09"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0297-I02-episode_compare",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-16",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "两次温升原因不同：上次为温度采集通道偏移（未认定电芯本体热异常），本次为冷却通道受阻",
+              "supporting_evidence_ids": [
+                "TEFV6-C0297-E01",
+                "TEFV6-C0297-E02",
+                "TEFV6-C0297-E03",
+                "TEFV6-C0297-E05",
+                "TEFV6-C0297-E06",
+                "TEFV6-C0297-E07",
+                "TEFV6-C0297-E08"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "not_applicable",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "关键区分证据：上次为单通道短时跳高且邻近通道无同步变化、现场无热点、结论为采集通道偏移；本次为相邻四测点同步持续温升、风道压差升高与风量下降、回风格栅被异物遮挡且对调通道后温升位置不随通道移动，结论为冷却通道受阻",
+              "supporting_evidence_ids": [
+                "TEFV6-C0297-E01",
+                "TEFV6-C0297-E02",
+                "TEFV6-C0297-E03",
+                "TEFV6-C0297-E05",
+                "TEFV6-C0297-E06",
+                "TEFV6-C0297-E07",
+                "TEFV6-C0297-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0297-E01",
+              "TEFV6-C0297-E02",
+              "TEFV6-C0297-E03",
+              "TEFV6-C0297-E04",
+              "TEFV6-C0297-E05",
+              "TEFV6-C0297-E06",
+              "TEFV6-C0297-E07",
+              "TEFV6-C0297-E08"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0297-I03-decision_boundary",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-16",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次温升由冷却通道受阻引起，与上次采集通道偏移属不同原因，不能仅凭表面温升复用旧工单",
+              "supporting_evidence_ids": [
+                "TEFV6-C0297-E05",
+                "TEFV6-C0297-E06",
+                "TEFV6-C0297-E07",
+                "TEFV6-C0297-E08"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "not_applicable",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "拒绝套用历史处置所需当前证据：相邻四测点同步持续温升（E05）、风道压差升高与风量下降（E06）、回风格栅被异物遮挡且对调通道后温升位置不随通道移动（E07）、综合判断为冷却通道受阻且不沿用上次结论（E08）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0297-E05",
+                "TEFV6-C0297-E06",
+                "TEFV6-C0297-E07",
+                "TEFV6-C0297-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0297-E01",
+              "TEFV6-C0297-E02",
+              "TEFV6-C0297-E03",
+              "TEFV6-C0297-E05",
+              "TEFV6-C0297-E06",
+              "TEFV6-C0297-E07",
+              "TEFV6-C0297-E08"
+            ]
+          },
+          "action_plan": []
+        }
+      }
+    ]
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0297-I01-current_cause_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-16",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "冷却通道受阻（回风格栅局部被异物遮挡导致风道压差升高、风量下降），非上次的采集通道偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0297-E05",
+                "TEFV6-C0297-E06",
+                "TEFV6-C0297-E07",
+                "TEFV6-C0297-E08"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（处理风道阻塞并复测温差）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0297-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "需按批准SOP处理风道阻塞后复测温差以确认处置效果",
+              "supporting_evidence_ids": [
+                "TEFV6-C0297-E09"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0297-E05",
+              "TEFV6-C0297-E06",
+              "TEFV6-C0297-E07",
+              "TEFV6-C0297-E08",
+              "TEFV6-C0297-E09"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "R-16号电池簇回风格栅/冷却风道",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0297-E06",
+                "TEFV6-C0297-E07",
+                "TEFV6-C0297-E08",
+                "TEFV6-C0297-E09"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "R-16号电池簇温差",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0297-E09"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0297-I02-episode_compare",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-16",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "两次温升原因不同：上次为温度采集通道偏移（未认定电芯本体热异常），本次为冷却通道受阻",
+              "supporting_evidence_ids": [
+                "TEFV6-C0297-E01",
+                "TEFV6-C0297-E02",
+                "TEFV6-C0297-E03",
+                "TEFV6-C0297-E05",
+                "TEFV6-C0297-E06",
+                "TEFV6-C0297-E07",
+                "TEFV6-C0297-E08"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "not_applicable",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "关键区分证据：上次为单通道短时跳高且邻近通道无同步变化、现场无热点、结论为采集通道偏移；本次为相邻四测点同步持续温升、风道压差升高与风量下降、回风格栅被异物遮挡且对调通道后温升位置不随通道移动，结论为冷却通道受阻",
+              "supporting_evidence_ids": [
+                "TEFV6-C0297-E01",
+                "TEFV6-C0297-E02",
+                "TEFV6-C0297-E03",
+                "TEFV6-C0297-E05",
+                "TEFV6-C0297-E06",
+                "TEFV6-C0297-E07",
+                "TEFV6-C0297-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0297-E01",
+              "TEFV6-C0297-E02",
+              "TEFV6-C0297-E03",
+              "TEFV6-C0297-E04",
+              "TEFV6-C0297-E05",
+              "TEFV6-C0297-E06",
+              "TEFV6-C0297-E07",
+              "TEFV6-C0297-E08"
+            ]
+          },
+          "action_plan": []
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0297-I03-decision_boundary",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-16",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次温升由冷却通道受阻引起，与上次采集通道偏移属不同原因，不能仅凭表面温升复用旧工单",
+              "supporting_evidence_ids": [
+                "TEFV6-C0297-E05",
+                "TEFV6-C0297-E06",
+                "TEFV6-C0297-E07",
+                "TEFV6-C0297-E08"
+              ]
+            },
+            "recommended_actions": [],
+            "applicable_procedure": {
+              "status": "not_applicable",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "拒绝套用历史处置所需当前证据：相邻四测点同步持续温升（E05）、风道压差升高与风量下降（E06）、回风格栅被异物遮挡且对调通道后温升位置不随通道移动（E07）、综合判断为冷却通道受阻且不沿用上次结论（E08）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0297-E05",
+                "TEFV6-C0297-E06",
+                "TEFV6-C0297-E07",
+                "TEFV6-C0297-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0297-E01",
+              "TEFV6-C0297-E02",
+              "TEFV6-C0297-E03",
+              "TEFV6-C0297-E05",
+              "TEFV6-C0297-E06",
+              "TEFV6-C0297-E07",
+              "TEFV6-C0297-E08"
+            ]
+          },
+          "action_plan": []
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:14:43.223682"
+}

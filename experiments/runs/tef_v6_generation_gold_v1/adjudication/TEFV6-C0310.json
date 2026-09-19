@@ -1,0 +1,45 @@
+{
+  "chain_id": "TEFV6-C0310",
+  "split": "development",
+  "status": "REVIEW_UNRESOLVED",
+  "used_adjudication": true,
+  "structural_repairs": [],
+  "disagreement_intents": [
+    "TEFV6-C0310-I01-before_arrival",
+    "TEFV6-C0310-I02-after_supersession",
+    "TEFV6-C0310-I03-temporal_change"
+  ],
+  "disagreement_fields": {
+    "TEFV6-C0310-I01-before_arrival": [
+      "work_order.diagnosis",
+      "work_order.verification_or_uncertainty",
+      "action_plan"
+    ],
+    "TEFV6-C0310-I02-after_supersession": [
+      "action_plan"
+    ],
+    "TEFV6-C0310-I03-temporal_change": [
+      "work_order.verification_or_uncertainty",
+      "action_plan"
+    ]
+  },
+  "summary": {
+    "pass_a_pass_b_canonical_equal": false,
+    "disagreement_count": 3,
+    "disagreement_fields": {
+      "TEFV6-C0310-I01-before_arrival": [
+        "work_order.diagnosis",
+        "work_order.verification_or_uncertainty",
+        "action_plan"
+      ],
+      "TEFV6-C0310-I02-after_supersession": [
+        "action_plan"
+      ],
+      "TEFV6-C0310-I03-temporal_change": [
+        "work_order.verification_or_uncertainty",
+        "action_plan"
+      ]
+    }
+  },
+  "result": null
+}

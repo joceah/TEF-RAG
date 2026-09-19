@@ -1,0 +1,428 @@
+{
+  "chain_id": "TEFV6-C0052",
+  "split": "development",
+  "pass": "A",
+  "status": "REVIEW_UNRESOLVED",
+  "repair_used": true,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0052-I01-pre_arrival": [
+      "procedure status/value"
+    ],
+    "TEFV6-C0052-I02-post_arrival": [],
+    "TEFV6-C0052-I03-arrival_effect": []
+  },
+  "initial_result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0052-I01-pre_arrival",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D26",
+            "diagnosis": {
+              "status": "provisional",
+              "concept": "长期运行波动（暂定解释，待现场复核）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0052-E01",
+                "TEFV6-C0052-E02",
+                "TEFV6-C0052-E03"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0052-I01-A01",
+              "TEFV6-C0052-I01-A02"
+            ],
+            "applicable_procedure": {
+              "status": "not_available",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "现场离线记录尚未到达，暂定解释明确标注待复核，需等待现场核验结果。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0052-E02",
+                "TEFV6-C0052-E03",
+                "TEFV6-C0052-E04"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0052-E01",
+              "TEFV6-C0052-E02",
+              "TEFV6-C0052-E03",
+              "TEFV6-C0052-E04"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0052-I01-A01",
+              "action_type": "monitor",
+              "target": "C-D26 液冷机组关键指标",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0052-E01",
+                "TEFV6-C0052-E04"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0052-I01-A02",
+              "action_type": "inspect",
+              "target": "C-D26 液冷机组现场",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0052-E02",
+                "TEFV6-C0052-E04"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0052-I02-post_arrival",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D26",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "可定位的局部部件异常（关键接口附近）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0052-E05",
+                "TEFV6-C0052-E06",
+                "TEFV6-C0052-E07"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0052-I02-A01",
+              "TEFV6-C0052-I02-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（按更新工单要求）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0052-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "更新工单要求处理已定位部件后完成复测，复测尚未完成。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0052-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0052-E05",
+              "TEFV6-C0052-E06",
+              "TEFV6-C0052-E07",
+              "TEFV6-C0052-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0052-I02-A01",
+              "action_type": "repair",
+              "target": "C-D26 液冷机组已定位局部部件（关键接口附近）",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0052-E05",
+                "TEFV6-C0052-E07",
+                "TEFV6-C0052-E08"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0052-I02-A02",
+              "action_type": "verify",
+              "target": "C-D26 液冷机组已处理部件",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0052-I02-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0052-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0052-I03-arrival_effect",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D26",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "可定位的局部部件异常（关键接口附近），原“长期运行波动”暂定解释被撤销",
+              "supporting_evidence_ids": [
+                "TEFV6-C0052-E05",
+                "TEFV6-C0052-E06",
+                "TEFV6-C0052-E07"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0052-I03-A01",
+              "TEFV6-C0052-I03-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（按更新工单要求）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0052-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "晚到现场证据（event_time 12:25/12:31，available_at 12:58）进入系统后撤销原暂定解释；更新工单要求处理已定位部件并完成复测，复测尚未完成。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0052-E05",
+                "TEFV6-C0052-E06",
+                "TEFV6-C0052-E07",
+                "TEFV6-C0052-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0052-E05",
+              "TEFV6-C0052-E06",
+              "TEFV6-C0052-E07",
+              "TEFV6-C0052-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0052-I03-A01",
+              "action_type": "repair",
+              "target": "C-D26 液冷机组已定位局部部件（关键接口附近）",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0052-E05",
+                "TEFV6-C0052-E07",
+                "TEFV6-C0052-E08"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0052-I03-A02",
+              "action_type": "verify",
+              "target": "C-D26 液冷机组已处理部件",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0052-I03-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0052-E08"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0052-I01-pre_arrival",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D26",
+            "diagnosis": {
+              "status": "provisional",
+              "concept": "长期运行波动（暂定解释，待现场复核）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0052-E01",
+                "TEFV6-C0052-E02",
+                "TEFV6-C0052-E03"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0052-I01-A01",
+              "TEFV6-C0052-I01-A02"
+            ],
+            "applicable_procedure": {
+              "status": "not_available",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "现场离线记录尚未到达，暂定解释明确标注待复核，需等待现场核验结果。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0052-E02",
+                "TEFV6-C0052-E03",
+                "TEFV6-C0052-E04"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0052-E01",
+              "TEFV6-C0052-E02",
+              "TEFV6-C0052-E03",
+              "TEFV6-C0052-E04"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0052-I01-A01",
+              "action_type": "monitor",
+              "target": "C-D26 液冷机组关键指标",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0052-E01",
+                "TEFV6-C0052-E04"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0052-I01-A02",
+              "action_type": "inspect",
+              "target": "C-D26 液冷机组现场",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0052-E02",
+                "TEFV6-C0052-E04"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0052-I02-post_arrival",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D26",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "可定位的局部部件异常（关键接口附近）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0052-E05",
+                "TEFV6-C0052-E06",
+                "TEFV6-C0052-E07"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0052-I02-A01",
+              "TEFV6-C0052-I02-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（按更新工单要求）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0052-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "更新工单要求处理已定位部件后完成复测，复测尚未完成。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0052-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0052-E05",
+              "TEFV6-C0052-E06",
+              "TEFV6-C0052-E07",
+              "TEFV6-C0052-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0052-I02-A01",
+              "action_type": "repair",
+              "target": "C-D26 液冷机组已定位局部部件（关键接口附近）",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0052-E05",
+                "TEFV6-C0052-E07",
+                "TEFV6-C0052-E08"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0052-I02-A02",
+              "action_type": "verify",
+              "target": "C-D26 液冷机组已处理部件",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0052-I02-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0052-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0052-I03-arrival_effect",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D26",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "可定位的局部部件异常（关键接口附近），原“长期运行波动”暂定解释被撤销",
+              "supporting_evidence_ids": [
+                "TEFV6-C0052-E05",
+                "TEFV6-C0052-E06",
+                "TEFV6-C0052-E07"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0052-I03-A01",
+              "TEFV6-C0052-I03-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（按更新工单要求）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0052-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "晚到现场证据（event_time 12:25/12:31，available_at 12:58）进入系统后撤销原暂定解释；更新工单要求处理已定位部件并完成复测，复测尚未完成。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0052-E05",
+                "TEFV6-C0052-E06",
+                "TEFV6-C0052-E07",
+                "TEFV6-C0052-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0052-E05",
+              "TEFV6-C0052-E06",
+              "TEFV6-C0052-E07",
+              "TEFV6-C0052-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0052-I03-A01",
+              "action_type": "repair",
+              "target": "C-D26 液冷机组已定位局部部件（关键接口附近）",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0052-E05",
+                "TEFV6-C0052-E07",
+                "TEFV6-C0052-E08"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0052-I03-A02",
+              "action_type": "verify",
+              "target": "C-D26 液冷机组已处理部件",
+              "parameters": {},
+              "depends_on": [
+                "TEFV6-C0052-I03-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0052-E08"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:12:37.512516"
+}

@@ -1,0 +1,451 @@
+{
+  "chain_id": "TEFV6-C0306",
+  "split": "development",
+  "pass": "A",
+  "status": "REVIEW_UNRESOLVED",
+  "repair_used": true,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0306-I01-before_arrival": [],
+    "TEFV6-C0306-I02-after_supersession": [],
+    "TEFV6-C0306-I03-temporal_change": [
+      "top citation union"
+    ]
+  },
+  "initial_result": {
+    "type": "json_object",
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0306-I01-before_arrival",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-28",
+            "diagnosis": {
+              "status": "provisional",
+              "concept": "外部通道轻度受阻（待现场复核）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E01",
+                "TEFV6-C0306-E02"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0306-I01-A01",
+              "TEFV6-C0306-I01-A02"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "初诊标记为待现场复核，现场记录尚未同步，结论未确认。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E02",
+                "TEFV6-C0306-E03"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0306-E01",
+              "TEFV6-C0306-E02",
+              "TEFV6-C0306-E03"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0306-I01-A01",
+              "action_type": "monitor",
+              "target": "R-28 电池舱通风单元",
+              "parameters": {
+                "mode": "保守运行"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E03"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0306-I01-A02",
+              "action_type": "inspect",
+              "target": "R-28 电池舱通风单元外部通道",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E02",
+                "TEFV6-C0306-E03"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0306-I02-after_supersession",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-28",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "驱动部件退化",
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E04",
+                "TEFV6-C0306-E05",
+                "TEFV6-C0306-E06"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0306-I02-A01",
+              "TEFV6-C0306-I02-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP",
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E07"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "交接记录确认新工单已替代临时工单。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0306-E04",
+              "TEFV6-C0306-E05",
+              "TEFV6-C0306-E06",
+              "TEFV6-C0306-E07",
+              "TEFV6-C0306-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0306-I02-A01",
+              "action_type": "repair",
+              "target": "R-28 电池舱通风单元驱动部件",
+              "parameters": {
+                "procedure": "批准SOP",
+                "personnel": "合格人员"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E07"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0306-I02-A02",
+              "action_type": "verify",
+              "target": "R-28 电池舱通风单元驱动部件",
+              "parameters": {
+                "method": "复测"
+              },
+              "depends_on": [
+                "TEFV6-C0306-I02-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E07"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0306-I03-temporal_change",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-28",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "驱动部件退化（晚到证据同步后取代初诊的外部通道轻度受阻）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E04",
+                "TEFV6-C0306-E05",
+                "TEFV6-C0306-E06"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0306-I03-A01",
+              "TEFV6-C0306-I03-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP",
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E07"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "晚到证据（现场检查与独立测量）在14:45同步后触发诊断覆盖，交接记录确认新工单已替代临时工单。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E04",
+                "TEFV6-C0306-E05",
+                "TEFV6-C0306-E06",
+                "TEFV6-C0306-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0306-E01",
+              "TEFV6-C0306-E02",
+              "TEFV6-C0306-E03",
+              "TEFV6-C0306-E04",
+              "TEFV6-C0306-E05",
+              "TEFV6-C0306-E06",
+              "TEFV6-C0306-E07",
+              "TEFV6-C0306-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0306-I03-A01",
+              "action_type": "repair",
+              "target": "R-28 电池舱通风单元驱动部件",
+              "parameters": {
+                "procedure": "批准SOP",
+                "personnel": "合格人员"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E07"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0306-I03-A02",
+              "action_type": "verify",
+              "target": "R-28 电池舱通风单元驱动部件",
+              "parameters": {
+                "method": "复测"
+              },
+              "depends_on": [
+                "TEFV6-C0306-I03-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E07"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0306-I01-before_arrival",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-28",
+            "diagnosis": {
+              "status": "provisional",
+              "concept": "外部通道轻度受阻（待现场复核）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E01",
+                "TEFV6-C0306-E02"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0306-I01-A01",
+              "TEFV6-C0306-I01-A02"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "初诊标记为待现场复核，现场记录尚未同步，结论未确认。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E02",
+                "TEFV6-C0306-E03"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0306-E01",
+              "TEFV6-C0306-E02",
+              "TEFV6-C0306-E03"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0306-I01-A01",
+              "action_type": "monitor",
+              "target": "R-28 电池舱通风单元",
+              "parameters": {
+                "mode": "保守运行"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E03"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0306-I01-A02",
+              "action_type": "inspect",
+              "target": "R-28 电池舱通风单元外部通道",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E02",
+                "TEFV6-C0306-E03"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0306-I02-after_supersession",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-28",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "驱动部件退化",
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E04",
+                "TEFV6-C0306-E05",
+                "TEFV6-C0306-E06"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0306-I02-A01",
+              "TEFV6-C0306-I02-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP",
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E07"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "交接记录确认新工单已替代临时工单。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0306-E04",
+              "TEFV6-C0306-E05",
+              "TEFV6-C0306-E06",
+              "TEFV6-C0306-E07",
+              "TEFV6-C0306-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0306-I02-A01",
+              "action_type": "repair",
+              "target": "R-28 电池舱通风单元驱动部件",
+              "parameters": {
+                "procedure": "批准SOP",
+                "personnel": "合格人员"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E07"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0306-I02-A02",
+              "action_type": "verify",
+              "target": "R-28 电池舱通风单元驱动部件",
+              "parameters": {
+                "method": "复测"
+              },
+              "depends_on": [
+                "TEFV6-C0306-I02-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E07"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0306-I03-temporal_change",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-28",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "驱动部件退化（晚到证据同步后取代初诊的外部通道轻度受阻）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E04",
+                "TEFV6-C0306-E05",
+                "TEFV6-C0306-E06"
+              ]
+            },
+            "recommended_actions": [
+              "TEFV6-C0306-I03-A01",
+              "TEFV6-C0306-I03-A02"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP",
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E07"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "verified",
+              "statement": "晚到证据（现场检查与独立测量）在14:45同步后触发诊断覆盖，交接记录确认新工单已替代临时工单。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E04",
+                "TEFV6-C0306-E05",
+                "TEFV6-C0306-E06",
+                "TEFV6-C0306-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0306-E01",
+              "TEFV6-C0306-E02",
+              "TEFV6-C0306-E03",
+              "TEFV6-C0306-E04",
+              "TEFV6-C0306-E05",
+              "TEFV6-C0306-E06",
+              "TEFV6-C0306-E07",
+              "TEFV6-C0306-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "TEFV6-C0306-I03-A01",
+              "action_type": "repair",
+              "target": "R-28 电池舱通风单元驱动部件",
+              "parameters": {
+                "procedure": "批准SOP",
+                "personnel": "合格人员"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E07"
+              ]
+            },
+            {
+              "action_id": "TEFV6-C0306-I03-A02",
+              "action_type": "verify",
+              "target": "R-28 电池舱通风单元驱动部件",
+              "parameters": {
+                "method": "复测"
+              },
+              "depends_on": [
+                "TEFV6-C0306-I03-A01"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0306-E07"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T01:15:44.776895"
+}

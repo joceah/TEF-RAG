@@ -1,0 +1,284 @@
+{
+  "chain_id": "TEFV6-C0273",
+  "split": "development",
+  "status": "adjudicated",
+  "used_adjudication": true,
+  "structural_repairs": [],
+  "disagreement_intents": [
+    "TEFV6-C0273-I01-current_cause_action",
+    "TEFV6-C0273-I02-episode_compare",
+    "TEFV6-C0273-I03-decision_boundary"
+  ],
+  "disagreement_fields": {
+    "TEFV6-C0273-I01-current_cause_action": [
+      "work_order.diagnosis",
+      "work_order.applicable_procedure",
+      "work_order.verification_or_uncertainty",
+      "work_order.supporting_evidence_ids",
+      "action_plan"
+    ],
+    "TEFV6-C0273-I02-episode_compare": [
+      "work_order.diagnosis",
+      "work_order.applicable_procedure",
+      "work_order.verification_or_uncertainty",
+      "work_order.recommended_actions",
+      "work_order.supporting_evidence_ids",
+      "action_plan"
+    ],
+    "TEFV6-C0273-I03-decision_boundary": [
+      "work_order.diagnosis",
+      "work_order.applicable_procedure",
+      "work_order.verification_or_uncertainty",
+      "work_order.recommended_actions",
+      "work_order.supporting_evidence_ids",
+      "action_plan"
+    ]
+  },
+  "summary": {
+    "pass_a_pass_b_canonical_equal": false,
+    "disagreement_count": 3,
+    "disagreement_fields": {
+      "TEFV6-C0273-I01-current_cause_action": [
+        "work_order.diagnosis",
+        "work_order.applicable_procedure",
+        "work_order.verification_or_uncertainty",
+        "work_order.supporting_evidence_ids",
+        "action_plan"
+      ],
+      "TEFV6-C0273-I02-episode_compare": [
+        "work_order.diagnosis",
+        "work_order.applicable_procedure",
+        "work_order.verification_or_uncertainty",
+        "work_order.recommended_actions",
+        "work_order.supporting_evidence_ids",
+        "action_plan"
+      ],
+      "TEFV6-C0273-I03-decision_boundary": [
+        "work_order.diagnosis",
+        "work_order.applicable_procedure",
+        "work_order.verification_or_uncertainty",
+        "work_order.recommended_actions",
+        "work_order.supporting_evidence_ids",
+        "action_plan"
+      ]
+    }
+  },
+  "result": {
+    "type": "json_object",
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0273-I01-current_cause_action",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-24",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "冷却通道受阻（回风格栅局部被异物遮挡导致风道压差升高、风量下降），非上次的采集通道偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0273-E05",
+                "TEFV6-C0273-E06",
+                "TEFV6-C0273-E07",
+                "TEFV6-C0273-E08"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（风道阻塞处理并复测温差）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0273-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "需按批准SOP处理风道阻塞后复测温差以验证处置效果",
+              "supporting_evidence_ids": [
+                "TEFV6-C0273-E09"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0273-E05",
+              "TEFV6-C0273-E06",
+              "TEFV6-C0273-E07",
+              "TEFV6-C0273-E08",
+              "TEFV6-C0273-E09"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "R-24号电池簇回风格栅/冷却风道",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0273-E07",
+                "TEFV6-C0273-E08",
+                "TEFV6-C0273-E09"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "R-24号电池簇温差",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0273-E09"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0273-I02-episode_compare",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-24",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "两次温升原因不同：上次为温度采集通道偏移（未认定电芯本体热异常），本次为冷却通道受阻",
+              "supporting_evidence_ids": [
+                "TEFV6-C0273-E01",
+                "TEFV6-C0273-E02",
+                "TEFV6-C0273-E03",
+                "TEFV6-C0273-E05",
+                "TEFV6-C0273-E06",
+                "TEFV6-C0273-E07",
+                "TEFV6-C0273-E08"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（风道阻塞处理并复测温差）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0273-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "需按批准SOP处理风道阻塞后复测温差以验证处置效果",
+              "supporting_evidence_ids": [
+                "TEFV6-C0273-E09"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0273-E01",
+              "TEFV6-C0273-E02",
+              "TEFV6-C0273-E03",
+              "TEFV6-C0273-E05",
+              "TEFV6-C0273-E06",
+              "TEFV6-C0273-E07",
+              "TEFV6-C0273-E08",
+              "TEFV6-C0273-E09"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "R-24号电池簇回风格栅/冷却风道",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0273-E07",
+                "TEFV6-C0273-E08",
+                "TEFV6-C0273-E09"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "R-24号电池簇温差",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0273-E09"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0273-I03-decision_boundary",
+        "gold": {
+          "work_order": {
+            "asset_id": "R-24",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "本次温升为冷却通道受阻，与上次采集通道偏移不同，不能仅凭表面温升复用旧工单",
+              "supporting_evidence_ids": [
+                "TEFV6-C0273-E05",
+                "TEFV6-C0273-E06",
+                "TEFV6-C0273-E07",
+                "TEFV6-C0273-E08"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（风道阻塞处理并复测温差）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0273-E09"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "需按批准SOP处理风道阻塞后复测温差以验证处置效果",
+              "supporting_evidence_ids": [
+                "TEFV6-C0273-E09"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0273-E05",
+              "TEFV6-C0273-E06",
+              "TEFV6-C0273-E07",
+              "TEFV6-C0273-E08",
+              "TEFV6-C0273-E09"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "R-24号电池簇回风格栅/冷却风道",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0273-E07",
+                "TEFV6-C0273-E08",
+                "TEFV6-C0273-E09"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "R-24号电池簇温差",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0273-E09"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,261 @@
+{
+  "chain_id": "TEFV6-C0050",
+  "split": "development",
+  "status": "adjudicated",
+  "used_adjudication": true,
+  "structural_repairs": [],
+  "disagreement_intents": [
+    "TEFV6-C0050-I01-pre_arrival",
+    "TEFV6-C0050-I02-post_arrival",
+    "TEFV6-C0050-I03-arrival_effect"
+  ],
+  "disagreement_fields": {
+    "TEFV6-C0050-I01-pre_arrival": [
+      "work_order.verification_or_uncertainty",
+      "work_order.supporting_evidence_ids",
+      "action_plan"
+    ],
+    "TEFV6-C0050-I02-post_arrival": [
+      "work_order.applicable_procedure",
+      "work_order.verification_or_uncertainty",
+      "work_order.recommended_actions",
+      "action_plan"
+    ],
+    "TEFV6-C0050-I03-arrival_effect": [
+      "work_order.diagnosis",
+      "work_order.applicable_procedure",
+      "work_order.verification_or_uncertainty",
+      "work_order.recommended_actions",
+      "action_plan"
+    ]
+  },
+  "summary": {
+    "pass_a_pass_b_canonical_equal": false,
+    "disagreement_count": 3,
+    "disagreement_fields": {
+      "TEFV6-C0050-I01-pre_arrival": [
+        "work_order.verification_or_uncertainty",
+        "work_order.supporting_evidence_ids",
+        "action_plan"
+      ],
+      "TEFV6-C0050-I02-post_arrival": [
+        "work_order.applicable_procedure",
+        "work_order.verification_or_uncertainty",
+        "work_order.recommended_actions",
+        "action_plan"
+      ],
+      "TEFV6-C0050-I03-arrival_effect": [
+        "work_order.diagnosis",
+        "work_order.applicable_procedure",
+        "work_order.verification_or_uncertainty",
+        "work_order.recommended_actions",
+        "action_plan"
+      ]
+    }
+  },
+  "result": {
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0050-I01-pre_arrival",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D24",
+            "diagnosis": {
+              "status": "provisional",
+              "concept": "长期运行波动（暂定解释，待现场证据复核）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0050-E01",
+                "TEFV6-C0050-E02",
+                "TEFV6-C0050-E03"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": []
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "现场离线记录尚未同步，暂定解释待复核；临时工单仅安排加强监测和现场复核，不做原因特异性维修处置。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0050-E03",
+                "TEFV6-C0050-E04",
+                "TEFV6-C0050-E10"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0050-E01",
+              "TEFV6-C0050-E02",
+              "TEFV6-C0050-E03",
+              "TEFV6-C0050-E04",
+              "TEFV6-C0050-E10"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "C-D24 母排连接点",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0050-E04",
+                "TEFV6-C0050-E10"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "inspect",
+              "target": "C-D24 母排连接点",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0050-E02",
+                "TEFV6-C0050-E04"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0050-I02-post_arrival",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D24",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "可定位的局部部件异常（关键接口附近持续性异常迹象）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0050-E05",
+                "TEFV6-C0050-E06",
+                "TEFV6-C0050-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（更新工单指定）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0050-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "更新工单要求由合格人员按批准SOP处理已定位部件并完成复测；原仅监测工单不再作为最终处置。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0050-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0050-E05",
+              "TEFV6-C0050-E06",
+              "TEFV6-C0050-E07",
+              "TEFV6-C0050-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "C-D24 母排连接点已定位部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0050-E07",
+                "TEFV6-C0050-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-D24 母排连接点",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0050-E08"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0050-I03-arrival_effect",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D24",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "可定位的局部部件异常（晚到现场证据到达后修正原暂定解释）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0050-E05",
+                "TEFV6-C0050-E06",
+                "TEFV6-C0050-E07"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "批准SOP（更新工单指定）",
+              "supporting_evidence_ids": [
+                "TEFV6-C0050-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "E05/E06 的 event_time 早于 available_at，离线包同步后触发 E07 撤销原暂定解释并更新工单，因此必须同时考虑 event_time 与 available_at。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0050-E05",
+                "TEFV6-C0050-E06",
+                "TEFV6-C0050-E07",
+                "TEFV6-C0050-E08"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0050-E05",
+              "TEFV6-C0050-E06",
+              "TEFV6-C0050-E07",
+              "TEFV6-C0050-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "repair",
+              "target": "C-D24 母排连接点已定位部件",
+              "parameters": {},
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0050-E07",
+                "TEFV6-C0050-E08"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "verify",
+              "target": "C-D24 母排连接点",
+              "parameters": {},
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0050-E08"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

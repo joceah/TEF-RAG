@@ -1,0 +1,422 @@
+{
+  "chain_id": "TEFV6-C0027",
+  "split": "development",
+  "pass": "A",
+  "status": "accepted",
+  "repair_used": false,
+  "structural_repairs": [],
+  "errors": {
+    "TEFV6-C0027-I01-status_before_cutoff": [],
+    "TEFV6-C0027-I02-status_after_cutoff": [],
+    "TEFV6-C0027-I03-cutoff_explanation": []
+  },
+  "initial_result": {
+    "type": "json_object",
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0027-I01-status_before_cutoff",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D14",
+            "diagnosis": {
+              "status": "provisional",
+              "concept": "局部热异常待确认",
+              "supporting_evidence_ids": [
+                "TEFV6-C0027-E01",
+                "TEFV6-C0027-E02"
+              ]
+            },
+            "recommended_actions": [
+              "A1"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": [
+                "TEFV6-C0027-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "现场复核结果尚不可见，等待现场复核。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0027-E02",
+                "TEFV6-C0027-E03"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0027-E01",
+              "TEFV6-C0027-E02",
+              "TEFV6-C0027-E03"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "C-D14 温度采集链路",
+              "parameters": {
+                "mode": "保守运行限制"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0027-E03"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0027-I02-status_after_cutoff",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D14",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "采集通道偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0027-E04",
+                "TEFV6-C0027-E05",
+                "TEFV6-C0027-E06"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "更新工单",
+              "supporting_evidence_ids": [
+                "TEFV6-C0027-E07",
+                "TEFV6-C0027-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "保留必要的运行限制直至复测通过。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0027-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0027-E04",
+              "TEFV6-C0027-E05",
+              "TEFV6-C0027-E06",
+              "TEFV6-C0027-E07",
+              "TEFV6-C0027-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "verify",
+              "target": "C-D14 温度采集链路采集通道",
+              "parameters": {
+                "performed_by": "合格人员",
+                "procedure": "批准流程"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0027-E07"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "monitor",
+              "target": "C-D14 温度采集链路",
+              "parameters": {
+                "mode": "保留必要的运行限制",
+                "until": "复测通过"
+              },
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0027-E07"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0027-I03-cutoff_explanation",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D14",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "采集通道偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0027-E04",
+                "TEFV6-C0027-E05",
+                "TEFV6-C0027-E06"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "更新工单",
+              "supporting_evidence_ids": [
+                "TEFV6-C0027-E07",
+                "TEFV6-C0027-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "保留必要的运行限制直至复测通过。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0027-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0027-E04",
+              "TEFV6-C0027-E05",
+              "TEFV6-C0027-E06",
+              "TEFV6-C0027-E07",
+              "TEFV6-C0027-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "verify",
+              "target": "C-D14 温度采集链路采集通道",
+              "parameters": {
+                "performed_by": "合格人员",
+                "procedure": "批准流程"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0027-E07"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "monitor",
+              "target": "C-D14 温度采集链路",
+              "parameters": {
+                "mode": "保留必要的运行限制",
+                "until": "复测通过"
+              },
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0027-E07"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "result": {
+    "type": "json_object",
+    "gold_by_intent": [
+      {
+        "intent_id": "TEFV6-C0027-I01-status_before_cutoff",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D14",
+            "diagnosis": {
+              "status": "provisional",
+              "concept": "局部热异常待确认",
+              "supporting_evidence_ids": [
+                "TEFV6-C0027-E01",
+                "TEFV6-C0027-E02"
+              ]
+            },
+            "recommended_actions": [
+              "A1"
+            ],
+            "applicable_procedure": {
+              "status": "uncertain",
+              "procedure_version": null,
+              "supporting_evidence_ids": [
+                "TEFV6-C0027-E03"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "现场复核结果尚不可见，等待现场复核。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0027-E02",
+                "TEFV6-C0027-E03"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0027-E01",
+              "TEFV6-C0027-E02",
+              "TEFV6-C0027-E03"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "monitor",
+              "target": "C-D14 温度采集链路",
+              "parameters": {
+                "mode": "保守运行限制"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0027-E03"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0027-I02-status_after_cutoff",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D14",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "采集通道偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0027-E04",
+                "TEFV6-C0027-E05",
+                "TEFV6-C0027-E06"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "更新工单",
+              "supporting_evidence_ids": [
+                "TEFV6-C0027-E07",
+                "TEFV6-C0027-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "保留必要的运行限制直至复测通过。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0027-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0027-E04",
+              "TEFV6-C0027-E05",
+              "TEFV6-C0027-E06",
+              "TEFV6-C0027-E07",
+              "TEFV6-C0027-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "verify",
+              "target": "C-D14 温度采集链路采集通道",
+              "parameters": {
+                "performed_by": "合格人员",
+                "procedure": "批准流程"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0027-E07"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "monitor",
+              "target": "C-D14 温度采集链路",
+              "parameters": {
+                "mode": "保留必要的运行限制",
+                "until": "复测通过"
+              },
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0027-E07"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "intent_id": "TEFV6-C0027-I03-cutoff_explanation",
+        "gold": {
+          "work_order": {
+            "asset_id": "C-D14",
+            "diagnosis": {
+              "status": "confirmed",
+              "concept": "采集通道偏移",
+              "supporting_evidence_ids": [
+                "TEFV6-C0027-E04",
+                "TEFV6-C0027-E05",
+                "TEFV6-C0027-E06"
+              ]
+            },
+            "recommended_actions": [
+              "A1",
+              "A2"
+            ],
+            "applicable_procedure": {
+              "status": "applicable",
+              "procedure_version": "更新工单",
+              "supporting_evidence_ids": [
+                "TEFV6-C0027-E07",
+                "TEFV6-C0027-E08"
+              ]
+            },
+            "verification_or_uncertainty": {
+              "status": "pending",
+              "statement": "保留必要的运行限制直至复测通过。",
+              "supporting_evidence_ids": [
+                "TEFV6-C0027-E07"
+              ]
+            },
+            "supporting_evidence_ids": [
+              "TEFV6-C0027-E04",
+              "TEFV6-C0027-E05",
+              "TEFV6-C0027-E06",
+              "TEFV6-C0027-E07",
+              "TEFV6-C0027-E08"
+            ]
+          },
+          "action_plan": [
+            {
+              "action_id": "A1",
+              "action_type": "verify",
+              "target": "C-D14 温度采集链路采集通道",
+              "parameters": {
+                "performed_by": "合格人员",
+                "procedure": "批准流程"
+              },
+              "depends_on": [],
+              "supporting_evidence_ids": [
+                "TEFV6-C0027-E07"
+              ]
+            },
+            {
+              "action_id": "A2",
+              "action_type": "monitor",
+              "target": "C-D14 温度采集链路",
+              "parameters": {
+                "mode": "保留必要的运行限制",
+                "until": "复测通过"
+              },
+              "depends_on": [
+                "A1"
+              ],
+              "supporting_evidence_ids": [
+                "TEFV6-C0027-E07"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "saved_at": "2026-09-19T00:45:24.250332"
+}

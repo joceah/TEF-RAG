@@ -1,0 +1,57 @@
+{
+  "chain_id": "TEFV6-C0348",
+  "split": "validation",
+  "status": "REVIEW_UNRESOLVED",
+  "used_adjudication": true,
+  "structural_repairs": [],
+  "disagreement_intents": [
+    "TEFV6-C0348-I01-differentiate",
+    "TEFV6-C0348-I02-current_action",
+    "TEFV6-C0348-I03-history_role"
+  ],
+  "disagreement_fields": {
+    "TEFV6-C0348-I01-differentiate": [
+      "work_order.diagnosis",
+      "work_order.verification_or_uncertainty",
+      "work_order.recommended_actions",
+      "action_plan"
+    ],
+    "TEFV6-C0348-I02-current_action": [
+      "work_order.diagnosis",
+      "work_order.verification_or_uncertainty",
+      "work_order.supporting_evidence_ids"
+    ],
+    "TEFV6-C0348-I03-history_role": [
+      "work_order.diagnosis",
+      "work_order.verification_or_uncertainty",
+      "work_order.recommended_actions",
+      "work_order.supporting_evidence_ids",
+      "action_plan"
+    ]
+  },
+  "summary": {
+    "pass_a_pass_b_canonical_equal": false,
+    "disagreement_count": 3,
+    "disagreement_fields": {
+      "TEFV6-C0348-I01-differentiate": [
+        "work_order.diagnosis",
+        "work_order.verification_or_uncertainty",
+        "work_order.recommended_actions",
+        "action_plan"
+      ],
+      "TEFV6-C0348-I02-current_action": [
+        "work_order.diagnosis",
+        "work_order.verification_or_uncertainty",
+        "work_order.supporting_evidence_ids"
+      ],
+      "TEFV6-C0348-I03-history_role": [
+        "work_order.diagnosis",
+        "work_order.verification_or_uncertainty",
+        "work_order.recommended_actions",
+        "work_order.supporting_evidence_ids",
+        "action_plan"
+      ]
+    }
+  },
+  "result": null
+}
