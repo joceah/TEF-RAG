@@ -151,6 +151,7 @@ def preflight() -> dict[str, Any]:
         raise RuntimeError("preflight failed:\n- " + "\n- ".join(problems[:30]))
 
     aggregate = read_json(GEN_META / "test_generation_gold_aggregate.json")
+    _, expected_index_hash = private_seal_hashes()
     result = {
         "status": "READY_FOR_GENERATION",
         "test_queries": 480,
@@ -161,6 +162,7 @@ def preflight() -> dict[str, Any]:
         "alias_registry_sha256": sha256(GEN_META / "alias_registry.json"),
         "parameter_registry_sha256": sha256(GEN_META / "parameter_registry.json"),
         "private_generation_gold_expected_sha256": aggregate["private_gold_sha256"],
+        "private_generation_index_expected_sha256": expected_index_hash,
         "private_generation_gold_accessed": False,
         "prompt_version": PROMPT_VERSION,
         "model": MODEL,
@@ -281,8 +283,6 @@ def run_generation(methods: tuple[str, ...]) -> dict[str, Any]:
         "unresolved": unresolved,
     }
     write_json(OUT / "generation_runtime.json", runtime)
-    if any(unresolved.values()):
-        raise RuntimeError("generation completed with unresolved outputs: " + json.dumps(unresolved))
     return runtime
 
 
@@ -305,44 +305,49 @@ def validate_generation_files(session: str) -> dict[str, str]:
             selected = list(retrieval[method][index]["selected_evidence_ids"])
             if row.get("input_evidence_ids") != selected:
                 raise RuntimeError(f"{method}/{query['query_id']}: retrieval input changed")
-            if row.get("session_fingerprint") != session:
-                raise RuntimeError(f"{method}/{query['query_id']}: formal session mismatch")
             records = [evidence[eid] for eid in selected]
-            system, user = build_prompt(query, records, output_schema)
-            if row.get("initial_request_fingerprint") != request_fingerprint(OFFICIAL_ENDPOINT, system, user):
-                raise RuntimeError(f"{method}/{query['query_id']}: initial request fingerprint changed")
-            if row.get("repair_used"):
-                initial = row.get("initial_generation")
-                initial_errors = validate_generation_output(initial, output_schema, set(selected), query["asset_id"])
-                if not initial_errors or initial_errors != row.get("initial_validation_errors"):
-                    raise RuntimeError(f"{method}/{query['query_id']}: repair input changed")
-                repair_system, repair_user = repair_prompt(query, records, initial, initial_errors, output_schema)
-                if row.get("repair_request_fingerprint") != request_fingerprint(OFFICIAL_ENDPOINT, repair_system, repair_user):
-                    raise RuntimeError(f"{method}/{query['query_id']}: repair request fingerprint changed")
-            elif row.get("repair_request_fingerprint") is not None:
-                raise RuntimeError(f"{method}/{query['query_id']}: unexpected repair fingerprint")
-            if row.get("request_provenance") != {
-                "endpoint": BASE_URL.rstrip("/") + "/chat/completions",
-                "model": MODEL,
-                "prompt_sha256": sha_text(generator_instructions()),
-                "schema_sha256": sha256(GEN_META / "schema.json"),
-                "temperature": TEMPERATURE,
-                "max_tokens": MAX_TOKENS,
-            }:
-                raise RuntimeError(f"{method}/{query['query_id']}: missing or changed request provenance")
-            errors = validate_generation_output(
-                row.get("generation"),
-                output_schema,
-                set(selected),
-                query["asset_id"],
-            )
-            if errors or row.get("validation_errors"):
-                raise RuntimeError(
-                    f"{method}/{query['query_id']}: invalid generation output: "
-                    f"{errors or row.get('validation_errors')}"
-                )
+            validate_generation_row(row, query, selected, records, output_schema, session)
         hashes[method] = sha256(path)
     return hashes
+
+
+def validate_generation_row(
+    row: dict[str, Any],
+    query: dict[str, Any],
+    selected: list[str],
+    records: list[dict[str, Any]],
+    output_schema: dict[str, Any],
+    session: str,
+) -> list[str]:
+    label = str(query.get("query_id", "unknown"))
+    if row.get("session_fingerprint") != session:
+        raise RuntimeError(f"{label}: formal session mismatch")
+    system, user = build_prompt(query, records, output_schema)
+    if row.get("initial_request_fingerprint") != request_fingerprint(OFFICIAL_ENDPOINT, system, user):
+        raise RuntimeError(f"{label}: initial request fingerprint changed")
+    if row.get("repair_used"):
+        initial = row.get("initial_generation")
+        initial_errors = validate_generation_output(initial, output_schema, set(selected), query["asset_id"])
+        if not initial_errors or initial_errors != row.get("initial_validation_errors"):
+            raise RuntimeError(f"{label}: repair input changed")
+        repair_system, repair_user = repair_prompt(query, records, initial, initial_errors, output_schema)
+        if row.get("repair_request_fingerprint") != request_fingerprint(OFFICIAL_ENDPOINT, repair_system, repair_user):
+            raise RuntimeError(f"{label}: repair request fingerprint changed")
+    elif row.get("repair_request_fingerprint") is not None:
+        raise RuntimeError(f"{label}: unexpected repair fingerprint")
+    if row.get("request_provenance") != {
+        "endpoint": OFFICIAL_ENDPOINT,
+        "model": MODEL,
+        "prompt_sha256": sha_text(generator_instructions()),
+        "schema_sha256": sha256(GEN_META / "schema.json"),
+        "temperature": TEMPERATURE,
+        "max_tokens": MAX_TOKENS,
+    }:
+        raise RuntimeError(f"{label}: missing or changed request provenance")
+    errors = validate_generation_output(row.get("generation"), output_schema, set(selected), query["asset_id"])
+    if row.get("validation_errors") != errors:
+        raise RuntimeError(f"{label}: validation error provenance changed")
+    return errors
 
 
 def freeze() -> dict[str, Any]:
@@ -378,6 +383,7 @@ def freeze() -> dict[str, Any]:
         "scoring_fingerprint": scoring_fingerprint(),
         "request_config": {"max_tokens": MAX_TOKENS, "response_format": "json_object"},
         "private_generation_gold_expected_sha256": pre["private_generation_gold_expected_sha256"],
+        "private_generation_index_expected_sha256": pre["private_generation_index_expected_sha256"],
         "private_generation_gold_accessed": False,
         "retrieval_relations_passed_to_generator": False,
         "method_identity_passed_to_generator": False,
@@ -387,7 +393,7 @@ def freeze() -> dict[str, Any]:
     return manifest
 
 
-def load_private_gold(root: Path) -> tuple[dict[str, dict[str, Any]], str]:
+def load_private_gold(root: Path) -> tuple[dict[str, dict[str, Any]], str, str]:
     gold_path = root / "gold_test.jsonl"
     index_path = root / "gold_test_index.jsonl"
     expected, index_expected = private_seal_hashes()
@@ -396,7 +402,8 @@ def load_private_gold(root: Path) -> tuple[dict[str, dict[str, Any]], str]:
     actual = sha256(gold_path)
     if actual != expected:
         raise RuntimeError(f"private generation gold SHA mismatch: {actual}")
-    if sha256(index_path) != index_expected:
+    actual_index = sha256(index_path)
+    if actual_index != index_expected:
         raise RuntimeError("private gold index SHA mismatch")
     gold_rows = read_jsonl(gold_path)
     index_rows = read_jsonl(index_path)
@@ -415,7 +422,7 @@ def load_private_gold(root: Path) -> tuple[dict[str, dict[str, Any]], str]:
             by_query[query_id] = gold
     if len(by_query) != 480:
         raise RuntimeError("private gold index must cover 480 query rows")
-    return by_query, actual
+    return by_query, actual, actual_index
 
 
 def private_seal_hashes() -> tuple[str, str]:
@@ -427,11 +434,30 @@ def private_seal_hashes() -> tuple[str, str]:
     return expected, index_expected
 
 
+def validate_frozen_private_seal(manifest: dict[str, Any], preflight_result: dict[str, Any]) -> None:
+    if manifest.get("private_generation_gold_expected_sha256") != preflight_result["private_generation_gold_expected_sha256"]:
+        raise RuntimeError("frozen private gold expected SHA changed")
+    if manifest.get("private_generation_index_expected_sha256") != preflight_result["private_generation_index_expected_sha256"]:
+        raise RuntimeError("frozen private index expected SHA changed")
+
+
 def ensure_private_output_outside_repo(private_root: Path) -> None:
     repo = ROOT.resolve()
     for path in (private_root, private_root / "evaluation_details_v1"):
         if path.resolve().is_relative_to(repo):
             raise RuntimeError("private evaluation output must be outside repository root")
+
+
+def validate_private_gold_objects(by_query: dict[str, dict[str, Any]], output_schema: dict[str, Any], canon: Canonicalizer) -> None:
+    seen_gold_ids: set[int] = set()
+    for gold in by_query.values():
+        if id(gold) in seen_gold_ids:
+            continue
+        seen_gold_ids.add(id(gold))
+        gold_errors = validate_generation_output(gold, output_schema)
+        if gold_errors:
+            raise RuntimeError("private generation gold failed v1.3 schema/invariant validation: " + "; ".join(gold_errors[:10]))
+        validate_gold_action_uniqueness(gold, canon)
 
 
 def claim_formal_evaluation_once(start_path: Path, manifest_path: Path) -> None:
@@ -445,6 +471,10 @@ def claim_formal_evaluation_once(start_path: Path, manifest_path: Path) -> None:
 
 def evaluate(private_root: Path) -> dict[str, Any]:
     ensure_private_output_outside_repo(private_root)
+    private_gold_path = private_root / "gold_test.jsonl"
+    private_index_path = private_root / "gold_test_index.jsonl"
+    if not private_gold_path.exists() or not private_index_path.exists():
+        raise RuntimeError("private generation gold/index missing")
     start_path = OUT / "evaluation_started.json"
     if start_path.exists() or (OUT / "final_evaluation_manifest.json").exists() or (OUT / "metrics.json").exists():
         raise RuntimeError("formal generation evaluation already completed or artifacts exist")
@@ -459,6 +489,7 @@ def evaluate(private_root: Path) -> dict[str, Any]:
     if manifest.get("prompt_sha256") != sha_text(generator_instructions()) or manifest.get("request_config") != {"max_tokens": MAX_TOKENS, "response_format": "json_object"}:
         raise RuntimeError("frozen prompt/request config changed")
     pre = preflight()
+    validate_frozen_private_seal(manifest, pre)
     if pre["retrieval_prediction_hashes"] != manifest.get("retrieval_prediction_hashes") or pre["materialized_artifact_hashes"] != manifest.get("materialized_artifact_hashes"):
         raise RuntimeError("frozen retrieval or materialized benchmark inputs changed")
     session = formal_session_fingerprint(pre)
@@ -470,16 +501,17 @@ def evaluate(private_root: Path) -> dict[str, Any]:
     private_seal_hashes()
     claim_formal_evaluation_once(start_path, manifest_path)
 
-    by_query, gold_hash = load_private_gold(private_root)
+    by_query, gold_hash, index_hash = load_private_gold(private_root)
     if gold_hash != manifest["private_generation_gold_expected_sha256"]:
         raise RuntimeError("private gold differs from frozen expectation")
+    if index_hash != manifest["private_generation_index_expected_sha256"]:
+        raise RuntimeError("private gold index differs from frozen expectation")
 
     qs = queries()
     retrieval = retrieval_predictions()
     output_schema = schema()
     canon = Canonicalizer(aliases(), parameters())
-    for gold in by_query.values():
-        validate_gold_action_uniqueness(gold, canon)
+    validate_private_gold_objects(by_query, output_schema, canon)
     metrics: dict[str, Any] = {}
     private_details = private_root / "evaluation_details_v1"
     private_details.mkdir(parents=True, exist_ok=True)
@@ -511,6 +543,7 @@ def evaluate(private_root: Path) -> dict[str, Any]:
         "generation_prediction_manifest_sha256": sha256(manifest_path),
         "generation_prediction_hashes": current,
         "private_generation_gold_sha256": gold_hash,
+        "private_generation_index_sha256": index_hash,
         "private_item_level_scores_written_outside_repo": True,
         "aggregate_metrics_path": str((OUT / "metrics.json").relative_to(ROOT)),
         "methods": list(METHODS),

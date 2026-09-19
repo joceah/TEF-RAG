@@ -10,6 +10,7 @@ from jsonschema import Draft202012Validator
 from tef_rag_v6 import generation_eval_cli as cli
 from tef_rag_v6 import generation_runner as runner
 from tef_rag_v6.generation_eval import Canonicalizer, evaluate_generation_prediction, validate_generation_output, validate_gold_action_uniqueness
+from scripts.reconstruct_tef_v6_generation_private_index import reconstruct_index_sha256, reconstruct_index_rows
 from test_tef_rag_v6_generation_eval import canon, gold, schema
 
 
@@ -31,6 +32,13 @@ def test_unknown_dependency_when_gold_has_no_edges_is_false_positive():
     result = evaluate_generation_prediction(p, g, schema(), canon(), {"E1", "E2"}, "Rack-A")
     assert result["dependency_f1"] < 1
     assert result["order_validity"] == result["plan_em_strict"] == result["schema_validity"] == 0
+
+
+def test_public_only_reconstruction_matches_frozen_private_index_hash():
+    aggregate = runner.read_json(runner.GEN_META / "test_generation_gold_aggregate.json")
+    assert len(reconstruct_index_rows()) == 240
+    assert reconstruct_index_sha256() == aggregate["private_index_sha256"]
+    assert "semantic_gold_sha256_by_id" not in aggregate
 
 
 def test_equivalent_si_units_and_strict_parameter_structure():
@@ -138,6 +146,18 @@ def test_private_gold_requires_frozen_mapping_before_read(monkeypatch, tmp_path)
         cli.load_private_gold(private)
 
 
+def test_frozen_manifest_locks_both_private_aggregate_hashes():
+    pre = {
+        "private_generation_gold_expected_sha256": "g" * 64,
+        "private_generation_index_expected_sha256": "i" * 64,
+    }
+    manifest = dict(pre)
+    cli.validate_frozen_private_seal(manifest, pre)
+    manifest["private_generation_index_expected_sha256"] = "x" * 64
+    with pytest.raises(RuntimeError, match="private index expected SHA changed"):
+        cli.validate_frozen_private_seal(manifest, pre)
+
+
 def test_private_index_hash_mismatch_rejected(monkeypatch, tmp_path):
     private = tmp_path / "private"
     private.mkdir()
@@ -166,7 +186,7 @@ def test_two_aggregate_hashes_authorize_synthetic_row_pairing(monkeypatch, tmp_p
     document = {"private_gold_sha256": cli.sha256(gold_path), "private_index_sha256": cli.sha256(index_path)}
     (metadata / "test_generation_gold_aggregate.json").write_text(json.dumps(document), encoding="utf-8")
     monkeypatch.setattr(cli, "GEN_META", metadata)
-    paired, _ = cli.load_private_gold(private)
+    paired, _, _ = cli.load_private_gold(private)
     assert paired["Q17b"] == {"ordinal": 17}
     assert len(paired) == 480
     assert set(document) == {"private_gold_sha256", "private_index_sha256"}
@@ -178,11 +198,48 @@ def test_private_output_inside_repo_rejected_before_access(monkeypatch, tmp_path
         cli.evaluate(tmp_path / "private")
 
 
+def test_private_gold_schema_gate_rejects_before_scoring():
+    bad = gold()
+    bad["action_plan"][0]["parameters"] = {"voltage": {"foo": "bar"}}
+    with pytest.raises(RuntimeError, match="failed v1.3 schema"):
+        cli.validate_private_gold_objects({"Q1": bad}, runner.schema(), canon())
+
+
+def test_post_repair_invalid_prediction_is_retained_for_freeze_validation():
+    query = {"query_id": "Q1", "asset_id": "Rack-A", "query_text": "test", "query_time": "2026-01-01T00:00:00+00:00"}
+    selected = ["E1"]
+    records = [{"evidence_id": "E1", "text": "test"}]
+    output_schema = runner.schema()
+    system, user = runner.build_prompt(query, records, output_schema)
+    initial = {"not": "valid schema"}
+    initial_errors = validate_generation_output(initial, output_schema, set(selected), query["asset_id"])
+    repair_system, repair_user = runner.repair_prompt(query, records, initial, initial_errors, output_schema)
+    final = {"still": "invalid"}
+    final_errors = validate_generation_output(final, output_schema, set(selected), query["asset_id"])
+    row = {
+        "generation": final,
+        "repair_used": True,
+        "initial_generation": initial,
+        "initial_validation_errors": initial_errors,
+        "validation_errors": final_errors,
+        "session_fingerprint": "session",
+        "initial_request_fingerprint": runner.request_fingerprint(cli.OFFICIAL_ENDPOINT, system, user),
+        "repair_request_fingerprint": runner.request_fingerprint(cli.OFFICIAL_ENDPOINT, repair_system, repair_user),
+        "request_provenance": {"endpoint": cli.OFFICIAL_ENDPOINT, "model": runner.MODEL, "prompt_sha256": runner.sha_text(runner.generator_instructions()), "schema_sha256": runner.sha256(runner.GEN_META / "schema.json"), "temperature": runner.TEMPERATURE, "max_tokens": runner.MAX_TOKENS},
+    }
+    assert cli.validate_generation_row(row, query, selected, records, output_schema, "session") == final_errors
+    assert final_errors
+
+
 def test_repeated_formal_evaluation_rejected_before_private_access(monkeypatch, tmp_path):
     monkeypatch.setattr(cli, "OUT", tmp_path)
+    private = tmp_path / "private"
+    private.mkdir()
+    (private / "gold_test.jsonl").write_text("synthetic", encoding="utf-8")
+    (private / "gold_test_index.jsonl").write_text("synthetic", encoding="utf-8")
     (tmp_path / "final_evaluation_manifest.json").write_text("{}", encoding="utf-8")
     with pytest.raises(RuntimeError, match="already completed"):
-        cli.evaluate(tmp_path / "private")
+        cli.evaluate(private)
 
 
 def test_existing_evaluation_start_lock_rejected_before_private_access(monkeypatch, tmp_path):
@@ -191,9 +248,13 @@ def test_existing_evaluation_start_lock_rejected_before_private_access(monkeypat
     out.mkdir(parents=True)
     monkeypatch.setattr(cli, "ROOT", root)
     monkeypatch.setattr(cli, "OUT", out)
+    private = tmp_path / "private"
+    private.mkdir()
+    (private / "gold_test.jsonl").write_text("synthetic", encoding="utf-8")
+    (private / "gold_test_index.jsonl").write_text("synthetic", encoding="utf-8")
     (out / "evaluation_started.json").write_text("{}", encoding="utf-8")
     with pytest.raises(RuntimeError, match="already completed"):
-        cli.evaluate(tmp_path / "private")
+        cli.evaluate(private)
 
 
 def test_evaluation_start_lock_is_atomic_one_shot(tmp_path):
@@ -208,10 +269,14 @@ def test_evaluation_start_lock_is_atomic_one_shot(tmp_path):
 
 def test_evaluation_rejects_evaluator_mutation_before_private_access(monkeypatch, tmp_path):
     monkeypatch.setattr(cli, "OUT", tmp_path)
+    private = tmp_path / "private"
+    private.mkdir()
+    (private / "gold_test.jsonl").write_text("synthetic", encoding="utf-8")
+    (private / "gold_test_index.jsonl").write_text("synthetic", encoding="utf-8")
     (tmp_path / "generation_prediction_manifest.json").write_text(json.dumps({"scoring_fingerprint": {"evaluator_sha256": "old"}}), encoding="utf-8")
     monkeypatch.setattr(cli, "scoring_fingerprint", lambda: {"evaluator_sha256": "changed"})
     with pytest.raises(RuntimeError, match="frozen evaluator"):
-        cli.evaluate(tmp_path / "private")
+        cli.evaluate(private)
 
 
 def test_scoring_fingerprint_changes_with_evaluator_or_registry(monkeypatch, tmp_path):

@@ -28,6 +28,8 @@ python scripts/run_tef_rag_v6_generation_eval.py evaluate --private-root ../.tef
 
 `freeze` must complete before private generation gold is read. It hashes every generation prediction file and records `private_generation_gold_accessed=false`.
 
+An output that remains schema-invalid after the single repair is retained with its validation errors. Freeze locks its prediction and request provenance; evaluation reports Schema Validity 0 and scores the remaining defined metrics conservatively. A second repair is never attempted.
+
 `evaluate` verifies those hashes and the private generation-gold SHA256 before scoring. Item-level test scores are written only below the private gold root; the repository receives aggregate metrics only.
 
 ## Integrity gates before a formal run
@@ -36,7 +38,7 @@ The preflight requires materialized public `queries_test.jsonl` and `evidence.js
 
 Formal generation accepts only `https://api.deepseek.com/chat/completions`. Each generation row records a session fingerprint and the initial and optional repair request fingerprints. Resume verifies every saved row before the client reads credentials or cache. `freeze` locks one session across all 2,400 rows plus runner/evaluator source, schema and registries. `evaluate` rechecks the locks before private gold access. An atomic evaluation-start lock, existing formal metrics, final manifest or private item-level details stop another official evaluation. The private output root must resolve outside the repository.
 
-The current public test aggregate provides the private gold SHA256 but lacks `private_index_sha256`. That one aggregate hash must be supplied from the independent generation-gold sealing environment. The evaluator fails closed before reading private file contents until it is present. Once both aggregate hashes match, row-wise gold/index pairing is safe because each file's contents and row order are fixed. No per-item test fingerprints are published or required.
+The aggregate metadata records both `private_gold_sha256` and `private_index_sha256`. The index hash is deterministically reconstructed from the committed public benchmark transport parts using the generation-gold builder's row ordering and JSONL serialization; no private file is read to derive it. The evaluator still fails closed if either aggregate hash is missing or changes. Once both hashes match, row-wise gold/index pairing is safe because each file's contents and row order are fixed. No per-item test fingerprints are published or required.
 
 The published development/validation gold contains direct string parameter values. The frozen v1.3 clarification accepts those literal values alongside the original structured `{value, unit}` form and rejects malformed nested objects. It does not rewrite any gold. Published dev/val plans have unique canonical gold actions; because the original builder did not enforce that property, formal scoring explicitly stops if any private gold plan has duplicates.
 

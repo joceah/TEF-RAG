@@ -228,9 +228,10 @@ def transitive_closure(actions: list[dict[str, Any]]) -> set[tuple[str, str]]:
 
 
 def _intrinsic_action_keys(value: dict[str, Any], canon: Canonicalizer) -> dict[str, str]:
-    actions = value["action_plan"]
+    actions = [action for action in value.get("action_plan", []) if isinstance(action, dict) and isinstance(action.get("action_id"), str)]
     by_id = {str(action["action_id"]): action for action in actions}
-    recommended = set(map(str, value["work_order"].get("recommended_actions", [])))
+    work = value.get("work_order") if isinstance(value.get("work_order"), dict) else {}
+    recommended = set(map(str, work.get("recommended_actions", [])))
     closure = transitive_closure(actions)
     result: dict[str, str] = {}
     for action in actions:
@@ -250,8 +251,8 @@ def _intrinsic_action_keys(value: dict[str, Any], canon: Canonicalizer) -> dict[
 
 
 def maximum_action_matching(pred: dict[str, Any], gold: dict[str, Any], canon: Canonicalizer) -> dict[str, str]:
-    pred_actions = pred["action_plan"]
-    gold_actions = gold["action_plan"]
+    pred_actions = [action for action in pred.get("action_plan", []) if isinstance(action, dict) and isinstance(action.get("action_id"), str)]
+    gold_actions = [action for action in gold.get("action_plan", []) if isinstance(action, dict) and isinstance(action.get("action_id"), str)]
     pred_keys = _intrinsic_action_keys(pred, canon)
     gold_by_id = {str(a["action_id"]): a for a in gold_actions}
     adjacency = {
@@ -386,13 +387,16 @@ def _work_claim_key(name: str, obj: dict[str, Any], canon: Canonicalizer) -> str
 
 
 def _claim_links(value: dict[str, Any], mapping: dict[str, str] | None, canon: Canonicalizer, prediction: bool) -> set[tuple[str, str]]:
-    work = value["work_order"]
+    work = value.get("work_order") if isinstance(value.get("work_order"), dict) else {}
     links: set[tuple[str, str]] = set()
     for name in ("diagnosis", "applicable_procedure", "verification_or_uncertainty"):
-        claim = _work_claim_key(name, work[name], canon)
-        for eid in work[name].get("supporting_evidence_ids", []):
+        claim_obj = work.get(name) if isinstance(work.get(name), dict) else {}
+        claim = _work_claim_key(name, claim_obj, canon)
+        for eid in claim_obj.get("supporting_evidence_ids", []):
             links.add((claim, str(eid)))
     for action in value.get("action_plan", []):
+        if not isinstance(action, dict) or not isinstance(action.get("action_id"), str):
+            continue
         aid = str(action["action_id"])
         if prediction:
             key = mapping.get(aid) if mapping else None
@@ -406,12 +410,15 @@ def _claim_links(value: dict[str, Any], mapping: dict[str, str] | None, canon: C
 
 def _required_claim_support(gold: dict[str, Any], pred: dict[str, Any], mapping: dict[str, str], canon: Canonicalizer) -> tuple[int, int]:
     required: list[tuple[str, set[str]]] = []
-    gw = gold["work_order"]
+    gw = gold.get("work_order") if isinstance(gold.get("work_order"), dict) else {}
     for name in ("diagnosis", "applicable_procedure", "verification_or_uncertainty"):
-        refs = set(map(str, gw[name].get("supporting_evidence_ids", [])))
+        claim_obj = gw.get(name) if isinstance(gw.get(name), dict) else {}
+        refs = set(map(str, claim_obj.get("supporting_evidence_ids", [])))
         if refs:
-            required.append((_work_claim_key(name, gw[name], canon), refs))
+            required.append((_work_claim_key(name, claim_obj, canon), refs))
     for action in gold.get("action_plan", []):
+        if not isinstance(action, dict) or not isinstance(action.get("action_id"), str):
+            continue
         refs = set(map(str, action.get("supporting_evidence_ids", [])))
         if refs:
             required.append((f"action:{action['action_id']}", refs))
@@ -428,14 +435,17 @@ def evaluate_generation_prediction(
     allowed_evidence_ids: set[str],
     expected_asset_id: str,
 ) -> dict[str, float]:
+    if not isinstance(pred, dict):
+        pred = {}
     validate_gold_action_uniqueness(gold, canon)
     schema_errors = validate_generation_output(pred, schema, allowed_evidence_ids, expected_asset_id)
     schema_valid = float(not schema_errors)
-    pred_actions = pred.get("action_plan", []) if isinstance(pred.get("action_plan"), list) else []
+    raw_pred_actions = pred.get("action_plan", []) if isinstance(pred.get("action_plan"), list) else []
+    pred_actions = [action for action in raw_pred_actions if isinstance(action, dict) and isinstance(action.get("action_id"), str)]
     gold_actions = gold.get("action_plan", []) if isinstance(gold.get("action_plan"), list) else []
     mapping = maximum_action_matching(pred, gold, canon)
     matched = len(mapping)
-    ap, ar, af = f1(matched, len(pred_actions) - matched, len(gold_actions) - matched)
+    ap, ar, af = f1(matched, len(raw_pred_actions) - matched, len(gold_actions) - matched)
 
     gold_closure = transitive_closure(gold_actions)
     pred_closure_mapped, all_edge_nodes_matched, unmatched_pred_edges = _map_closure(pred_actions, mapping)
@@ -450,27 +460,29 @@ def evaluate_generation_prediction(
 
     mapped_rec: list[str] = []
     rec_mapping_ok = True
-    for aid in pred.get("work_order", {}).get("recommended_actions", []):
+    pred_work = pred.get("work_order") if isinstance(pred.get("work_order"), dict) else {}
+    gold_work = gold.get("work_order") if isinstance(gold.get("work_order"), dict) else {}
+    for aid in pred_work.get("recommended_actions", []):
         gid = mapping.get(str(aid))
         if gid is None:
             rec_mapping_ok = False
         else:
             mapped_rec.append(gid)
-    gold_rec = sorted(map(str, gold.get("work_order", {}).get("recommended_actions", [])))
+    gold_rec = sorted(map(str, gold_work.get("recommended_actions", [])))
 
-    pred_work_sem = canon.work_semantic(pred.get("work_order", {}), mapped_rec)
-    gold_work_sem = canon.work_semantic(gold.get("work_order", {}), gold_rec)
-    work_order_em = float(rec_mapping_ok and pred_work_sem == gold_work_sem)
+    pred_work_sem = canon.work_semantic(pred_work, mapped_rec)
+    gold_work_sem = canon.work_semantic(gold_work, gold_rec)
+    work_order_em = float(schema_valid and rec_mapping_ok and pred_work_sem == gold_work_sem)
 
-    all_actions_exact = matched == len(pred_actions) == len(gold_actions)
+    all_actions_exact = bool(schema_valid and matched == len(raw_pred_actions) == len(gold_actions))
     plan_em = float(
         all_actions_exact and rec_mapping_ok and sorted(mapped_rec) == gold_rec
         and all_edge_nodes_matched and pred_closure_mapped == gold_closure
     )
 
     slot_scores: list[float] = []
-    pw = pred.get("work_order", {})
-    gw = gold.get("work_order", {})
+    pw = pred_work
+    gw = gold_work
     for keys in SCALAR_SLOTS:
         pv = _path(pw, keys)
         gv = _path(gw, keys)

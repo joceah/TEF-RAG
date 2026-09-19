@@ -629,6 +629,7 @@ def write_outputs(cases_by_split: dict[str, list[dict[str, Any]]], finals_by_spl
     counts: dict[str, int] = {}
     public_hashes: dict[str, str] = {}
     private_hash = None
+    private_index_hash = None
     for split, cases in cases_by_split.items():
         rows: list[dict[str, Any]] = []
         index_rows: list[dict[str, Any]] = []
@@ -665,11 +666,12 @@ def write_outputs(cases_by_split: dict[str, list[dict[str, Any]]], finals_by_spl
             public_hashes[str(index_path.relative_to(ROOT))] = sha(index_path)
         else:
             private_hash = sha(gold_path)
+            private_index_hash = sha(index_path)
     qa["all_checks_pass"] = all(item.get("review_unresolved", 0) == 0 for item in qa["splits"].values())
     write_json(metadata / "annotation_qa.json", qa)
     disagreement = {split: {"chains": len(cases_by_split[split]), "adjudicated_chains": sum(1 for row in finals_by_split[split].values() if row.get("used_adjudication")), "disagreement_intents": sum(len(row.get("disagreement_intents", [])) for row in finals_by_split[split].values()), "disagreement_fields": {field: sum(1 for row in finals_by_split[split].values() for fields in row.get("disagreement_fields", {}).values() if field in fields) for field in ("work_order.diagnosis", "work_order.applicable_procedure", "work_order.verification_or_uncertainty", "work_order.recommended_actions", "work_order.supporting_evidence_ids", "action_plan")}, "review_unresolved_chains": sum(1 for row in finals_by_split[split].values() if row.get("status") == "REVIEW_UNRESOLVED")} for split in cases_by_split}
     write_json(metadata / "disagreement_summary.json", disagreement)
-    write_json(metadata / "test_generation_gold_aggregate.json", {"split": "test", "chains": len(cases_by_split.get("test", [])), "semantic_gold_objects": counts.get("test", 0), "private_gold_sha256": private_hash, "item_level_gold_committed": False})
+    write_json(metadata / "test_generation_gold_aggregate.json", {"split": "test", "chains": len(cases_by_split.get("test", [])), "semantic_gold_objects": counts.get("test", 0), "private_gold_sha256": private_hash, "private_index_sha256": private_index_hash, "item_level_gold_committed": False})
     manifest = {"protocol": str(PROTOCOL.relative_to(ROOT)), "protocol_sha256": sha(PROTOCOL), "benchmark_seal_commit": SEAL_COMMIT, "branch": "tef-rag-v6-generation-gold-v1", "chain_counts": {split: len(cases_by_split[split]) for split in cases_by_split}, "semantic_gold_counts": counts, "public_hashes": public_hashes, "private_test_gold_sha256": private_hash, "deepseek": {"base_url": BASE_URL, "model": MODEL, "temperature": TEMPERATURE, "api_key_persisted": False}, "llm_runtime": client.stats, "retrieval_predictions_accessed": False, "retrieval_test_metrics_accessed": False, "retrieval_sealed_evaluator_accessed": False, "generation_evaluation_run": False, "review_unresolved": sum(v["review_unresolved_chains"] for v in disagreement.values()), "generation_gold_ready": qa["all_checks_pass"]}
     write_json(metadata / "annotation_manifest.json", manifest)
     report = ["# TEF-RAG v6 generation gold v1", "", "Generation gold was authored from public query/chain/evidence only under the frozen v1 protocol. Retrieval predictions, retrieval test metrics, sealed evaluator, and private blind-review artifacts were not read.", "", f"- Branch base: `{SEAL_COMMIT}`", f"- Semantic objects: development={counts.get('development', 0)}, validation={counts.get('validation', 0)}, test={counts.get('test', 0)} (test gold private)", f"- Passes: sequential independent Pass A and Pass B; conflicts adjudicated in a fresh context", f"- DeepSeek: `{MODEL}`, temperature `{TEMPERATURE}`, requests `{client.stats['requests']}`, cache hits `{client.stats['cache_hits']}`, failures `{client.stats['failures']}`", f"- REVIEW_UNRESOLVED: {manifest['review_unresolved']}", f"- GENERATION_GOLD_READY: {manifest['generation_gold_ready']}", "", "## QA", "", "```json", json.dumps(qa, ensure_ascii=False, indent=2), "```", ""]

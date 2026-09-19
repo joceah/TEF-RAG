@@ -235,6 +235,7 @@ def main() -> None:
     counts: dict[str, int] = {}
     public_hashes: dict[str, str] = {}
     private_hash = None
+    private_index_hash = None
     repair_counts = {"top_citation_union": 0, "procedure_canonicalization": 0, "object_citation_dedupe": 0}
     audit_public: list[dict[str, Any]] = []
     audit_test = {"chains": 0, "accepted_chains": 0, "review_unresolved_chains": 0, "semantic_gold_objects": 0}
@@ -340,13 +341,14 @@ def main() -> None:
             public_hashes[str((target / f"gold_{split}_index.jsonl").relative_to(ROOT))] = sha(target / f"gold_{split}_index.jsonl")
         else:
             private_hash = sha(target / f"gold_{split}.jsonl")
+            private_index_hash = sha(target / f"gold_{split}_index.jsonl")
         disagreement[split] = {"chains": len(cases), "accepted_agreement_chains": statuses.get("accepted_agreement", 0), "adjudicated_chains": statuses.get("adjudicated", 0), "review_unresolved_chains": statuses.get("REVIEW_UNRESOLVED", 0)}
     qa["all_checks_pass"] = all(item["review_unresolved"] == 0 for item in qa["splits"].values())
     metadata = OUT / "metadata"
     write_json(metadata / "annotation_qa.json", qa)
     write_json(metadata / "disagreement_summary.json", disagreement)
     write_json(metadata / "canonicalization_audit.json", {"version": "v1.1", "public_chain_records": audit_public, "private_test_aggregate": audit_test, "contains_item_level_test_answers": False})
-    write_json(metadata / "test_generation_gold_aggregate.json", {"split": "test", "chains": 80, "semantic_gold_objects": counts["test"], "private_gold_sha256": private_hash, "item_level_gold_committed": False, "canonicalization_version": "v1.1"})
+    write_json(metadata / "test_generation_gold_aggregate.json", {"split": "test", "chains": 80, "semantic_gold_objects": counts["test"], "private_gold_sha256": private_hash, "private_index_sha256": private_index_hash, "item_level_gold_committed": False, "canonicalization_version": "v1.1"})
     manifest = read_json(metadata / "annotation_manifest.json") if (metadata / "annotation_manifest.json").exists() else {}
     manifest.update({"protocol_version": "v1.1-addendum", "canonicalization_addendum": str(ADDENDUM.relative_to(ROOT)), "canonicalization_addendum_sha256": sha(ADDENDUM), "canonicalization_audit": "data/generated/tef_v6_generation_gold_v1/metadata/canonicalization_audit.json", "deterministic_repairs": repair_counts, "semantic_gold_counts": counts, "public_hashes": public_hashes, "private_test_gold_sha256": private_hash, "review_unresolved": sum(item["review_unresolved_chains"] for key, item in disagreement.items() if key in base.SPLITS), "generation_gold_ready": qa["all_checks_pass"], "llm_calls": 0, "generation_evaluation_run": False, "retrieval_predictions_accessed": False, "retrieval_test_metrics_accessed": False, "retrieval_sealed_evaluator_accessed": False})
     write_json(metadata / "annotation_manifest.json", manifest)
