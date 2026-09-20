@@ -17,6 +17,8 @@ TEF-RAG 的 Recall@5 从 0.4591 提升至 0.7228，nDCG@5 从 0.4955 提升至 0
 \label{tab:retrieval_results}
 \centering
 \small
+\setlength{\tabcolsep}{3pt}
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lrrrr}
 \toprule
 Method & Recall & nDCG & Complete & FlowComplete \\
@@ -27,7 +29,8 @@ Temporal-BM25 & 0.4591 & 0.4955 & 0.0792 & 0.0792 \\
 TA-RAG & 0.2769 & 0.2907 & 0.0375 & 0.0375 \\
 \textbf{TEF-RAG} & \textbf{0.7228} & \textbf{0.6231} & \textbf{0.3188} & \textbf{0.3146} \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 \subsection{下游结构化生成结果}

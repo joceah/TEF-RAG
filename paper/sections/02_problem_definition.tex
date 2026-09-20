@@ -145,15 +145,7 @@ $\phi(\cdot)$ 为集合级特征表示，$F_{\theta}$ 为学习到的非线性�
 
 \begin{figure*}[t]
     \centering
-    \IfFileExists{figures/tef_rag_overview.pdf}{%
-        \includegraphics[width=0.96\textwidth]{figures/tef_rag_overview.png}%
-    }{%
-        \placeholderfigure{Figure placeholder: TEF-RAG overall architecture.\\
-        Query + temporally valid candidate pool $\rightarrow$ learned pair proposal $\rightarrow$
-        query-conditioned relation reasoning $\rightarrow$ Temporal Evidence Flow graph $\rightarrow$
-        candidate set construction $\rightarrow$ nonlinear pairwise set ranking $\rightarrow$ Top-5 evidence flow
-        $\rightarrow$ grounded generation $\rightarrow$ standardized work order + ordered embodied instruction sequence.}%
-    }
+    \includegraphics[width=0.96\textwidth]{figures/tef_rag_overview.png}%
     \caption{TEF-RAG 总体框架。系统先从查询时刻合法的候选证据中构建查询条件化的时序证据图，
     再对候选证据集合进行非线性 pairwise ranking，以恢复完整的 Top-5 evidence flow；
     该证据流随后作为受控上下文生成标准化工单与有序具身指令序列。
