@@ -1,7 +1,12 @@
 # 论文材料
 
-`TMC_RAG_ICRA_style_zh_v2.pdf` 是初代中文论文快照，用于追溯早期问题定义、方法设计、实验协议和写作结构。它反映的是 TMC-RAG 阶段，不代表当前 TEF-RAG v5/v5.1 的方法或结论已经同步写入论文。
+`TMC_RAG_ICRA_style_zh_v2.pdf` 是早期 TMC-RAG 阶段的中文论文快照，用于追溯最初的问题定义、方法设计和写作结构；它不是当前 TEF-RAG v6 方法与最终实验结果的权威版本。
 
-- 版本：v2，11 页
-- SHA-256：`9955C0D3AEC3B6E278526A40F399F964827C8366A99982236859183DA6DD43D1`
-- 状态：历史写作参考，不是当前结果的权威说明；当前结论以根目录 `README.md` 和 `PROJECT_HANDOFF.md` 为准。
+当前论文实验以 **TEF-RAG v6** 为最终实现，公开的正式 aggregate 结果位于：
+
+- Retrieval：[`results/final_retrieval_metrics.json`](results/final_retrieval_metrics.json)
+- Generation：[`results/final_generation_metrics.json`](results/final_generation_metrics.json)
+
+`paper/` 会继续用于后续论文撰写与图表整理。当前代码、数据与复现入口请以仓库根目录 [`README.md`](../README.md) 为准。
+
+历史 PDF 保持原样，不随 release cleanup 重写。

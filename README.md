@@ -6,14 +6,14 @@ TEF-RAG (Temporal Evidence Flow Retrieval-Augmented Generation) is a reproducibl
 
 - `tef_rag_v6/` — V6 retrieval, temporal constraints, relation scoring, rankers, and frozen generation metrics.
 - `baseline_adapters/` — comparison retrieval adapters used by the V6 study.
-- `scripts/` — benchmark materialization, V6 stage runners, validators, and the public generation evaluator.
-- `data/retrieval/` — reader-facing materialized retrieval inputs and public development/validation labels.
-- `data/generation/` — development, validation, and released post-blind-evaluation test generation gold and registries.
-- `artifacts/v6/` — small V6 learned-model and feature artifacts required by the final stages.
+- `scripts/` — benchmark materialization, V6 stage runners, validators, and public retrieval/generation evaluators.
+- `data/retrieval/` — reader-facing retrieval benchmark, released historical test evaluator, and frozen formal test predictions.
+- `data/generation/` — development, validation, and post-evaluation test generation gold plus schema/registries.
+- `artifacts/v6/` — small learned-model and feature artifacts required by the final V6 stages.
 - `tests/` — release-tree unit, regression, and dataset tests.
-- `paper/` — the paper snapshot and aggregate reference metrics.
+- `paper/` — paper materials and final aggregate reference metrics.
 
-The original deterministic transport files remain under `data/generated/tef_v6_*` for provenance and validator compatibility. They are not required for ordinary reading of the materialized datasets.
+The deterministic transport files under `data/generated/tef_v6_*` are retained for provenance and validator compatibility. Reader-facing materialized data live under `data/retrieval/` and `data/generation/`.
 
 ## Installation
 
@@ -26,21 +26,37 @@ python -m pip install -e ".[test]"
 python -m pytest -q
 ```
 
-For semantic retrieval and learned ranking stages install the relevant extras:
+For the semantic/learned V6 stages, install:
 
 ```bash
 python -m pip install -e ".[semantic,ranknet]"
 ```
 
-The downstream generator uses the official DeepSeek endpoint and an API key supplied through the local environment. Use a local, untracked `local.env` or exported variables; never commit credentials.
+For full baseline reproduction, install the additional runtime stack with:
+
+```bash
+python -m pip install -e ".[reproduce]"
+```
+
+The frozen baseline environment recorded `numpy 2.4.6`, `torch 2.14.0+cu130`, `transformers 4.57.6`, `sentence-transformers 5.7.0`, `faiss-cpu 1.15.1`, `ncls 0.0.68`, and `openai 3.14.1`. The `reproduce` extra pins the portable packages where appropriate; install the PyTorch build suitable for your CPU/CUDA platform if the default wheel is not appropriate.
+
+LLM-backed stages require an API key supplied at runtime. Use an untracked `local.env` or environment variable; never commit credentials.
 
 ## Datasets
 
 ### Retrieval
 
-`data/retrieval/tef_v6_temporal_hard_benchmark_v1/public/` contains 400 chains, 2,400 queries, the shared evidence corpus, development/validation retrieval labels, and the released 480-row historical test evaluator. The evaluator was kept sealed during model development and formal test evaluation; after predictions and results were frozen, the exact historical bytes were released for reproducibility (SHA-256 `477bb709f3dfdb672ce5a7f5c93168e0791c7a90cb247c62a6072bd8dee7c9f3`). The historical manifest still records `public_test_gold=false` because that was the state at formal sealing time.
+`data/retrieval/tef_v6_temporal_hard_benchmark_v1/public/` contains 400 chains, 2,400 queries, the shared evidence corpus, development/validation labels, and the exact 480-row historical test evaluator. The test evaluator remained sealed throughout model development and the formal test run. It was released only after predictions and results were frozen for reproducibility.
 
-The files are already materialized. To verify the canonical transport and all benchmark invariants:
+Historical evaluator SHA-256:
+
+```text
+477bb709f3dfdb672ce5a7f5c93168e0791c7a90cb247c62a6072bd8dee7c9f3
+```
+
+The historical benchmark manifest intentionally still records `public_test_gold=false`, because that describes the state at formal sealing time.
+
+Validate the benchmark and reproduce the frozen retrieval test metrics with:
 
 ```bash
 python -m scripts.validate_tef_v6_semantic_benchmark_v1
@@ -48,78 +64,114 @@ python -m scripts.validate_tef_rag_v6_public_retrieval
 python -m scripts.evaluate_tef_rag_v6_public_retrieval
 ```
 
+The public retrieval evaluator uses the exact released evaluator and the frozen formal predictions under `data/retrieval/frozen_test_predictions/`, and fails closed on hash, query coverage/order, evidence identity, duplicate IDs, and temporal visibility.
+
 ### Generation
 
-`data/generation/` contains the structured generation schema and registries plus development, validation, and test gold/index files. The test gold was released only after the blind evaluation completed. Canonical LF hashes are:
+`data/generation/` contains the structured generation schema/registries and development, validation, and test gold/index files. The test gold was released after the blind evaluation completed.
 
-| file | SHA-256 |
-| --- | --- |
-| `gold_test.jsonl` | `dccf5a831b9b145d5aab26288088d14d2e9af6fafd06d4eced3a22983a7c9aea` |
-| `gold_test_index.jsonl` | `8433880d300e541713aba7eae86564bcb705f6f9c638043a66d7262f5b195d35` |
+The two test artifacts intentionally preserve different historical byte conventions:
 
-Validate the released gold and indexes with:
+| file | byte convention | SHA-256 |
+| --- | --- | --- |
+| `gold_test.jsonl` | audited historical source bytes (CRLF) | `dccf5a831b9b145d5aab26288088d14d2e9af6fafd06d4eced3a22983a7c9aea` |
+| `gold_test_index.jsonl` | canonical public LF | `8433880d300e541713aba7eae86564bcb705f6f9c638043a66d7262f5b195d35` |
+
+`.gitattributes` preserves the byte-stable historical files so their published hashes survive fresh checkouts.
+
+Validate the generation dataset with:
 
 ```bash
 python -m scripts.validate_tef_rag_v6_public_generation
 ```
 
-## Reproduce retrieval
+## Reproduce retrieval results
 
-The V6 stages use only the public retrieval inputs and write results under an output directory supplied to each runner. A typical development/validation run is:
-
-```bash
-python -m scripts.run_tef_rag_v6_stage1
-python -m scripts.run_tef_rag_v6_stage2a
-python -m scripts.run_tef_rag_v6_stage2b
-python -m scripts.run_tef_rag_v6_stage2b1
-python -m scripts.run_tef_rag_v6_stage2c
-python -m scripts.run_tef_rag_v6_stage3a
-python -m scripts.run_tef_rag_v6_stage3b
-python -m scripts.run_tef_rag_v6_stage3c
-python -m scripts.run_tef_rag_v6_stage3d
-python -m scripts.run_tef_rag_v6_baseline_suite
-```
-
-The runners use public development/validation labels during development. The completed formal test can be reproduced with the released evaluator and frozen predictions:
+The already-frozen formal test can be reproduced without external models or API calls:
 
 ```bash
 python -m scripts.evaluate_tef_rag_v6_public_retrieval
 ```
 
-The evaluator fails closed on evaluator hash, query coverage/order, prediction hashes, evidence identity, duplicate IDs, and temporal visibility. Frozen predictions are published under `data/retrieval/frozen_test_predictions/`.
+To reproduce the development/validation baseline pipeline from source, first prepare the external model/runtime inputs used by the original run:
+
+- BGE reranker: `BAAI/bge-reranker-v2-m3`, frozen revision `953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e`.
+- Nomic embedding model: `nomic-ai/nomic-embed-text-v1.5`; the formal freeze records the local snapshot hash `sha256:9e7d262b1fe5ea350782829496efa831901b77486bbde1cea54a4c822d010d5c`.
+- TA-RAG upstream: `https://github.com/kwunhang/TA-RAG`, frozen commit `9e5e28a9e7ddad7d6d022c4d3533dbca2aff03b9`.
+
+Example checkout:
+
+```bash
+git clone https://github.com/kwunhang/TA-RAG ../TA-RAG
+git -C ../TA-RAG checkout 9e5e28a9e7ddad7d6d022c4d3533dbca2aff03b9
+```
+
+Run development first, then validation with the same frozen external inputs:
+
+```bash
+python -m scripts.run_tef_rag_v6_baseline_suite development \
+  --bge-path /path/to/bge-reranker-v2-m3 \
+  --nomic-path /path/to/nomic-embed-text-v1.5 \
+  --ta-upstream ../TA-RAG \
+  --ta-base-url https://api.deepseek.com \
+  --ta-model deepseek-chat
+
+python -m scripts.run_tef_rag_v6_baseline_suite validation \
+  --bge-path /path/to/bge-reranker-v2-m3 \
+  --nomic-path /path/to/nomic-embed-text-v1.5 \
+  --ta-upstream ../TA-RAG \
+  --ta-base-url https://api.deepseek.com \
+  --ta-model deepseek-chat
+```
+
+Set `TA_RAG_API_KEY` before running TA-RAG. Development writes the frozen baseline configuration consumed by validation. The published frozen test predictions remain the authoritative artifacts for reproducing the paper's test table.
+
+The V6 stage runners are also retained for method reconstruction and ablation work:
+
+```bash
+python -m scripts.run_tef_rag_v6_stage1 --help
+python -m scripts.run_tef_rag_v6_stage2a --help
+python -m scripts.run_tef_rag_v6_stage3d --help
+```
 
 ## Reproduce generation evaluation
 
-The formal generator consumes each method's frozen selected evidence and uses the shared V6 prompt, schema, and one-repair policy. The formal runner is:
+The formal generator consumes the frozen selected evidence from each retrieval method. Materialize only the frozen inputs first:
 
 ```bash
 python -m scripts.materialize_tef_v6_semantic_benchmark_v1
 python -m scripts.materialize_tef_rag_v6_generation_inputs
 python -m scripts.run_tef_rag_v6_generation_eval preflight
+```
+
+These steps verify committed benchmark/prediction hashes and make local ignored runtime inputs. They do not rerun retrieval or call an API.
+
+To regenerate model outputs from scratch (this incurs API usage), configure the required DeepSeek key and run:
+
+```bash
 python -m scripts.run_tef_rag_v6_generation_eval generate --all
 python -m scripts.run_tef_rag_v6_generation_eval freeze
 ```
 
-The materializers verify committed transport and prediction hashes before
-creating ignored local inputs under `data/generated/.../public/` and
-`results/v6/sealed_test/`. They perform no retrieval or model calls.
-
-For a public, non-sealed evaluation of prediction files, use the wrapper below. It reuses `tef_rag_v6.generation_eval` metric formulas and reads the released test gold/index; it does not use the formal private one-shot lock:
+For public scoring of prediction files against the released test gold/index:
 
 ```bash
 python -m scripts.evaluate_tef_rag_v6_public_generation --predictions path/to/predictions
 ```
 
-Each prediction file is named `<method>.jsonl` and contains `query_id`, `input_evidence_ids`, and a `generation` object. The wrapper expects the five method names `bm25`, `bge_reranker`, `temporal_bm25`, `ta_rag`, and `tef_rag_stage3d`.
+Each prediction file is named `<method>.jsonl` and contains `query_id`, input/selected evidence IDs, and a generation object. The public evaluator expects the five methods `bm25`, `bge_reranker`, `temporal_bm25`, `ta_rag`, and `tef_rag_stage3d`, and requires exact 480-query coverage.
 
 ## Reference paper metrics
 
-The released aggregate generation reference is in [`paper/results/final_generation_metrics.json`](paper/results/final_generation_metrics.json). It contains no item-level predictions or private evaluation details. Retrieval aggregate tables and methodological context are in [`paper/`](paper/).
+- Retrieval: [`paper/results/final_retrieval_metrics.json`](paper/results/final_retrieval_metrics.json)
+- Generation: [`paper/results/final_generation_metrics.json`](paper/results/final_generation_metrics.json)
+
+These files contain aggregate reference metrics only; private item-level evaluation details are not included.
 
 ## Reproducibility notes
 
 - Generator model: `deepseek-flash`, official endpoint, temperature `0`, thinking disabled, maximum one schema/grounding repair.
-- Retrieval and generation schemas, alias registries, and parameter registries are versioned in this repository.
-- Random seeds and learned-model metadata are recorded with the V6 artifacts and stage scripts.
-- Dataset text files are normalized to LF and protected by `.gitattributes` for byte-stable hashing.
-- No API key, local environment file, cache, private item-level evaluation detail, or formal generation prediction output is part of this release. Frozen retrieval test predictions are the explicitly published artifacts under `data/retrieval/frozen_test_predictions/`.
+- Retrieval and generation schemas, alias registries, parameter registries, seeds, model metadata, and frozen hashes are versioned in the repository.
+- Ordinary text files use LF. A small number of historical sealed/frozen artifacts are marked binary in `.gitattributes` so their audited original bytes are preserved exactly.
+- No API key, local environment file, cache, or private item-level review/evaluation detail is included in the release.
+- The V6 test evaluator/gold was hidden during the formal blind run and released only after completion; future method-development work should use a new sealed test split rather than treating this released test set as unseen.
