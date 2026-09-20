@@ -42,7 +42,7 @@ t_e(e)\le t_q \land t_a(e)\le t_q
 
 \subsection{检索目标}
 
-基础检索器从 $\Candidates_q$ 中得到候选节点集合 $V_q$。本文希望最终选择固定大小的证据集合 $\hat{\Selected}_q$，使其不仅包含与查询相关的记录，还能够覆盖完成任务所需的互补证据角色，并在时间与语义上形成连贯结构。
+基础检索器从 $\Candidates_q$ 中得到候选节点集合 $V_q$。本文以 $k=5$ 作为检索上限。令 $k_q=\min(5,|V_q|)$，系统选择至多五条证据组成 $\hat{\Selected}_q$；当合法候选不足五条时直接返回现有合法证据，不进行填充或回补。所选证据不仅应与查询相关，还应覆盖完成任务所需的互补角色，并在时间与语义上形成连贯结构。
 
 因此，本文不把检索目标写成五个独立文档分数之和，而是定义集合效用
 \begin{equation}
@@ -50,10 +50,10 @@ t_e(e)\le t_q \land t_a(e)\le t_q
 =
 \arg\max_{\Selected\in\SetBank_q}
 F_{\theta}(Q_q,\Selected,\FlowGraph_q),
-\quad |\Selected|=5,
+\quad |\Selected|=k_q,
 \label{eq:set_selection}
 \end{equation}
-其中 $\SetBank_q$ 是候选证据集合空间，$\FlowGraph_q$ 是查询条件化的时序证据图，$F_{\theta}$ 为学习到的集合级排序函数。
+其中 $\SetBank_q$ 是满足 $|\Selected|=k_q$ 的候选证据集合空间，$\FlowGraph_q$ 是查询条件化的时序证据图，$F_{\theta}$ 为学习到的集合级排序函数。
 
 \subsection{下游任务}
 
@@ -78,8 +78,8 @@ $e,t_e(e),t_a(e)$ & 证据、事件时间与首次可用时间 \\
 $\Evidence$ & 全局证据库 \\
 $\Candidates_q$ & 查询时刻合法且可见的证据集合 \\
 $\FlowGraph_q$ & 查询条件化 Temporal Evidence Flow 图 \\
-$\SetBank_q$ & 固定大小候选证据集合空间 \\
-$\hat{\Selected}_q$ & 最终选出的 Top-5 evidence flow \\
+$\SetBank_q$ & 至多五条证据组成的候选集合空间 \\
+$\hat{\Selected}_q$ & 最终选出的 evidence flow（至多 5 条） \\
 $W_q,A_q$ & 标准化工单与动作计划 \\
 \bottomrule
 \end{tabular}
