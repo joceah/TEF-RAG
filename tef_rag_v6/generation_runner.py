@@ -356,6 +356,10 @@ def validate_parse_provenance(value: Any) -> list[str]:
                 digest = value.get(key)
                 if not isinstance(digest, str) or len(digest) != 64 or any(char not in "0123456789abcdef" for char in digest):
                     errors.append(f"{key} is invalid")
+            if value.get("original_field_canonical_sha256") != value.get("duplicate_field_canonical_sha256"):
+                errors.append("duplicate canonical hashes differ")
+            if value.get("original_json_decode_error_pos") != value.get("accepted_json_text_length"):
+                errors.append("duplicate suffix error position is invalid")
     return errors
 
 
@@ -424,6 +428,35 @@ class DeepSeekClient:
             excerpt["around_error_start"] = start
         return excerpt
 
+    def _redact_headers(self, headers: dict[str, Any]) -> dict[str, str]:
+        sensitive = {
+            "authorization", "proxy-authorization", "cookie", "set-cookie",
+            "x-api-key", "api-key",
+        }
+        redacted: dict[str, str] = {}
+        for key, value in headers.items():
+            if str(key).lower() in sensitive:
+                redacted[str(key)] = "<REDACTED>"
+            else:
+                redacted[str(key)] = str(value).replace(self.key, "<API_KEY_REDACTED>")
+        return redacted
+
+    @staticmethod
+    def _trace_id(headers: dict[str, Any]) -> str | None:
+        names = {"x-ds-trace-id", "x-request-id", "request-id", "trace-id"}
+        for key, value in headers.items():
+            if str(key).lower() in names:
+                return str(value)
+        return None
+
+    @staticmethod
+    def _header_value(headers: dict[str, str], name: str) -> str | None:
+        wanted = name.lower()
+        for key, value in headers.items():
+            if key.lower() == wanted:
+                return value
+        return None
+
     def _write_diagnostic_failure(
         self,
         logical_key: str,
@@ -444,10 +477,7 @@ class DeepSeekClient:
             return
         safe_key = re.sub(r"[^A-Za-z0-9_.-]+", "_", logical_key).strip("_") or request_hash
         stem = f"{safe_key}_attempt{attempt + 1}"
-        headers = {
-            str(key): str(value).replace(self.key, "<API_KEY_REDACTED>")
-            for key, value in (response_headers or {}).items()
-        }
+        headers = self._redact_headers(response_headers or {})
         event: dict[str, Any] = {
             "logical_key": logical_key,
             "request_fingerprint": request_hash,
@@ -459,8 +489,9 @@ class DeepSeekClient:
                 "repr": repr(exc),
             },
             "http_status": response_status,
-            "content_type": headers.get("Content-Type"),
+            "content_type": self._header_value(headers, "Content-Type"),
             "response_headers": headers,
+            "trace_id": self._trace_id(response_headers or {}),
             "response_id": envelope.get("id") if isinstance(envelope, dict) else None,
             "response_model": envelope.get("model") if isinstance(envelope, dict) else None,
             "finish_reason": finish_reason,
@@ -520,6 +551,74 @@ class DeepSeekClient:
         event_path.write_text(json.dumps(event, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         self.diagnostic_events.append(event)
 
+    def _safe_write_diagnostic_failure(self, *args: Any, **kwargs: Any) -> None:
+        try:
+            self._write_diagnostic_failure(*args, **kwargs)
+        except Exception:
+            # Observability must never replace the original transport/parser error.
+            pass
+
+    def _write_normalization_audit(
+        self,
+        logical_key: str,
+        request_hash: str,
+        attempt: int,
+        parse_provenance: dict[str, Any],
+        *,
+        raw_body: bytes,
+        response_status: int | None,
+        response_headers: dict[str, Any],
+        envelope: dict[str, Any],
+        finish_reason: Any,
+        content: str,
+    ) -> None:
+        if self.diagnostic_dir is None or parse_provenance.get("parse_mode") == "strict":
+            return
+        audit_dir = self.diagnostic_dir / "normalizations"
+        audit_dir.mkdir(parents=True, exist_ok=True)
+        safe_key = re.sub(r"[^A-Za-z0-9_.-]+", "_", logical_key).strip("_") or request_hash
+        stem = f"{safe_key}_attempt{attempt + 1}"
+        raw_text = raw_body.decode("utf-8", errors="replace")
+        safe_raw_text = raw_text.replace(self.key, "<API_KEY_REDACTED>")
+        safe_content = content.replace(self.key, "<API_KEY_REDACTED>")
+        raw_path = audit_dir / f"{stem}_raw_response.txt"
+        content_path = audit_dir / f"{stem}_assistant_content.txt"
+        event_path = audit_dir / f"{stem}.json"
+        raw_path.write_text(safe_raw_text, encoding="utf-8")
+        content_path.write_text(safe_content, encoding="utf-8")
+        event = {
+            "logical_key": logical_key,
+            "request_fingerprint": request_hash,
+            "attempt": attempt + 1,
+            "parse_mode": parse_provenance.get("parse_mode"),
+            "provider_content_sha256": sha_text(content),
+            "accepted_json_text_sha256": parse_provenance.get("accepted_json_text_sha256"),
+            "raw_response_sha256": hashlib.sha256(raw_body).hexdigest(),
+            "raw_response_byte_length": len(raw_body),
+            "raw_response_char_length": len(raw_text),
+            "assistant_content_sha256": sha_text(content),
+            "assistant_content_char_length": len(content),
+            "assistant_content_byte_length": len(content.encode("utf-8")),
+            "parse_provenance": parse_provenance,
+            "finish_reason": finish_reason,
+            "http_status": response_status,
+            "response_headers": self._redact_headers(response_headers),
+            "trace_id": self._trace_id(response_headers),
+            "response_id": envelope.get("id"),
+            "provider_model": envelope.get("model"),
+            "raw_response_path": str(raw_path),
+            "assistant_content_path": str(content_path),
+            "normalization_audit_path": str(event_path),
+        }
+        if parse_provenance.get("parse_mode") == "exact_duplicate_root_field_suffix":
+            for key in (
+                "duplicated_root_key", "duplicate_suffix_sha256", "duplicate_suffix_char_length",
+                "original_field_canonical_sha256", "duplicate_field_canonical_sha256",
+            ):
+                event[key] = parse_provenance.get(key)
+        event_path.write_text(json.dumps(event, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        self.diagnostic_events.append(event)
+
     def call(self, system: str, user: str, logical_key: str) -> dict[str, Any]:
         payload = request_payload(system, user)
         request_hash = request_fingerprint(self.endpoint, system, user)
@@ -545,6 +644,10 @@ class DeepSeekClient:
             raw_body: bytes | None = None
             response_status: int | None = None
             response_headers: dict[str, Any] = {}
+            data: Any = None
+            choice: dict[str, Any] | None = None
+            content: str | None = None
+            diagnostic_written = False
             try:
                 req = urllib.request.Request(
                     self.endpoint,
@@ -562,37 +665,68 @@ class DeepSeekClient:
                     raw_body = response.read()
                     try:
                         data = json.loads(raw_body.decode("utf-8"))
-                    except json.JSONDecodeError as exc:
-                        self._write_diagnostic_failure(
+                    except (json.JSONDecodeError, UnicodeDecodeError) as exc:
+                        self._safe_write_diagnostic_failure(
                             logical_key,
                             request_hash,
                             attempt,
-                            "http_response_json",
+                            "http_response_json" if isinstance(exc, json.JSONDecodeError) else "http_response_decode",
                             exc,
                             raw_body=raw_body,
                             response_status=response_status,
                             response_headers=response_headers,
                             parser_mode="http_envelope_json",
                         )
+                        diagnostic_written = True
                         raise
                 if not isinstance(data, dict):
-                    raise ValueError("JSON response envelope must be an object")
+                    exc = ValueError("JSON response envelope must be an object")
+                    self._safe_write_diagnostic_failure(
+                        logical_key, request_hash, attempt, "http_response_envelope", exc,
+                        raw_body=raw_body, response_status=response_status,
+                        response_headers=response_headers,
+                    )
+                    diagnostic_written = True
+                    raise exc
                 usage = data.get("usage") or {}
                 self._record_usage(usage)
                 choices = data.get("choices")
                 if not isinstance(choices, list) or not choices or not isinstance(choices[0], dict):
-                    raise ValueError("response choices envelope is invalid")
+                    exc = ValueError("response choices envelope is invalid")
+                    self._safe_write_diagnostic_failure(
+                        logical_key, request_hash, attempt, "http_response_envelope", exc,
+                        raw_body=raw_body, response_status=response_status,
+                        response_headers=response_headers, envelope=data,
+                    )
+                    diagnostic_written = True
+                    raise exc
                 choice = choices[0]
                 if choice.get("finish_reason") == "length":
-                    raise ValueError("incomplete generation: finish_reason=length")
+                    exc = ValueError("incomplete generation: finish_reason=length")
+                    self._safe_write_diagnostic_failure(
+                        logical_key, request_hash, attempt, "finish_reason", exc,
+                        raw_body=raw_body, response_status=response_status,
+                        response_headers=response_headers, envelope=data,
+                        finish_reason=choice.get("finish_reason"),
+                    )
+                    diagnostic_written = True
+                    raise exc
                 message = choice.get("message")
                 if not isinstance(message, dict):
-                    raise ValueError("response message envelope is invalid")
+                    exc = ValueError("response message envelope is invalid")
+                    self._safe_write_diagnostic_failure(
+                        logical_key, request_hash, attempt, "assistant_message_envelope", exc,
+                        raw_body=raw_body, response_status=response_status,
+                        response_headers=response_headers, envelope=data,
+                        finish_reason=choice.get("finish_reason"),
+                    )
+                    diagnostic_written = True
+                    raise exc
                 content = str(message.get("content", ""))
                 try:
                     result, parse_provenance = parse_generation_json_object(content)
                 except (json.JSONDecodeError, ValueError, TypeError) as exc:
-                    self._write_diagnostic_failure(
+                    self._safe_write_diagnostic_failure(
                         logical_key,
                         request_hash,
                         attempt,
@@ -606,8 +740,25 @@ class DeepSeekClient:
                         content=content,
                         parser_mode="strict_then_transport_normalizations",
                     )
+                    diagnostic_written = True
                     raise
                 self.last_parse_provenance = parse_provenance
+                try:
+                    self._write_normalization_audit(
+                        logical_key,
+                        request_hash,
+                        attempt,
+                        parse_provenance,
+                        raw_body=raw_body,
+                        response_status=response_status,
+                        response_headers=response_headers,
+                        envelope=data,
+                        finish_reason=choice.get("finish_reason"),
+                        content=content,
+                    )
+                except Exception:
+                    # Diagnostics must never change the cached result or retry semantics.
+                    pass
                 write_json(cache_path, {
                     "logical_key": logical_key,
                     "request_hash": request_hash,
@@ -617,10 +768,47 @@ class DeepSeekClient:
                 })
                 return result
             except urllib.error.HTTPError as exc:
+                if not diagnostic_written:
+                    response_status = exc.code
+                    response_headers_obj = getattr(exc, "headers", None)
+                    response_headers = dict(response_headers_obj) if response_headers_obj is not None else {}
+                    try:
+                        raw_body = exc.read()
+                    except Exception:
+                        raw_body = None
+                    self._safe_write_diagnostic_failure(
+                        logical_key, request_hash, attempt, "http_error", exc,
+                        raw_body=raw_body, response_status=response_status,
+                        response_headers=response_headers, envelope=data if isinstance(data, dict) else None,
+                        finish_reason=choice.get("finish_reason") if isinstance(choice, dict) else None,
+                        content=content,
+                    )
+                    diagnostic_written = True
                 if exc.code in (401, 402, 403) or attempt == 2:
                     self.stats["failures"] += 1
                     raise RuntimeError(f"DeepSeek HTTP {exc.code}") from exc
+            except UnicodeDecodeError as exc:
+                # Preserve the pre-existing one-attempt decode failure behavior;
+                # the inner response decode block has already recorded it.
+                if not diagnostic_written:
+                    self._safe_write_diagnostic_failure(
+                        logical_key, request_hash, attempt, "http_response_decode", exc,
+                        raw_body=raw_body, response_status=response_status,
+                        response_headers=response_headers,
+                        envelope=data if isinstance(data, dict) else None,
+                    )
+                raise
             except (urllib.error.URLError, TimeoutError, json.JSONDecodeError, KeyError, ValueError, TypeError) as exc:
+                if not diagnostic_written:
+                    layer = "http_transport" if isinstance(exc, urllib.error.URLError) else "client_failure"
+                    self._safe_write_diagnostic_failure(
+                        logical_key, request_hash, attempt, layer, exc,
+                        raw_body=raw_body, response_status=response_status,
+                        response_headers=response_headers, envelope=data if isinstance(data, dict) else None,
+                        finish_reason=choice.get("finish_reason") if isinstance(choice, dict) else None,
+                        content=content,
+                    )
+                    diagnostic_written = True
                 if attempt == 2:
                     self.stats["failures"] += 1
                     raise RuntimeError(f"DeepSeek generation failure: {type(exc).__name__}") from exc

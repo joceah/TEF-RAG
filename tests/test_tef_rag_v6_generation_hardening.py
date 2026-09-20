@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import copy
+import io
 import json
+import urllib.error
 from pathlib import Path
 
 import pytest
@@ -189,6 +191,17 @@ def test_exact_duplicate_suffix_provenance_and_schema_path():
     assert validate_generation_output(result, schema(), set(), "Rack-A")
 
 
+def test_exact_duplicate_suffix_provenance_rejects_forged_canonical_hashes():
+    raw = '{"work_order":{"asset_id":"Rack-A"},"action_plan":[]} ,"action_plan":[]}'.replace('[]} ,', '[]},')
+    _, provenance = runner.parse_generation_json_object(raw)
+    forged = dict(provenance)
+    forged["duplicate_field_canonical_sha256"] = "0" * 64
+    assert "duplicate canonical hashes differ" in runner.validate_parse_provenance(forged)
+    forged = dict(provenance)
+    forged["original_json_decode_error_pos"] += 1
+    assert "duplicate suffix error position is invalid" in runner.validate_parse_provenance(forged)
+
+
 def test_archived_production_payloads_are_exact_duplicate_suffix_regressions():
     root = Path(__file__).parents[1] / "debug_artifacts/tef_v6_generation_json_failure_20260919"
     selected = {"TEFV6-C0059-E05", "TEFV6-C0059-E06", "TEFV6-C0059-E07", "TEFV6-C0059-E08", "TEFV6-C0118-E05"}
@@ -252,7 +265,7 @@ class _FakeResponse:
         return self.body
 
 
-def _client_for_response(monkeypatch, tmp_path, envelope):
+def _client_for_response(monkeypatch, tmp_path, envelope, diagnostic_dir=None):
     monkeypatch.setattr(runner, "read_env", lambda: {"API_KEY": "test"})
     monkeypatch.setattr(runner, "CALL_INTERVAL", 0.0)
     calls = []
@@ -263,7 +276,7 @@ def _client_for_response(monkeypatch, tmp_path, envelope):
         return _FakeResponse(body)
 
     monkeypatch.setattr(runner.urllib.request, "urlopen", fake_urlopen)
-    return runner.DeepSeekClient(tmp_path / "cache", official=True), calls
+    return runner.DeepSeekClient(tmp_path / "cache", official=True, diagnostic_dir=diagnostic_dir), calls
 
 
 def test_response_json_decode_path_is_identical_with_diagnostics_off_or_on(monkeypatch, tmp_path):
@@ -299,6 +312,68 @@ def test_diagnostic_failure_records_each_assistant_content_hash(monkeypatch, tmp
         assert event["attempt"] in (1, 2, 3)
 
 
+def test_strict_success_does_not_create_normalization_audit(monkeypatch, tmp_path):
+    diagnostic_dir = tmp_path / "diagnostics"
+    client, calls = _client_for_response(
+        monkeypatch,
+        tmp_path,
+        {"id": "strict", "model": "deepseek-flash", "choices": [{"finish_reason": "stop", "message": {"content": '{"ok":true}'}}], "usage": {}},
+        diagnostic_dir=diagnostic_dir,
+    )
+    assert client.call("system", "user", "strict-audit") == {"ok": True}
+    assert len(calls) == 1
+    assert not (diagnostic_dir / "normalizations").exists()
+
+
+def test_single_extra_normalization_audit_preserves_result_and_hashes(monkeypatch, tmp_path):
+    content = '{"ok":true}}'
+    envelope = {"id": "single", "model": "deepseek-flash", "choices": [{"finish_reason": "stop", "message": {"content": content}}], "usage": {}}
+    diagnostic_dir = tmp_path / "diagnostics"
+    client, calls = _client_for_response(monkeypatch, tmp_path, envelope, diagnostic_dir=diagnostic_dir)
+    assert client.call("system", "user", "single-audit") == {"ok": True}
+    assert len(calls) == 1
+    audits = sorted((diagnostic_dir / "normalizations").glob("*.json"))
+    assert len(audits) == 1
+    event = json.loads(audits[0].read_text(encoding="utf-8"))
+    assert event["parse_mode"] == "single_extra_closing_brace"
+    assert event["assistant_content_sha256"] == runner.sha_text(content)
+    assert event["raw_response_sha256"] == runner.sha_text(json.dumps(envelope, ensure_ascii=False))
+    assert Path(event["raw_response_path"]).read_text(encoding="utf-8")
+    assert Path(event["assistant_content_path"]).read_text(encoding="utf-8") == content
+
+
+def test_exact_duplicate_normalization_audit_preserves_result_and_hashes(monkeypatch, tmp_path):
+    content = '{"work_order":{"asset_id":"Rack-A"},"action_plan":[]} ,"action_plan":[]}'
+    # Keep the archived grammar exact: no whitespace is allowed before the suffix comma.
+    content = content.replace('[]} ,', '[]},')
+    envelope = {"id": "exact", "model": "deepseek-flash", "choices": [{"finish_reason": "stop", "message": {"content": content}}], "usage": {}}
+    diagnostic_dir = tmp_path / "diagnostics"
+    client, calls = _client_for_response(monkeypatch, tmp_path, envelope, diagnostic_dir=diagnostic_dir)
+    assert client.call("system", "user", "exact-audit") == {"work_order": {"asset_id": "Rack-A"}, "action_plan": []}
+    assert len(calls) == 1
+    audits = sorted((diagnostic_dir / "normalizations").glob("*.json"))
+    assert len(audits) == 1
+    event = json.loads(audits[0].read_text(encoding="utf-8"))
+    assert event["parse_mode"] == "exact_duplicate_root_field_suffix"
+    assert event["duplicated_root_key"] == "action_plan"
+    assert event["original_field_canonical_sha256"] == event["duplicate_field_canonical_sha256"]
+    assert event["assistant_content_sha256"] == runner.sha_text(content)
+    assert event["raw_response_sha256"] == runner.sha_text(json.dumps(envelope, ensure_ascii=False))
+
+
+def test_normalization_audit_write_failure_does_not_change_cache_behavior(monkeypatch, tmp_path):
+    client, calls = _client_for_response(
+        monkeypatch,
+        tmp_path,
+        {"choices": [{"finish_reason": "stop", "message": {"content": '{"ok":true}}'}}], "usage": {}},
+        diagnostic_dir=tmp_path / "diagnostics",
+    )
+    client._write_normalization_audit = lambda *args, **kwargs: (_ for _ in ()).throw(OSError("audit disk full"))
+    assert client.call("system", "user", "audit-write-failure") == {"ok": True}
+    assert len(calls) == 1
+    assert list((tmp_path / "cache").glob("*.json"))
+
+
 def test_formal_generation_uses_new_result_namespace_diagnostics_dir():
     source = Path(cli.__file__).read_text(encoding="utf-8")
     assert 'DeepSeekClient(CACHE / "api_cache", official=True, diagnostic_dir=OUT / "diagnostics")' in source
@@ -306,10 +381,12 @@ def test_formal_generation_uses_new_result_namespace_diagnostics_dir():
 
 
 def test_finish_reason_length_is_transport_failure_before_json_parse(monkeypatch, tmp_path):
+    diagnostic_dir = tmp_path / "diagnostics"
     client, calls = _client_for_response(
         monkeypatch,
         tmp_path,
         {"choices": [{"finish_reason": "length", "message": {"content": '{"partial":1}}'}}], "usage": {"prompt_tokens": 10, "completion_tokens": 20, "total_tokens": 30, "completion_tokens_details": {"reasoning_tokens": 19}}},
+        diagnostic_dir=diagnostic_dir,
     )
     with pytest.raises(RuntimeError, match="ValueError"):
         client.call("system", "user", "length")
@@ -321,6 +398,9 @@ def test_finish_reason_length_is_transport_failure_before_json_parse(monkeypatch
     assert client.stats["total_tokens"] == 90
     assert client.stats["reasoning_tokens"] == 57
     assert not list((tmp_path / "cache").glob("*.json"))
+    failures = sorted(diagnostic_dir.glob("*_failure.json"))
+    assert len(failures) == 3
+    assert all(json.loads(path.read_text(encoding="utf-8"))["layer"] == "finish_reason" for path in failures)
 
 
 def test_finish_reason_stop_valid_json_is_returned(monkeypatch, tmp_path):
@@ -356,6 +436,137 @@ def test_finish_reason_stop_malformed_json_keeps_parser_retry_behavior(monkeypat
     with pytest.raises(RuntimeError, match="JSONDecodeError"):
         client.call("system", "user", "malformed")
     assert len(calls) == 3
+
+
+@pytest.mark.parametrize(
+    "envelope,expected_layer",
+    [
+        ([], "http_response_envelope"),
+        ({"choices": []}, "http_response_envelope"),
+        ({"choices": [{"finish_reason": "stop", "message": None}]}, "assistant_message_envelope"),
+    ],
+    ids=["non-object", "invalid-choices", "invalid-message"],
+)
+def test_invalid_response_envelopes_write_diagnostic_for_each_attempt(monkeypatch, tmp_path, envelope, expected_layer):
+    client, calls = _client_for_response(monkeypatch, tmp_path, envelope, diagnostic_dir=tmp_path / "diagnostics")
+    with pytest.raises(RuntimeError):
+        client.call("system", "user", "invalid-envelope")
+    assert len(calls) == 3
+    failures = sorted((tmp_path / "diagnostics").glob("*_failure.json"))
+    assert len(failures) == 3
+    assert [json.loads(path.read_text(encoding="utf-8"))["layer"] for path in failures] == [expected_layer] * 3
+
+
+def test_unicode_response_decode_failure_is_diagnosed_without_retry(monkeypatch, tmp_path):
+    monkeypatch.setattr(runner, "read_env", lambda: {"API_KEY": "test"})
+    monkeypatch.setattr(runner, "CALL_INTERVAL", 0.0)
+    calls = []
+
+    def fake_urlopen(*args, **kwargs):
+        calls.append(1)
+        return _FakeResponse(b"\xff\xfe")
+
+    monkeypatch.setattr(runner.urllib.request, "urlopen", fake_urlopen)
+    diagnostic_dir = tmp_path / "diagnostics"
+    client = runner.DeepSeekClient(tmp_path / "cache", official=True, diagnostic_dir=diagnostic_dir)
+    with pytest.raises(UnicodeDecodeError):
+        client.call("system", "user", "unicode-response")
+    assert len(calls) == 1
+    failures = sorted(diagnostic_dir.glob("*_failure.json"))
+    assert len(failures) == 1
+    event = json.loads(failures[0].read_text(encoding="utf-8"))
+    assert event["layer"] == "http_response_decode"
+    assert event["raw_body_byte_length"] == 2
+
+
+def test_diagnostic_write_failure_does_not_replace_parser_exception(monkeypatch, tmp_path):
+    client, calls = _client_for_response(
+        monkeypatch,
+        tmp_path,
+        {"choices": [{"finish_reason": "stop", "message": {"content": '{"bad":'}}], "usage": {}},
+    )
+    client._write_diagnostic_failure = lambda *args, **kwargs: (_ for _ in ()).throw(OSError("diagnostic disk full"))
+    with pytest.raises(RuntimeError, match="JSONDecodeError"):
+        client.call("system", "user", "diagnostic-write-failure")
+    assert len(calls) == 3
+
+
+def test_http_5xx_retry_diagnostics_redact_sensitive_headers(monkeypatch, tmp_path):
+    monkeypatch.setattr(runner, "read_env", lambda: {"API_KEY": "secret-key"})
+    monkeypatch.setattr(runner, "CALL_INTERVAL", 0.0)
+    diagnostic_dir = tmp_path / "diagnostics"
+    bodies = []
+
+    def fake_urlopen(*args, **kwargs):
+        body = b'{"error":"oops"}'
+        bodies.append(body)
+        return_value = io.BytesIO(body)
+        raise urllib.error.HTTPError(
+            args[0].full_url,
+            500,
+            "server error",
+            {"Authorization": "Bearer secret-key", "Proxy-Authorization": "proxy-secret", "Cookie": "cookie-secret", "Set-Cookie": "set-secret", "X-API-Key": "api-secret", "X-DS-Trace-ID": "trace-1", "Content-Type": "application/json"},
+            return_value,
+        )
+
+    monkeypatch.setattr(runner.urllib.request, "urlopen", fake_urlopen)
+    client = runner.DeepSeekClient(tmp_path / "cache", official=True, diagnostic_dir=diagnostic_dir)
+    with pytest.raises(RuntimeError, match="DeepSeek HTTP 500"):
+        client.call("system", "user", "http-500")
+    assert len(bodies) == 3
+    failures = sorted(diagnostic_dir.glob("*_failure.json"))
+    assert len(failures) == 3
+    event = json.loads(failures[0].read_text(encoding="utf-8"))
+    assert event["layer"] == "http_error"
+    assert event["http_status"] == 500
+    assert event["trace_id"] == "trace-1"
+    assert event["raw_body_sha256"] == runner.sha_text('{"error":"oops"}')
+    for key in ("Authorization", "Proxy-Authorization", "Cookie", "Set-Cookie", "X-API-Key"):
+        assert event["response_headers"][key] == "<REDACTED>"
+    assert "secret-key" not in json.dumps(event)
+    assert "proxy-secret" not in json.dumps(event)
+
+
+def test_header_redaction_is_case_insensitive(monkeypatch, tmp_path):
+    monkeypatch.setattr(runner, "read_env", lambda: {"API_KEY": "secret-key"})
+    client = runner.DeepSeekClient(tmp_path / "cache", official=True)
+    redacted = client._redact_headers({
+        "aUtHoRiZaTiOn": "Bearer secret-key",
+        "PROXY-AUTHORIZATION": "proxy-secret",
+        "cookie": "cookie-secret",
+        "SET-cookie": "set-secret",
+        "x-api-key": "api-secret",
+        "Api-Key": "api-secret-2",
+    })
+    assert set(redacted.values()) == {"<REDACTED>"}
+
+
+@pytest.mark.parametrize(
+    "failure,expected_layer",
+    [
+        (lambda: urllib.error.URLError("dns failure"), "http_transport"),
+        (lambda: TimeoutError("timeout"), "client_failure"),
+    ],
+    ids=["url-error", "timeout"],
+)
+def test_transport_failures_write_one_diagnostic_per_attempt(monkeypatch, tmp_path, failure, expected_layer):
+    monkeypatch.setattr(runner, "read_env", lambda: {"API_KEY": "test"})
+    monkeypatch.setattr(runner, "CALL_INTERVAL", 0.0)
+    calls = []
+
+    def fake_urlopen(*args, **kwargs):
+        calls.append(1)
+        raise failure()
+
+    monkeypatch.setattr(runner.urllib.request, "urlopen", fake_urlopen)
+    diagnostic_dir = tmp_path / "diagnostics"
+    client = runner.DeepSeekClient(tmp_path / "cache", official=True, diagnostic_dir=diagnostic_dir)
+    with pytest.raises(RuntimeError):
+        client.call("system", "user", "transport-failure")
+    assert len(calls) == 3
+    failures = sorted(diagnostic_dir.glob("*_failure.json"))
+    assert len(failures) == 3
+    assert [json.loads(path.read_text(encoding="utf-8"))["layer"] for path in failures] == [expected_layer] * 3
 
 
 def _visible_evidence(evidence_id: str) -> dict[str, object]:
@@ -752,6 +963,61 @@ def test_resume_session_mismatch_rejected_before_client(monkeypatch, tmp_path):
     monkeypatch.setattr(cli, "DeepSeekClient", lambda *args, **kwargs: pytest.fail("client accessed before resume validation"))
     with pytest.raises(RuntimeError, match="resume session mismatch"):
         cli.run_generation(cli.METHODS)
+    aborted = json.loads((tmp_path / "generation_runtime_aborted.json").read_text(encoding="utf-8"))
+    assert aborted["protocol_version"] == cli.GENERATION_PROTOCOL_VERSION
+    assert aborted["session_fingerprint"] == "current"
+    assert aborted["query_index"] is None
+    assert aborted["query_id"] is None
+    assert aborted["method"] is None
+    assert aborted["persisted_row_counts"][cli.METHODS[0]] == 1
+    assert aborted["exception_type"] == "RuntimeError"
+    assert aborted["diagnostics_dir"].endswith("diagnostics")
+
+
+def test_successful_generation_writes_normal_runtime_without_aborted_runtime(monkeypatch, tmp_path):
+    out = tmp_path / "out"
+    pred_out = out / "predictions"
+    cache = tmp_path / "cache"
+    monkeypatch.setattr(cli, "OUT", out)
+    monkeypatch.setattr(cli, "PRED_OUT", pred_out)
+    monkeypatch.setattr(cli, "CACHE", cache)
+    monkeypatch.setattr(cli, "preflight", lambda: {"retrieval_prediction_hashes": {}, "materialized_artifact_hashes": {}})
+    monkeypatch.setattr(cli, "formal_session_fingerprint", lambda pre: "session")
+    monkeypatch.setattr(cli, "queries", lambda: [{"query_id": "Q", "asset_id": "Rack-A"}])
+    monkeypatch.setattr(cli, "evidence_map", lambda: {"E1": {"evidence_id": "E1"}})
+    monkeypatch.setattr(cli, "retrieval_predictions", lambda: {method: [{"selected_evidence_ids": []}] for method in cli.METHODS})
+    monkeypatch.setattr(cli, "schema", lambda: {})
+    monkeypatch.setattr(cli, "load_generation_rows", lambda method: [])
+    monkeypatch.setattr(cli, "build_prompt", lambda *args: ("system", "user"))
+    monkeypatch.setattr(cli, "request_fingerprint", lambda *args: "fp")
+    monkeypatch.setattr(cli, "generator_instructions", lambda: "system")
+    monkeypatch.setattr(cli, "validate_generation_output", lambda *args: [])
+
+    class FakeClient:
+        def __init__(self, cache_dir, official=False, diagnostic_dir=None):
+            self.endpoint = cli.OFFICIAL_ENDPOINT
+            self.diagnostic_dir = diagnostic_dir
+            self.last_request_hash = None
+            self.last_parse_provenance = None
+            self.stats = {
+                "requests": 0, "cache_hits": 0, "retries": 0, "failures": 0,
+                "prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0,
+                "reasoning_tokens": 0,
+            }
+
+        def call(self, system, user, logical_key):
+            self.stats["requests"] += 1
+            self.last_request_hash = "fp"
+            _, self.last_parse_provenance = runner.parse_generation_json_object('{"ok":true}')
+            return {"ok": True}
+
+    monkeypatch.setattr(cli, "DeepSeekClient", FakeClient)
+    runtime = cli.run_generation(cli.METHODS)
+    assert runtime["methods"] == list(cli.METHODS)
+    assert (out / "generation_runtime.json").exists()
+    assert not (out / "generation_runtime_aborted.json").exists()
+    assert (out / "diagnostics").exists() is False
+    assert len(list(pred_out.glob("*.jsonl"))) == len(cli.METHODS)
 
 
 def test_formal_cli_rejects_method_mode():
