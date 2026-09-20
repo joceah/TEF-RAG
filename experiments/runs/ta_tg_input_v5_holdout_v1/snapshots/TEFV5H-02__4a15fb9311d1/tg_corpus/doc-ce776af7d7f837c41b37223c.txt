@@ -1,5 +1,0 @@
-record_id: doc-ce776af7d7f837c41b37223c
-asset_id: TEFV5H-02
-event_time: 2026-02-12T08:00:00Z
-available_at: 2026-02-12T18:00:00Z
-content: TEFV5H-02，WO-C2201：工作票关闭，相关记录已归档，设备恢复运行，无新增异常。

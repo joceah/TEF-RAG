@@ -1,5 +1,0 @@
-record_id: doc-5a3c6720ebe838f88763fb31
-asset_id: TEFV5H-02
-event_time: 2026-02-10T08:00:00Z
-available_at: 2026-02-10T18:00:00Z
-content: TEFV5H-02，WO-C2201：进行多轮储能循环验证，连续操作20次，储能时间8-9秒，无超时，电机温升正常，接点无抖动，确认缺陷已消除。

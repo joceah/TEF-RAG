@@ -1,0 +1,67 @@
+{
+  "review_pass_id": "VALIDATION_SECOND_BLIND_AI_SEMANTIC_PASS_2",
+  "reviewer_model": "GPT-5.6 Sol",
+  "review_date": "2026-09-16",
+  "protocol_freeze_commit": "b0e6e004378e7d7f29cabece1efa6b2c30489e9b",
+  "blindness": {
+    "first_pass_item_verdict_visible_before_judgment": false,
+    "first_pass_item_reasoning_visible_before_judgment": false,
+    "comparison_performed_only_after_pass2_verdicts_frozen": true
+  },
+  "scope": {
+    "split": "validation",
+    "chains": 80,
+    "query_rows": 480
+  },
+  "review_dimensions": [
+    "scenario_semantics",
+    "source_grounding_boundary",
+    "required_groups",
+    "canonical_flow",
+    "relation_types",
+    "procedure_applicability",
+    "late_arrival_cutoff",
+    "persistent_uncertainty",
+    "physical_numerical_plausibility",
+    "bitemporal_visibility"
+  ],
+  "source_artifacts": {
+    "evidence_jsonl_sha256": "201577c8c7786f2e3aac8ac5f3fee3937cd9746bce47f88d97efae7f1e98b80c",
+    "queries_validation_jsonl_sha256": "1e527c0490431b369b698681eac89128bca248e1646362200229d30873e20689",
+    "gold_validation_jsonl_sha256": "db52eab2e8dd4e68708f27505bb1d5d1a0d2a08014d8278b4e302b09a4151e67",
+    "first_pass_review_sha256": "55f93150b1153e937ce073f63f2f51ae9d78b40736b7f0850f61b8cbfd2dfc5d"
+  },
+  "summary": {
+    "pass": 80,
+    "review_unresolved": 0,
+    "pass1_pass2_disagreements": 0,
+    "source_boundary_reverified_against_public_sources": true
+  },
+  "chains": [
+    {"chain_id":"TEFV6-C0013","verdict":"PASS"},{"chain_id":"TEFV6-C0014","verdict":"PASS"},{"chain_id":"TEFV6-C0015","verdict":"PASS"},{"chain_id":"TEFV6-C0016","verdict":"PASS"},
+    {"chain_id":"TEFV6-C0033","verdict":"PASS"},{"chain_id":"TEFV6-C0034","verdict":"PASS"},{"chain_id":"TEFV6-C0035","verdict":"PASS"},{"chain_id":"TEFV6-C0036","verdict":"PASS"},
+    {"chain_id":"TEFV6-C0053","verdict":"PASS"},{"chain_id":"TEFV6-C0054","verdict":"PASS"},{"chain_id":"TEFV6-C0055","verdict":"PASS"},{"chain_id":"TEFV6-C0056","verdict":"PASS"},
+    {"chain_id":"TEFV6-C0073","verdict":"PASS"},{"chain_id":"TEFV6-C0074","verdict":"PASS"},{"chain_id":"TEFV6-C0075","verdict":"PASS"},{"chain_id":"TEFV6-C0076","verdict":"PASS"},
+    {"chain_id":"TEFV6-C0093","verdict":"PASS"},{"chain_id":"TEFV6-C0094","verdict":"PASS"},{"chain_id":"TEFV6-C0095","verdict":"PASS"},{"chain_id":"TEFV6-C0096","verdict":"PASS"},
+    {"chain_id":"TEFV6-C0113","verdict":"PASS"},{"chain_id":"TEFV6-C0114","verdict":"PASS"},{"chain_id":"TEFV6-C0115","verdict":"PASS"},{"chain_id":"TEFV6-C0116","verdict":"PASS"},
+    {"chain_id":"TEFV6-C0133","verdict":"PASS"},{"chain_id":"TEFV6-C0134","verdict":"PASS"},{"chain_id":"TEFV6-C0135","verdict":"PASS"},{"chain_id":"TEFV6-C0136","verdict":"PASS"},
+    {"chain_id":"TEFV6-C0153","verdict":"PASS"},{"chain_id":"TEFV6-C0154","verdict":"PASS"},{"chain_id":"TEFV6-C0155","verdict":"PASS"},{"chain_id":"TEFV6-C0156","verdict":"PASS"},
+    {"chain_id":"TEFV6-C0185","verdict":"PASS"},{"chain_id":"TEFV6-C0186","verdict":"PASS"},{"chain_id":"TEFV6-C0187","verdict":"PASS"},{"chain_id":"TEFV6-C0188","verdict":"PASS"},
+    {"chain_id":"TEFV6-C0189","verdict":"PASS"},{"chain_id":"TEFV6-C0190","verdict":"PASS"},{"chain_id":"TEFV6-C0191","verdict":"PASS"},{"chain_id":"TEFV6-C0192","verdict":"PASS"},
+    {"chain_id":"TEFV6-C0321","verdict":"PASS"},{"chain_id":"TEFV6-C0322","verdict":"PASS"},{"chain_id":"TEFV6-C0323","verdict":"PASS"},{"chain_id":"TEFV6-C0324","verdict":"PASS"},
+    {"chain_id":"TEFV6-C0325","verdict":"PASS"},{"chain_id":"TEFV6-C0326","verdict":"PASS"},{"chain_id":"TEFV6-C0327","verdict":"PASS"},{"chain_id":"TEFV6-C0328","verdict":"PASS"},
+    {"chain_id":"TEFV6-C0329","verdict":"PASS"},{"chain_id":"TEFV6-C0330","verdict":"PASS"},{"chain_id":"TEFV6-C0331","verdict":"PASS"},{"chain_id":"TEFV6-C0332","verdict":"PASS"},
+    {"chain_id":"TEFV6-C0333","verdict":"PASS"},{"chain_id":"TEFV6-C0334","verdict":"PASS"},{"chain_id":"TEFV6-C0335","verdict":"PASS"},{"chain_id":"TEFV6-C0336","verdict":"PASS"},
+    {"chain_id":"TEFV6-C0337","verdict":"PASS"},{"chain_id":"TEFV6-C0338","verdict":"PASS"},{"chain_id":"TEFV6-C0339","verdict":"PASS"},{"chain_id":"TEFV6-C0340","verdict":"PASS"},
+    {"chain_id":"TEFV6-C0341","verdict":"PASS"},{"chain_id":"TEFV6-C0342","verdict":"PASS"},{"chain_id":"TEFV6-C0343","verdict":"PASS"},{"chain_id":"TEFV6-C0344","verdict":"PASS"},
+    {"chain_id":"TEFV6-C0345","verdict":"PASS"},{"chain_id":"TEFV6-C0346","verdict":"PASS"},{"chain_id":"TEFV6-C0347","verdict":"PASS"},{"chain_id":"TEFV6-C0348","verdict":"PASS"},
+    {"chain_id":"TEFV6-C0349","verdict":"PASS"},{"chain_id":"TEFV6-C0350","verdict":"PASS"},{"chain_id":"TEFV6-C0351","verdict":"PASS"},{"chain_id":"TEFV6-C0352","verdict":"PASS"},
+    {"chain_id":"TEFV6-C0353","verdict":"PASS"},{"chain_id":"TEFV6-C0354","verdict":"PASS"},{"chain_id":"TEFV6-C0355","verdict":"PASS"},{"chain_id":"TEFV6-C0356","verdict":"PASS"},
+    {"chain_id":"TEFV6-C0357","verdict":"PASS"},{"chain_id":"TEFV6-C0358","verdict":"PASS"},{"chain_id":"TEFV6-C0359","verdict":"PASS"},{"chain_id":"TEFV6-C0360","verdict":"PASS"}
+  ],
+  "notes": [
+    "Operational causal stories and synthetic procedures remain modeling choices unless explicitly source-backed.",
+    "Validation pass-2 verdicts were fixed before the pass-1 item-level artifact was opened for disagreement comparison.",
+    "This artifact is validation-only and contains no sealed test gold, canonical flow, or test item-level reasoning."
+  ]
+}

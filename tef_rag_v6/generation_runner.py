@@ -79,7 +79,6 @@ def read_env() -> dict[str, str]:
         ROOT / "local.env",
         ROOT.parent / "local.env",
         ROOT.parent.parent / "local.env",
-        Path(r"D:\electric-project\local.env"),
     ]
     for path in candidates:
         if not path.exists():

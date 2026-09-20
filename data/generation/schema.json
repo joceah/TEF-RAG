@@ -1,0 +1,211 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "tef-rag-v6-generation-gold-v1.3-compatible",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "work_order",
+    "action_plan"
+  ],
+  "properties": {
+    "work_order": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "asset_id",
+        "diagnosis",
+        "recommended_actions",
+        "applicable_procedure",
+        "verification_or_uncertainty",
+        "supporting_evidence_ids"
+      ],
+      "properties": {
+        "asset_id": {
+          "type": "string"
+        },
+        "diagnosis": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "concept",
+            "supporting_evidence_ids"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "confirmed",
+                "not_available",
+                "persistent_uncertainty",
+                "provisional"
+              ]
+            },
+            "concept": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "supporting_evidence_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true
+            }
+          }
+        },
+        "recommended_actions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "applicable_procedure": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "procedure_version",
+            "supporting_evidence_ids"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "applicable",
+                "not_applicable",
+                "superseded",
+                "uncertain"
+              ]
+            },
+            "procedure_version": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "supporting_evidence_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true
+            }
+          }
+        },
+        "verification_or_uncertainty": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "statement",
+            "supporting_evidence_ids"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "not_available",
+                "pending",
+                "persistent_uncertainty",
+                "verified"
+              ]
+            },
+            "statement": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "supporting_evidence_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true
+            }
+          }
+        },
+        "supporting_evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "action_plan": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "action_id",
+          "action_type",
+          "target",
+          "parameters",
+          "depends_on",
+          "supporting_evidence_ids"
+        ],
+        "properties": {
+          "action_id": {
+            "type": "string"
+          },
+          "action_type": {
+            "enum": [
+              "adjust",
+              "diagnose",
+              "document",
+              "inspect",
+              "isolate",
+              "monitor",
+              "other",
+              "repair",
+              "replace",
+              "verify"
+            ]
+          },
+          "target": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "parameters": {
+            "type": "object",
+            "additionalProperties": {
+              "oneOf": [
+                {"type": "string"},
+                {"type": "object", "additionalProperties": false, "required": ["value", "unit"],
+                 "properties": {
+                   "value": {"oneOf": [
+                     {"type": "number"},
+                     {"type": "string"},
+                     {"type": "object", "additionalProperties": false, "required": ["lower", "upper"],
+                      "properties": {"lower": {"type": "number"}, "upper": {"type": "number"}}}
+                   ]},
+                   "unit": {"type": ["string", "null"]}
+                 }}
+              ]
+            }
+          },
+          "depends_on": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "supporting_evidence_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,7 +1,0 @@
-{
-  "relation_cache_lookups": 13030,
-  "cache_hits": 13030,
-  "cache_hit_rate": 1.0,
-  "new_llm_calls": 0,
-  "new_http_requests": 0
-}

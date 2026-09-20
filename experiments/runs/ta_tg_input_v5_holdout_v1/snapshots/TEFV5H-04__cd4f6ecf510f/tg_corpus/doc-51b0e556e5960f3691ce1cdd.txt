@@ -1,5 +1,0 @@
-record_id: doc-51b0e556e5960f3691ce1cdd
-asset_id: TEFV5H-04
-event_time: 2026-08-11T08:00:00Z
-available_at: 2026-08-11T18:00:00Z
-content: TEFV5H-04，WO-C121：对UPS蓄电池组进行例行巡检。单体电压最高2.27V，最低2.24V，组端电压218V，内阻测试值均小于2.5mΩ，外观无渗漏、鼓胀，连接条紧固。蓄电池组状态正常。

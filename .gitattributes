@@ -1,0 +1,15 @@
+*.py text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.jsonl text eol=lf
+*.toml text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.b64 text eol=lf
+*.pt binary
+*.sqlite binary
+*.pdf binary
+*.png binary
+# The released test gold preserves its audited source bytes; its canonical
+# index is LF and remains covered by the generic JSONL rule above.
+data/generation/gold_test.jsonl binary

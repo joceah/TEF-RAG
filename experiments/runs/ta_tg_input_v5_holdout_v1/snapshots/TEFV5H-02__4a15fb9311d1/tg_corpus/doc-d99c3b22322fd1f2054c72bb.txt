@@ -1,5 +1,0 @@
-record_id: doc-d99c3b22322fd1f2054c72bb
-asset_id: TEFV5H-02
-event_time: 2026-02-04T08:00:00Z
-available_at: 2026-02-04T18:00:00Z
-content: TEFV5H-02，WO-C2201：检查储能到位接点状态，发现接点在储能过程中有短时跳变，持续时间约80ms，怀疑限位开关接触不稳定。

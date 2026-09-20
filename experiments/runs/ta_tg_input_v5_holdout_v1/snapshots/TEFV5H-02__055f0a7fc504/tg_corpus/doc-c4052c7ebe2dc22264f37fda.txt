@@ -1,5 +1,0 @@
-record_id: doc-c4052c7ebe2dc22264f37fda
-asset_id: TEFV5H-02
-event_time: 2026-02-05T08:00:00Z
-available_at: 2026-02-05T18:00:00Z
-content: TEFV5H-02，WO-C2201：现场轻触限位开关并连续采样，确认接点抖动，抖动次数约15次/秒，定位为限位开关机械松动导致接触不良。

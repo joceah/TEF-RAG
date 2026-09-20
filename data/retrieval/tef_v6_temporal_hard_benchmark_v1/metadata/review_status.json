@@ -1,0 +1,73 @@
+{
+  "authoring_context": "GPT-5.6 Sol direct semantic authoring",
+  "dataset_status": "FINAL_SEALED",
+  "benchmark_name": "TEF-RAG v6 Semantic Benchmark v1",
+  "benchmark_positioning": "public-source-grounded, AI-assisted synthetic benchmark",
+  "first_pass": {
+    "expert_or_field_certified": false,
+    "review_mode": "authoring-context AI semantic review; not blind to authoring",
+    "reviewer_model": "GPT-5.6 Sol",
+    "scope": "all 400 chains",
+    "status": "COMPLETE"
+  },
+  "protocol_freeze_commit": "b0e6e004378e7d7f29cabece1efa6b2c30489e9b",
+  "second_blind_review": {
+    "validation": {
+      "status": "COMPLETE_PASS",
+      "review_pass_id": "VALIDATION_SECOND_BLIND_AI_SEMANTIC_PASS_2",
+      "reviewer_model": "GPT-5.6 Sol",
+      "review_date": "2026-09-16",
+      "chains_reviewed": 80,
+      "passed": 80,
+      "review_unresolved": 0,
+      "pass1_pass2_disagreements": 0,
+      "item_level_artifact": "metadata/validation_second_blind_review.json",
+      "item_level_artifact_sha256": "00dc11c5b178c4ba774194a59e563032199640be9e47fd35c3edf6c13e608046",
+      "blindness_compliant": true
+    },
+    "test": {
+      "status": "COMPLETE_PASS",
+      "review_pass_id": "FORMAL_TEST_SECOND_BLIND_AI_SEMANTIC_PASS_2",
+      "reviewer_model": "GPT-5.6 Sol",
+      "review_date": "2026-09-16",
+      "chains_reviewed": 80,
+      "query_rows_reviewed": 480,
+      "passed": 80,
+      "review_unresolved": 0,
+      "pass1_pass2_agreements": 80,
+      "pass1_pass2_disagreements": 0,
+      "resolved_disagreements": 0,
+      "independent_item_level_artifact_public": false,
+      "independent_item_level_artifact_sha256": "6e274720b45f8fe1d23b9e662cd294168acbcce91cb3a37e11000e2d6bb1e3f7",
+      "aggregate_public_artifact": "metadata/test_second_blind_review_aggregate.json",
+      "blindness_compliant": true
+    }
+  },
+  "deterministic_validation": {
+    "status": "PASS",
+    "sealed_evaluator_integrity": "PASS",
+    "test_chain_count": 80,
+    "test_query_row_count": 480,
+    "intents_per_chain": 3,
+    "paraphrases_per_intent": 2,
+    "required_group_references": "PASS",
+    "flow_endpoint_references": "PASS",
+    "temporal_visibility_constraints": "PASS",
+    "public_test_gold": false
+  },
+  "final_seal": {
+    "status": "COMPLETE",
+    "review_unresolved": 0,
+    "disagreements_resolved": true,
+    "semantic_item_changes": 0
+  },
+  "target_method_runs": 0,
+  "test_gold": {
+    "item_level_reasoning_public": false,
+    "public": false,
+    "record_count": 480,
+    "sha256": "477bb709f3dfdb672ce5a7f5c93168e0791c7a90cb247c62a6072bd8dee7c9f3",
+    "storage": "PRIVATE_USER_LIBRARY_SEALED_ARTIFACT"
+  },
+  "v6_implementation_run": false
+}

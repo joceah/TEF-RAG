@@ -1,5 +1,0 @@
-record_id: doc-50a8cf0db078350769d8573b
-asset_id: TEFV5H-04
-event_time: 2026-08-02T08:00:00Z
-available_at: 2026-08-02T18:00:00Z
-content: TEFV5H-04，WO-C118：对站用UPS进行季度旁路切换试验。第一次切换实测时间为28ms，第二次为31ms，第三次为27ms，均超过旧版20ms判据。切换过程中负载电压跌落约12%，未造成负载失电。

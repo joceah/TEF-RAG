@@ -1,0 +1,25 @@
+{
+  "direction_convention": "edges point from temporally/prerequisitely prior support state toward downstream or replacement state; supersession therefore means prior -> replacement",
+  "observed_counts": {
+    "contrasts": 280,
+    "governs": 1116,
+    "preserves_uncertainty": 272,
+    "qualifies": 664,
+    "supersession": 386,
+    "supports": 4028,
+    "updates": 190,
+    "verifies": 542
+  },
+  "relation_types": {
+    "contrasts": "the source state is a comparison baseline that must be distinguished from the downstream state",
+    "governs": "an applicable rule/assessment constrains the downstream action or conclusion",
+    "prerequisite": "source is required before the downstream operational state",
+    "preserves_uncertainty": "source branch remains viable and is intentionally carried into downstream assessment/action",
+    "qualifies": "source evidence determines applicability or limits certainty of downstream interpretation",
+    "resolves": "downstream evidence resolves an earlier ambiguity",
+    "supersession": "prior diagnosis/procedure/work-order state is replaced by the downstream state",
+    "supports": "source evidence supports the downstream evidence/conclusion",
+    "updates": "a later decision/action updates an earlier support state",
+    "verifies": "downstream evidence verifies execution/outcome of the source state"
+  }
+}

@@ -1,6 +1,0 @@
- M markdowns/tef_rag_v6_generation_evaluation_v1.md
- M tef_rag_v6/generation_eval_cli.py
- M tef_rag_v6/generation_runner.py
- M tests/test_tef_rag_v6_generation_hardening.py
-?? plans/TEF_RAG_v6_generation_evaluation_protocol_v1_8_premature_root_close_normalization.md
-?? results/v6/generation_eval_v1/

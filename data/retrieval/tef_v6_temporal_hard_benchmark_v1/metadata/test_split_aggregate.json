@@ -1,0 +1,25 @@
+{
+  "by_layer": {
+    "REALISTIC_DISTRIBUTION_SET": 40,
+    "TEMPORAL_HARD_CHALLENGE_SET": 40
+  },
+  "challenge_compositional_count": 8,
+  "challenge_primary_single_counts": {
+    "CROSS_SOURCE_REQUIRED": 4,
+    "CUTOFF_SENSITIVE": 4,
+    "LATE_ARRIVING_EVIDENCE": 4,
+    "MULTI_EPISODE_DISAMBIGUATION": 4,
+    "PERSISTENT_UNCERTAINTY": 4,
+    "PROCEDURE_VERSIONING": 4,
+    "SIMILAR_SYMPTOM_DIFFERENT_CAUSE": 4,
+    "SUPERSEDED_DIAGNOSIS": 4
+  },
+  "item_level_labels_public": false,
+  "realistic_mixture_counts": {
+    "compound_temporal_hard": 6,
+    "routine_or_mostly_recency_solvable": 24,
+    "single_temporal_complication": 10
+  },
+  "test_chains": 80,
+  "test_query_rows": 480
+}

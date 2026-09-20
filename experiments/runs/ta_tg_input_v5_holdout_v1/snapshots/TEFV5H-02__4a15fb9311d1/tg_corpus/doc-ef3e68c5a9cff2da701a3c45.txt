@@ -1,5 +1,0 @@
-record_id: doc-ef3e68c5a9cff2da701a3c45
-asset_id: TEFV5H-02
-event_time: 2026-02-02T08:00:00Z
-available_at: 2026-02-02T18:00:00Z
-content: TEFV5H-02，WO-C2201：初步分析怀疑弹簧机构机械卡涩，计划检查储能弹簧、传动齿轮及棘轮机构，但尚未拆解。

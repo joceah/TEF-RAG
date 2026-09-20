@@ -1,0 +1,85 @@
+[
+  {
+    "access_date": "2026-09-15",
+    "does_not_support": [
+      "synthetic fault prevalence",
+      "station-specific protection thresholds",
+      "maintenance causal narratives",
+      "robot work-order procedures"
+    ],
+    "name": "HiTHIUM V1.1 ESS Cell 280 Ah EU English datasheet",
+    "source_basis_id": "SRC-HITHIUM-V1.1-280AH",
+    "supports": [
+      "280Ah-class prismatic LFP reference",
+      "3.2V nominal cell voltage",
+      "cell operating-voltage envelope",
+      "ambient charge/discharge temperature envelope",
+      "manufacturer-specific 1P maximum continuous rate"
+    ],
+    "url": "https://hithium.com/fileadmin/ns_theme_hithium/pdf/HiTHIUM_Data-Sheet_ESS-Cell280Ah_V1-1_EU_EN_230612.pdf",
+    "vendor_or_institution": "HiTHIUM",
+    "version_or_date": "V1.1 / 2023-06-12"
+  },
+  {
+    "access_date": "2026-09-15",
+    "does_not_support": [
+      "universal LFP rate standard",
+      "station-specific maintenance thresholds"
+    ],
+    "name": "HiTHIUM 280 Ah Chinese datasheet",
+    "source_basis_id": "SRC-HITHIUM-V3.3-280AH",
+    "supports": [
+      "280Ah LFP product corroboration",
+      "3.2V nominal cell voltage",
+      "manufacturer-specific 0.5P standard charge/discharge rate"
+    ],
+    "url": "https://cn.hithium.com/bocupload/2024/11/14/17315688038239mc70h.pdf",
+    "vendor_or_institution": "HiTHIUM",
+    "version_or_date": "20240918 V3.3"
+  },
+  {
+    "access_date": "2026-09-15",
+    "does_not_support": [
+      "synthetic operational causal stories"
+    ],
+    "name": "HiTHIUM cell product page",
+    "source_basis_id": "SRC-HITHIUM-PRODUCT",
+    "supports": [
+      "current 280Ah LFP product context"
+    ],
+    "url": "https://www.hithium.com/products/1.html",
+    "vendor_or_institution": "HiTHIUM",
+    "version_or_date": "current page accessed 2026-09-15"
+  },
+  {
+    "access_date": "2026-09-15",
+    "does_not_support": [
+      "HiTHIUM-specific rate or temperature limits",
+      "synthetic O&M procedure details"
+    ],
+    "name": "REPT BATTERO energy-storage brochure",
+    "source_basis_id": "SRC-REPT-2025",
+    "supports": [
+      "cross-manufacturer 280Ah / 3.2V stationary-LFP context"
+    ],
+    "url": "https://www.reptbattero.com/wp-content/uploads/2025/10/REPT-BATTERO-ENERGY-STORAGE-PROMOTIONAL-2510.pdf",
+    "vendor_or_institution": "REPT BATTERO",
+    "version_or_date": "2025"
+  },
+  {
+    "access_date": "2026-09-15",
+    "does_not_support": [
+      "LFP-specific voltage/temperature limits",
+      "synthetic maintenance causal narratives"
+    ],
+    "doi": "10.18154/RWTH-2026-06637",
+    "name": "M5BAT Battery Unit Pb1 2017-2025",
+    "source_basis_id": "SRC-RWTH-M5BAT",
+    "supports": [
+      "one-second-resolution BESS field-data sampling precedent"
+    ],
+    "url": "https://publications.rwth-aachen.de/record/1038622",
+    "vendor_or_institution": "RWTH Aachen University",
+    "version_or_date": "dataset 2017-2025 / record published 2026"
+  }
+]

@@ -7,23 +7,17 @@ name = "tef-rag"
 version = "0.6.0"
 description = "Temporal Evidence Flow retrieval for maintenance RAG"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = ["jsonschema>=4"]
 
 [project.optional-dependencies]
-test = ["pytest>=8"]
+test = ["pytest>=8", "numpy"]
 semantic = ["numpy", "onnxruntime==1.29.0", "tokenizers==0.23.2"]
-ranknet = ["numpy", "torch>=2.14"]
+ranknet = ["numpy", "scikit-learn", "torch>=2.14"]
 
 [tool.setuptools]
 packages = [
   "baseline_adapters",
-  "tef_rag_v1",
-  "tef_rag_v2",
-  "tef_rag_v3",
-  "tef_rag_v4",
-  "tef_rag_v5",
   "tef_rag_v6",
-  "tmc_rag_v3",
 ]
 
 [tool.pytest.ini_options]

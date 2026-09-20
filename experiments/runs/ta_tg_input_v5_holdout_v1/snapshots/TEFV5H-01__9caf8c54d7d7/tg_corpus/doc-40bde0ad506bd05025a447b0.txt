@@ -1,5 +1,0 @@
-record_id: doc-40bde0ad506bd05025a447b0
-asset_id: TEFV5H-01
-event_time: 2026-01-08T08:00:00Z
-available_at: 2026-01-08T18:00:00Z
-content: TEFV5H-01，WO-C2202：对相邻GIS-2M-08气室进行例行密封检查，使用检漏仪检测法兰、阀门及密度继电器接口，未发现泄漏，背景值0ppm。就地密度表读数0.50MPa，远传值0.50MPa，一致。该气室无异常。

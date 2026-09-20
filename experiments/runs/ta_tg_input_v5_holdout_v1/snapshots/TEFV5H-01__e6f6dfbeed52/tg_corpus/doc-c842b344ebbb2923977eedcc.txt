@@ -1,5 +1,0 @@
-record_id: doc-c842b344ebbb2923977eedcc
-asset_id: TEFV5H-01
-event_time: 2026-01-07T08:00:00Z
-available_at: 2026-01-07T18:00:00Z
-content: TEFV5H-01，WO-C2201：静态核对：远传密度值0.49MPa，就地密度表0.49MPa，偏差0.00MPa。环境温度8℃，负荷电流280A。检查端子排无松动，信号线绝缘正常。当前状态正常，但尚未经历明显温度变化周期，需继续观察。

@@ -1,7 +1,7 @@
 """Frozen TEF-RAG v6 structured-generation schema validation and evaluation.
 
 This module is deliberately retrieval-method agnostic. It scores only a generated
-work order/action plan against generation gold under protocol v1.3.
+work order/action plan against generation gold under protocol v1.9.
 """
 from __future__ import annotations
 
