@@ -1,0 +1,106 @@
+% =========================================================
+\section{实验结果}
+\label{sec:results}
+% =========================================================
+
+\subsection{检索主结果}
+
+表~\ref{tab:retrieval_results} 给出 frozen test split 上的正式结果。
+TEF-RAG 在 Recall@5、nDCG@5、Complete@5 与 FlowComplete@5 四项主指标上均取得最高值。
+相较于这些指标上最强的非 TEF baseline（均为 Temporal-BM25），
+TEF-RAG 的 Recall@5 从 0.4591 提升至 0.7228，nDCG@5 从 0.4955 提升至 0.6231；
+更明显的差异出现在集合级完整性：Complete@5 从 0.0792 提升至 0.3188，FlowComplete@5 从 0.0792 提升至 0.3146。
+这说明仅加入时间偏好能够改善单条证据召回，但显式建模 evidence-flow 关系并联合选择证据集合，对恢复完整任务支持结构更为关键。
+
+\begin{table}[t]
+\caption{Frozen retrieval test 的主结果（Top-5）}
+\label{tab:retrieval_results}
+\centering
+\small
+\begin{tabular}{lrrrr}
+\toprule
+Method & Recall & nDCG & Complete & FlowComplete \\
+\midrule
+BM25 & 0.3791 & 0.3915 & 0.0563 & 0.0563 \\
+BGE Reranker & 0.2916 & 0.3070 & 0.0417 & 0.0417 \\
+Temporal-BM25 & 0.4591 & 0.4955 & 0.0792 & 0.0792 \\
+TA-RAG & 0.2769 & 0.2907 & 0.0375 & 0.0375 \\
+\textbf{TEF-RAG} & \textbf{0.7228} & \textbf{0.6231} & \textbf{0.3188} & \textbf{0.3146} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{下游结构化生成结果}
+\label{sec:generation_results}
+
+表~\ref{tab:generation_results} 只保留最能回答“更好的 evidence flow 是否改善最终工单与动作计划”的四项生成指标。
+在相同 generator、prompt、schema 与 decoding 设置下，TEF-RAG 在四项指标上均取得最高值：
+Field Macro F1 为 0.5345，Action F1 为 0.2035，Citation F1 为 0.1585，Plan EM (strict) 为 0.0417。
+相较各指标上最强的非 TEF baseline，Action F1、Citation F1 与 Plan EM 分别取得约 24.3\%、26.9\% 与 122.2\% 的相对提升；Field Macro F1 相较 Temporal-BM25 提升约 2.4\%。
+结果表明，TEF-RAG 的收益不仅体现在上游检索命中率，也能够传递到工单关键字段、处置动作和证据引用质量。
+
+\begin{table}[t]
+\caption{Frozen generation test 的主要结构化生成指标}
+\label{tab:generation_results}
+\centering
+\small
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{lrrrr}
+\toprule
+Method & Field F1 & Action F1 & Citation F1 & Plan EM \\
+\midrule
+BM25 & 0.4715 & 0.1372 & 0.0813 & 0.0167 \\
+BGE Reranker & 0.4129 & 0.1198 & 0.0405 & 0.0146 \\
+Temporal-BM25 & 0.5218 & 0.1637 & 0.1249 & 0.0167 \\
+TA-RAG & 0.4059 & 0.1115 & 0.0379 & 0.0188 \\
+\textbf{TEF-RAG} & \textbf{0.5345} & \textbf{0.2035} & \textbf{0.1585} & \textbf{0.0417} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+需要强调的是，这些结果支持的是“生成内容更加准确和更有证据支撑”，而不是“完整工单已经被可靠解决”。
+五种方法的 \texttt{work\_order\_em\_strict}、\texttt{end\_to\_end\_em\_strict} 与 \texttt{task\_success} 均为 0；
+与此同时，schema validity 仍处于 0.9875--0.9958 的高水平。
+这说明失败并非主要来自 JSON/schema 崩溃，而是完整工单需要多个字段、动作集合、依赖关系和引用同时严格匹配，当前系统仍难以满足这一组合条件。
+因此，本文将生成结果表述为：\textbf{TEF-RAG 提高了生成工单的字段级准确性、动作正确性和计划级一致性}，而不声称已经生成完全正确的工单与具身指令序列。
+
+\subsection{进一步分析}
+
+TEF-RAG 并非在所有生成诊断指标上都占优。
+例如，TA-RAG 的 Dependency F1 为 0.3271、Order Validity 为 0.4125，均高于 TEF-RAG 的 0.2858 与 0.3146。
+这一现象表明，evidence-flow retrieval 更直接改善的是“提供哪些事实和动作依据”，而动作之间的全局依赖与执行顺序仍受到下游 planner/generator 本身能力的限制。
+换言之，上游证据组织已经显著改善 factual grounding 与 action fidelity，但尚不足以单独解决完整的全局计划组合问题。
+
+% =========================================================
+\section{讨论}
+\label{sec:discussion}
+% =========================================================
+
+检索与生成两层结果形成了相互补充的证据链。
+Retrieval test 中，TEF-RAG 对 Complete@5 与 FlowComplete@5 的提升显著大于单条相关性指标的提升，说明方法确实更擅长恢复互补且关系一致的证据集合；
+在完全固定的下游生成器上，这种上下文优势又对应更高的 field、action、citation 与 strict plan matching。
+因此，实验更支持“Temporal Evidence Flow 改善 retrieval-to-generation 的信息传递”这一结论，而不是把收益归因于更强的生成模型。
+
+另一方面，Plan EM 仍只有 0.0417，且所有方法的严格 end-to-end exact match 为 0，说明结构化运维生成仍是一个远未解决的问题。
+未来工作应将证据流与显式 planner、约束解码、动作图验证以及真实机器人安全执行检查结合，而不能仅依赖语言模型从 Top-5 上下文直接完成全部规划。
+
+% =========================================================
+\section{局限性与有效性威胁}
+\label{sec:limitations}
+% =========================================================
+
+本文 benchmark 是 public-source-grounded、AI-assisted synthetic benchmark，而非真实电站工单或领域专家标注数据；
+因此其主要价值是受控比较 temporal evidence retrieval 机制，不能直接外推到真实电站故障频率或机器人现场安全性。
+此外，test gold 在正式实验后已公开以支持复现，因此未来新方法若需要保持 blind evaluation，应构建新的 sealed test split，而不应继续把当前 test 当作未见数据。
+生成评价虽然覆盖字段、动作、依赖与引用，但没有模拟实际机器人执行、环境反馈和安全联锁；严格端到端指标为 0 也表明 planner/generator 仍是明显瓶颈。
+
+% =========================================================
+\section{结论}
+\label{sec:conclusion}
+% =========================================================
+
+本文提出 TEF-RAG，将动态运维 RAG 的检索目标从独立文档相关性扩展为查询时刻可见、关系一致且流程完整的 Temporal Evidence Flow。
+在冻结的 temporal-hard benchmark 上，TEF-RAG 在 Recall@5、nDCG@5、Complete@5 与 FlowComplete@5 上均超过四种对比方法；
+在固定下游生成器的结构化 generation test 中，TEF-RAG 同时取得最高的字段级匹配、Action F1、Citation F1 与 strict Plan EM。
+这些结果说明，面向证据集合及其时序关系的检索能够改善进入生成器的任务支持上下文，并进一步提高工单字段、维护动作与证据引用的准确性。
+完整工单和具身动作序列的严格端到端生成仍未解决，后续工作需要进一步结合显式计划与执行约束。

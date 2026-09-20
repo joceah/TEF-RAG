@@ -1,0 +1,221 @@
+% =========================================================
+\section{问题定义与符号约定}
+\label{sec:problem}
+% =========================================================
+
+\subsection{查询、证据与查询时刻知识快照}
+
+给定运维请求 $q$，其部署时可见信息表示为
+\begin{equation}
+Q_q=(x_q,u_q,m_q,t_q),
+\end{equation}
+其中 $x_q$ 为请求文本，$u_q$ 为目标资产，$m_q$ 为资产型号或上下文，
+$t_q$ 为本次回答允许使用知识的截止时刻。
+与初版系统相同，本文显式区分事件发生时间和信息进入系统的时间；
+不同之处在于，后续检索目标不再是按来源拼装若干独立记录，
+而是从当前时刻可见的异构证据中恢复一个查询相关的 Temporal Evidence Flow。
+
+设全局证据库为
+\begin{equation}
+\Evidence=\{e_1,e_2,\ldots,e_N\}.
+\end{equation}
+从具身运维应用的输入形态看，可进一步写为
+\begin{equation}
+\Evidence=
+\mathcal{D}_{\mathrm{unstruct}}
+\cup \mathcal{D}_{\mathrm{struct}}
+\cup \mathcal{D}_{\mathrm{temporal}},
+\end{equation}
+其中 $\mathcal{D}_{\mathrm{unstruct}}$ 包含运维手册、设备说明书和安全规程等非结构化文档，
+$\mathcal{D}_{\mathrm{struct}}$ 包含历史故障、工单和设备台账等结构化记录，
+$\mathcal{D}_{\mathrm{temporal}}$ 则表示 BMS/SCADA 状态及由专业预测模型产生的时序健康信息。
+TEF-RAG 在算法实现中将三类输入统一投影为可追踪来源的 evidence records，
+但不假设它们原始形态相同。
+每条证据 $e$ 至少包含文本或结构化内容 $z(e)$、资产标识 $u(e)$、
+来源类型 $s(e)$、事件类型 $c(e)$、事件时间 $t_e(e)$ 和可用时间 $t_a(e)$；
+若证据属于规程、版本化诊断或工单，还可包含型号范围、版本、有效区间、
+撤回时间及 supersession 等部署时可见元数据。
+
+沿用初版论文的双时间可见性定义，查询 $q$ 能否使用证据 $e$ 表示为
+\begin{equation}
+\operatorname{Visible}(e,q)=
+\begin{cases}
+1, & t_e(e)\le t_q \ \land\ t_a(e)\le t_q,\\
+0, & \text{otherwise}.
+\end{cases}
+\label{eq:visible}
+\end{equation}
+这里 $t_e(e)$ 表示事件实际发生时刻，$t_a(e)$ 表示该记录首次进入系统并可被检索的时刻。
+例如，一条描述 10:00 告警、但在 10:10 才补录的记录，
+不能用于截止时刻为 10:05 的查询。
+因此，$t_e(e)$ 防止使用尚未发生的事件，$t_a(e)$ 则防止晚到信息被历史查询提前获知。
+
+对于具有型号和版本约束的规程证据 $d$，
+进一步沿用适用性条件
+\begin{equation}
+\operatorname{Applicable}(d,q)=
+\ind\!\left[m_q\in M_d\right]
+\ind\!\left[t_d^-\le t_q<t_d^+\right]
+\ind\!\left[w_d=\varnothing\ \lor\ t_q<w_d\right],
+\label{eq:applicable}
+\end{equation}
+其中 $M_d$ 为规程支持的型号集合，$t_d^-$ 与 $t_d^+$ 分别表示生效与失效时刻，
+$w_d$ 为撤回时刻；无明确失效时刻时令 $t_d^+=+\infty$。
+型号、有效期和撤回状态都属于确定性合法性边界，
+不由后续学习模型重新推断。
+
+综合资产范围、式~\eqref{eq:visible} 的双时间可见性以及必要的规程适用性条件，
+得到查询时刻合法证据集合
+\begin{equation}
+\Candidates_q=\left\{e\in\Evidence:\operatorname{Legal}(e,Q_q)=1\right\}.
+\end{equation}
+所有候选检索、关系判断和集合排序都只能在 $\Candidates_q$ 内进行。
+这一边界的作用是防止未来证据、错设备证据和无效规程进入后续学习过程，
+而不是替代语义检索本身。
+
+\subsection{端到端任务输出与评价边界}
+
+储能电站具身运维的最终目标是一个从多源输入到结构化、有序输出的映射。
+本文将最终输出表示为
+\begin{equation}
+Y_q=(W_q,A_q),
+\label{eq:task_output}
+\end{equation}
+其中 $W_q$ 为标准化工单，
+其字段由固定 schema 约束，可包含目标设备、查询/处置时刻、当前状态、
+诊断或处置结论、适用规程、证据引用以及未知/待确认项等；
+$A_q=[a_1,a_2,\ldots,a_n]$ 为有序具身指令序列。
+每个 $a_i$ 对应一个可执行的原子动作，例如导航、测温、拍照、检查、操作或数据回传，
+并可携带目标对象、参数、前置依赖和证据引用。
+
+令 $\Delta_q$ 为动作依赖集合。
+若 $(a_i,a_j)\in\Delta_q$，
+则动作 $a_i$ 必须在 $a_j$ 之前完成，
+从而显式表示规程顺序、安全逻辑和物理依赖，
+而不是把动作集合当作可任意交换的自然语言列表。
+在总体系统中，TEF-RAG 检索得到的证据流作为生成器的受控上下文：
+\begin{equation}
+(\hat W_q,\hat A_q)
+=
+g_{\psi}\!\left(x_q,\hat{\Selected}_q,\FlowGraph_q\right).
+\label{eq:downstream_generation}
+\end{equation}
+
+本文的核心算法贡献集中于式~\eqref{eq:downstream_generation}
+之前的 evidence-flow retrieval：
+即保证进入生成器的证据满足时间可见性、字段/规程适用性与集合流程完整性。
+Recall、nDCG、Complete 和 FlowComplete 用于评价这一上游证据质量。
+为进一步检验检索收益能否传递到任务输出，本文在固定生成器条件下另行评价
+$W_q$ 的字段匹配、动作内容、证据引用与动作计划严格匹配。
+该生成评价仍不等同于真实机器人闭环执行或安全验证，
+从而在保留端到端具身运维目标的同时，明确区分 retrieval、structured generation 与 physical execution 三个层次。
+
+\subsection{Temporal Evidence Flow}
+
+基础检索器根据 $x_q$ 从 $\Candidates_q$ 中取得查询相关的候选节点集合 $V_q$。
+TEF-RAG 随后不再把这些节点视为彼此独立的文档，
+而是构建查询条件化的有向证据图
+\begin{equation}
+\FlowGraph_q=(V_q,E_q),
+\end{equation}
+其中一条边写作
+\begin{equation}
+(e_i,r_{ij},c_{ij},e_j)\in E_q,
+\end{equation}
+$r_{ij}\in\Rels$ 是证据关系类型，$c_{ij}\in[0,1]$ 为关系置信度。
+冻结的关系词汇表包含
+\emph{supports, governs, qualifies, contrasts, prerequisite,
+preserves\_uncertainty, resolves, supersession, updates, verifies}。
+边方向统一从时间上或前置关系上较早的支持状态指向下游结论、动作、更新或替代状态。
+因此，Temporal Evidence Flow 是一个允许分支和汇合的有向结构，
+并不要求所有查询都能够压缩成唯一的线性证据链。
+
+给定候选图 $\FlowGraph_q$，系统最终输出固定规模的证据集合
+\begin{equation}
+\hat{\Selected}_q
+=\arg\max_{\Selected\in\SetBank_q,\ |\Selected|=k}
+F_{\theta}\!\left(\phi(Q_q,\Selected,\FlowGraph_q)\right),
+\label{eq:set_selection}
+\end{equation}
+其中 $\SetBank_q$ 为从候选节点构造的有限证据集合空间，
+$\phi(\cdot)$ 为集合级特征表示，$F_{\theta}$ 为学习到的非线性集合效用函数。
+本文正式设置取 $k=5$。
+式~\eqref{eq:set_selection} 强调本文优化的是\emph{集合效用}而不是五条独立文档分数之和；
+集合中各证据的角色互补性、时间跨度、关系连通性和冗余程度都可能共同影响最终排序。
+
+\begin{figure*}[t]
+    \centering
+    \IfFileExists{figures/tef_rag_overview.pdf}{%
+        \includegraphics[width=0.96\textwidth]{figures/tef_rag_overview.pdf}%
+    }{%
+        \placeholderfigure{Figure placeholder: TEF-RAG overall architecture.\\
+        Query + temporally valid candidate pool $\rightarrow$ learned pair proposal $\rightarrow$
+        query-conditioned relation reasoning $\rightarrow$ Temporal Evidence Flow graph $\rightarrow$
+        candidate set construction $\rightarrow$ nonlinear pairwise set ranking $\rightarrow$ Top-5 evidence flow
+        $\rightarrow$ grounded generation $\rightarrow$ standardized work order + ordered embodied instruction sequence.}%
+    }
+    \caption{TEF-RAG 总体框架。系统先从查询时刻合法的候选证据中构建查询条件化的时序证据图，
+    再对候选证据集合进行非线性 pairwise ranking，以恢复完整的 Top-5 evidence flow；
+    该证据流随后作为受控上下文生成标准化工单与有序具身指令序列。
+    本文 v6 封存 benchmark 重点评价图中 evidence-flow retrieval 部分。}
+    \label{fig:tef_overview}
+\end{figure*}
+
+\subsection{集合级监督与离线评价边界}
+
+为评价一个 Top-$k$ 集合是否覆盖任务所需证据，
+对每个查询定义必要证据组
+\begin{equation}
+\Gamma_q^{\star}=\{G_{q,1}^{\star},\ldots,G_{q,M_q}^{\star}\},
+\end{equation}
+其中每个 $G_{q,j}^{\star}$ 表示一个必要功能角色的可接受证据 ID 集合。
+同一组内的多个 ID 只表示真正等价的 OR 替代；
+需要同时出现的互补证据必须放在不同组中。
+因此，一个选择集合 $\Selected$ 的组完整性条件为
+\begin{equation}
+\forall G\in\Gamma_q^{\star},\quad \Selected\cap G\neq\varnothing.
+\label{eq:group_complete}
+\end{equation}
+
+此外，令 $\Phi_q^{\star}$ 为必要 flow edge 集合。
+每条必要边连接两个必要组，并给出允许的端点证据对和关系类型。
+若存在一个对所有必要组都全局一致的赋值
+$a(G)\in \Selected\cap G$，使得每一条必要 flow edge 的端点对
+均属于其允许集合，则称该检索结果满足 FlowComplete。
+这一存在性定义允许等价证据替换，
+同时避免分别为不同边选择互相矛盾的证据端点。
+
+需要强调的是，$\Gamma_q^{\star}$、$\Phi_q^{\star}$、答案摘要以及测试集 item-level review
+均属于离线监督或评价信息，推理阶段不可见。
+TEF-RAG 的 pair proposal、关系判断和集合排序只使用
+$Q_q$ 与部署时可见证据字段。
+这种边界与初版论文中``参考标注只进入离线评价''的原则一致，
+但新版协议进一步把监督对象从独立必要证据扩展为必要证据组和 typed evidence flow。
+
+\begin{table}[t]
+\caption{主要符号及定义}
+\label{tab:symbols}
+\centering
+\small
+\begin{tabular}{p{0.25\columnwidth}p{0.66\columnwidth}}
+\toprule
+符号 & 含义 \\
+\midrule
+$Q_q,x_q,u_q,m_q,t_q$ & 查询、文本、目标资产、型号/上下文与知识截止时刻 \\
+$t_e(e),t_a(e)$ & 证据事件发生时刻与首次可用时刻 \\
+$\Evidence$ & 全局异构证据库 \\
+$\Candidates_q$ & 查询 $q$ 的合法可见证据集合 \\
+$\operatorname{Applicable}(d,q)$ & 规程 $d$ 对查询 $q$ 是否适用 \\
+$\FlowGraph_q=(V_q,E_q)$ & 查询条件化 Temporal Evidence Flow 图 \\
+$\Rels$ & typed evidence relation 集合 \\
+$\SetBank_q$ & 查询 $q$ 的候选证据集合空间 \\
+$\hat{\Selected}_q$ & 最终选择的 Top-$k$ 证据集合，本文 $k=5$ \\
+$Y_q=(W_q,A_q)$ & 最终运维输出：标准化工单与有序具身指令序列 \\
+$\Delta_q$ & 具身指令之间必须满足的动作依赖集合 \\
+$\Gamma_q^{\star}$ & 离线必要证据组集合 \\
+$\Phi_q^{\star}$ & 离线必要 flow edge 集合 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+

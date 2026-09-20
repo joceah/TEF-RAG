@@ -1,0 +1,151 @@
+% =========================================================
+\section{实验设计}
+\label{sec:experiments}
+% =========================================================
+
+\subsection{TEF-RAG v6 Semantic Benchmark v1}
+\label{sec:dataset}
+
+\textbf{总体定位与规模。}
+本文使用新构建并封存的 \textbf{TEF-RAG v6 Semantic Benchmark v1}。
+该数据集是一个\emph{public-source-grounded, AI-assisted synthetic benchmark}：
+公开制造商资料和公开研究数据只用于约束产品类别、数值范围和采样先例，
+而运维因果故事、诊断演化、规程情境和查询任务由受控语义生成流程构造。
+因此，本文不将其描述为真实电站运行数据、专家标注数据或现场认证 SOP。
+该 benchmark 首先评价端到端具身运维系统中的\emph{检索与证据组织层}：
+系统需要从异构动态记录中恢复足以支撑后续工单与动作规划的 Temporal Evidence Flow。
+在此基础上，本文进一步构建独立的结构化生成 gold，评价检索质量能否传递为下游工单和动作计划质量。
+
+数据集包含 100 个目标资产、400 条完整事件链、3888 条证据记录、
+1200 个 primary intents 和 2400 条 query rows。
+每条 chain 包含 3 个语义不同的 primary intents，
+每个 intent 生成 2 个确定性 paraphrases，因此每条 chain 对应 6 条查询。
+两种难度层各包含 200 条 chain：
+\emph{Realistic Distribution Set} 用于覆盖较常见的时序运维组合，
+\emph{Temporal-Hard Challenge Set} 则有意增加晚到证据、版本替换、多 episode 对比、
+跨来源互补证据以及持续不确定性等情形。
+两个层均按 chain 进行 60/20/20 的 development/validation/test 划分，
+保证同一 chain 的不同 intent 和 paraphrase 不跨数据划分。
+统计见表~\ref{tab:dataset_stats}。
+
+\begin{table*}[t]
+\caption{TEF-RAG v6 Semantic Benchmark v1 规模与划分}
+\label{tab:dataset_stats}
+\centering
+\small
+\begin{tabular}{lrrrr}
+\toprule
+统计项 & Development & Validation & Test & Total \\
+\midrule
+Realistic Distribution chains & 120 & 40 & 40 & 200 \\
+Temporal-Hard Challenge chains & 120 & 40 & 40 & 200 \\
+全部 authored chains & 240 & 80 & 80 & 400 \\
+Primary intents & 720 & 240 & 240 & 1200 \\
+Query rows & 1440 & 480 & 480 & 2400 \\
+\midrule
+Target assets & -- & -- & -- & 100 \\
+Evidence records & -- & -- & -- & 3888 \\
+Paraphrases / intent & \multicolumn{4}{c}{2（同一 intent 的鲁棒性改写，不视为独立事件）} \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\textbf{公开资料约束。}
+新版 benchmark 建立明确的 source registry。
+其中，HiTHIUM 280Ah LFP 数据表用于约束 280Ah-class 方形磷酸铁锂电芯的
+标称电压、工作电压/温度范围以及制造商给出的倍率信息
+\cite{hithium2023v11,hithium2024v33}；
+REPT BATTERO 的储能资料用于提供跨制造商的 280Ah/3.2V stationary-LFP 背景参照
+\cite{rept2025}；
+RWTH Aachen University 发布的 M5BAT 数据记录则用于提供
+储能现场数据采用秒级采样的公开先例
+\cite{rwth2026m5bat}。
+这些公开资料只约束物理/产品背景，并不为本文合成的故障发生率、站级保护阈值、
+维护因果故事或具体工单动作背书。
+
+\textbf{语义生成与证据流标注。}
+数据生成以 chain 为基本单元，而不是独立随机生成 query--document 对。
+每条 chain 先确定目标资产、时间轴和一组相互关联的 evidence records，
+再围绕同一事件过程构造观察、检查、诊断、规程适用性、工单、更新、纠正、验证或不确定性分支等节点。
+困难层额外加入 late-arriving evidence、被后续版本替代的 procedure/diagnosis、跨 episode 的相似模式和必须共同出现的跨来源证据。
+在每条 chain 上进一步编写 3 个不同 primary intents，并为每个 intent 产生 2 个语义保持的确定性 paraphrases。
+离线 gold 为每个 intent 定义 required groups 与 required flow edges，从而区分“召回若干相关证据”和“召回能够组成全局一致任务 flow 的证据”。
+
+\textbf{语义复核与封存。}
+benchmark 在方法正式测试前完成冻结。
+Validation 的 formal second blind semantic review 覆盖全部 80 条 validation chains，80/80 通过且无 unresolved case；
+Test 的 second blind review 同样覆盖全部 80 条 test chains / 480 条 query rows，80/80 通过且两遍语义复核无 disagreement。
+正式 test evaluator 在模型开发和预测冻结阶段保持隐藏；所有正式实验完成后，为复现目的公开完全相同的历史 evaluator 字节，其 SHA-256 为
+\texttt{477bb709f3dfdb672ce5a7f5c93168e0791c7a90cb247c62a6072bd8dee7c9f3}。
+
+\subsection{结构化生成评价集}
+\label{sec:generation_dataset}
+
+为检验 evidence-flow retrieval 的收益是否能传递到最终结构化输出，
+本文在同一 400 条 authored chains 上构建独立的 generation gold。
+每个 primary intent 对应一个 semantic gold object，并由同一 intent 的两个 paraphrases 共享；
+因此 development/validation/test 分别包含 720/240/240 个 semantic gold objects，覆盖 1440/480/480 条 query rows，见表~\ref{tab:generation_dataset}。
+
+\begin{table}[t]
+\caption{结构化生成 gold 的规模}
+\label{tab:generation_dataset}
+\centering
+\small
+\begin{tabular}{lrrr}
+\toprule
+Split & Chains & Semantic gold & Query rows \\
+\midrule
+Development & 240 & 720 & 1440 \\
+Validation & 80 & 240 & 480 \\
+Test & 80 & 240 & 480 \\
+\midrule
+Total & 400 & 1200 & 2400 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+每个 gold 输出由两部分组成：标准化工单 \texttt{work\_order} 与动作计划 \texttt{action\_plan}。
+工单包含资产、诊断、推荐动作、适用规程、验证/不确定性状态及证据引用；
+动作计划由若干原子动作组成，每个动作具有类型、目标、参数、\texttt{depends\_on} 依赖和 supporting evidence IDs，因而能够表示一个有向无环的动作依赖结构。
+全部 1200 个 semantic gold objects 均通过 schema、时间可见性、规程适用性、citation/provenance、动作 DAG 与 paraphrase consistency 检查，未留下 unresolved annotation。
+
+Generation gold 在读取 retrieval test metrics、sealed retrieval evaluator 或任何 generation evaluation 输出之前完成，并在正式 test generation 前保持隐藏。
+正式 blind generation evaluation 完成后，test gold 与 index 才公开用于复现；其中 test gold 包含 240 个 semantic objects，index 将其确定性映射到 480 条 test queries。
+
+\subsection{对比方法}
+\label{sec:baselines}
+
+正式比较包含五种检索上下文：BM25、BGE Reranker、Temporal-BM25、TA-RAG 与 TEF-RAG。
+BM25 提供纯词法基线；BGE Reranker 在 BM25 Top-30 上使用 \texttt{BAAI/bge-reranker-v2-m3} 进行通用语义重排；
+Temporal-BM25 在词法相关性上加入冻结的 query-conditioned temporal score；
+TA-RAG 采用其官方 temporal parsing、NCLS temporal filtering、Nomic embedding 与 reranking 机制；
+TEF-RAG 则使用本文提出的查询条件化 relation graph 与 nonlinear pairwise set ranking。
+所有方法最终均输出 Top-5 original evidence IDs。
+
+\subsection{实验设置与冻结协议}
+\label{sec:setup}
+
+Retrieval test 在所有方法配置冻结后进行一次正式评估。
+正式 test prediction 在 evaluator 访问前写入 prediction manifest 并固定 SHA-256，之后只由 sealed evaluator 读取并计算 aggregate metrics。
+
+Generation comparison 固定使用同一个下游生成器，以隔离“不同检索上下文”对生成质量的影响。
+五种方法均使用同一 DeepSeek \texttt{deepseek-flash} 模型、同一 prompt/schema、temperature $=0$、thinking disabled，并最多允许一次 schema/grounding repair；除输入的 Top-5 evidence 外，其余生成设置保持一致。
+Test 上每种检索方法产生 480 条 generation predictions，共 2400 条正式预测。
+若一次 repair 后仍不满足 schema/grounding 约束，该输出仍保留并由 evaluator 直接计入相应惩罚，而不进行人工替换或删除。
+
+\subsection{评价指标}
+\label{sec:metrics}
+
+\textbf{Retrieval。}
+主指标为 Recall@5、nDCG@5、Complete@5 与 FlowComplete@5。
+Complete@5 要求 Top-5 至少覆盖每个 required group；FlowComplete@5 进一步要求存在一个全局一致的 group-to-evidence assignment，同时满足全部 required flow edges。
+Hit@5、Edge Recall 与 uncertainty accuracy 作为辅助诊断。
+
+\textbf{Generation。}
+完整 evaluator 记录 schema、字段、动作、依赖、顺序、citation、evidence support 与严格端到端指标。
+为避免主表指标过载，正文只报告四项与论文研究问题最直接相关的指标：
+(1) \textbf{Field Macro F1 (strict)}，对工单关键标量字段进行 canonicalization 后的宏平均严格匹配；
+(2) \textbf{Action F1}，在 action type、target 与 parameters 规范化后进行最大一一匹配所得的动作级 F1；
+(3) \textbf{Citation F1}，衡量诊断/规程/验证声明及动作与 supporting evidence 之间的 claim--evidence links；
+(4) \textbf{Plan EM (strict)}，要求动作集合、recommended-action 映射以及动作依赖的传递闭包与 gold 完全一致。
+其余 schema validity、dependency/order 与 end-to-end strict 指标用于诊断，并在讨论中用于界定结论强度。
