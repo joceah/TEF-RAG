@@ -15,6 +15,8 @@
 
 TEF-RAG 与一般图检索的区别在于，图并非由静态实体关系预先定义，而是在查询条件下由当前可见的运维证据动态形成；与时间感知排序的区别在于，时间约束只是合法性边界，最终目标仍是恢复角色互补且关系一致的证据集合；与逐跳多跳检索的区别在于，目标结构允许分支、更新、替代和不确定性保留，而不要求是一条单一线性路径。
 
+在本文的具身运维场景中，检索并不是终点。选出的 evidence flow 被送入统一生成器，形成标准化工单与带依赖关系的动作计划，为后续 planner、约束检查和机器人执行提供证据化接口。本文聚焦这一链条中的 evidence retrieval 与 structured planning context，不把真实机器人闭环控制或现场安全认证作为已完成贡献。
+
 本文的贡献可概括为三点：
 \begin{enumerate}
     \item 提出面向动态运维知识的 Temporal Evidence Flow 检索问题，将时间可见性与证据集合完整性统一到同一检索框架中；
@@ -35,6 +37,9 @@ MRAG 与 TA-RAG 将时间条件显式引入检索~\cite{zhang2025mrag,lau2025tar
 
 \textbf{结构化与图式 RAG。}
 RAPTOR、GraphRAG 与 HippoRAG 表明，层次或图结构能够改善跨文档信息整合~\cite{sarthi2024raptor,edge2024graphrag,gutierrez2024hipporag}。不同于这些通常从文档层级或实体关系构图的方法，TEF-RAG 的边由当前查询和当前可见运维记录共同决定，其语义直接对应运维证据之间的支持、更新、限定与验证关系。
+
+\textbf{具身运维与电池智能决策。}
+RAG 也开始被用于机器人现场任务与专业设备操作。SayComply 研究了面向现场机器人的操作合规知识检索，RAGLRO 则将检索增强语言模型用于机器人操作任务~\cite{ginting2025saycomply,wang2026raglro}。在电池领域，LiBrain 与 TimeSeries2Report 分别探索时序信息、检索知识与语言模型在电池诊断和管理中的结合~\cite{li2026librain,yang2026timeseries2report}。这些工作说明，从动态设备信息到可执行任务之间需要可靠的知识接口；本文进一步聚焦这一接口之前的证据选择问题，使后续工单与动作计划建立在查询时刻可见且流程完整的证据集合上。
 
 \textbf{学习排序。}
 TEF-RAG 的最终选择属于 query-level learning-to-rank。RankNet 以成对偏好学习相对排序函数~\cite{burges2005ranknet}；ANCE 等工作则说明难负样本对于学习有效检索边界十分关键~\cite{xiong2021ance}。本文将这一思想用于“证据集合”而非单条文档：训练目标直接比较同一查询下完整集合与高分但不完整的困难集合。
