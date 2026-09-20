@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+import hashlib
 import io
 import json
 import urllib.error
@@ -265,11 +266,11 @@ class _FakeResponse:
         return self.body
 
 
-def _client_for_response(monkeypatch, tmp_path, envelope, diagnostic_dir=None):
+def _client_for_response(monkeypatch, tmp_path, envelope, diagnostic_dir=None, raw_body=None):
     monkeypatch.setattr(runner, "read_env", lambda: {"API_KEY": "test"})
     monkeypatch.setattr(runner, "CALL_INTERVAL", 0.0)
     calls = []
-    body = json.dumps(envelope, ensure_ascii=False).encode("utf-8")
+    body = raw_body if raw_body is not None else json.dumps(envelope, ensure_ascii=False).encode("utf-8")
 
     def fake_urlopen(*args, **kwargs):
         calls.append((args, kwargs))
@@ -290,6 +291,25 @@ def test_response_json_decode_path_is_identical_with_diagnostics_off_or_on(monke
     with_diagnostics = runner.DeepSeekClient(tmp_path / "diagnostic-cache", official=True, diagnostic_dir=tmp_path / "diagnostics")
     assert with_diagnostics.call("system", "user", "with-diagnostics") == without_diagnostics
     assert client.last_parse_provenance["parse_mode"] == with_diagnostics.last_parse_provenance["parse_mode"] == "strict"
+
+
+def test_http_json_utf8_bom_bytes_parse_like_original_json_load(monkeypatch, tmp_path):
+    envelope = {"choices": [{"finish_reason": "stop", "message": {"content": '{"ok":true}'}}], "usage": {}}
+    body = b"\xef\xbb\xbf" + json.dumps(envelope, ensure_ascii=False).encode("utf-8")
+    without_diagnostics, calls = _client_for_response(monkeypatch, tmp_path, envelope, raw_body=body)
+    with_diagnostics = runner.DeepSeekClient(tmp_path / "diagnostic-cache", official=True, diagnostic_dir=tmp_path / "diagnostics")
+    assert without_diagnostics.call("system", "user", "bom-off") == {"ok": True}
+    assert with_diagnostics.call("system", "user", "bom-on") == {"ok": True}
+    assert len(calls) == 2
+    assert json.loads(body) == json.load(io.BytesIO(body)) == envelope
+
+
+def test_http_json_plain_utf8_bytes_remains_single_request(monkeypatch, tmp_path):
+    envelope = {"choices": [{"finish_reason": "stop", "message": {"content": '{"ok":true}'}}], "usage": {}}
+    body = json.dumps(envelope, ensure_ascii=False).encode("utf-8")
+    client, calls = _client_for_response(monkeypatch, tmp_path, envelope, raw_body=body)
+    assert client.call("system", "user", "plain-utf8") == {"ok": True}
+    assert len(calls) == 1
 
 
 def test_diagnostic_failure_records_each_assistant_content_hash(monkeypatch, tmp_path):
@@ -457,7 +477,7 @@ def test_invalid_response_envelopes_write_diagnostic_for_each_attempt(monkeypatc
     assert [json.loads(path.read_text(encoding="utf-8"))["layer"] for path in failures] == [expected_layer] * 3
 
 
-def test_unicode_response_decode_failure_is_diagnosed_without_retry(monkeypatch, tmp_path):
+def test_invalid_encoding_bytes_preserve_json_byte_decode_behavior(monkeypatch, tmp_path):
     monkeypatch.setattr(runner, "read_env", lambda: {"API_KEY": "test"})
     monkeypatch.setattr(runner, "CALL_INTERVAL", 0.0)
     calls = []
@@ -469,14 +489,16 @@ def test_unicode_response_decode_failure_is_diagnosed_without_retry(monkeypatch,
     monkeypatch.setattr(runner.urllib.request, "urlopen", fake_urlopen)
     diagnostic_dir = tmp_path / "diagnostics"
     client = runner.DeepSeekClient(tmp_path / "cache", official=True, diagnostic_dir=diagnostic_dir)
-    with pytest.raises(UnicodeDecodeError):
+    with pytest.raises(RuntimeError, match="JSONDecodeError"):
         client.call("system", "user", "unicode-response")
-    assert len(calls) == 1
+    assert len(calls) == 3
     failures = sorted(diagnostic_dir.glob("*_failure.json"))
-    assert len(failures) == 1
+    assert len(failures) == 3
     event = json.loads(failures[0].read_text(encoding="utf-8"))
-    assert event["layer"] == "http_response_decode"
+    assert event["layer"] == "http_response_json"
     assert event["raw_body_byte_length"] == 2
+    assert event["raw_body_sha256"] == hashlib.sha256(b"\xff\xfe").hexdigest()
+    assert not list((tmp_path / "cache").glob("*.json"))
 
 
 def test_diagnostic_write_failure_does_not_replace_parser_exception(monkeypatch, tmp_path):

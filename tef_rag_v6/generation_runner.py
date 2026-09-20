@@ -664,7 +664,7 @@ class DeepSeekClient:
                     )
                     raw_body = response.read()
                     try:
-                        data = json.loads(raw_body.decode("utf-8"))
+                        data = json.loads(raw_body)
                     except (json.JSONDecodeError, UnicodeDecodeError) as exc:
                         self._safe_write_diagnostic_failure(
                             logical_key,
