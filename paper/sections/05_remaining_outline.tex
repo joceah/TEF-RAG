@@ -33,13 +33,41 @@ TA-RAG & 0.2769 & 0.2907 & 0.0375 & 0.0375 \\
 }
 \end{table}
 
+\subsection{Validation 消融实验}
+\label{sec:ablation_results}
+
+表~\ref{tab:ablation_results} 给出 validation split 上的四组消融结果。完整 TEF-RAG 的 FlowComplete@5 为 0.4042；去除 learned pair proposal 后仅下降至 0.4021，说明在固定 pair budget 下，proposal 对最终质量的直接贡献较小，其主要价值是把关系判断集中到更有希望的 pair。相比之下，去除 relation-graph-derived features 后 FlowComplete@5 降至 0.3667，说明集合排序确实利用了图结构信息。
+
+影响更明显的是训练目标与排序器本身。去除 hard-negative mining 后 FlowComplete@5 从 0.4042 降至 0.2833；去除 nonlinear set ranker、回退到 Stage-3A 选择器后降至 0.3125。这表明，最终性能并非仅来自候选召回或额外关系判断，而主要依赖对“高相关但流程不完整”集合的显式困难负例学习，以及非线性的集合级排序能力。值得注意的是，去除 nonlinear ranker 时 nDCG@5 略高于完整模型（0.6965 vs. 0.6885），但 Complete@5 和 FlowComplete@5 明显更低，进一步说明本文方法优化的是集合流程完整性，而不只是传统单条相关性排序。
+
+\begin{table}[t]
+\caption{Validation split 上的 TEF-RAG 消融结果}
+\label{tab:ablation_results}
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lrrrr}
+\toprule
+Variant & Recall & nDCG & Complete & FlowComplete \\
+\midrule
+Full TEF-RAG & 0.7567 & 0.6885 & 0.4063 & 0.4042 \\
+w/o Pair Proposal & 0.7494 & 0.6832 & 0.4063 & 0.4021 \\
+w/o Graph Features & 0.7184 & 0.6601 & 0.3750 & 0.3667 \\
+w/o Hard Negatives & 0.6748 & 0.6042 & 0.2875 & 0.2833 \\
+w/o Nonlinear Ranker & 0.7070 & 0.6965 & 0.3188 & 0.3125 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
 \subsection{下游结构化生成结果}
 \label{sec:generation_results}
 
 表~\ref{tab:generation_results} 只保留最能回答“更好的 evidence flow 是否改善最终工单与动作计划”的四项生成指标。
 在相同 generator、prompt、schema 与 decoding 设置下，TEF-RAG 在四项指标上均取得最高值：
 Field Macro F1 为 0.5345，Action F1 为 0.2035，Citation F1 为 0.1585，Plan EM (strict) 为 0.0417。
-相较各指标上最强的非 TEF baseline，Action F1、Citation F1 与 Plan EM 分别取得约 24.3\%、26.9\% 与 122.2\% 的相对提升；Field Macro F1 相较 Temporal-BM25 提升约 2.4\%。
+相较各指标上最强的非 TEF baseline，Action F1、Citation F1 与 Plan EM 分别取得约 24.3\%、26.9\% 与 121.8\% 的相对提升；Field Macro F1 相较 Temporal-BM25 提升约 2.4\%。
 结果表明，TEF-RAG 的收益不仅体现在上游检索命中率，也能够传递到工单关键字段、处置动作和证据引用质量。
 
 \begin{table}[t]
