@@ -90,7 +90,7 @@ s_{\theta}(q,\Selected^-)
 \label{eq:ranknet_loss}
 \end{equation}
 
-对 development query，若一个候选五元集合覆盖全部必要证据组，并存在一个全局一致的组--证据赋值满足全部 required flow edges，则将其记为 $\Selected^+$；不满足该条件的集合为 $\Selected^-$. 第一轮训练优先使用启发式分数较高的失败集合并加入确定性的多样负例。随后模型重新打分完整候选库，把排名最靠前但仍不满足 FlowComplete 的 false positives 作为 hard negatives，再进行一轮训练。最终模型在全部 development 数据上重新拟合并冻结，validation/test 不参与参数学习。
+对 development query，若一个候选五元集合覆盖全部必要证据组，并存在一个全局一致的组--证据赋值满足全部 required flow edges，则将其记为 $\Selected^+$；不满足该条件的集合为 $\Selected^-$。第一轮训练优先使用启发式分数较高的失败集合并加入确定性的多样负例。随后模型重新打分完整候选库，把排名最靠前但仍不满足 FlowComplete 的 false positives 作为 hard negatives，再进行一轮训练。最终模型在全部 development 数据上重新拟合并冻结，validation/test 不参与参数学习。
 
 推理时，系统仅对 $\SetBank_q$ 中的候选集合计算 $s_{\theta}$，选择效用最高的集合；当候选不足五条时沿用合法短输出。至此，TEF-RAG 完成从节点召回、关系建图到集合级选择的全过程。
 
