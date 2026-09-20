@@ -6,6 +6,8 @@ import hashlib
 import json
 from pathlib import Path
 
+from scripts.evaluate_tef_rag_v6_public_retrieval import load_test_evaluator
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_ROOT = ROOT / "data/retrieval/tef_v6_temporal_hard_benchmark_v1"
@@ -29,6 +31,10 @@ def validate(base: Path) -> list[str]:
         errors.append("expected 400 unique chains")
     if len({row["evidence_id"] for row in evidence}) != len(evidence):
         errors.append("evidence IDs are not unique")
+    try:
+        load_test_evaluator(public / "test_evaluator.jsonl", public / "queries_test.jsonl")
+    except (OSError, ValueError) as exc:
+        errors.append(f"released test evaluator invalid: {exc}")
     public_query_ids = {row["query_id"] for row in queries if row["split"] != "test"}
     if len(gold) != 1920 or {row["query_id"] for row in gold} != public_query_ids:
         errors.append("public development/validation retrieval gold does not cover exactly its query set")
@@ -42,7 +48,7 @@ def main() -> None:
     errors = validate(args.root)
     if errors:
         raise SystemExit("public retrieval validation failed:\n- " + "\n- ".join(errors))
-    print("public retrieval validation passed: 400 chains, 2400 queries, 1920 public gold rows; test evaluator remains sealed")
+    print("public retrieval validation passed: 400 chains, 2400 queries, 1920 public gold rows, released 480-row test evaluator")
 
 
 if __name__ == "__main__":

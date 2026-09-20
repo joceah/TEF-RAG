@@ -1,6 +1,7 @@
 """Materialize fixed public TEF-RAG v6 semantic benchmark files from committed base64+xz transport parts.
 
-This script does NOT contain or reconstruct sealed test gold.
+This script does NOT contain or reconstruct generation gold. The completed
+retrieval test evaluator is released separately under ``data/retrieval``.
 """
 from __future__ import annotations
 import argparse, base64, hashlib, json, lzma

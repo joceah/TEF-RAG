@@ -17,6 +17,9 @@ dist/
 build/
 *.egg-info/
 .cache/tef_rag_v6_llm_relation/
+# Formal runner materializations are reproducible local inputs, not release
+# predictions or result artifacts.
+results/v6/
 # Third-party baseline checkouts and downloaded models stay local.
 experiments/runtime/
 # Deterministically materialized benchmark transport outputs (never commit).

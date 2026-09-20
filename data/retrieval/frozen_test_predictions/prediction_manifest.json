@@ -1,0 +1,44 @@
+{
+  "status": "PREDICTIONS_FROZEN_BEFORE_SEALED_EVALUATION",
+  "timestamp_utc": "2026-09-18T08:59:24.573755+00:00",
+  "test_query_count": 480,
+  "query_ids_sha256": "43bfbf435c19b2a898b52a51d88c75c6e2ab29f4fa5aa62dae7834443a789e07",
+  "final_freeze_reference": "15d2a2db698faf0793136396cbf9e402bfb37737d11b51110d77839c620d4699",
+  "predictions": {
+    "bm25": {
+      "method": "bm25",
+      "query_count": 480,
+      "prediction_sha256": "e3fda5e21a2a43a1a7411fcdfd5e793c23b8da2474e78506f8257e1998ec681e"
+    },
+    "bge_reranker": {
+      "method": "bge_reranker",
+      "query_count": 480,
+      "prediction_sha256": "a26acd912729a1a2aeff14c8334e78d4f84826cb19f5d22f5e22287fa8089c9a"
+    },
+    "temporal_bm25": {
+      "method": "temporal_bm25",
+      "query_count": 480,
+      "prediction_sha256": "9dee0253619896e50e2f6d7e74209b70733090366d816347702a5820912b7ba9"
+    },
+    "ta_rag": {
+      "method": "ta_rag",
+      "query_count": 480,
+      "prediction_sha256": "c35b66edfc94e0ea901368be899b77850af34cfd23ee9027423e5452b103fcc8"
+    },
+    "tef_rag_stage3d": {
+      "method": "tef_rag_stage3d",
+      "query_count": 480,
+      "prediction_sha256": "b7d02bf95cdbe522a667e7e7772ec72f3925761f76157c3fa3c421896c383e76"
+    }
+  },
+  "relation_cache_statistics": {
+    "llm_request_count": 1060,
+    "retry_count": 88,
+    "cache_hit_count": 224,
+    "cache_lookup_count": 15342,
+    "failure_count": 256,
+    "prompt_tokens": 2716784,
+    "completion_tokens": 146585
+  },
+  "sealed_evaluator_accessed": false
+}

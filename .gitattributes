@@ -13,3 +13,8 @@
 # The released test gold preserves its audited source bytes; its canonical
 # index is LF and remains covered by the generic JSONL rule above.
 data/generation/gold_test.jsonl binary
+# This historical retrieval evaluator is released byte-for-byte after the
+# formal blind evaluation.  Keep Git from normalizing its CRLF source bytes.
+data/retrieval/tef_v6_temporal_hard_benchmark_v1/public/test_evaluator.jsonl binary
+# Frozen retrieval prediction bytes are part of the published provenance.
+data/retrieval/frozen_test_predictions/*.json binary

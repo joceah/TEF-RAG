@@ -4,6 +4,8 @@ import hashlib
 import json
 from pathlib import Path
 
+import pytest
+
 from scripts.evaluate_tef_rag_v6_public_generation import evaluate_method, load_gold
 from tef_rag_v6.generation_eval import Canonicalizer
 
@@ -47,3 +49,26 @@ def test_public_generation_wrapper_scores_a_gold_row(tmp_path):
         Canonicalizer(aliases, parameters),
     )
     assert metrics["task_success"] == 1
+
+
+def test_public_generation_wrapper_rejects_prediction_coverage_mismatch(tmp_path):
+    gold_path = ROOT / "data/generation/gold_development.jsonl"
+    index_path = ROOT / "data/generation/gold_development_index.jsonl"
+    gold = json.loads(gold_path.read_text(encoding="utf-8").splitlines()[0])
+    index = json.loads(index_path.read_text(encoding="utf-8").splitlines()[0])
+    query_id = index["query_ids"][0]
+    prediction = {"query_id": query_id, "input_evidence_ids": [], "generation": gold}
+    path = tmp_path / "bm25.jsonl"
+    path.write_text(json.dumps(prediction, ensure_ascii=False) + "\n" + json.dumps(prediction, ensure_ascii=False) + "\n", encoding="utf-8")
+    with pytest.raises(ValueError, match="expected exactly"):
+        evaluate_method(path, {query_id: gold}, {query_id: {"query_id": query_id, "asset_id": "Rack-A"}}, json.loads((ROOT / "data/generation/schema.json").read_text()), Canonicalizer({}, {}))
+
+
+def test_public_generation_wrapper_rejects_malformed_input_evidence(tmp_path):
+    gold = json.loads((ROOT / "data/generation/gold_development.jsonl").read_text(encoding="utf-8").splitlines()[0])
+    query_id = "Q1"
+    prediction = {"query_id": query_id, "input_evidence_ids": ["E1"] * 6, "generation": gold}
+    path = tmp_path / "bm25.jsonl"
+    path.write_text(json.dumps(prediction, ensure_ascii=False) + "\n", encoding="utf-8")
+    with pytest.raises(ValueError, match="at most 5"):
+        evaluate_method(path, {query_id: gold}, {query_id: {"query_id": query_id, "asset_id": "Rack-A"}}, json.loads((ROOT / "data/generation/schema.json").read_text()), Canonicalizer({}, {}))

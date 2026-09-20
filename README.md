@@ -38,13 +38,14 @@ The downstream generator uses the official DeepSeek endpoint and an API key supp
 
 ### Retrieval
 
-`data/retrieval/tef_v6_temporal_hard_benchmark_v1/public/` contains 400 chains, 2,400 queries, the shared evidence corpus, and development/validation retrieval labels. The benchmark manifest intentionally keeps the 480-row test retrieval evaluator sealed (`public_test_gold=false`); test queries, chains, and evidence are public.
+`data/retrieval/tef_v6_temporal_hard_benchmark_v1/public/` contains 400 chains, 2,400 queries, the shared evidence corpus, development/validation retrieval labels, and the released 480-row historical test evaluator. The evaluator was kept sealed during model development and formal test evaluation; after predictions and results were frozen, the exact historical bytes were released for reproducibility (SHA-256 `477bb709f3dfdb672ce5a7f5c93168e0791c7a90cb247c62a6072bd8dee7c9f3`). The historical manifest still records `public_test_gold=false` because that was the state at formal sealing time.
 
 The files are already materialized. To verify the canonical transport and all benchmark invariants:
 
 ```bash
 python -m scripts.validate_tef_v6_semantic_benchmark_v1
 python -m scripts.validate_tef_rag_v6_public_retrieval
+python -m scripts.evaluate_tef_rag_v6_public_retrieval
 ```
 
 ### Generation
@@ -79,17 +80,29 @@ python -m scripts.run_tef_rag_v6_stage3d
 python -m scripts.run_tef_rag_v6_baseline_suite
 ```
 
-The runners do not expose test labels. Retrieval metrics are computed from the public development/validation gold or from a separately prepared sealed evaluation environment.
+The runners use public development/validation labels during development. The completed formal test can be reproduced with the released evaluator and frozen predictions:
+
+```bash
+python -m scripts.evaluate_tef_rag_v6_public_retrieval
+```
+
+The evaluator fails closed on evaluator hash, query coverage/order, prediction hashes, evidence identity, duplicate IDs, and temporal visibility. Frozen predictions are published under `data/retrieval/frozen_test_predictions/`.
 
 ## Reproduce generation evaluation
 
 The formal generator consumes each method's frozen selected evidence and uses the shared V6 prompt, schema, and one-repair policy. The formal runner is:
 
 ```bash
+python -m scripts.materialize_tef_v6_semantic_benchmark_v1
+python -m scripts.materialize_tef_rag_v6_generation_inputs
 python -m scripts.run_tef_rag_v6_generation_eval preflight
 python -m scripts.run_tef_rag_v6_generation_eval generate --all
 python -m scripts.run_tef_rag_v6_generation_eval freeze
 ```
+
+The materializers verify committed transport and prediction hashes before
+creating ignored local inputs under `data/generated/.../public/` and
+`results/v6/sealed_test/`. They perform no retrieval or model calls.
 
 For a public, non-sealed evaluation of prediction files, use the wrapper below. It reuses `tef_rag_v6.generation_eval` metric formulas and reads the released test gold/index; it does not use the formal private one-shot lock:
 
@@ -109,4 +122,4 @@ The released aggregate generation reference is in [`paper/results/final_generati
 - Retrieval and generation schemas, alias registries, and parameter registries are versioned in this repository.
 - Random seeds and learned-model metadata are recorded with the V6 artifacts and stage scripts.
 - Dataset text files are normalized to LF and protected by `.gitattributes` for byte-stable hashing.
-- No API key, local environment file, cache, private item-level evaluation detail, or formal prediction output is part of this release.
+- No API key, local environment file, cache, private item-level evaluation detail, or formal generation prediction output is part of this release. Frozen retrieval test predictions are the explicitly published artifacts under `data/retrieval/frozen_test_predictions/`.

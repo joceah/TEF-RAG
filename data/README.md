@@ -15,8 +15,8 @@
 
 - Frozen Protocol: `b0e6e004378e7d7f29cabece1efa6b2c30489e9b`。
 - Validation 与 test 的 protocol-required blind second semantic review 均已完成；test 为 80/80 PASS、0 unresolved、0 disagreement。
-- Development / validation 的 gold 与 canonical flow 可公开用于开发/模型选择；test 只公开 query/evidence，**不公开 test gold / required groups / canonical flow / item-level review reasoning**。
-- Test evaluator 与 test second-pass item-level review artifact 均单独 sealed；公开仓库只保存 aggregate QC 与 hash。
+- Development / validation 的 gold 与 canonical flow 可公开用于开发/模型选择；test evaluator 在正式评估期间保持 sealed，完成冻结后已公开原始 evaluator bytes；item-level review reasoning 仍不公开。
+- Test evaluator 与 test second-pass item-level review artifact 在正式评估期间单独 sealed；正式 predictions/results 冻结后，历史 test evaluator 已按原始字节发布以支持复现。item-level review artifact 仍不公开。
 - 尚未运行 TEF-RAG v6、reranker、multi-step retriever 或任何目标方法，因此数据没有按目标算法表现筛选。
 - 正确定位：**public-source-grounded, AI-assisted synthetic benchmark**；不宣称 expert-reviewed、field-certified 或 real-world benchmark。
 
