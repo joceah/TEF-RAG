@@ -6,7 +6,7 @@
 \subsection{时序运维 Benchmark}
 \label{sec:dataset}
 
-本文构建 TEF-RAG v6 Semantic Benchmark v1，用于受控评价动态运维场景中的时序证据检索。数据不是对真实电站故障日志的直接复制，而是在公开产品资料与公开研究数据给出的物理范围内，构造具有明确时间、因果与规程关系的运维事件链。其目标是系统控制晚到记录、版本替换、跨来源互补证据和持续不确定性等因素，并观察不同检索方法对这些因素的处理能力。
+本文构建 TEF-RAG v6 Semantic Benchmark v1，用于受控评价动态运维场景中的时序证据检索。该 benchmark 属于 \emph{public-source-grounded, AI-assisted synthetic benchmark}，并非真实电站故障日志或领域专家人工标注数据。公开产品资料与研究数据只用于约束电芯类别、物理范围和采样背景；具体运维事件链、诊断演化、规程情境与查询任务由受控的 AI-assisted 语义生成流程构造。其目标是系统控制晚到记录、版本替换、跨来源互补证据和持续不确定性等因素，并观察不同检索方法对这些因素的处理能力。
 
 数据组织层次如表~\ref{tab:dataset_structure}。每条 chain 表示一个完整运维过程，由多条 evidence records 构成；每条 chain 派生多个不同任务意图，每个意图再生成语义保持的 paraphrase。检索 gold 以“必要证据组 + 必要 flow edges”表示，因此评价的不是某一条唯一文本，而是一个任务是否获得了足以形成完整流程的证据集合。
 
@@ -55,7 +55,7 @@ Evidence records & -- & -- & -- & 3888 \\
 
 \subsection{结构化生成评价}
 
-为检验检索优势能否传递到下游任务，我们在同一批 authored chains 上建立结构化 generation gold。每个 primary intent 对应一个语义 gold object，并由其两个 paraphrases 共享。因此 development/validation/test 分别包含 720/240/240 个 semantic gold objects，对应 1440/480/480 条 queries。
+为检验检索优势能否传递到下游任务，我们在同一批 authored chains 上建立结构化 generation gold。该 gold 同样是 \emph{AI-assisted adjudicated synthetic gold}，而非领域专家人工 gold：多个生成/复核结果经过一致性检查与分歧裁决后形成最终结构化参考。每个 primary intent 对应一个语义 gold object，并由其两个 paraphrases 共享。因此 development/validation/test 分别包含 720/240/240 个 semantic gold objects，对应 1440/480/480 条 queries。
 
 每个输出由两部分组成：标准化工单 \texttt{work\_order} 与动作计划 \texttt{action\_plan}。工单描述诊断、推荐动作、适用规程、验证/不确定性状态及证据引用；动作计划由原子动作及其依赖关系构成。该评价关注“检索到的上下文是否足以支持更准确的结构化输出”，而不把语言模型本身作为本文的主要算法贡献。
 
@@ -73,6 +73,10 @@ Evidence records & -- & -- & -- & 3888 \\
 \textbf{Generation。}
 正文报告四项主要指标：Field Macro F1 (strict)、Action F1、Citation F1 与 Plan EM (strict)。它们分别衡量工单关键字段、规范化动作、claim--evidence 引用以及完整动作计划的严格匹配。其余 schema validity、dependency/order 与 end-to-end exact match 用于诊断。
 
+\subsection{消融设置}
+
+为分析最终性能来自哪些组成部分，我们在 480 条 validation queries 上执行四组冻结消融：去除 learned pair proposal、去除 relation-graph-derived set features、去除 hard-negative mining，以及去除 nonlinear set ranker。完整模型与各变体保持相同的 Top-30 搜索池、pair budget、relation prompt/threshold 和候选集合定义；其中 graph-feature ablation 只移除关系图派生的集合特征并重新训练相同 RankNet，hard-negative ablation 只保留第一轮训练，nonlinear-ranker ablation 则回退到冻结的 Stage-3A 选择结果。消融不进行新的超参数搜索，也不运行新的 test prediction 或读取 test gold，因此只用于组件归因，不用于重新选择最终测试配置。
+
 \subsection{实验控制}
 
-Retrieval 的开发、验证和最终测试严格分离；Generation comparison 固定使用同一个下游生成器、同一 prompt/schema 与解码设置，只改变输入的检索证据。这样可以把下游生成差异解释为检索上下文质量的变化，而不是生成模型配置差异。
+Retrieval 的开发、验证和最终测试严格分离；所有模型选择与训练只使用 development/validation 信息，最终 test 在配置冻结后用于一次性评价。Generation comparison 固定使用同一个下游生成器、同一 prompt/schema 与解码设置，只改变输入的检索证据。这样可以把下游生成差异解释为检索上下文质量的变化，而不是生成模型配置差异。
