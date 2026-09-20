@@ -5,7 +5,7 @@
 
 \subsection{检索主结果}
 
-表~\ref{tab:retrieval_results} 给出 frozen test split 上的正式结果。
+表~\ref{tab:retrieval_results} 给出 test split 上的检索结果。
 TEF-RAG 在 Recall@5、nDCG@5、Complete@5 与 FlowComplete@5 四项主指标上均取得最高值。
 相较于这些指标上最强的非 TEF baseline（均为 Temporal-BM25），
 TEF-RAG 的 Recall@5 从 0.4591 提升至 0.7228，nDCG@5 从 0.4955 提升至 0.6231；
@@ -13,7 +13,7 @@ TEF-RAG 的 Recall@5 从 0.4591 提升至 0.7228，nDCG@5 从 0.4955 提升至 0
 这说明仅加入时间偏好能够改善单条证据召回，但显式建模 evidence-flow 关系并联合选择证据集合，对恢复完整任务支持结构更为关键。
 
 \begin{table}[t]
-\caption{Frozen retrieval test 的主结果（Top-5）}
+\caption{Retrieval test 的主结果（Top-5）}
 \label{tab:retrieval_results}
 \centering
 \small
@@ -43,11 +43,12 @@ Field Macro F1 为 0.5345，Action F1 为 0.2035，Citation F1 为 0.1585，Plan
 结果表明，TEF-RAG 的收益不仅体现在上游检索命中率，也能够传递到工单关键字段、处置动作和证据引用质量。
 
 \begin{table}[t]
-\caption{Frozen generation test 的主要结构化生成指标}
+\caption{Generation test 的主要结构化生成指标}
 \label{tab:generation_results}
 \centering
 \small
-\setlength{\tabcolsep}{3.5pt}
+\setlength{\tabcolsep}{3pt}
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lrrrr}
 \toprule
 Method & Field F1 & Action F1 & Citation F1 & Plan EM \\
@@ -58,7 +59,8 @@ Temporal-BM25 & 0.5218 & 0.1637 & 0.1249 & 0.0167 \\
 TA-RAG & 0.4059 & 0.1115 & 0.0379 & 0.0188 \\
 \textbf{TEF-RAG} & \textbf{0.5345} & \textbf{0.2035} & \textbf{0.1585} & \textbf{0.0417} \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 需要强调的是，这些结果支持的是“生成内容更加准确和更有证据支撑”，而不是“完整工单已经被可靠解决”。
