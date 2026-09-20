@@ -11,7 +11,7 @@ All five frozen retrieval methods use exactly the same downstream generator:
 - temperature: `0`
 - thinking mode: `disabled`
 - prompt version: `tef-v6-generation-eval-v1.3`
-- protocol version: `v1.8-premature-root-close-normalization`
+- protocol version: `v1.9-exact-duplicate-root-field-suffix`
 - one repair attempt maximum
 - identical JSON schema and canonicalization registries
 
@@ -26,7 +26,7 @@ python scripts/run_tef_rag_v6_generation_eval.py freeze
 python scripts/run_tef_rag_v6_generation_eval.py evaluate --private-root ../.tef_v6_generation_gold_private
 ```
 
-`generate --all` is the only formal mode. It interleaves calls query-major across all five methods; `--method` is rejected. The v1.4 short-output clarification, v1.5 model correction, v1.6 non-thinking runtime clarification, v1.7 transport syntax normalization, and v1.8 premature-root-close normalization are recorded in the corresponding files under `plans/`.
+`generate --all` is the only formal mode. It interleaves calls query-major across all five methods; `--method` is rejected. The v1.4 short-output clarification, v1.5 model correction, v1.6 non-thinking runtime clarification, v1.7 transport syntax normalization, and v1.9 exact-duplicate-suffix clarification are recorded in the corresponding files under `plans/`.
 
 `freeze` must complete before private generation gold is read. It hashes every generation prediction file and records `private_generation_gold_accessed=false`.
 
@@ -40,7 +40,7 @@ The preflight requires materialized public `queries_test.jsonl` and `evidence.js
 
 Formal generation accepts only `https://api.deepseek.com/chat/completions`. Each generation row records a session fingerprint and the initial and optional repair request fingerprints. Resume verifies every saved row before the client reads credentials or cache. `freeze` locks one session across all 2,400 rows plus runner/evaluator source, schema and registries. `evaluate` rechecks the locks before private gold access. An atomic evaluation-start lock, existing formal metrics, final manifest or private item-level details stop another official evaluation. The private output root must resolve outside the repository.
 
-The runner records provider content parse provenance for every initial and repair response. It accepts strict JSON objects, the v1.7 transport case of a complete object followed by exactly one extra `}`, and the v1.8 `premature_root_close` case: one decoded object whose structural root close is immediately followed by a comma and a missing declared top-level key, where removing that one close and reparsing the entire string succeeds. No other malformed or trailing content is normalized. This handling occurs before schema/grounding validation and does not consume the one allowed repair.
+The runner records provider content parse provenance for every initial and repair response. All JSON objects use duplicate-key rejection. It accepts strict JSON objects, the v1.7 transport case of a complete object followed by exactly one extra `}`, and the v1.9 `exact_duplicate_root_field_suffix` case: a complete first object followed by exactly one declared root field whose value is structurally and canonically identical to the already present field. The accepted value is the first complete object; no fields are merged. No other malformed or trailing content is normalized. This handling occurs before schema/grounding validation and does not consume the one allowed repair.
 
 The aggregate metadata records both `private_gold_sha256` and `private_index_sha256`. The index hash is deterministically reconstructed from the committed public benchmark transport parts using the generation-gold builder's row ordering and JSONL serialization; no private file is read to derive it. The evaluator still fails closed if either aggregate hash is missing or changes. Once both hashes match, row-wise gold/index pairing is safe because each file's contents and row order are fixed. No per-item test fingerprints are published or required.
 
@@ -67,9 +67,10 @@ Free-text slots use protocol v1.2 strict deterministic canonicalization; no embe
 Before evaluation:
 
 ```text
-results/v6/generation_eval_v1_8_premature_root_close/
+results/v6/generation_eval_v1_9_exact_duplicate_suffix/
   preflight.json
   generation_runtime.json
+  diagnostics/                 # redacted failure evidence, when a call fails
   predictions/
     bm25.jsonl
     bge_reranker.jsonl
@@ -82,7 +83,7 @@ results/v6/generation_eval_v1_8_premature_root_close/
 After the single private-gold evaluation:
 
 ```text
-results/v6/generation_eval_v1_8_premature_root_close/
+results/v6/generation_eval_v1_9_exact_duplicate_suffix/
   metrics.json
   final_evaluation_manifest.json
 ```

@@ -34,11 +34,11 @@ def test_frozen_retrieval_length_distributions_are_preserved():
     assert actual == expected
 
 
-def test_short_output_protocol_version_is_sealed():
-    assert runner.GENERATION_PROTOCOL_VERSION == "v1.8-premature-root-close-normalization"
+def test_exact_duplicate_suffix_protocol_version_is_sealed():
+    assert runner.GENERATION_PROTOCOL_VERSION == "v1.9-exact-duplicate-root-field-suffix"
     assert cli.scoring_fingerprint()["protocol_version"] == runner.GENERATION_PROTOCOL_VERSION
-    assert runner.OUT.name == "generation_eval_v1_8_premature_root_close"
-    assert runner.CACHE.name == "tef_rag_v6_generation_eval_v1_8_premature_root_close"
+    assert runner.OUT.name == "generation_eval_v1_9_exact_duplicate_suffix"
+    assert runner.CACHE.name == "tef_rag_v6_generation_eval_v1_9_exact_duplicate_suffix"
 
 
 def test_canonical_model_is_bound_in_request_payload_and_session():
@@ -128,13 +128,13 @@ def test_transport_protocol_changes_session_but_not_request_fingerprint(monkeypa
         ('{"a":1}', "strict", {"a": 1}),
         ('{"a":1}}', "single_extra_closing_brace", {"a": 1}),
         (
-            '{"work_order":{"asset_id":"Rack-A"}},"action_plan":[]}',
-            "premature_root_close",
+            '{"work_order":{"asset_id":"Rack-A"},"action_plan":[]},"action_plan":[]}',
+            "exact_duplicate_root_field_suffix",
             {"work_order": {"asset_id": "Rack-A"}, "action_plan": []},
         ),
     ],
 )
-def test_generation_parser_accepts_only_strict_object_or_one_extra_brace(raw, mode, expected):
+def test_generation_parser_accepts_frozen_transport_modes(raw, mode, expected):
     result, provenance = runner.parse_generation_json_object(raw)
     assert result == expected
     assert provenance["parse_mode"] == mode
@@ -142,73 +142,78 @@ def test_generation_parser_accepts_only_strict_object_or_one_extra_brace(raw, mo
     if mode == "strict":
         assert provenance["normalization_removed_chars"] == 0
         assert provenance["accepted_json_text_sha256"] == provenance["cleaned_content_sha256"]
-    else:
+    elif mode == "single_extra_closing_brace":
         assert provenance["normalization_removed_chars"] == 1
         assert provenance["accepted_json_text_length"] == provenance["cleaned_content_length"] - 1
+    else:
+        assert provenance["duplicated_root_key"] == "action_plan"
+        assert provenance["duplicate_values_equal"] is True
+        assert provenance["duplicate_suffix_char_length"] == len(',"action_plan":[]}')
+        assert provenance["normalization_removed_chars"] == provenance["duplicate_suffix_char_length"]
 
 
 @pytest.mark.parametrize(
     "raw",
     [
-        '{"a":1}}}',
-        '{"a":1} garbage',
-        '{"a":1} }',
-        '{"a":',
-        '{"a":"unterminated}',
-        '[1,2]}',
+        '{"work_order":{}},"action_plan":[]}',
+        '{"work_order":{},"action_plan":[{"x":1}]},"action_plan":[]}',
+        '{"work_order":{},"action_plan":[]},"action_plan":[{"x":1}]}',
+        '{"work_order":{},"action_plan":[]},"action_plan":[],"work_order":{}}',
+        '{"work_order":{},"action_plan":[]},"action_plan":[]} trailing',
+        '{"work_order":{},"action_plan":[]},"action_plan":[]',
+        '{"work_order":{},"action_plan":[]},"action_plan":]}',
+        '{"work_order":{},"work_order":{},"action_plan":[]}',
+        '{"work_order":{},"action_plan":[{"x":1,"x":2}]},"action_plan":[{"x":1,"x":2}]}',
+        '{"work_order":{},"action_plan":[]},"unexpected":[]}',
+        '{"work_order":{},"action_plan":[]} {"action_plan":[]}',
+        '{"work_order":{},"action_plan":[]}garbage',
+        '{"work_order":{},"action_plan":[]},"action_plan":[],"action_plan":[]}',
     ],
 )
-def test_generation_parser_rejects_other_malformed_or_trailing_content(raw):
+def test_exact_duplicate_suffix_rejects_unsafe_variants(raw):
     with pytest.raises((json.JSONDecodeError, ValueError)):
         runner.parse_generation_json_object(raw)
 
 
-@pytest.mark.parametrize(
-    "raw",
-    [
-        '{"work_order":{}}},"action_plan":[]}',
-        '{"work_order":{}},"action_plan":[]} trailing',
-        '{"work_order":{"asset_id":"unterminated},"action_plan":[]}',
-        '{"work_order":{}}"action_plan":[]}',
-        '{"work_order":{}},"unexpected":[]}',
-        '{"work_order":{},"action_plan":[]},"action_plan":[]}',
-        '{"work_order":{}},"action_plan":[],"action_plan":[]}',
-        '[],"action_plan":[]}',
-        '{"work_order":{}},"action_plan":[]}extra}',
-        '{"work_order":{}},"action_plan":}',
-        '{"work_order":{"nested":"unterminated},"action_plan":[]}',
-        '{"work_order":{}}{"action_plan":[]}',
-    ],
-)
-def test_premature_root_close_rejects_unsafe_variants(raw):
-    with pytest.raises((json.JSONDecodeError, ValueError)):
-        runner.parse_generation_json_object(raw)
-
-
-def test_premature_root_close_provenance_and_schema_path():
-    raw = '{"work_order":{"asset_id":"Rack-A"}},"action_plan":[]}'
+def test_exact_duplicate_suffix_provenance_and_schema_path():
+    raw = '{"work_order":{"asset_id":"Rack-A"},"action_plan":[]},"action_plan":[]}'
     result, provenance = runner.parse_generation_json_object(raw)
-    assert provenance["parse_mode"] == "premature_root_close"
-    assert provenance["normalization_removed_chars"] == 1
+    assert provenance["parse_mode"] == "exact_duplicate_root_field_suffix"
     assert provenance["original_json_decode_error_msg"] == "Extra data"
-    assert provenance["original_json_decode_error_pos"] == 36
-    assert provenance["recovered_root_key"] == "action_plan"
-    assert provenance["normalization_version"] == runner.PREMATURE_ROOT_CLOSE_NORMALIZATION_VERSION
+    assert provenance["duplicated_root_key"] == "action_plan"
+    assert provenance["normalization_version"] == runner.EXACT_DUPLICATE_ROOT_FIELD_SUFFIX_NORMALIZATION_VERSION
     assert provenance["provider_content_sha256"] == runner.sha_text(raw)
-    assert provenance["accepted_json_text_sha256"] == runner.sha_text(json.dumps(result, separators=(",", ":")))
+    assert provenance["accepted_json_text_sha256"] == runner.sha_text('{"work_order":{"asset_id":"Rack-A"},"action_plan":[]}')
+    assert provenance["duplicate_values_equal"] is True
     assert runner.validate_parse_provenance(provenance) == []
     assert validate_generation_output(result, schema(), set(), "Rack-A")
 
 
-def test_observed_premature_root_close_shape_recovers_action_plan():
-    raw = (
-        '{"work_order":{"asset_id":"C-T07","diagnosis":{"status":"confirmed"}}},'
-        '"action_plan":[{"action_id":"A1","action_type":"repair","target":"part",'
-        '"parameters":{},"depends_on":[],"supporting_evidence_ids":["E1"]}]}'
-    )
-    result, provenance = runner.parse_generation_json_object(raw)
-    assert provenance["parse_mode"] == "premature_root_close"
-    assert result["action_plan"][0]["action_id"] == "A1"
+def test_archived_production_payloads_are_exact_duplicate_suffix_regressions():
+    root = Path(__file__).parents[1] / "debug_artifacts/tef_v6_generation_json_failure_20260919"
+    selected = {"TEFV6-C0059-E05", "TEFV6-C0059-E06", "TEFV6-C0059-E07", "TEFV6-C0059-E08", "TEFV6-C0118-E05"}
+    for attempt in (1, 2, 3):
+        raw = (root / f"attempt{attempt}_assistant_content.txt").read_text(encoding="utf-8")
+        with pytest.raises(json.JSONDecodeError, match="Extra data"):
+            json.loads(raw)
+        cleaned = runner._clean_generation_content(raw)
+        decoder = json.JSONDecoder(object_pairs_hook=runner._reject_duplicate_json_keys)
+        first, end = decoder.raw_decode(cleaned)
+        trailing = cleaned[end:]
+        key, key_end = decoder.raw_decode(trailing, 1)
+        duplicate, value_end = decoder.raw_decode(trailing, key_end + 1)
+        assert list(first) == ["work_order", "action_plan"]
+        assert key == "action_plan"
+        assert value_end == len(trailing.rstrip(" \t\r\n")) - 1
+        assert first["action_plan"] == duplicate
+        assert trailing[key_end + 1:value_end] == json.dumps(duplicate, ensure_ascii=False, separators=(",", ":"))
+        result, provenance = runner.parse_generation_json_object(raw)
+        assert result == first
+        assert provenance["parse_mode"] == "exact_duplicate_root_field_suffix"
+        assert provenance["duplicated_root_key"] == "action_plan"
+        assert provenance["duplicate_values_equal"] is True
+        errors = validate_generation_output(result, schema(), selected, "C-T07")
+        assert isinstance(errors, list)
 
 
 def test_strict_parser_does_not_change_valid_json():
@@ -259,6 +264,45 @@ def _client_for_response(monkeypatch, tmp_path, envelope):
 
     monkeypatch.setattr(runner.urllib.request, "urlopen", fake_urlopen)
     return runner.DeepSeekClient(tmp_path / "cache", official=True), calls
+
+
+def test_response_json_decode_path_is_identical_with_diagnostics_off_or_on(monkeypatch, tmp_path):
+    client, _ = _client_for_response(
+        monkeypatch,
+        tmp_path,
+        {"choices": [{"finish_reason": "stop", "message": {"content": '{"ok":true}'}}], "usage": {}},
+    )
+    monkeypatch.setattr(runner.json, "load", lambda *args, **kwargs: pytest.fail("json.load path was used"))
+    without_diagnostics = client.call("system", "user", "without-diagnostics")
+    with_diagnostics = runner.DeepSeekClient(tmp_path / "diagnostic-cache", official=True, diagnostic_dir=tmp_path / "diagnostics")
+    assert with_diagnostics.call("system", "user", "with-diagnostics") == without_diagnostics
+    assert client.last_parse_provenance["parse_mode"] == with_diagnostics.last_parse_provenance["parse_mode"] == "strict"
+
+
+def test_diagnostic_failure_records_each_assistant_content_hash(monkeypatch, tmp_path):
+    client, calls = _client_for_response(
+        monkeypatch,
+        tmp_path,
+        {"id": "response-1", "model": "deepseek-flash", "choices": [{"finish_reason": "stop", "message": {"content": '{"bad":'}}], "usage": {}},
+    )
+    diagnostic_dir = tmp_path / "diagnostics"
+    client.diagnostic_dir = diagnostic_dir
+    diagnostic_dir.mkdir()
+    with pytest.raises(RuntimeError, match="JSONDecodeError"):
+        client.call("system", "user", "diagnostic-failure")
+    failures = sorted(diagnostic_dir.glob("*_failure.json"))
+    assert len(calls) == len(failures) == 3
+    for failure in failures:
+        event = json.loads(failure.read_text(encoding="utf-8"))
+        assert event["layer"] == "assistant_content_json"
+        assert event["content_sha256"] == runner.sha_text('{"bad":')
+        assert event["attempt"] in (1, 2, 3)
+
+
+def test_formal_generation_uses_new_result_namespace_diagnostics_dir():
+    source = Path(cli.__file__).read_text(encoding="utf-8")
+    assert 'DeepSeekClient(CACHE / "api_cache", official=True, diagnostic_dir=OUT / "diagnostics")' in source
+    assert runner.OUT.name == "generation_eval_v1_9_exact_duplicate_suffix"
 
 
 def test_finish_reason_length_is_transport_failure_before_json_parse(monkeypatch, tmp_path):

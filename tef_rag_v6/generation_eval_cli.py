@@ -241,7 +241,7 @@ def _require_parse_provenance(value: Any, label: str) -> None:
 def _validate_transport_parse_runtime(runtime: dict[str, Any]) -> None:
     modes = runtime.get("transport_parse_modes")
     by_phase = runtime.get("transport_parse_modes_by_phase")
-    allowed = {"strict", "single_extra_closing_brace", "premature_root_close"}
+    allowed = {"strict", "single_extra_closing_brace", "exact_duplicate_root_field_suffix"}
     if not isinstance(modes, dict) or set(modes) != allowed:
         raise RuntimeError("formal generation runtime transport parse modes missing or changed")
     if not isinstance(by_phase, dict) or set(by_phase) != {"initial", "repair"}:
@@ -297,7 +297,7 @@ def run_generation(methods: tuple[str, ...]) -> dict[str, Any]:
                 raise RuntimeError(f"{method}/{query['query_id']}: unexpected repair provenance")
             elif "repair_parse_provenance" not in row or row.get("repair_parse_provenance") is not None:
                 raise RuntimeError(f"{method}/{query['query_id']}: unexpected repair parse provenance")
-    client = DeepSeekClient(CACHE / "api_cache", official=True)
+    client = DeepSeekClient(CACHE / "api_cache", official=True, diagnostic_dir=OUT / "diagnostics")
 
     for index, query in enumerate(qs):
         for method in methods:
@@ -361,10 +361,10 @@ def run_generation(methods: tuple[str, ...]) -> dict[str, Any]:
         method: sum(bool(row["validation_errors"]) for row in rows)
         for method, rows in existing.items()
     }
-    parse_modes = {"strict": 0, "single_extra_closing_brace": 0, "premature_root_close": 0}
+    parse_modes = {"strict": 0, "single_extra_closing_brace": 0, "exact_duplicate_root_field_suffix": 0}
     parse_modes_by_phase = {
-        "initial": {"strict": 0, "single_extra_closing_brace": 0, "premature_root_close": 0},
-        "repair": {"strict": 0, "single_extra_closing_brace": 0, "premature_root_close": 0},
+        "initial": {"strict": 0, "single_extra_closing_brace": 0, "exact_duplicate_root_field_suffix": 0},
+        "repair": {"strict": 0, "single_extra_closing_brace": 0, "exact_duplicate_root_field_suffix": 0},
     }
     for rows in existing.values():
         for row in rows:

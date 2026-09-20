@@ -1,0 +1,4 @@
+warning: in the working copy of 'markdowns/tef_rag_v6_generation_evaluation_v1.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tef_rag_v6/generation_eval_cli.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tef_rag_v6/generation_runner.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tests/test_tef_rag_v6_generation_hardening.py', LF will be replaced by CRLF the next time Git touches it

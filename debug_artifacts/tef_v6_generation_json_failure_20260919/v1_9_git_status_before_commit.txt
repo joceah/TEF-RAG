@@ -1,0 +1,9 @@
+ M markdowns/tef_rag_v6_generation_evaluation_v1.md
+ D plans/TEF_RAG_v6_generation_evaluation_protocol_v1_8_premature_root_close_normalization.md
+ M tef_rag_v6/generation_eval_cli.py
+ M tef_rag_v6/generation_runner.py
+ M tests/test_tef_rag_v6_generation_hardening.py
+?? debug_artifacts/tef_v6_generation_json_failure_20260919/v1_9_base_head_before_commit.txt
+?? debug_artifacts/tef_v6_generation_json_failure_20260919/v1_9_branch_before_commit.txt
+?? plans/TEF_RAG_v6_generation_evaluation_protocol_v1_9_exact_duplicate_suffix.md
+?? results/v6/generation_eval_v1/
