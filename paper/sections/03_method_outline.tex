@@ -30,34 +30,47 @@ p_{ij}
 \label{eq:pair_proposal}
 \end{equation}
 
-$\phi_p$ 只使用部署时可见特征，包括 query--source/target 与 source--target 词汇重合、两端节点分数、事件与来源类型、时间间隔、查询角色需求，以及显式 supersession 等元数据。训练监督只来自 development split：若一个合法时间有序 pair 属于某条 required flow edge 的允许端点对，则记为正例；其余合法 pair 作为负例。最终使用带类别平衡的 logistic regression 学习 $p_{ij}$，并在推理时按概率排序保留固定预算的候选 pair。该模块只回答“哪些 pair 值得进一步判断”，并不预测最终关系类型。
+$\phi_p(q,e_i,e_j)$
+表示查询 $q$ 与证据对 $(e_i,e_j)$ 的特征表示，其中包括查询与两条证据的文本相关性、
+两条证据之间的相似性、事件类型、时间间隔以及版本替代等信息。
+若一对证据构成训练数据中已标注参考证据流的一条必要关系，则作为正样本；
+其余时间顺序合法的证据对作为负样本。随后利用 logistic regression 
+学习每个候选证据对的优先级，并仅将得分较高的证据对交给后续关系判断模块。
 
 因此，pair proposal 的主要作用是以固定预算把后续语义关系推理集中在更有希望的证据对上，同时保持时间方向这一确定性约束。
 
 \subsection{查询条件化的 Temporal Evidence Flow}
 
-对保留的候选 pair，TEF-RAG 使用查询条件化的 LLM 关系判断器读取公开查询信息以及两端证据的文本和部署时可见元数据，并输出
+对保留的候选 pair，TEF-RAG 使用查询条件化的 LLM 关系判断器读取查询信息以及两端证据的
+文本和元数据，并输出
 \begin{equation}
 h_{\eta}(q,e_i,e_j)
 \rightarrow
 (r_{ij},c_{ij}),
 \end{equation}
-其中 $r_{ij}\in\Rels\cup\{\mathrm{NO\_EDGE}\}$，$c_{ij}\in[0,1]$ 为关系置信度。只有预测为有效关系且达到冻结置信度阈值的 pair 才进入图中。最终图写为
+其中 $r_{ij}\in\Rels$，$c_{ij}\in[0,1]$ 为关系置信度。只有预测为有效关系且达到置信度阈值的 pair 才进入图中。
+若不存在足够明确的语义关系，则该证据对被丢弃，不加入证据图。
+将候选证据视为图中的节点，并将两条证据之间识别出的语义关系表示为有向边。
+对于查询 $q$，Temporal Evidence Flow 图记为
 \begin{equation}
 \FlowGraph_q=(V_q,E_q),
-\qquad
-E_q\subseteq V_q\times\Rels\times V_q.
 \end{equation}
+其中 $V_q$ 为候选证据集合，$E_q$ 为证据关系集合。
+每条关系边可以写成 $(e_i,r,e_j)$，表示证据 $e_i$ 通过关系 $r$ 指向证据 $e_j$，其中 $r\in\Rels$。
 
 关系词汇表覆盖 supports、governs、qualifies、contrasts、prerequisite、preserves uncertainty、resolves、supersession、updates 与 verifies 等过程关系。边方向遵循事件时间或明确的前置/更新方向，因此图可以形成分支和汇合，而不强制退化为单一路径。
 
 与静态知识图不同，$\FlowGraph_q$ 是查询条件化的：同一对记录在不同查询下可能具有不同的任务作用。关系判断器也不能突破第~\ref{sec:problem} 节定义的合法性边界，因此晚到证据、未来事件或不适用规程不会因语义模型的判断而重新进入候选集。
 
 \subsection{候选证据集合构造}
+关系图建立后，TEF-RAG 需要进一步比较不同的证据组合，而不是继续独立地对单条证据进行排序。
+由于直接枚举整个搜索池中的所有五元组合开销较大，我们只构造一批具有较高潜力的候选集合。
 
-关系图建立后，系统构造候选集合库 $\SetBank_q$。对于具有至少五条候选证据的查询，候选库包含高节点分数证据中的五元组合、已有贪心解、原始 beam 解，以及围绕贪心解的单元素替换邻域；这些候选均来自同一 Top-30 搜索池。候选不足五条时，系统直接保留合法短输出。
+具体而言，首先从节点分数最高的证据中枚举五元组合，以覆盖高相关证据之间的不同搭配；
+同时保留前序搜索得到的高质量集合，并在这些集合附近进行单条证据替换，
+使排名稍低但能够补充关键任务角色的证据仍有机会进入候选集合。
 
-对每个集合 $\Selected$ 提取集合级特征 $\phi_s(q,\Selected,\FlowGraph_q)$。最终模型使用 62 个部署时可见特征，涵盖：
+对每个集合 $\Selected$ 提取集合级特征 $\phi_s(q,\Selected,\FlowGraph_q)$。最终模型使用 62 个特征，涵盖：
 \begin{itemize}
     \item 节点相关性、时间分数和角色兼容性的统计量；
     \item 事件类型与来源类型的覆盖度；
@@ -78,22 +91,48 @@ s_{\theta}(q,\Selected)
 \phi_s(q,\Selected,\FlowGraph_q)
 \right),
 \end{equation}
-其中 MLP 为 $62\!\rightarrow\!64\!\rightarrow\!32\!\rightarrow\!1$ 的前馈网络。训练目标不是独立判断某个集合“好或坏”，而是在同一查询内学习集合偏好：
+最终阶段采用基于成对偏好的集合排序。
+对于同一个查询，候选库中通常存在多个完整证据集合和多个不完整证据集合。
+我们从中构造若干训练对
+$(\Selected_i^+,\Selected_j^-)$，
+其中 $\Selected_i^+$ 表示能够形成完整参考证据流的候选集合，
+$\Selected_j^-$ 表示缺少关键证据或关系不完整的候选集合。
+
+对于每一个训练对，排序器希望完整集合获得更高分，其损失定义为
+\begin{equation}
+\ell(q,\Selected_i^+,\Selected_j^-)
+=
+-\log \sigma\left(
+s_{\theta}(q,\Selected_i^+)
+-
+s_{\theta}(q,\Selected_j^-)
+\right).
+\label{eq:ranknet_pair_loss}
+\end{equation}
+
+所有训练对的损失取平均，得到最终训练目标：
 \begin{equation}
 \mathcal{L}
 =
--\log \sigma\!\left(
-s_{\theta}(q,\Selected^+)
--
-s_{\theta}(q,\Selected^-)
-\right).
+\frac{1}{|\mathcal{P}|}
+\sum_{(q,\Selected_i^+,\Selected_j^-)\in\mathcal{P}}
+\ell(q,\Selected_i^+,\Selected_j^-),
 \label{eq:ranknet_loss}
 \end{equation}
+其中 $\mathcal{P}$ 表示训练过程中构造的全部候选集合对。
 
-对 development query，若一个候选五元集合覆盖全部必要证据组，并存在一个全局一致的组--证据赋值满足全部 required flow edges，则将其记为 $\Selected^+$；不满足该条件的集合为 $\Selected^-$。第一轮训练优先使用启发式分数较高的失败集合并加入确定性的多样负例。随后模型重新打分完整候选库，把排名最靠前但仍不满足 FlowComplete 的 false positives 作为 hard negatives，再进行一轮训练。最终模型在全部 development 数据上重新拟合并冻结，validation/test 不参与参数学习。
+第一轮训练从负样本中选择集合评分（由单条证据质量、集合内部关系、
+任务角色覆盖等因素决定）较高的候选。
+这类集合通常包含多条高相关证据，但仍缺失某些关键证据或关系，
+因此比随机负样本更难区分。
+同时保留少量具有不同组成的负样本，以增加训练样本的多样性。
 
-推理时，系统仅对 $\SetBank_q$ 中的候选集合计算 $s_{\theta}$，选择效用最高的集合；当候选不足五条时沿用合法短输出。至此，TEF-RAG 完成从节点召回、关系建图到集合级选择的全过程。
-
+完成第一轮训练后，我们使用当前排序器重新为所有负集合打分，
+并选择其中模型评分最高的失败集合作为 hard negatives。
+这些集合虽然已知不能形成完整的参考证据流，
+却最容易被当前模型错误地排在前列。
+随后利用这些困难负样本进行第二轮训练，
+使排序器进一步学习区分正负样本。
 \subsection{与具身运维生成器的接口}
 
 TEF-RAG 的输出并不是机器人低层控制指令，而是面向后续具身执行的证据上下文。统一下游生成器根据查询和检索证据生成标准化工单及带依赖关系的动作计划；这些结构化输出可以进一步交由 planner、约束检查器和机器人执行器处理。
