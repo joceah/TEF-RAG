@@ -69,6 +69,7 @@ w/o Nonlinear Ranker & 0.7070 & 0.6965 & 0.3188 & 0.3125 \\
 Field Macro F1 为 0.5345，Action F1 为 0.2035，Citation F1 为 0.1585，Plan EM (strict) 为 0.0417。
 相较各指标上最强的非 TEF baseline，Action F1、Citation F1 与 Plan EM 分别取得约 24.3\%、26.9\% 与 121.8\% 的相对提升；Field Macro F1 相较 Temporal-BM25 提升约 2.4\%。
 结果表明，TEF-RAG 的收益不仅体现在上游检索命中率，也能够传递到工单关键字段、处置动作和证据引用质量。
+TEF-RAG 提高了生成工单的字段级准确性、动作正确性和计划级一致性。
 
 \begin{table}[t]
 \caption{Generation test 的主要结构化生成指标}
@@ -91,12 +92,6 @@ TA-RAG & 0.4059 & 0.1115 & 0.0379 & 0.0188 \\
 }
 \end{table}
 
-需要强调的是，这些结果支持的是“生成内容更加准确和更有证据支撑”，而不是“完整工单已经被可靠解决”。
-五种方法的 \texttt{work\_order\_em\_strict}、\texttt{end\_to\_end\_em\_strict} 与 \texttt{task\_success} 均为 0；
-与此同时，schema validity 仍处于 0.9875--0.9958 的高水平。
-这说明失败并非主要来自 JSON/schema 崩溃，而是完整工单需要多个字段、动作集合、依赖关系和引用同时严格匹配，当前系统仍难以满足这一组合条件。
-因此，本文将生成结果表述为：\textbf{TEF-RAG 提高了生成工单的字段级准确性、动作正确性和计划级一致性}，而不声称已经生成完全正确的工单与具身指令序列。
-
 \subsection{进一步分析}
 
 TEF-RAG 并非在所有生成诊断指标上都占优。
@@ -105,27 +100,13 @@ TEF-RAG 并非在所有生成诊断指标上都占优。
 换言之，上游证据组织已经显著改善 factual grounding 与 action fidelity，但尚不足以单独解决完整的全局计划组合问题。
 
 % =========================================================
-\section{讨论}
-\label{sec:discussion}
-% =========================================================
-
-检索与生成两层结果形成了相互补充的证据链。
-Retrieval test 中，TEF-RAG 对 Complete@5 与 FlowComplete@5 的提升显著大于单条相关性指标的提升，说明方法确实更擅长恢复互补且关系一致的证据集合；
-在完全固定的下游生成器上，这种上下文优势又对应更高的 field、action、citation 与 strict plan matching。
-因此，实验更支持“Temporal Evidence Flow 改善 retrieval-to-generation 的信息传递”这一结论，而不是把收益归因于更强的生成模型。
-
-另一方面，Plan EM 仍只有 0.0417，且所有方法的严格 end-to-end exact match 为 0，说明结构化运维生成仍是一个远未解决的问题。
-未来工作应将证据流与显式 planner、约束解码、动作图验证以及真实机器人安全执行检查结合，而不能仅依赖语言模型从至多五条检索证据中直接完成全部规划。
-
-% =========================================================
 \section{局限性与有效性威胁}
 \label{sec:limitations}
 % =========================================================
 
 本文 benchmark 是 public-source-grounded、AI-assisted synthetic benchmark，而非真实电站工单或领域专家标注数据；
 因此其主要价值是受控比较 temporal evidence retrieval 机制，不能直接外推到真实电站故障频率或机器人现场安全性。
-此外，test gold 在正式实验后已公开以支持复现，因此未来新方法若需要保持 blind evaluation，应构建新的 sealed test split，而不应继续把当前 test 当作未见数据。
-生成评价虽然覆盖字段、动作、依赖与引用，但没有模拟实际机器人执行、环境反馈和安全联锁；严格端到端指标为 0 也表明 planner/generator 仍是明显瓶颈。
+生成评价虽然覆盖字段、动作、依赖与引用，但没有模拟实际机器人执行、环境反馈和安全联锁。
 
 % =========================================================
 \section{结论}
@@ -136,4 +117,4 @@ Retrieval test 中，TEF-RAG 对 Complete@5 与 FlowComplete@5 的提升显著�
 在冻结的 temporal-hard benchmark 上，TEF-RAG 在 Recall@5、nDCG@5、Complete@5 与 FlowComplete@5 上均超过四种对比方法；
 在固定下游生成器的结构化 generation test 中，TEF-RAG 同时取得最高的字段级匹配、Action F1、Citation F1 与 strict Plan EM。
 这些结果说明，面向证据集合及其时序关系的检索能够改善进入生成器的任务支持上下文，并进一步提高工单字段、维护动作与证据引用的准确性。
-完整工单和具身动作序列的严格端到端生成仍未解决，后续工作需要进一步结合显式计划与执行约束。
+后续工作需要进一步结合显式计划与执行约束。

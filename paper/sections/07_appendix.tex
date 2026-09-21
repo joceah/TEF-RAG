@@ -28,14 +28,14 @@ S_{\mathrm{node}}(\Selected)
 \sum_{e\in\Selected}s_{\mathrm{node}}(e),
 \end{equation}
 单条证据的节点分数为
-\begin{equation}
+\begin{align}
 s_{\mathrm{node}}(e)
 =
 0.62\,s_{\mathrm{rel}}(e)
 +0.18\,s_{\mathrm{rec}}(e)
-+0.15\,s_{\mathrm{role}}(e)
-+0.05\,s_{\mathrm{src}}(e).
-\end{equation}
++0.15\,s_{\mathrm{role}}(e) \\
++0.05\,s_{\mathrm{src}}(e). \notag
+\end{align}
 $s_{\mathrm{rel}}$ 为当前合法候选中 BM25 分数的 min--max 归一化结果。
 $s_{\mathrm{rec}}=\exp(-\Delta t/T)$ 为时间新近性，其中普通查询使用 $T=45$ 天，
 包含前后比较意图的查询使用 $T=180$ 天。

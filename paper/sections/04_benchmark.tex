@@ -6,9 +6,26 @@
 \subsection{时序运维 Benchmark}
 \label{sec:dataset}
 
-本文构建 TEF-RAG v6 Semantic Benchmark v1，用于受控评价动态运维场景中的时序证据检索。该 benchmark 属于 \emph{public-source-grounded, AI-assisted synthetic benchmark}，并非真实电站故障日志或领域专家人工标注数据。公开产品资料与研究数据只用于约束电芯类别、物理范围和采样背景；具体运维事件链、诊断演化、规程情境与查询任务由受控的 AI-assisted 语义生成流程构造。其目标是系统控制晚到记录、版本替换、跨来源互补证据和持续不确定性等因素，并观察不同检索方法对这些因素的处理能力。
+本文构建 TEF-RAG v6 Semantic Benchmark v1，
+用于受控评价动态运维场景中的时序证据检索能力。
+该数据集以公开资料为背景约束，并通过 AI 辅助方式构造，
+并非来自真实电站故障日志，也不是由领域专家直接标注的真实运维数据。
+公开产品资料与研究数据主要用于限定电芯类别、典型物理范围和采样背景；
+具体的运维事件过程、诊断变化、规程情境和查询任务则通过受控的合成流程构造。
+这种设计使我们能够有目的地加入晚到记录、版本替换、跨来源互补证据、
+多事件混淆和持续不确定性等情况，并比较不同检索方法对这些问题的处理能力。
 
-数据组织层次如表~\ref{tab:dataset_structure}。每条 chain 表示一个完整运维过程，由多条 evidence records 构成；每条 chain 派生多个不同任务意图，每个意图再生成语义保持的 paraphrase。检索 gold 以“必要证据组 + 必要 flow edges”表示，因此评价的不是某一条唯一文本，而是一个任务是否获得了足以形成完整流程的证据集合。
+数据组织方式如表~\ref{tab:dataset_structure} 所示。
+每条事件链表示一个完整的运维过程，并由多条可检索的证据记录组成。
+针对同一事件链，我们构造多个不同的任务意图，
+并为每个任务意图生成两种含义相同但表达方式不同的查询。
+
+对于每个查询，我们进一步给出一组参考标注，
+说明完成该任务必须获得哪些关键信息，
+以及这些证据之间应满足怎样的关系。
+因此，评价目标并不是要求模型找回某一条唯一指定的文本，
+而是判断检索结果是否包含足够的信息，
+并能够共同形成完整的任务支持过程。
 
 \begin{table}[t]
 \caption{Benchmark 的数据层次}
@@ -28,7 +45,16 @@ Gold flow & 必要证据组及其关系约束 \\
 \end{tabular}
 \end{table}
 
-整个 benchmark 包含 400 条 authored chains、3888 条 evidence records、1200 个 primary intents 和 2400 条 query rows。开发、验证与测试按 chain 划分，从而避免同一事件过程的 paraphrase 跨 split。两类难度各包含 200 条 chain：Realistic Distribution Set 覆盖较常见的时序组合；Temporal-Hard Challenge Set 则强化晚到证据、supersession、跨 episode 混淆和跨来源互补证据。
+整个 benchmark 包含 400 条运维事件链、3888 条证据记录、
+1200 个任务意图和 2400 条查询，涉及 100 个目标资产。
+开发集、验证集和测试集以完整运维事件链为单位划分；
+同一事件链派生出的所有查询均只出现在同一个数据划分中，
+避免相同事件内容以不同问法同时出现在训练和测试数据中。
+
+数据集进一步包含两个难度层次，各包含 200 条事件链。
+Realistic Distribution Set 主要覆盖较常见的时序与运维组合，
+Temporal-Hard Challenge Set 则有意增加晚到证据、版本替换、
+多事件混淆、跨来源互补证据和持续不确定性等困难情况。
 
 \begin{table*}[t]
 \caption{TEF-RAG v6 Semantic Benchmark v1 规模与划分}
@@ -42,9 +68,7 @@ Gold flow & 必要证据组及其关系约束 \\
 Authored chains & 240 & 80 & 80 & 400 \\
 Primary intents & 720 & 240 & 240 & 1200 \\
 Query rows & 1440 & 480 & 480 & 2400 \\
-\midrule
-Target assets & -- & -- & -- & 100 \\
-Evidence records & -- & -- & -- & 3888 \\
+Evidence records & 2335 & 779 & 774 & 3888 \\
 \bottomrule
 \end{tabular}
 \end{table*}
@@ -55,9 +79,16 @@ Evidence records & -- & -- & -- & 3888 \\
 
 \subsection{结构化生成评价}
 
-为检验检索优势能否传递到下游任务，我们在同一批 authored chains 上建立结构化 generation gold。该 gold 同样是 \emph{AI-assisted adjudicated synthetic gold}，而非领域专家人工 gold：多个生成/复核结果经过一致性检查与分歧裁决后形成最终结构化参考。每个 primary intent 对应一个语义 gold object，并由其两个 paraphrases 共享。因此 development/validation/test 分别包含 720/240/240 个 semantic gold objects，对应 1440/480/480 条 queries。
+为检验检索质量的提升能否进一步改善下游生成结果，
+我们基于同一批运维事件链构建结构化生成参考答案（generation gold）。
+这些参考答案由 AI 辅助生成，并经过多轮复核、一致性检查和分歧裁决后确定，
 
-每个输出由两部分组成：标准化工单 \texttt{work\_order} 与动作计划 \texttt{action\_plan}。工单描述诊断、推荐动作、适用规程、验证/不确定性状态及证据引用；动作计划由原子动作及其依赖关系构成。该评价关注“检索到的上下文是否足以支持更准确的结构化输出”，而不把语言模型本身作为本文的主要算法贡献。
+每个任务意图对应一份结构化参考答案。
+由于同一任务意图的两种查询只是表达方式不同，其所要求的诊断、处置和验证信息并未改变，
+因此两种查询共享同一份参考答案。
+最终，开发集、验证集和测试集分别包含 720、240 和 240 份结构化参考答案，
+对应 1440、480 和 480 条查询。
+每个输出由两部分组成：标准化工单 \texttt{work\_order} 与动作计划 \texttt{action\_plan}。工单描述诊断、推荐动作、适用规程、验证/不确定性状态及证据引用；动作计划由原子动作及其依赖关系构成。
 
 \subsection{对比方法}
 \label{sec:baselines}
@@ -117,7 +148,7 @@ Nomic embedding、FAISS 检索与 BGE reranking 流程保持与公开实现一�
 使用 Recall@5 与 nDCG@5 衡量传统相关性；Complete@5 要求结果至少覆盖每个必要证据组；FlowComplete@5 在此基础上进一步要求存在全局一致的组--证据赋值，使必要 flow edges 同时得到满足。后两项直接衡量本文关注的集合级完整性。
 
 \textbf{Generation。}
-正文报告四项主要指标：Field Macro F1 (strict)、Action F1、Citation F1 与 Plan EM (strict)。它们分别衡量工单关键字段、规范化动作、claim--evidence 引用以及完整动作计划的严格匹配。其余 schema validity、dependency/order 与 end-to-end exact match 用于诊断。
+正文报告四项主要指标：Field Macro F1 (strict)、Action F1、Citation F1 与 Plan EM (strict)。它们分别衡量工单关键字段、规范化动作、claim--evidence 引用以及完整动作计划的严格匹配。
 
 \subsection{消融设置}
 
