@@ -62,7 +62,53 @@ Evidence records & -- & -- & -- & 3888 \\
 \subsection{对比方法}
 \label{sec:baselines}
 
-正式比较五种检索上下文：BM25、BGE Reranker、Temporal-BM25、TA-RAG 与 TEF-RAG。BM25 代表词法检索；BGE Reranker 在 BM25 候选上进行通用语义重排；Temporal-BM25 在词法分数上加入时间感知项；TA-RAG 代表面向 diachronic QA 的时间感知 RAG；TEF-RAG 使用本文提出的关系图与集合级非线性排序。所有方法最终均输出不超过 Top-5 的 evidence IDs。
+为保证比较只反映检索策略差异，所有方法首先使用相同的合法证据快照：仅保留目标资产中满足
+$t_e(e)\le t_q$、$t_a(e)\le t_q$ 的记录，并对规程证据施加相同的版本有效期、撤回状态与型号适用性约束。
+在此基础上比较以下五种方法，所有方法的最终检索预算均为至多 5 条证据。
+
+\textbf{BM25。}
+采用标准 BM25 作为词法检索基线~\cite{robertson2009bm25}，
+在每个查询对应的合法证据快照上独立建立索引，
+参数固定为 $k_1=1.5$、$b=0.75$，并直接返回得分最高的 5 条证据。
+
+\textbf{BGE Reranker。}
+首先使用与上述相同的 BM25 检索 Top-30 候选，
+随后使用 \texttt{BAAI/bge-reranker-v2-m3} 对
+$(\text{query},\text{evidence})$ 文本对重新计算相关性分数~\cite{chen2024bgem3}，
+并按照重排分数选取前 5 条证据。
+该基线用于比较通用语义重排是否能够弥补纯词法检索的不足。
+
+\textbf{Temporal-BM25。}
+该基线在 BM25 相关性之外显式加入时间匹配项。其排序分数为
+\begin{equation}
+s_{\mathrm{TBM25}}(e,q)
+=
+\lambda\,\widetilde{s}_{\mathrm{BM25}}(e,q)
++
+(1-\lambda)\,s_{\mathrm{time}}(e,q),
+\end{equation}
+其中 $\widetilde{s}_{\mathrm{BM25}}$ 为归一化 BM25 分数，
+$s_{\mathrm{time}}$ 根据查询中的年份、时间区间、before/after 以及 current/latest 等时间表达，
+计算证据事件时间与目标时间的匹配程度。
+对于没有显式时间意图的查询，时间项设为常数，因此保持原 BM25 排序。
+我们仅在训练阶段比较 $\lambda\in\{0.25,0.50,0.75\}$，
+并冻结表现最好的 $\lambda=0.25$ 用于后续评价。
+
+\textbf{TA-RAG。}
+采用 Lau 等人提出的 Time-Aware RAG~\cite{lau2025tarag}。
+该方法首先从查询中分解主题与目标时间范围，
+再利用时间区间过滤限制候选文档，并在时间候选上执行语义检索与 BGE 重排。
+为适配本文的离散运维事件，每条证据的 \texttt{event\_time}
+被映射为长度 1 秒的半开时间区间，查询中的相对时间均以 $t_q$ 为参考时刻；
+此外，TA-RAG 的索引只在当前查询的合法证据快照上构建，
+从而避免未来记录影响检索。
+除 LLM 后端替换为固定的 DeepSeek 模型外，其时间分解、区间过滤、
+Nomic embedding、FAISS 检索与 BGE reranking 流程保持与公开实现一致。
+
+\textbf{TEF-RAG。}
+本文方法在同一合法证据快照上进一步进行学习式证据对筛选、
+查询条件化关系建图以及集合级非线性排序，
+最终返回整体证据流得分最高的候选集合。
 
 \subsection{评价指标}
 \label{sec:metrics}
