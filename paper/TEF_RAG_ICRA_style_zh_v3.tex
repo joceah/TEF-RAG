@@ -9,9 +9,19 @@
 \usepackage{array}
 \usepackage{multirow}
 \usepackage{tabularx}
+\usepackage{listings}
 \usepackage{cite}
 \usepackage[hyphens]{url}
 \usepackage[hidelinks]{hyperref}
+
+\lstset{
+  basicstyle=\ttfamily\scriptsize,
+  breaklines=true,
+  breakatwhitespace=false,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false
+}
 
 \title{TEF-RAG: Temporal Evidence Flow Retrieval-Augmented Generation}
 \author{Juxian Yin}
@@ -43,6 +53,8 @@
 \input{sections/03_method_outline.tex}
 \input{sections/04_benchmark.tex}
 \input{sections/05_remaining_outline.tex}
+\appendices
+\input{sections/07_appendix.tex}
 \input{sections/06_references.tex}
 
 \end{document}
