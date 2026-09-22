@@ -14,6 +14,17 @@
 具体的运维事件过程、诊断变化、规程情境和查询任务则通过受控的合成流程构造。
 这种设计使我们能够有目的地加入晚到记录、版本替换、跨来源互补证据、
 多事件混淆和持续不确定性等情况，并比较不同检索方法对这些问题的处理能力。
+Benchmark 的整体构建过程如图~\ref{fig:benchmark_design} 所示：
+公开资料首先提供物理与采样背景约束，在此基础上构造合成运维事件链，
+再由事件链派生可检索的证据记录与不同任务查询，
+并分别为每个查询建立检索参考证据流和结构化生成参考答案。
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=0.98\textwidth]{figures/benchmark_design.png}
+    \caption{TEF-RAG v6 Semantic Benchmark v1 的构建流程与示例。公开资料用于约束设备与数据背景；在此基础上构造运维事件链 $c$，并派生证据记录 $e_i$、任务意图 $I_j$ 与查询 $q_{j,p}$。随后针对具体查询分别建立检索参考证据流与结构化生成参考答案，用于检索和下游生成评价。}
+    \label{fig:benchmark_design}
+\end{figure*}
 
 数据组织方式如表~\ref{tab:dataset_structure} 所示。
 每条事件链表示一个完整的运维过程，并由多条可检索的证据记录组成。
@@ -74,8 +85,6 @@ Evidence records & 2335 & 779 & 774 & 3888 \\
 \end{table*}
 
 公开资料只用于约束电芯类别、典型工作范围和时序采样背景，例如 HiTHIUM、REPT BATTERO 的储能电芯资料以及 RWTH M5BAT 数据~\cite{hithium2023v11,hithium2024v33,rept2025,rwth2026m5bat}。这些来源不用于定义本文合成的故障频率、站级阈值或具体维护因果故事。
-
-% TODO: 增加一张数据结构图：Chain -> Evidence timeline -> Intents/Queries -> Required groups/flow edges。
 
 \subsection{结构化生成评价}
 
