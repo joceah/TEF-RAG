@@ -1,0 +1,59 @@
+% !TeX program = xelatex
+
+\documentclass[letterpaper,10pt,conference]{IEEEtran}
+
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage{cite}
+\usepackage[hyphens]{url}
+\usepackage[hidelinks]{hyperref}
+
+\lstset{
+  basicstyle=\ttfamily\scriptsize,
+  breaklines=true,
+  breakatwhitespace=false,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false
+}
+
+\title{TEF-RAG: Temporal Evidence Flow Retrieval-Augmented Generation}
+\author{Juxian Yin}
+
+\newcommand{\ind}{\mathbb{I}}
+\newcommand{\Rels}{\mathcal{R}}
+\newcommand{\Evidence}{\mathcal{K}}
+\newcommand{\Candidates}{\mathcal{C}}
+\newcommand{\FlowGraph}{\mathcal{G}}
+\newcommand{\SetBank}{\mathcal{B}}
+\newcommand{\Selected}{\mathcal{S}}
+\newcommand{\placeholderfigure}[1]{%
+  \fbox{\parbox{0.94\linewidth}{\vspace{0.8in}\centering\textit{#1}\par\vspace{0.8in}}}%
+}
+
+\begin{document}
+
+\maketitle
+
+% =========================================================
+% Abstract
+% =========================================================
+\begin{abstract}
+Retrieval-augmented generation for embodied operation and maintenance (O\&M) in energy-storage stations must do more than retrieve records that are semantically relevant to a query. It must also ensure that the evidence was actually available at the query time and that the retrieved records can jointly support a complete process from state observation and diagnosis to action and verification. We propose TEF-RAG (Temporal Evidence Flow Retrieval-Augmented Generation), which formulates retrieval in dynamic O\&M environments as query-conditioned temporal evidence-flow selection. TEF-RAG first applies deterministic constraints on asset identity, event time, availability time, and procedure applicability. A learned pair proposal module then selects evidence pairs worth semantic relation reasoning, and a directed graph is constructed with relations such as support, update, qualification, supersession, and verification. Finally, a nonlinear RankNet learns set-level relative utility over candidate evidence sets and selects an evidence flow of at most five records with complementary roles and coherent relations. We construct a public-source-grounded benchmark with dual timestamps, supersession, cross-source complementary evidence, and persistent uncertainty, and compare different retrieval contexts under a shared downstream generator. TEF-RAG achieves clear gains on Complete@5 and FlowComplete@5 and further improves structured work-order fields, actions, citations, and strict plan matching. These results show that explicitly modeling temporal and semantic relations among evidence is better suited to dynamic O\&M knowledge environments than ranking documents independently by relevance.
+\end{abstract}
+
+\input{sections_en/01_introduction_related.tex}
+\input{sections_en/02_problem_definition.tex}
+\input{sections_en/03_method_outline.tex}
+\input{sections_en/04_benchmark.tex}
+\input{sections_en/05_remaining_outline.tex}
+\input{sections_en/06_references.tex}
+\newpage
+\appendices
+\input{sections_en/07_appendix.tex}
+\end{document}
