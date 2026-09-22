@@ -1,0 +1,86 @@
+% =========================================================
+\section{Problem Definition}
+\label{sec:problem}
+% =========================================================
+
+\subsection{Queries and Temporally Visible Evidence}
+
+Given an O\&M query
+\begin{equation}
+Q_q=(x_q,u_q,m_q,t_q),
+\end{equation}
+where $x_q$ is the query text, $u_q$ is the target asset, $m_q$ denotes the asset model or context, and $t_q$ is the knowledge cutoff time. The global evidence repository is denoted by $\Evidence=\{e_1,\ldots,e_N\}$. Each evidence record contains at least its content, asset identifier, event type, source type, event time $t_e(e)$, and availability time $t_a(e)$.
+
+We explicitly distinguish between when an event happened and when the system knew about it. Evidence $e$ is visible to query $q$ if and only if
+\begin{equation}
+\operatorname{Visible}(e,q)
+=
+\mathbb{I}\!\left[
+t_e(e)\le t_q \land t_a(e)\le t_q
+\right].
+\label{eq:visible}
+\end{equation}
+Thus, a record describing an earlier event but entered into the system only after the query time cannot be used by that query.
+
+For procedure evidence, we additionally require a matching asset model, validity at the query time, and that the procedure has not been withdrawn. We write these deterministic conditions collectively as
+\begin{equation}
+\operatorname{Legal}(e,Q_q)
+=
+\operatorname{Visible}(e,q)
+\land
+\operatorname{ScopeOK}(e,Q_q),
+\label{eq:legal}
+\end{equation}
+where $\operatorname{ScopeOK}$ summarizes asset consistency and, when applicable, procedure model scope, validity interval, and withdrawal constraints. The legal evidence set at query time is therefore
+\begin{equation}
+\Candidates_q
+=
+\{e\in\Evidence:\operatorname{Legal}(e,Q_q)=1\}.
+\label{eq:candidate}
+\end{equation}
+All subsequent retrieval, relation reasoning, and set ranking operate only within $\Candidates_q$.
+
+\subsection{Retrieval Objective}
+
+A base retriever obtains a candidate node set $V_q$ from $\Candidates_q$. We use $k=5$ as the retrieval upper bound. Let $k_q=\min(5,|V_q|)$; the system selects at most five evidence records to form $\hat{\Selected}_q$. If fewer than five legal candidates exist, the system directly returns the available legal evidence without padding or backfilling. The selected evidence should not only be relevant to the query, but should also cover complementary roles required by the task and form a temporally and semantically coherent structure.
+
+Accordingly, we do not define the retrieval objective as the sum of five independent document scores. Instead, we define a set-level utility:
+\begin{equation}
+\hat{\Selected}_q
+=
+\arg\max_{\Selected\in\SetBank_q}
+F_{\theta}(Q_q,\Selected,\FlowGraph_q),
+\quad |\Selected|=k_q,
+\label{eq:set_selection}
+\end{equation}
+where $\SetBank_q$ is the candidate space of evidence sets satisfying $|\Selected|=k_q$, $\FlowGraph_q$ is the query-conditioned temporal evidence graph, and $F_{\theta}$ is a learned set-level ranking function.
+
+\subsection{Downstream Task}
+
+The retrieval result is used as controlled context for a structured generator, which produces a standardized work order $W_q$ and an action plan $A_q$:
+\begin{equation}
+(\hat W_q,\hat A_q)=g_{\psi}(x_q,\hat{\Selected}_q).
+\label{eq:downstream_generation}
+\end{equation}
+The primary algorithmic contribution of this paper lies upstream of the generator, namely in recovering a high-quality Temporal Evidence Flow. Structured generation experiments are used to test whether this upstream advantage transfers to work-order fields, actions, dependencies, and evidence citations.
+
+\begin{table}[t]
+\caption{Main notation.}
+\label{tab:symbols}
+\centering
+\small
+\begin{tabular}{@{}p{0.28\columnwidth}p{0.65\columnwidth}@{}}
+\toprule
+Symbol & Meaning \\
+\midrule
+$Q_q=(x_q,u_q,m_q,t_q)$ & Query text, asset, context, and knowledge cutoff time \\
+$e,t_e(e),t_a(e)$ & Evidence record, event time, and first availability time \\
+$\Evidence$ & Global evidence repository \\
+$\Candidates_q$ & Legal and visible evidence set at query time \\
+$\FlowGraph_q$ & Query-conditioned Temporal Evidence Flow graph \\
+$\SetBank_q$ & Candidate space of evidence sets containing at most five records \\
+$\hat{\Selected}_q$ & Final selected evidence flow (at most 5 records) \\
+$W_q,A_q$ & Standardized work order and action plan \\
+\bottomrule
+\end{tabular}
+\end{table}
