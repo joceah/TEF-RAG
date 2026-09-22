@@ -1,0 +1,113 @@
+% =========================================================
+\section{Experimental Results}
+\label{sec:results}
+% =========================================================
+
+\subsection{Main Retrieval Results}
+
+Table~\ref{tab:retrieval_results} reports retrieval performance on the test split.
+TEF-RAG achieves the highest value on all four primary metrics: Recall@5, nDCG@5, Complete@5, and FlowComplete@5.
+Compared with the strongest non-TEF baseline on these metrics, which is Temporal-BM25 in all cases,
+TEF-RAG improves Recall@5 from 0.4591 to 0.7228 and nDCG@5 from 0.4955 to 0.6231.
+The difference is larger for set-level completeness: Complete@5 increases from 0.0792 to 0.3188, and FlowComplete@5 from 0.0792 to 0.3146.
+These results indicate that adding temporal preference alone can improve retrieval of individual evidence records, but explicitly modeling evidence-flow relations and jointly selecting evidence sets is more important for recovering a complete task-support structure.
+
+\begin{table}[t]
+\caption{Main retrieval results on the test split (Top-5).}
+\label{tab:retrieval_results}
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lrrrr}
+\toprule
+Method & Recall & nDCG & Complete & FlowComplete \\
+\midrule
+BM25 & 0.3791 & 0.3915 & 0.0563 & 0.0563 \\
+BGE Reranker & 0.2916 & 0.3070 & 0.0417 & 0.0417 \\
+Temporal-BM25 & 0.4591 & 0.4955 & 0.0792 & 0.0792 \\
+TA-RAG & 0.2769 & 0.2907 & 0.0375 & 0.0375 \\
+\textbf{TEF-RAG} & \textbf{0.7228} & \textbf{0.6231} & \textbf{0.3188} & \textbf{0.3146} \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\subsection{Validation Ablation Study}
+\label{sec:ablation_results}
+
+Table~\ref{tab:ablation_results} reports the four ablations on the validation split. Full TEF-RAG achieves a FlowComplete@5 of 0.4042. Removing learned pair proposal reduces it only to 0.4021, indicating that under a fixed pair budget, the proposal module contributes relatively little directly to final retrieval quality; its main value is to focus relation reasoning on more promising pairs. In contrast, removing relation-graph-derived features reduces FlowComplete@5 to 0.3667, showing that the set ranker does make use of graph-structural information.
+
+The training objective and the ranker itself have a larger effect. Removing hard-negative mining reduces FlowComplete@5 from 0.4042 to 0.2833, while removing the nonlinear set ranker and falling back to the Stage-3A selector reduces it to 0.3125. These results indicate that final performance is not explained only by candidate recall or additional relation reasoning; it depends strongly on explicit learning from high-relevance but process-incomplete hard negatives and on nonlinear set-level ranking. Notably, removing the nonlinear ranker slightly increases nDCG@5 relative to the full model (0.6965 vs.\ 0.6885), while substantially decreasing Complete@5 and FlowComplete@5. This further supports that the method optimizes process completeness at the set level rather than conventional relevance ranking alone.
+
+\begin{table}[t]
+\caption{TEF-RAG ablation results on the validation split.}
+\label{tab:ablation_results}
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lrrrr}
+\toprule
+Variant & Recall & nDCG & Complete & FlowComplete \\
+\midrule
+Full TEF-RAG & 0.7567 & 0.6885 & 0.4063 & 0.4042 \\
+w/o Pair Proposal & 0.7494 & 0.6832 & 0.4063 & 0.4021 \\
+w/o Graph Features & 0.7184 & 0.6601 & 0.3750 & 0.3667 \\
+w/o Hard Negatives & 0.6748 & 0.6042 & 0.2875 & 0.2833 \\
+w/o Nonlinear Ranker & 0.7070 & 0.6965 & 0.3188 & 0.3125 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\subsection{Downstream Structured Generation Results}
+\label{sec:generation_results}
+
+Table~\ref{tab:generation_results} reports the four generation metrics that most directly answer whether better evidence flow improves the final work order and action plan.
+Under the same generator, prompt, schema, and decoding settings, TEF-RAG achieves the highest value on all four metrics:
+Field Macro F1 of 0.5345, Action F1 of 0.2035, Citation F1 of 0.1585, and Plan EM (strict) of 0.0417.
+Compared with the strongest non-TEF baseline for each metric, TEF-RAG yields relative improvements of approximately 24.3\%, 26.9\%, and 121.8\% on Action F1, Citation F1, and Plan EM, respectively; Field Macro F1 improves by approximately 2.4\% over Temporal-BM25.
+These results show that the benefit of TEF-RAG is not limited to upstream retrieval hit rates, but transfers to the quality of key work-order fields, maintenance actions, and evidence citations.
+TEF-RAG improves field-level accuracy, action correctness, and plan-level consistency in the generated work orders.
+
+\begin{table}[t]
+\caption{Primary structured-generation metrics on the generation test set.}
+\label{tab:generation_results}
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lrrrr}
+\toprule
+Method & Field F1 & Action F1 & Citation F1 & Plan EM \\
+\midrule
+BM25 & 0.4715 & 0.1372 & 0.0813 & 0.0167 \\
+BGE Reranker & 0.4129 & 0.1198 & 0.0405 & 0.0146 \\
+Temporal-BM25 & 0.5218 & 0.1637 & 0.1249 & 0.0167 \\
+TA-RAG & 0.4059 & 0.1115 & 0.0379 & 0.0188 \\
+\textbf{TEF-RAG} & \textbf{0.5345} & \textbf{0.2035} & \textbf{0.1585} & \textbf{0.0417} \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+% =========================================================
+\section{Limitations and Threats to Validity}
+\label{sec:limitations}
+% =========================================================
+
+The benchmark in this work is a public-source-grounded, AI-assisted synthetic benchmark rather than a collection of real power-station work orders or domain-expert annotations.
+Its primary value therefore lies in controlled comparison of temporal evidence-retrieval mechanisms; the results should not be directly extrapolated to real-world power-station fault frequencies or field robotic safety.
+Although the generation evaluation covers fields, actions, dependencies, and citations, it does not simulate actual robotic execution, environmental feedback, or safety interlocks.
+
+% =========================================================
+\section{Conclusion}
+\label{sec:conclusion}
+% =========================================================
+
+We presented TEF-RAG, which extends the retrieval objective for dynamic O\&M RAG from independent document relevance to a Temporal Evidence Flow that is visible at the query time, relation-consistent, and process-complete.
+On the frozen temporal-hard benchmark, TEF-RAG outperforms four comparison methods on Recall@5, nDCG@5, Complete@5, and FlowComplete@5.
+In the structured generation test with a fixed downstream generator, TEF-RAG also achieves the highest field-level match, Action F1, Citation F1, and strict Plan EM.
+These results indicate that retrieval over evidence sets and their temporal relations can improve the task-support context supplied to the generator and, in turn, increase the accuracy of work-order fields, maintenance actions, and evidence citations.
+Future work should further integrate explicit planning and execution constraints.
