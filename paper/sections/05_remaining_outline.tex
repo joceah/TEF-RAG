@@ -92,13 +92,6 @@ TA-RAG & 0.4059 & 0.1115 & 0.0379 & 0.0188 \\
 }
 \end{table}
 
-\subsection{进一步分析}
-
-TEF-RAG 并非在所有生成诊断指标上都占优。
-例如，TA-RAG 的 Dependency F1 为 0.3271、Order Validity 为 0.4125，均高于 TEF-RAG 的 0.2858 与 0.3146。
-这一现象表明，evidence-flow retrieval 更直接改善的是“提供哪些事实和动作依据”，而动作之间的全局依赖与执行顺序仍受到下游 planner/generator 本身能力的限制。
-换言之，上游证据组织已经显著改善 factual grounding 与 action fidelity，但尚不足以单独解决完整的全局计划组合问题。
-
 % =========================================================
 \section{局限性与有效性威胁}
 \label{sec:limitations}

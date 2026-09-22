@@ -154,7 +154,9 @@ Nomic embedding、FAISS 检索与 BGE reranking 流程保持与公开实现一�
 \label{sec:metrics}
 
 \textbf{Retrieval。}
-使用 Recall@5 与 nDCG@5 衡量传统相关性；Complete@5 要求结果至少覆盖每个必要证据组；FlowComplete@5 在此基础上进一步要求存在全局一致的组--证据赋值，使必要 flow edges 同时得到满足。后两项直接衡量本文关注的集合级完整性。
+使用 Recall@5 与 nDCG@5 衡量传统检索相关性。
+Complete@5 衡量检索结果是否找齐完成任务所需的各类关键证据；
+FlowComplete@5 则进一步检查这些证据之间能否形成正确且一致的证据关系，组成完整的Temporal Evidence Flow。
 
 \textbf{Generation。}
 正文报告四项主要指标：Field Macro F1 (strict)、Action F1、Citation F1 与 Plan EM (strict)。它们分别衡量工单关键字段、规范化动作、claim--evidence 引用以及完整动作计划的严格匹配。
