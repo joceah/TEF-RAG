@@ -1,0 +1,45 @@
+% =========================================================
+\section{Introduction}
+\label{sec:introduction}
+% =========================================================
+
+Knowledge for operation and maintenance (O\&M) in energy-storage stations is inherently dynamic and process-oriented. Handling a single anomaly often requires jointly consulting equipment states, alarms and inspection records, historical work orders, operating procedures, and post-action verification results. Unlike static knowledge question answering, the system must answer two stricter questions in addition to identifying which evidence is relevant to the query: whether that evidence was already available at the query time, and whether the evidence can jointly form a complete process that supports the current decision.
+
+Retrieval-augmented generation (RAG) augments the parametric knowledge of language models with external retrieval and has become an important paradigm for knowledge-intensive generation~\cite{lewis2020rag}. On the retrieval side, BM25 remains a strong lexical baseline, while neural retrievers such as DPR and ColBERT improve semantic matching through dense representations or late interaction~\cite{karpukhin2020dpr,khattab2020colbert}; BEIR further shows that retrieval paradigms differ substantially in cross-domain generalization~\cite{thakur2021beir}. On the generation side, FiD demonstrates that a generator can effectively aggregate multiple retrieved passages~\cite{izacard2021fid}, while Self-RAG further studies joint control over retrieval, generation, and self-reflection~\cite{asai2024selfrag}.
+
+However, conventional RAG typically treats candidate documents as independent relevance units. This assumption is insufficient for continuously updated O\&M records. First, O\&M evidence has dual temporal attributes: the event time and the time at which the record becomes available to the system need not coincide, and late-arriving records must not be used retrospectively by an earlier query. Second, maintenance decisions usually depend on complementary evidence: a state observation motivates an inspection, the inspection supports a diagnosis, the diagnosis leads to an action, and a post-action check verifies the preceding decision. High scores for individual documents therefore do not guarantee that the Top-$k$ set covers the complete process.
+
+Recent work has begun to address parts of these issues from different directions. Time-aware RAG explicitly models temporal constraints or information changes across time intervals~\cite{zhang2025mrag,lau2025tarag}; multi-hop retrieval progressively conditions retrieval to find complementary evidence~\cite{xiong2021mdr,trivedi2023ircot}; and RAPTOR, GraphRAG, and HippoRAG improve cross-document knowledge organization through hierarchical structures, graphs, or graph propagation~\cite{sarthi2024raptor,edge2024graphrag,gutierrez2024hipporag}. Together, these studies suggest that complex knowledge tasks require not only finding relevant text, but also organizing and selecting multiple interdependent pieces of evidence.
+
+We propose TEF-RAG (Temporal Evidence Flow Retrieval-Augmented Generation). Its core idea is to construct query-conditioned directed semantic relations among evidence that is visible at the query time, and to reformulate retrieval from independent node ranking into evidence-set ranking. The system first removes unusable records with deterministic asset, temporal, and procedure constraints; it then learns which candidate evidence pairs are worth relation reasoning and constructs a temporal evidence graph; finally, it applies nonlinear pairwise ranking over size-bounded candidate sets so that the model directly learns which evidence set is more complete and more suitable as context for the current query.
+
+TEF-RAG differs from general graph retrieval in that its graph is not predefined by static entity relations, but is formed dynamically from the currently visible O\&M evidence under the query. It differs from time-aware ranking in that temporal constraints define only the legality boundary, while the final objective remains the recovery of a role-complementary and relation-consistent evidence set. It also differs from stepwise multi-hop retrieval because the target structure may include branching, updates, supersession, and preserved uncertainty rather than being restricted to a single linear path.
+
+In the embodied O\&M setting considered in this work, retrieval is not the endpoint. The selected evidence flow is passed to a shared generator that produces a standardized work order and a dependency-aware action plan, providing an evidence-grounded interface for downstream planners, constraint checkers, and robotic execution. This paper focuses on evidence retrieval and the structured planning context in this pipeline, and does not claim to solve closed-loop robotic control or field safety certification.
+
+Our contributions are threefold:
+\begin{enumerate}
+    \item We formulate Temporal Evidence Flow retrieval for dynamic O\&M knowledge, unifying temporal visibility and evidence-set completeness within a single retrieval framework.
+    \item We propose a method that combines learned evidence-pair proposal, query-conditioned relation graphs, and nonlinear set ranking, shifting the retrieval objective from independent document relevance to set-level process utility.
+    \item We construct a controlled temporal O\&M benchmark and evaluate whether evidence-flow quality transfers to downstream work orders and action plans using both retrieval metrics and structured generation metrics under a shared generator.
+\end{enumerate}
+
+% =========================================================
+\subsection{Related Work}
+\label{sec:related_work}
+% =========================================================
+
+\textbf{Retrieval-Augmented Generation and Neural Retrieval.}
+Classical RAG combines an external retriever with a generator~\cite{lewis2020rag}; DPR and ColBERT represent dense dual-encoder retrieval and late-interaction retrieval, respectively~\cite{karpukhin2020dpr,khattab2020colbert}. FiD demonstrates multi-evidence aggregation from the generation side~\cite{izacard2021fid}, while BEIR systematically compares the generalization of sparse, dense, and reranking paradigms~\cite{thakur2021beir}. These methods primarily optimize the relevance of individual documents, whereas our work focuses on temporal and semantic dependencies among evidence within a set.
+
+\textbf{Time-Aware and Multi-Hop Retrieval.}
+MRAG and TA-RAG explicitly incorporate temporal conditions into retrieval~\cite{zhang2025mrag,lau2025tarag}; MDR and IRCoT find multi-piece evidence through stepwise retrieval or interleaved retrieval and reasoning~\cite{xiong2021mdr,trivedi2023ircot}. TEF-RAG similarly emphasizes complementary evidence, but further distinguishes event time from availability time and allows evidence structures to contain updates, supersession, verification, and uncertainty propagation.
+
+\textbf{Structured and Graph-Based RAG.}
+RAPTOR, GraphRAG, and HippoRAG show that hierarchical or graph structures can improve cross-document information integration~\cite{sarthi2024raptor,edge2024graphrag,gutierrez2024hipporag}. Unlike methods that typically construct graphs from document hierarchies or entity relations, TEF-RAG defines edges jointly from the current query and the currently visible O\&M records; their semantics directly correspond to support, update, qualification, and verification relations among maintenance evidence.
+
+\textbf{Embodied O\&M and Battery Intelligence.}
+RAG has also begun to support field robotics and professional equipment operation. SayComply studies retrieval of operational-compliance knowledge for field robots, while RAGLRO applies retrieval-augmented language models to robotic operation tasks~\cite{ginting2025saycomply,wang2026raglro}. In the battery domain, LiBrain and TimeSeries2Report explore combinations of time-series information, retrieved knowledge, and language models for battery diagnosis and management~\cite{li2026librain,yang2026timeseries2report}. These studies indicate the need for a reliable knowledge interface between dynamic equipment information and executable tasks; our work focuses one step earlier on evidence selection so that downstream work orders and action plans are grounded in evidence that is visible at the query time and complete as a process.
+
+\textbf{Learning to Rank.}
+The final selection stage of TEF-RAG is a query-level learning-to-rank problem. RankNet learns relative ranking functions from pairwise preferences~\cite{burges2005ranknet}, while work such as ANCE demonstrates the importance of hard negatives for learning effective retrieval boundaries~\cite{xiong2021ance}. We apply this idea to evidence sets rather than individual documents: the training objective directly compares complete sets with high-scoring but incomplete hard negatives under the same query.
