@@ -78,7 +78,7 @@ $t_e(e)\le t_q$ and $t_a(e)\le t_q$, and apply the same version-validity, withdr
 We use standard BM25 as the lexical retrieval baseline~\cite{robertson2009bm25}. A separate index is built over the legal evidence snapshot for each query, with fixed parameters $k_1=1.5$ and $b=0.75$, and the five highest-scoring evidence records are returned directly.
 
 \textbf{BGE Reranker.}
-We first retrieve the Top-30 candidates using the same BM25 setup and then use \texttt{BAAI/bge-reranker-v2-m3} to rescore each $(\text{query},\text{evidence})$ text pair~\cite{chen2024bgem3}. The top five records under the reranking score are selected. This baseline tests whether a general-purpose semantic reranker can compensate for the limitations of purely lexical retrieval.
+We first retrieve the Top-30 candidates using the same BM25 setup and then use \texttt{BAAI/bge-reranker-v2-m3} to rescore each $(\text{query},\text{evidence})$ text pair~\cite{chen2024bgem3,flagembedding2026reranker}. The top five records under the reranking score are selected. This baseline tests whether a general-purpose semantic reranker can compensate for the limitations of purely lexical retrieval.
 
 \textbf{Temporal-BM25.}
 This baseline explicitly adds temporal matching to BM25 relevance. Its ranking score is
@@ -92,10 +92,13 @@ s_{\mathrm{TBM25}}(e,q)
 where $\widetilde{s}_{\mathrm{BM25}}$ is the normalized BM25 score and $s_{\mathrm{time}}$ measures the match between the evidence event time and the target time implied by expressions such as years, time intervals, before/after, and current/latest in the query. For queries without explicit temporal intent, the temporal term is set to a constant, preserving the original BM25 ranking. Before final test evaluation, we compare $\lambda\in\{0.25,0.50,0.75\}$ during parameter selection and freeze the best value, $\lambda=0.25$, for subsequent evaluation.
 
 \textbf{TA-RAG.}
-We adopt the Time-Aware RAG method of Lau et al.~\cite{lau2025tarag}. The method first decomposes a query into its topic and target time range, then restricts candidate documents using temporal-interval filtering and performs semantic retrieval and BGE reranking within the temporal candidate set. To adapt TA-RAG to our discrete O\&M events, the \texttt{event\_time} of each evidence record is mapped to a one-second half-open interval, and relative temporal expressions in a query are interpreted with $t_q$ as the reference time. In addition, the TA-RAG index is built only over the legal evidence snapshot for the current query, preventing future records from affecting retrieval. Except for replacing the LLM backend with a fixed DeepSeek model, the temporal decomposition, interval filtering, Nomic embedding, FAISS retrieval, and BGE reranking pipeline follows the public implementation.
+We adopt the Time-Aware RAG method of Lau et al.~\cite{lau2025tarag}. The method first decomposes a query into its topic and target time range, then restricts candidate documents using temporal-interval filtering and performs semantic retrieval and BGE reranking within the temporal candidate set. To adapt TA-RAG to our discrete O\&M events, the \texttt{event\_time} of each evidence record is mapped to a one-second half-open interval, and relative temporal expressions in a query are interpreted with $t_q$ as the reference time. In addition, the TA-RAG index is built only over the legal evidence snapshot for the current query, preventing future records from affecting retrieval. The LLM call used for temporal decomposition is made through the official DeepSeek API with \texttt{deepseek-flash}; sampling and decoding parameters are not manually overridden and therefore follow the API defaults. Apart from this backend substitution, the temporal decomposition, interval filtering, Nomic embedding, FAISS retrieval, and BGE reranking pipeline follows the public implementation.
 
 \textbf{TEF-RAG.}
 Our method further applies learned evidence-pair screening, query-conditioned relation-graph construction, and nonlinear set-level ranking over the same legal evidence snapshot, and returns the candidate set with the highest overall evidence-flow score.
+
+\textbf{Scope of Comparison.}
+MDR, IRCoT, RAPTOR, GraphRAG, and HippoRAG are discussed in related work as representative multi-hop or graph-based retrieval methods, but their standard formulations do not jointly enforce the dual-time visibility, procedure-validity, and fixed Top-5 evidence-set constraints used in our benchmark. Including them in the main comparison would therefore require substantial task-specific adaptation rather than direct reproduction. We treat them as related methods in this study and leave a unified adapted comparison to future work.
 
 \subsection{Evaluation Metrics}
 \label{sec:metrics}
@@ -105,6 +108,7 @@ Recall@5 and nDCG@5 measure conventional retrieval relevance. Complete@5 measure
 
 \textbf{Generation.}
 We report four primary metrics in the main text: Field Macro F1 (strict), Action F1, Citation F1, and Plan EM (strict). They measure strict matching of key work-order fields, normalized actions, claim--evidence citations, and the complete action plan, respectively.
+The complete frozen metric suite, including schema, dependency, ordering, evidence-support, and strict end-to-end metrics, is reported in Appendix Table~\ref{tab:generation_full_metrics} to avoid selective reporting of metrics favorable to any method.
 
 \subsection{Ablation Setup}
 
@@ -112,4 +116,6 @@ To analyze which components contribute to the final performance, we conduct four
 
 \subsection{Experimental Controls}
 
-Development, validation, and final test data are strictly separated for retrieval. All model selection and training use only development/validation information, and the final test is evaluated once after the configuration is frozen. For generation comparison, all methods use the same downstream generator, prompt/schema, and decoding settings; only the retrieved evidence supplied to the generator changes. This design attributes downstream generation differences to retrieval-context quality rather than generator configuration.
+Development, validation, and final test data are strictly separated for retrieval. All model selection and training use only development/validation information, and the final test is evaluated once after the configuration is frozen.
+All LLM calls in this study, including TEF relation judging, TA-RAG temporal decomposition, and downstream structured generation, directly use the official DeepSeek API with \texttt{deepseek-flash}. Apart from the fixed task prompts and input schemas, sampling and decoding parameters are not manually overridden and therefore follow the API defaults.
+For generation comparison, all methods use the same downstream generator, prompt/schema, and model configuration; only the retrieved evidence supplied to the generator changes. This design attributes downstream generation differences to retrieval-context quality rather than generator configuration.
