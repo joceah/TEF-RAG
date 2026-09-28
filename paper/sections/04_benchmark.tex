@@ -114,7 +114,7 @@ $t_e(e)\le t_q$、$t_a(e)\le t_q$ 的记录，并对规程证据施加相同的�
 \textbf{BGE Reranker。}
 首先使用与上述相同的 BM25 检索 Top-30 候选，
 随后使用 \texttt{BAAI/bge-reranker-v2-m3} 对
-$(\text{query},\text{evidence})$ 文本对重新计算相关性分数~\cite{chen2024bgem3}，
+$(\text{query},\text{evidence})$ 文本对重新计算相关性分数~\cite{chen2024bgem3,flagembedding2026reranker}，
 并按照重排分数选取前 5 条证据。
 该基线用于比较通用语义重排是否能够弥补纯词法检索的不足。
 
@@ -142,13 +142,21 @@ $s_{\mathrm{time}}$ 根据查询中的年份、时间区间、before/after 以�
 被映射为长度 1 秒的半开时间区间，查询中的相对时间均以 $t_q$ 为参考时刻；
 此外，TA-RAG 的索引只在当前查询的合法证据快照上构建，
 从而避免未来记录影响检索。
-除 LLM 后端替换为固定的 DeepSeek 模型外，其时间分解、区间过滤、
-Nomic embedding、FAISS 检索与 BGE reranking 流程保持与公开实现一致。
+其中涉及 LLM 的时间分解调用使用 DeepSeek 官方 API 的
+\texttt{deepseek-flash}；未手动覆盖采样或解码参数，使用 API 默认设置。
+除此之外，其时间分解、区间过滤、Nomic embedding、FAISS 检索与 BGE reranking
+流程保持与公开实现一致。
 
 \textbf{TEF-RAG。}
 本文方法在同一合法证据快照上进一步进行学习式证据对筛选、
 查询条件化关系建图以及集合级非线性排序，
 最终返回整体证据流得分最高的候选集合。
+
+\textbf{对比范围。}
+MDR、IRCoT、RAPTOR、GraphRAG 与 HippoRAG 等方法在相关工作中用于说明多跳或图式检索思路，
+但其标准实现并未同时定义本文采用的双时间可见性、规程有效性以及固定 Top-5 证据集合约束。
+将这些方法直接纳入主实验需要额外的任务特定适配，因此本文将其作为相关方法讨论，
+而不把经过较大改造的版本作为直接复现基线；相应的统一适配比较留作后续工作。
 
 \subsection{评价指标}
 \label{sec:metrics}
@@ -159,7 +167,10 @@ Complete@5 衡量检索结果是否找齐完成任务所需的各类关键证据
 FlowComplete@5 则进一步检查这些证据之间能否形成正确且一致的证据关系，组成完整的Temporal Evidence Flow。
 
 \textbf{Generation。}
-正文报告四项主要指标：Field Macro F1 (strict)、Action F1、Citation F1 与 Plan EM (strict)。它们分别衡量工单关键字段、规范化动作、claim--evidence 引用以及完整动作计划的严格匹配。
+正文报告四项主要指标：Field Macro F1 (strict)、Action F1、Citation F1 与 Plan EM (strict)。
+它们分别衡量工单关键字段、规范化动作、claim--evidence 引用以及完整动作计划的严格匹配。
+完整的冻结指标集合，包括 schema、依赖关系、动作顺序、证据支持率以及严格端到端指标，
+统一列于附录表~\ref{tab:generation_full_metrics}，以避免仅报告有利于某一方法的指标。
 
 \subsection{消融设置}
 
@@ -167,4 +178,9 @@ FlowComplete@5 则进一步检查这些证据之间能否形成正确且一致�
 
 \subsection{实验控制}
 
-Retrieval 的开发、验证和最终测试严格分离；所有模型选择与训练只使用 development/validation 信息，最终 test 在配置冻结后用于一次性评价。Generation comparison 固定使用同一个下游生成器、同一 prompt/schema 与解码设置，只改变输入的检索证据。这样可以把下游生成差异解释为检索上下文质量的变化，而不是生成模型配置差异。
+Retrieval 的开发、验证和最终测试严格分离；所有模型选择与训练只使用 development/validation 信息，最终 test 在配置冻结后用于一次性评价。
+本文所有涉及 LLM 的调用，包括 TEF 关系判断、TA-RAG 的时间分解以及下游结构化生成，
+均直接调用 DeepSeek 官方 API 的 \texttt{deepseek-flash}。
+除固定的任务提示词与输入 schema 外，我们未手动覆盖采样或解码参数，使用 API 默认设置。
+Generation comparison 固定使用同一个下游生成器、同一 prompt/schema 与模型配置，只改变输入的检索证据。
+这样可以把下游生成差异解释为检索上下文质量的变化，而不是生成模型配置差异。
