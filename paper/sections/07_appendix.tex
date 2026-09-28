@@ -3,6 +3,18 @@
 \label{app:implementation}
 % =========================================================
 
+\subsection{LLM 调用配置}
+\label{app:llm_config}
+
+本文所有涉及 LLM 的调用，包括 Temporal Evidence Flow 关系判断、
+TA-RAG 中的时间分解以及下游结构化生成，均直接调用 DeepSeek 官方 API，
+模型统一为 \texttt{deepseek-flash}。
+除各任务冻结的 system/user prompt 与输入 schema 外，
+未手动覆盖采样或解码参数，其他 API 参数使用服务端默认设置。
+关系判断提示词版本为 \texttt{tef-v6-stage2a-relation-v7}，
+下游生成提示词版本为 \texttt{tef-v6-generation-eval-v1.3}。
+
+
 \subsection{第一轮困难负样本的规则式集合评分}
 \label{app:hand_score}
 
@@ -221,3 +233,50 @@ Correct only the listed validation failures.
 
 并在用户输入中额外提供 \texttt{previous\_output} 与
 \texttt{validation\_errors}，不改变查询、检索证据或输出 schema。
+
+\subsection{完整结构化生成指标}
+\label{app:generation_full_metrics}
+
+正文选择 Field Macro F1 (strict)、Action F1、Citation F1 与 Plan EM (strict)
+作为主要生成指标，以分别概括字段、动作、引用和完整计划质量。
+为完整披露冻结评价结果，表~\ref{tab:generation_full_metrics} 进一步列出全部生成指标。
+其中 Dependency 与 Order Validity 属于计划结构诊断指标；
+Work-Order EM、End-to-End EM 和 Task Success 则采用更严格的整体正确性要求。
+
+\begin{table*}[t]
+\caption{Generation test 的完整冻结指标。}
+\label{tab:generation_full_metrics}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3.2pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrr}
+\toprule
+Metric & BM25 & BGE Reranker & Temporal-BM25 & TA-RAG & TEF-RAG \\
+\midrule
+Schema Validity & 0.9958 & 0.9917 & 0.9958 & 0.9896 & 0.9875 \\
+Field Macro F1 (strict) & 0.4715 & 0.4129 & 0.5218 & 0.4059 & 0.5345 \\
+Work-Order EM (strict) & 0.0000 & 0.0000 & 0.0000 & 0.0000 & 0.0000 \\
+Action Precision & 0.1434 & 0.1181 & 0.1691 & 0.1097 & 0.1938 \\
+Action Recall & 0.1406 & 0.1250 & 0.1684 & 0.1167 & 0.2222 \\
+Action F1 & 0.1372 & 0.1198 & 0.1637 & 0.1115 & 0.2035 \\
+Dependency Precision & 0.2354 & 0.2986 & 0.1896 & 0.3278 & 0.2906 \\
+Dependency Recall & 0.2354 & 0.2986 & 0.1896 & 0.3278 & 0.2847 \\
+Dependency F1 & 0.2354 & 0.2979 & 0.1896 & \textbf{0.3271} & 0.2858 \\
+Order Validity & 0.3063 & 0.3646 & 0.2563 & \textbf{0.4125} & 0.3146 \\
+Plan EM (strict) & 0.0167 & 0.0146 & 0.0167 & 0.0188 & \textbf{0.0417} \\
+Citation Precision & 0.1085 & 0.0502 & 0.1552 & 0.0471 & 0.1705 \\
+Citation Recall & 0.0697 & 0.0355 & 0.1101 & 0.0332 & 0.1544 \\
+Citation F1 & 0.0813 & 0.0405 & 0.1249 & 0.0379 & \textbf{0.1585} \\
+Evidence Support Recall & 0.1258 & 0.0614 & 0.1871 & 0.0570 & 0.2253 \\
+End-to-End EM (strict) & 0.0000 & 0.0000 & 0.0000 & 0.0000 & 0.0000 \\
+Task Success & 0.0000 & 0.0000 & 0.0000 & 0.0000 & 0.0000 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}
+
+完整指标表显示，TEF-RAG 在正文关注的字段、动作、引用和严格计划匹配上取得最高值，
+但并非在所有诊断指标上都占优：TA-RAG 的 Dependency F1 和 Order Validity 更高。
+此外，所有方法在三个最严格的整体指标上均为 0，
+因此这些结果应理解为结构化生成质量的相对改善，而不是端到端任务已经解决。
