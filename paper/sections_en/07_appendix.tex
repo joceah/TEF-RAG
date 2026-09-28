@@ -3,6 +3,17 @@
 \label{app:implementation}
 % =========================================================
 
+\subsection{LLM Invocation Configuration}
+\label{app:llm_config}
+
+All LLM calls in this work, including Temporal Evidence Flow relation judging,
+TA-RAG temporal decomposition, and downstream structured generation, directly use the official DeepSeek API with \texttt{deepseek-flash}.
+Apart from the frozen system/user prompts and input schemas for each task,
+sampling and decoding parameters are not manually overridden; all remaining API parameters follow the provider defaults.
+The relation-judging prompt version is \texttt{tef-v6-stage2a-relation-v7},
+and the downstream generation prompt version is \texttt{tef-v6-generation-eval-v1.3}.
+
+
 \subsection{Rule-Based Set Score for First-Round Hard Negatives}
 \label{app:hand_score}
 
@@ -215,3 +226,50 @@ Correct only the listed validation failures.
 
 The user input additionally contains \texttt{previous\_output} and
 \texttt{validation\_errors}; the query, retrieved evidence, and output schema remain unchanged.
+
+\subsection{Complete Structured Generation Metrics}
+\label{app:generation_full_metrics}
+
+The main text uses Field Macro F1 (strict), Action F1, Citation F1, and Plan EM (strict)
+as primary generation metrics summarizing field, action, citation, and complete-plan quality.
+For complete disclosure of the frozen evaluation, Table~\ref{tab:generation_full_metrics} reports the full metric suite.
+Dependency metrics and Order Validity are diagnostic measures of plan structure,
+whereas Work-Order EM, End-to-End EM, and Task Success impose stricter joint-correctness requirements.
+
+\begin{table*}[t]
+\caption{Complete frozen metrics on the generation test set.}
+\label{tab:generation_full_metrics}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3.2pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrr}
+\toprule
+Metric & BM25 & BGE Reranker & Temporal-BM25 & TA-RAG & TEF-RAG \\
+\midrule
+Schema Validity & 0.9958 & 0.9917 & 0.9958 & 0.9896 & 0.9875 \\
+Field Macro F1 (strict) & 0.4715 & 0.4129 & 0.5218 & 0.4059 & 0.5345 \\
+Work-Order EM (strict) & 0.0000 & 0.0000 & 0.0000 & 0.0000 & 0.0000 \\
+Action Precision & 0.1434 & 0.1181 & 0.1691 & 0.1097 & 0.1938 \\
+Action Recall & 0.1406 & 0.1250 & 0.1684 & 0.1167 & 0.2222 \\
+Action F1 & 0.1372 & 0.1198 & 0.1637 & 0.1115 & 0.2035 \\
+Dependency Precision & 0.2354 & 0.2986 & 0.1896 & 0.3278 & 0.2906 \\
+Dependency Recall & 0.2354 & 0.2986 & 0.1896 & 0.3278 & 0.2847 \\
+Dependency F1 & 0.2354 & 0.2979 & 0.1896 & \textbf{0.3271} & 0.2858 \\
+Order Validity & 0.3063 & 0.3646 & 0.2563 & \textbf{0.4125} & 0.3146 \\
+Plan EM (strict) & 0.0167 & 0.0146 & 0.0167 & 0.0188 & \textbf{0.0417} \\
+Citation Precision & 0.1085 & 0.0502 & 0.1552 & 0.0471 & 0.1705 \\
+Citation Recall & 0.0697 & 0.0355 & 0.1101 & 0.0332 & 0.1544 \\
+Citation F1 & 0.0813 & 0.0405 & 0.1249 & 0.0379 & \textbf{0.1585} \\
+Evidence Support Recall & 0.1258 & 0.0614 & 0.1871 & 0.0570 & 0.2253 \\
+End-to-End EM (strict) & 0.0000 & 0.0000 & 0.0000 & 0.0000 & 0.0000 \\
+Task Success & 0.0000 & 0.0000 & 0.0000 & 0.0000 & 0.0000 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}
+
+The complete table shows that TEF-RAG leads on the primary field, action, citation, and strict plan-matching metrics,
+but does not dominate every diagnostic metric: TA-RAG has higher Dependency F1 and Order Validity.
+All methods also score zero on the three strictest joint metrics.
+Accordingly, these results should be interpreted as relative improvements in structured generation quality rather than evidence that the end-to-end task is solved.
