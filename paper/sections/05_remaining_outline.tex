@@ -69,7 +69,11 @@ w/o Nonlinear Ranker & 0.7070 & 0.6965 & 0.3188 & 0.3125 \\
 Field Macro F1 为 0.5345，Action F1 为 0.2035，Citation F1 为 0.1585，Plan EM (strict) 为 0.0417。
 相较各指标上最强的非 TEF baseline，Action F1、Citation F1 与 Plan EM 分别取得约 24.3\%、26.9\% 与 121.8\% 的相对提升；Field Macro F1 相较 Temporal-BM25 提升约 2.4\%。
 结果表明，TEF-RAG 的收益不仅体现在上游检索命中率，也能够传递到工单关键字段、处置动作和证据引用质量。
-TEF-RAG 提高了生成工单的字段级准确性、动作正确性和计划级一致性。
+同时，附录表~\ref{tab:generation_full_metrics} 报告全部冻结生成指标。
+其中 TA-RAG 的 Dependency F1（0.3271）和 Order Validity（0.4125）高于 TEF-RAG
+（分别为 0.2858 和 0.3146），说明更完整的检索上下文并不会在所有计划结构诊断指标上都占优。
+此外，所有方法在 Work-Order EM (strict)、End-to-End EM (strict) 和 Task Success 上均为 0，
+表明当前结构化生成距离严格的端到端完全正确仍有较大空间。
 
 \begin{table}[t]
 \caption{Generation test 的主要结构化生成指标}
@@ -99,6 +103,8 @@ TA-RAG & 0.4059 & 0.1115 & 0.0379 & 0.0188 \\
 
 本文 benchmark 是 public-source-grounded、AI-assisted synthetic benchmark，而非真实电站工单或领域专家标注数据；
 因此其主要价值是受控比较 temporal evidence retrieval 机制，不能直接外推到真实电站故障频率或机器人现场安全性。
+当前 benchmark 也尚未经过独立领域专家的盲审验证；虽然构造过程包含确定性一致性检查和 AI 辅助语义复核，
+仍可能存在由合成模板或模型辅助构造带来的偏差。
 生成评价虽然覆盖字段、动作、依赖与引用，但没有模拟实际机器人执行、环境反馈和安全联锁。
 
 % =========================================================
