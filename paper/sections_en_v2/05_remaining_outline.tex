@@ -10,8 +10,8 @@ TEF-RAG achieves the highest value on all four primary metrics: Recall@5, nDCG@5
 Compared with the strongest non-TEF baseline on these metrics, which is Temporal-BM25 in all cases,
 TEF-RAG improves Recall@5 from 0.4591 to 0.7228 and nDCG@5 from 0.4955 to 0.6231.
 The difference is larger for set-level completeness: Complete@5 increases from 0.0792 to 0.3188, and FlowComplete@5 from 0.0792 to 0.3146.
-The larger differences on Complete@5 and FlowComplete@5 are consistent with the set-level objective of TEF-RAG, which ranks evidence combinations rather than individual records alone.
-Paired chain-level bootstrap differences relative to Temporal-BM25 are $\Delta=0.2638$ for Recall@5 (95\% CI [0.2266, 0.3012]), $\Delta=0.1276$ for nDCG@5 ([0.0956, 0.1589]), $\Delta=0.2396$ for Complete@5 ([0.1895, 0.2917]), and $\Delta=0.2354$ for FlowComplete@5 ([0.1854, 0.2875]); all four intervals exclude zero.
+\REV{The larger differences on Complete@5 and FlowComplete@5 are consistent with the set-level objective of TEF-RAG, which ranks evidence combinations rather than individual records alone.}
+\REV{Paired chain-level bootstrap differences relative to Temporal-BM25 are} $\Delta=0.2638$ \REV{for Recall@5 (}95\% \REV{CI [0.2266, 0.3012]),} $\Delta=0.1276$ \REV{for nDCG@5 ([0.0956, 0.1589]),} $\Delta=0.2396$ \REV{for Complete@5 ([0.1895, 0.2917]), and} $\Delta=0.2354$ \REV{for FlowComplete@5 ([0.1854, 0.2875]); all four intervals exclude zero.}
 
 \begin{table}[t]
 \caption{Main retrieval results on the test split (Top-5).}
@@ -37,9 +37,9 @@ TA-RAG & 0.2769 & 0.2907 & 0.0375 & 0.0375 \\
 \subsection{Validation Ablation Study}
 \label{sec:ablation_results}
 
-Table~\ref{tab:ablation_results} reports the four ablations on the validation split. Full TEF-RAG achieves a FlowComplete@5 of 0.4042. Removing learned pair proposal reduces it only to 0.4021, indicating that under a fixed pair budget, the proposal module contributes relatively little directly to final retrieval quality; its main value is to focus relation reasoning on pairs with higher proposal scores. In contrast, removing relation-graph-derived features reduces FlowComplete@5 to 0.3667; this decrease is consistent with graph-derived features contributing to set ranking.
+Table~\ref{tab:ablation_results} reports the four ablations on the validation split. Full TEF-RAG achieves a FlowComplete@5 of 0.4042. Removing learned pair proposal reduces it only to 0.4021, indicating that under a fixed pair budget, the proposal module contributes relatively little directly to final retrieval quality; \REV{its main value is to focus relation reasoning on pairs with higher proposal scores.} In contrast, removing relation-graph-derived features reduces FlowComplete@5 to 0.3667; \REV{this decrease is consistent with graph-derived features contributing to set ranking.}
 
-The training objective and the ranker itself have a larger effect. Removing hard-negative mining reduces FlowComplete@5 from 0.4042 to 0.2833, while removing the nonlinear set ranker and falling back to the Stage-3A selector reduces it to 0.3125. Removing hard-negative mining and removing the nonlinear set ranker produce larger FlowComplete@5 decreases than removing pair proposal under this frozen validation setup. Notably, removing the nonlinear ranker slightly increases nDCG@5 relative to the full model (0.6965 vs.\ 0.6885), while substantially decreasing Complete@5 and FlowComplete@5. The increase in nDCG@5 together with lower Complete@5 and FlowComplete@5 also indicates that conventional ranking quality and set-level process completeness need not change in the same direction.
+The training objective and the ranker itself have a larger effect. Removing hard-negative mining reduces FlowComplete@5 from 0.4042 to 0.2833, while removing the nonlinear set ranker and falling back to the Stage-3A selector reduces it to 0.3125. \REV{Removing hard-negative mining and removing the nonlinear set ranker produce larger FlowComplete@5 decreases than removing pair proposal under this frozen validation setup.} Notably, removing the nonlinear ranker slightly increases nDCG@5 relative to the full model (0.6965 vs.\ 0.6885), while substantially decreasing Complete@5 and FlowComplete@5. \REV{The increase in nDCG@5 together with lower Complete@5 and FlowComplete@5 also indicates that conventional ranking quality and set-level process completeness need not change in the same direction.}
 
 \begin{table}[t]
 \caption{TEF-RAG ablation results on the validation split.}
@@ -65,12 +65,12 @@ w/o Nonlinear Ranker & 0.7070 & 0.6965 & 0.3188 & 0.3125 \\
 \subsection{Downstream Structured Generation Results}
 \label{sec:generation_results}
 
-Table~\ref{tab:generation_results} reports four generation metrics used to compare the structured outputs produced from each method's retrieved evidence.
+Table~\ref{tab:generation_results} \REV{reports four generation metrics used to compare the structured outputs produced from each method's retrieved evidence.}
 Under the same generator, prompt, schema, and decoding settings, TEF-RAG achieves the highest value on all four metrics:
 Field Macro F1 of 0.5345, Action F1 of 0.2035, Citation F1 of 0.1585, and Plan EM (strict) of 0.0417.
 Compared with the strongest non-TEF baseline for each metric, TEF-RAG yields relative improvements of approximately 24.3\%, 26.9\%, and 121.8\% on Action F1, Citation F1, and Plan EM, respectively; Field Macro F1 improves by approximately 2.4\% over Temporal-BM25.
-The point estimates are higher for TEF-RAG on all four reported generation metrics, but the bootstrap results distinguish the strength of evidence across metrics.
-Relative to the strongest non-TEF baseline for each metric, the paired bootstrap confidence intervals exclude zero for Action F1 ($\Delta=0.0398$, 95\% CI [0.0085, 0.0778]) and Citation F1 ($\Delta=0.0336$, [0.0199, 0.0489]). The intervals include zero for Field Macro F1 ($\Delta=0.0127$, [-0.0052, 0.0314]) and strict Plan EM ($\Delta=0.0229$, [-0.0063, 0.0563]), so those two differences are not conclusive at the 95\% confidence level.
+\REV{The point estimates are higher for TEF-RAG on all four reported generation metrics, but the bootstrap results distinguish the strength of evidence across metrics.}
+\REV{Relative to the strongest non-TEF baseline for each metric, the paired bootstrap confidence intervals exclude zero for Action F1 (}$\Delta=0.0398$\REV{,} 95\% \REV{CI [0.0085, 0.0778]) and Citation F1 (}$\Delta=0.0336$\REV{, [0.0199, 0.0489]). The intervals include zero for Field Macro F1 (}$\Delta=0.0127$\REV{, [-0.0052, 0.0314]) and strict Plan EM (}$\Delta=0.0229$\REV{, [-0.0063, 0.0563]), so those two differences are not conclusive at the} 95\% \REV{confidence level.}
 
 \begin{table}[t]
 \caption{Primary structured-generation metrics on the generation test set.}
@@ -108,5 +108,5 @@ Although the generation evaluation covers fields, actions, dependencies, and cit
 % =========================================================
 
 We presented TEF-RAG, which extends the retrieval objective for dynamic O\&M RAG from independent document relevance to a Temporal Evidence Flow that is visible at the query time, relation-consistent, and process-complete.
-On the frozen temporal-hard benchmark, TEF-RAG records higher Recall@5, nDCG@5, Complete@5, and FlowComplete@5 than the four comparison methods. In the structured generation test with a fixed downstream generator, TEF-RAG also records the highest point estimates for Field Macro F1, Action F1, Citation F1, and strict Plan EM. The paired bootstrap analysis supports differences in all four retrieval metrics and in Action F1 and Citation F1, while the confidence intervals for Field Macro F1 and strict Plan EM include zero.
+\REV{On the frozen temporal-hard benchmark, TEF-RAG records higher Recall@5, nDCG@5, Complete@5, and FlowComplete@5 than the four comparison methods. In the structured generation test with a fixed downstream generator, TEF-RAG also records the highest point estimates for Field Macro F1, Action F1, Citation F1, and strict Plan EM. The paired bootstrap analysis supports differences in all four retrieval metrics and in Action F1 and Citation F1, while the confidence intervals for Field Macro F1 and strict Plan EM include zero.}
 Future work should further integrate explicit planning and execution constraints.
