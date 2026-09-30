@@ -42,7 +42,8 @@ All subsequent retrieval, relation reasoning, and set ranking operate only withi
 
 \subsection{Retrieval Objective}
 
-A base retriever obtains a candidate node set $V_q$ from $\Candidates_q$. We use $k=5$ as the retrieval upper bound. Let $k_q=\min(5,|V_q|)$; the system selects at most five evidence records to form $\hat{\Selected}_q$. If fewer than five legal candidates exist, the system directly returns the available legal evidence without padding or backfilling. The selected evidence should not only be relevant to the query, but should also cover complementary roles required by the task and form a temporally and semantically coherent structure.
+A base retriever obtains a candidate node set $V_q$ from $\Candidates_q$. We use $k=5$ as the retrieval upper bound. Let $k_q=\min(5,|V_q|)$; the system selects at most five evidence records to form $\hat{\Selected}_q$. If fewer than five legal candidates exist, the system directly returns the available legal evidence without padding or backfilling. % AI-REVIEW [rhetorical template]: "not only ... but also ..." is not wrong, but here it packages three retrieval requirements into a formulaic contrast; consider a more direct specification later.
+The selected evidence should \AIHL{not only be relevant to the query, but should also cover complementary roles required by the task and form a temporally and semantically coherent structure}.
 
 Accordingly, we do not define the retrieval objective as the sum of five independent document scores. Instead, we define a set-level utility:
 \begin{equation}
@@ -62,7 +63,9 @@ The retrieval result is used as controlled context for a structured generator, w
 (\hat W_q,\hat A_q)=g_{\psi}(x_q,\hat{\Selected}_q).
 \label{eq:downstream_generation}
 \end{equation}
-The primary algorithmic contribution of this paper lies upstream of the generator, namely in recovering a high-quality Temporal Evidence Flow. Structured generation experiments are used to test whether this upstream advantage transfers to work-order fields, actions, dependencies, and evidence citations.
+% AI-REVIEW [vague evaluative adjective]: "high-quality" is not operationalized here; the paper later defines specific retrieval metrics.
+The primary algorithmic contribution of this paper lies upstream of the generator, namely in recovering a \AIHL{high-quality} Temporal Evidence Flow. % AI-REVIEW [assumed premise / attribution]: "advantage" presupposes superiority before the downstream test and "transfers" suggests a causal mechanism.
+Structured generation experiments are used to test whether \AIHL{this upstream advantage transfers} to work-order fields, actions, dependencies, and evidence citations.
 
 \begin{table}[t]
 \caption{Main notation.}
