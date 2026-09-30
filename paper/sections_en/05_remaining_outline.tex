@@ -10,7 +10,8 @@ TEF-RAG achieves the highest value on all four primary metrics: Recall@5, nDCG@5
 Compared with the strongest non-TEF baseline on these metrics, which is Temporal-BM25 in all cases,
 TEF-RAG improves Recall@5 from 0.4591 to 0.7228 and nDCG@5 from 0.4955 to 0.6231.
 The difference is larger for set-level completeness: Complete@5 increases from 0.0792 to 0.3188, and FlowComplete@5 from 0.0792 to 0.3146.
-These results indicate that adding temporal preference alone can improve retrieval of individual evidence records, but explicitly modeling evidence-flow relations and jointly selecting evidence sets is more important for recovering a complete task-support structure.
+% AI-REVIEW [over-attribution / false hierarchy]: The aggregate comparison supports a performance difference, but "is more important" turns it into a general causal ranking of design choices.
+\AIHL{These results indicate that adding temporal preference alone can improve retrieval of individual evidence records, but explicitly modeling evidence-flow relations and jointly selecting evidence sets is more important for recovering a complete task-support structure.}
 
 \begin{table}[t]
 \caption{Main retrieval results on the test split (Top-5).}
@@ -36,9 +37,12 @@ TA-RAG & 0.2769 & 0.2907 & 0.0375 & 0.0375 \\
 \subsection{Validation Ablation Study}
 \label{sec:ablation_results}
 
-Table~\ref{tab:ablation_results} reports the four ablations on the validation split. Full TEF-RAG achieves a FlowComplete@5 of 0.4042. Removing learned pair proposal reduces it only to 0.4021, indicating that under a fixed pair budget, the proposal module contributes relatively little directly to final retrieval quality; its main value is to focus relation reasoning on more promising pairs. In contrast, removing relation-graph-derived features reduces FlowComplete@5 to 0.3667, showing that the set ranker does make use of graph-structural information.
+Table~\ref{tab:ablation_results} reports the four ablations on the validation split. Full TEF-RAG achieves a FlowComplete@5 of 0.4042. Removing learned pair proposal reduces it only to 0.4021, indicating that under a fixed pair budget, the proposal module contributes relatively little directly to final retrieval quality; its main value is to focus relation reasoning on more promising pairs. % AI-REVIEW [mechanistic over-attribution]: The ablation is consistent with graph features contributing to performance, but "showing that" states the internal mechanism more definitively.
+In contrast, removing relation-graph-derived features reduces FlowComplete@5 to 0.3667, \AIHL{showing that the set ranker does make use of graph-structural information}.
 
-The training objective and the ranker itself have a larger effect. Removing hard-negative mining reduces FlowComplete@5 from 0.4042 to 0.2833, while removing the nonlinear set ranker and falling back to the Stage-3A selector reduces it to 0.3125. These results indicate that final performance is not explained only by candidate recall or additional relation reasoning; it depends strongly on explicit learning from high-relevance but process-incomplete hard negatives and on nonlinear set-level ranking. Notably, removing the nonlinear ranker slightly increases nDCG@5 relative to the full model (0.6965 vs.\ 0.6885), while substantially decreasing Complete@5 and FlowComplete@5. This further supports that the method optimizes process completeness at the set level rather than conventional relevance ranking alone.
+The training objective and the ranker itself have a larger effect. Removing hard-negative mining reduces FlowComplete@5 from 0.4042 to 0.2833, while removing the nonlinear set ranker and falling back to the Stage-3A selector reduces it to 0.3125. % AI-REVIEW [over-attribution / strong modifier]: The ablations support an association with these components, but "depends strongly" is a stronger causal statement than the experiment directly establishes.
+These results indicate that final performance is not explained only by candidate recall or additional relation reasoning; \AIHL{it depends strongly on explicit learning from high-relevance but process-incomplete hard negatives and on nonlinear set-level ranking}. Notably, removing the nonlinear ranker slightly increases nDCG@5 relative to the full model (0.6965 vs.\ 0.6885), while substantially decreasing Complete@5 and FlowComplete@5. % AI-REVIEW [AI-like verb / inference strength]: "optimizes" is stronger than "is trained/evaluated for" and the sentence infers the objective from one ablation pattern.
+\AIHL{This further supports that the method optimizes process completeness at the set level rather than conventional relevance ranking alone.}
 
 \begin{table}[t]
 \caption{TEF-RAG ablation results on the validation split.}
@@ -64,12 +68,15 @@ w/o Nonlinear Ranker & 0.7070 & 0.6965 & 0.3188 & 0.3125 \\
 \subsection{Downstream Structured Generation Results}
 \label{sec:generation_results}
 
-Table~\ref{tab:generation_results} reports the four generation metrics that most directly answer whether better evidence flow improves the final work order and action plan.
+% AI-REVIEW [assumed premise]: "better evidence flow" presupposes the retrieval output is better before evaluating the downstream effect.
+Table~\ref{tab:generation_results} reports the four generation metrics that most directly answer whether \AIHL{better evidence flow improves the final work order and action plan}.
 Under the same generator, prompt, schema, and decoding settings, TEF-RAG achieves the highest value on all four metrics:
 Field Macro F1 of 0.5345, Action F1 of 0.2035, Citation F1 of 0.1585, and Plan EM (strict) of 0.0417.
 Compared with the strongest non-TEF baseline for each metric, TEF-RAG yields relative improvements of approximately 24.3\%, 26.9\%, and 121.8\% on Action F1, Citation F1, and Plan EM, respectively; Field Macro F1 improves by approximately 2.4\% over Temporal-BM25.
-These results show that the benefit of TEF-RAG is not limited to upstream retrieval hit rates, but transfers to the quality of key work-order fields, maintenance actions, and evidence citations.
-TEF-RAG improves field-level accuracy, action correctness, and plan-level consistency in the generated work orders.
+% AI-REVIEW [overclaim/causal transfer]: "show" and "transfers" imply a causal downstream effect; your bootstrap results also do not make every generation metric conclusive.
+\AIHL{These results show that the benefit of TEF-RAG is not limited to upstream retrieval hit rates, but transfers to the quality of key work-order fields, maintenance actions, and evidence citations.}
+% AI-REVIEW [overclaim]: This categorical summary is stronger than the metric-specific evidence; Field Macro F1 and Plan EM require especially careful statistical wording.
+\AIHL{TEF-RAG improves field-level accuracy, action correctness, and plan-level consistency in the generated work orders.}
 
 \begin{table}[t]
 \caption{Primary structured-generation metrics on the generation test set.}
@@ -109,5 +116,6 @@ Although the generation evaluation covers fields, actions, dependencies, and cit
 We presented TEF-RAG, which extends the retrieval objective for dynamic O\&M RAG from independent document relevance to a Temporal Evidence Flow that is visible at the query time, relation-consistent, and process-complete.
 On the frozen temporal-hard benchmark, TEF-RAG outperforms four comparison methods on Recall@5, nDCG@5, Complete@5, and FlowComplete@5.
 In the structured generation test with a fixed downstream generator, TEF-RAG also achieves the highest field-level match, Action F1, Citation F1, and strict Plan EM.
-These results indicate that retrieval over evidence sets and their temporal relations can improve the task-support context supplied to the generator and, in turn, increase the accuracy of work-order fields, maintenance actions, and evidence citations.
+% AI-REVIEW [causal chain / misleading "can"]: The sentence turns benchmark associations into a two-step causal chain ("can improve" -> "in turn, increase").
+\AIHL{These results indicate that retrieval over evidence sets and their temporal relations can improve the task-support context supplied to the generator and, in turn, increase the accuracy of work-order fields, maintenance actions, and evidence citations.}
 Future work should further integrate explicit planning and execution constraints.
