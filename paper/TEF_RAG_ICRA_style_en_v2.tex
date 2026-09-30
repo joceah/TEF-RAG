@@ -4,6 +4,10 @@
 
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{soul}
+\sethlcolor{yellow}
+\newcommand{\REV}[1]{\hl{#1}} % Temporary: highlights v2 revisions for comparison.
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{multirow}
@@ -44,7 +48,7 @@
 % Abstract
 % =========================================================
 \begin{abstract}
-Retrieval-augmented generation for embodied operation and maintenance (O\&M) in energy-storage stations must do more than retrieve records that are semantically relevant to a query. It must also ensure that the evidence was actually available at the query time and that the retrieved records can jointly support a complete process from state observation and diagnosis to action and verification. We propose TEF-RAG (Temporal Evidence Flow Retrieval-Augmented Generation), which formulates retrieval in dynamic O\&M environments as query-conditioned temporal evidence-flow selection. TEF-RAG first applies deterministic constraints on asset identity, event time, availability time, and procedure applicability. A learned pair proposal module then selects evidence pairs worth semantic relation reasoning, and a directed graph is constructed with relations such as support, update, qualification, supersession, and verification. Finally, a nonlinear RankNet learns set-level relative utility over candidate evidence sets and selects an evidence flow of at most five records with complementary roles and coherent relations. We construct a public-source-grounded benchmark with dual timestamps, supersession, cross-source complementary evidence, and persistent uncertainty, and compare different retrieval contexts under a shared downstream generator. On the test split, TEF-RAG obtains higher Complete@5 and FlowComplete@5 than the four comparison methods and also records higher point estimates on the four reported structured-generation metrics. The results support evaluating retrieval at the evidence-set level when temporal visibility and cross-record relations are part of the task definition.
+Retrieval-augmented generation for embodied operation and maintenance (O\&M) in energy-storage stations must do more than retrieve records that are semantically relevant to a query. It must also ensure that the evidence was actually available at the query time and that the retrieved records can jointly support a complete process from state observation and diagnosis to action and verification. We propose TEF-RAG (Temporal Evidence Flow Retrieval-Augmented Generation), which formulates retrieval in dynamic O\&M environments as query-conditioned temporal evidence-flow selection. TEF-RAG first applies deterministic constraints on asset identity, event time, availability time, and procedure applicability. A learned pair proposal module then selects evidence pairs worth semantic relation reasoning, and a directed graph is constructed with relations such as support, update, qualification, supersession, and verification. Finally, a nonlinear RankNet learns set-level relative utility over candidate evidence sets and selects an evidence flow of at most five records with complementary roles and coherent relations. We construct a public-source-grounded benchmark with dual timestamps, supersession, cross-source complementary evidence, and persistent uncertainty, and compare different retrieval contexts under a shared downstream generator. \REV{On the test split, TEF-RAG obtains higher Complete@5 and FlowComplete@5 than the four comparison methods and also records higher point estimates on the four reported structured-generation metrics. The results support evaluating retrieval at the evidence-set level when temporal visibility and cross-record relations are part of the task definition.}
 \end{abstract}
 
 \input{sections_en_v2/01_introduction_related.tex}
