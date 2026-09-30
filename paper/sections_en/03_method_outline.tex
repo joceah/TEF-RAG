@@ -36,7 +36,8 @@ In the final frozen configuration, a Top-30 search pool contains at most
 $\binom{30}{2}=435$ temporally ordered candidate evidence pairs,
 whereas the pair proposer retains only the 32 highest-scoring pairs for subsequent relation judging.
 Thus, when the search pool contains 30 records, the number of relation judgments is reduced by up to approximately 92.6\%.
-The primary role of pair proposal is therefore computational budget control: it focuses semantic relation reasoning on more promising evidence pairs while preserving the deterministic temporal direction constraint.
+% AI-REVIEW [AI-like word choice]: "promising" is evaluative and vague; later replace with a criterion tied to the proposer score.
+The primary role of pair proposal is therefore computational budget control: it focuses semantic relation reasoning on \AIHL{more promising evidence pairs} while preserving the deterministic temporal direction constraint.
 
 \subsection{Query-Conditioned Temporal Evidence Flow}
 
@@ -46,7 +47,8 @@ h_{\eta}(q,e_i,e_j)
 \rightarrow
 (r_{ij},c_{ij}),
 \end{equation}
-where $r_{ij}\in\Rels$ and $c_{ij}\in[0,1]$ is the relation confidence. Only pairs predicted to have a valid relation and exceeding the confidence threshold are added to the graph. If no sufficiently clear semantic relation is identified, the pair is discarded. The fixed prompt used by the relation judge is provided in Appendix~\ref{app:relation_prompt}.
+where $r_{ij}\in\Rels$ and $c_{ij}\in[0,1]$ is the relation confidence. Only pairs predicted to have a valid relation and exceeding the confidence threshold are added to the graph. % AI-REVIEW [vague threshold wording]: "sufficiently clear" is qualitative; the actual confidence threshold would be more precise.
+If no \AIHL{sufficiently clear semantic relation} is identified, the pair is discarded. The fixed prompt used by the relation judge is provided in Appendix~\ref{app:relation_prompt}.
 
 Candidate evidence records are treated as graph nodes, and identified semantic relations between two records are represented as directed edges. For query $q$, the Temporal Evidence Flow graph is
 \begin{equation}
@@ -60,9 +62,11 @@ Unlike a static knowledge graph, $\FlowGraph_q$ is query-conditioned: the same p
 
 \subsection{Candidate Evidence-Set Construction}
 
-After the relation graph is built, TEF-RAG compares different evidence combinations rather than continuing to rank individual records independently. Enumerating all five-record combinations from the full search pool is expensive, so we construct only a collection of promising candidate sets.
+After the relation graph is built, TEF-RAG compares different evidence combinations rather than continuing to rank individual records independently. % AI-REVIEW [AI-like word choice]: "promising" is vague because the candidate-set construction criteria are described only afterward.
+Enumerating all five-record combinations from the full search pool is expensive, so we construct only a collection of \AIHL{promising candidate sets}.
 
-Specifically, we enumerate five-record combinations from the highest-scoring evidence nodes to cover different combinations of highly relevant records. We also retain high-quality sets produced by earlier search stages and perform single-record replacements around these sets, allowing lower-ranked evidence that fills a critical task role to enter the candidate bank.
+Specifically, we enumerate five-record combinations from the highest-scoring evidence nodes to cover different combinations of highly relevant records. % AI-REVIEW [vague/overweighted adjectives]: "high-quality" and "critical" sound evaluative without an immediately stated operational criterion.
+We also retain \AIHL{high-quality sets} produced by earlier search stages and perform single-record replacements around these sets, allowing lower-ranked evidence that fills a \AIHL{critical task role} to enter the candidate bank.
 
 For each set $\Selected$, we extract a set-level representation $\phi_s(q,\Selected,\FlowGraph_q)$. The final model uses 62 features covering:
 \begin{itemize}
@@ -76,7 +80,8 @@ Together, these features describe whether the selected evidence forms a complete
 
 \subsection{Nonlinear Pairwise Set Ranking}
 
-The final ranker is a small nonlinear RankNet~\cite{burges2005ranknet}. Let
+% AI-REVIEW [vague adjective]: "small" is not informative unless the architecture/parameter count is stated.
+The final ranker is a \AIHL{small} nonlinear RankNet~\cite{burges2005ranknet}. Let
 \begin{equation}
 s_{\theta}(q,\Selected)
 =
@@ -87,7 +92,8 @@ s_{\theta}(q,\Selected)
 \end{equation}
 The final stage uses pairwise preference learning over evidence sets. For the same query, the candidate bank typically contains multiple complete sets and multiple incomplete sets. We construct training pairs
 $(\Selected_i^+,\Selected_j^-)$,
-where $\Selected_i^+$ is a candidate set that can form a complete reference evidence flow and $\Selected_j^-$ is a candidate set that misses critical evidence or contains an incomplete relation structure.
+% AI-REVIEW [AI-like word choice]: "critical" is stronger than necessary; the gold-flow definition can state exactly what is missing.
+where $\Selected_i^+$ is a candidate set that can form a complete reference evidence flow and $\Selected_j^-$ is a candidate set that misses \AIHL{critical evidence} or contains an incomplete relation structure.
 
 For each training pair, the ranker is trained to assign a higher score to the complete set:
 \begin{equation}
@@ -112,9 +118,11 @@ The final objective averages the loss across all training pairs:
 \end{equation}
 where $\mathcal{P}$ denotes all candidate-set pairs constructed during training.
 
-In the first training round, negative samples are prioritized using a rule-based set score. This score combines individual evidence quality, internal set relations, task-role coverage, content redundancy, and isolated evidence; its complete definition is given in Appendix~\ref{app:hand_score}. These sets often contain several highly relevant records but still miss critical evidence or relations, making them harder to distinguish than random negatives. A small number of compositionally diverse negative sets are also retained to increase training diversity.
+In the first training round, negative samples are prioritized using a rule-based set score. This score combines individual evidence quality, internal set relations, task-role coverage, content redundancy, and isolated evidence; its complete definition is given in Appendix~\ref{app:hand_score}. % AI-REVIEW [AI-like word choice]: "critical" is vague here; consider referring to required evidence categories/relations.
+These sets often contain several highly relevant records but still miss \AIHL{critical evidence or relations}, making them harder to distinguish than random negatives. A small number of compositionally diverse negative sets are also retained to increase training diversity.
 
-After the first training round, the current ranker rescoring is applied to all negative sets, and the highest-scoring failed sets are selected as hard negatives. Although these sets are known not to form a complete reference evidence flow, the current model is most likely to rank them near the top. A second training round with these hard negatives further teaches the ranker to distinguish complete from incomplete evidence sets.
+After the first training round, the current ranker rescoring is applied to all negative sets, and the highest-scoring failed sets are selected as hard negatives. Although these sets are known not to form a complete reference evidence flow, the current model is most likely to rank them near the top. % AI-REVIEW [anthropomorphic/generic phrasing]: "teaches the ranker" is informal and can be stated directly as an optimization/training effect.
+A second training round with these hard negatives \AIHL{further teaches the ranker} to distinguish complete from incomplete evidence sets.
 
 \subsection{Interface to the Embodied O\&M Generator}
 
