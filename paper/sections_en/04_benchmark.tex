@@ -64,14 +64,17 @@ Public sources are used only to constrain cell type, typical operating ranges, a
 
 \subsection{Structured Generation Evaluation}
 
-To test whether improvements in retrieval quality further improve downstream generation, we construct structured generation reference answers (generation gold) on the same set of O\&M event chains. These reference answers are generated with AI assistance and finalized through multiple rounds of review, consistency checking, and disagreement adjudication.
+% AI-REVIEW [assumed premise/circular wording]: This phrasing assumes retrieval has already improved and then asks whether the improvement improves generation; a neutral experimental objective would avoid that premise.
+To test whether \AIHL{improvements in retrieval quality further improve downstream generation}, we construct structured generation reference answers (generation gold) on the same set of O\&M event chains. % AI-REVIEW [unstated agent / possible misleading implication]: "review" and "disagreement adjudication" do not specify who reviewed or what disagreement was adjudicated; this can imply independent human validation if left undefined.
+These reference answers are generated with AI assistance and \AIHL{finalized through multiple rounds of review, consistency checking, and disagreement adjudication}.
 
 Each task intent corresponds to one structured reference answer. Because the two queries under the same intent differ only in wording while requiring the same diagnosis, action, and verification information, they share the same reference answer. The development, validation, and test sets therefore contain 720, 240, and 240 structured reference answers, corresponding to 1,440, 480, and 480 queries, respectively. Each output has two parts: a standardized \texttt{work\_order} and an \texttt{action\_plan}. The work order describes the diagnosis, recommended actions, applicable procedure, verification/uncertainty status, and evidence citations; the action plan consists of atomic actions and their dependencies.
 
 \subsection{Baselines}
 \label{sec:baselines}
 
-To ensure that comparisons reflect only differences in retrieval strategy, all methods first operate on the same legal evidence snapshot. We retain only records for the target asset satisfying
+% AI-REVIEW [absolute claim]: "only differences" is stronger than the experimental control directly guarantees, especially when baseline-specific processing differs.
+To ensure that comparisons reflect \AIHL{only differences in retrieval strategy}, all methods first operate on the same legal evidence snapshot. We retain only records for the target asset satisfying
 $t_e(e)\le t_q$ and $t_a(e)\le t_q$, and apply the same version-validity, withdrawal-status, and model-applicability constraints to procedure evidence. We compare five methods under this shared setup, with a final retrieval budget of at most five evidence records for every method.
 
 \textbf{BM25.}
@@ -89,7 +92,8 @@ s_{\mathrm{TBM25}}(e,q)
 +
 (1-\lambda)\,s_{\mathrm{time}}(e,q),
 \end{equation}
-where $\widetilde{s}_{\mathrm{BM25}}$ is the normalized BM25 score and $s_{\mathrm{time}}$ measures the match between the evidence event time and the target time implied by expressions such as years, time intervals, before/after, and current/latest in the query. For queries without explicit temporal intent, the temporal term is set to a constant, preserving the original BM25 ranking. Before final test evaluation, we compare $\lambda\in\{0.25,0.50,0.75\}$ during parameter selection and freeze the best value, $\lambda=0.25$, for subsequent evaluation.
+where $\widetilde{s}_{\mathrm{BM25}}$ is the normalized BM25 score and $s_{\mathrm{time}}$ measures the match between the evidence event time and the target time implied by expressions such as years, time intervals, before/after, and current/latest in the query. For queries without explicit temporal intent, the temporal term is set to a constant, preserving the original BM25 ranking. % AI-REVIEW [underspecified evaluative term]: "best" does not state which validation metric or selection rule determined the choice.
+Before final test evaluation, we compare $\lambda\in\{0.25,0.50,0.75\}$ during parameter selection and freeze the \AIHL{best value}, $\lambda=0.25$, for subsequent evaluation.
 
 \textbf{TA-RAG.}
 We adopt the Time-Aware RAG method of Lau et al.~\cite{lau2025tarag}. The method first decomposes a query into its topic and target time range, then restricts candidate documents using temporal-interval filtering and performs semantic retrieval and BGE reranking within the temporal candidate set. To adapt TA-RAG to our discrete O\&M events, the \texttt{event\_time} of each evidence record is mapped to a one-second half-open interval, and relative temporal expressions in a query are interpreted with $t_q$ as the reference time. In addition, the TA-RAG index is built only over the legal evidence snapshot for the current query, preventing future records from affecting retrieval. The LLM call used for temporal decomposition is made through the official DeepSeek API with \texttt{deepseek-flash}; sampling and decoding parameters are not manually overridden and therefore follow the API defaults. Apart from this backend substitution, the temporal decomposition, interval filtering, Nomic embedding, FAISS retrieval, and BGE reranking pipeline follows the public implementation.
@@ -98,7 +102,8 @@ We adopt the Time-Aware RAG method of Lau et al.~\cite{lau2025tarag}. The method
 Our method further applies learned evidence-pair screening, query-conditioned relation-graph construction, and nonlinear set-level ranking over the same legal evidence snapshot, and returns the candidate set with the highest overall evidence-flow score.
 
 \textbf{Scope of Comparison.}
-MDR, IRCoT, RAPTOR, GraphRAG, and HippoRAG are discussed in related work as representative multi-hop or graph-based retrieval methods, but their standard formulations do not jointly enforce the dual-time visibility, procedure-validity, and fixed Top-5 evidence-set constraints used in our benchmark. Including them in the main comparison would therefore require substantial task-specific adaptation rather than direct reproduction. We treat them as related methods in this study and leave a unified adapted comparison to future work.
+MDR, IRCoT, RAPTOR, GraphRAG, and HippoRAG are discussed in related work as representative multi-hop or graph-based retrieval methods, but their standard formulations do not jointly enforce the dual-time visibility, procedure-validity, and fixed Top-5 evidence-set constraints used in our benchmark. % AI-REVIEW [vague degree modifier]: "substantial" is evaluative; later revision could state the concrete adaptations that would be required.
+Including them in the main comparison would therefore require \AIHL{substantial task-specific adaptation} rather than direct reproduction. We treat them as related methods in this study and leave a unified adapted comparison to future work.
 
 \subsection{Evaluation Metrics}
 \label{sec:metrics}
@@ -111,10 +116,12 @@ We report four primary metrics in the main text: Field Macro F1 (strict), Action
 
 \subsection{Ablation Setup}
 
-To analyze which components contribute to the final performance, we conduct four frozen ablations on 480 validation queries: removing learned pair proposal, removing relation-graph-derived set features, removing hard-negative mining, and removing the nonlinear set ranker. The full model and all variants share the same Top-30 search pool, pair budget, relation prompt/threshold, and candidate-set definition. The graph-feature ablation removes only relation-graph-derived set features and retrains the same RankNet; the hard-negative ablation keeps only the first training round; and the nonlinear-ranker ablation falls back to the frozen Stage-3A selector. No new hyperparameter search is performed for these ablations, and no new test predictions are run or test gold accessed. The ablations are therefore used only for component attribution and not to reselect the final test configuration.
+% AI-REVIEW [tense]: This describes experiments already carried out; your review guideline prefers past tense for completed experimental procedures.
+To analyze which components contribute to the final performance, \AIHL{we conduct four frozen ablations} on 480 validation queries: removing learned pair proposal, removing relation-graph-derived set features, removing hard-negative mining, and removing the nonlinear set ranker. The full model and all variants share the same Top-30 search pool, pair budget, relation prompt/threshold, and candidate-set definition. The graph-feature ablation removes only relation-graph-derived set features and retrains the same RankNet; the hard-negative ablation keeps only the first training round; and the nonlinear-ranker ablation falls back to the frozen Stage-3A selector. No new hyperparameter search is performed for these ablations, and no new test predictions are run or test gold accessed. The ablations are therefore used only for component attribution and not to reselect the final test configuration.
 
 \subsection{Experimental Controls}
 
 Development, validation, and final test data are strictly separated for retrieval. All model selection and training use only development/validation information, and the final test is evaluated once after the configuration is frozen.
 All LLM calls in this study, including TEF relation judging, TA-RAG temporal decomposition, and downstream structured generation, directly use the official DeepSeek API with \texttt{deepseek-flash}. Apart from the fixed task prompts and input schemas, sampling and decoding parameters are not manually overridden and therefore follow the API defaults.
-For generation comparison, all methods use the same downstream generator, prompt/schema, and model configuration; only the retrieved evidence supplied to the generator changes. This design attributes downstream generation differences to retrieval-context quality rather than generator configuration.
+For generation comparison, all methods use the same downstream generator, prompt/schema, and model configuration; only the retrieved evidence supplied to the generator changes. % AI-REVIEW [over-attribution]: The controls reduce generator-side confounds, but "attributes ... to" reads as a causal exclusion of all other sources of variation.
+\AIHL{This design attributes downstream generation differences to retrieval-context quality rather than generator configuration.}
