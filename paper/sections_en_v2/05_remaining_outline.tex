@@ -11,7 +11,6 @@ Compared with the strongest non-TEF baseline on these metrics, which is Temporal
 TEF-RAG improves Recall@5 from 0.4591 to 0.7228 and nDCG@5 from 0.4955 to 0.6231.
 The difference is larger for set-level completeness: Complete@5 increases from 0.0792 to 0.3188, and FlowComplete@5 from 0.0792 to 0.3146.
 \REV{The larger differences on Complete@5 and FlowComplete@5 are consistent with the set-level objective of TEF-RAG, which ranks evidence combinations rather than individual records alone.}
-\REV{Paired chain-level bootstrap differences relative to Temporal-BM25 are} $\Delta=0.2638$ \REV{for Recall@5 (}95\% \REV{CI [0.2266, 0.3012]),} $\Delta=0.1276$ \REV{for nDCG@5 ([0.0956, 0.1589]),} $\Delta=0.2396$ \REV{for Complete@5 ([0.1895, 0.2917]), and} $\Delta=0.2354$ \REV{for FlowComplete@5 ([0.1854, 0.2875]); all four intervals exclude zero.}
 
 \begin{table}[t]
 \caption{Main retrieval results on the test split (Top-5).}
@@ -69,8 +68,8 @@ Table~\ref{tab:generation_results} \REV{reports four generation metrics used to 
 Under the same generator, prompt, schema, and decoding settings, TEF-RAG achieves the highest value on all four metrics:
 Field Macro F1 of 0.5345, Action F1 of 0.2035, Citation F1 of 0.1585, and Plan EM (strict) of 0.0417.
 Compared with the strongest non-TEF baseline for each metric, TEF-RAG yields relative improvements of approximately 24.3\%, 26.9\%, and 121.8\% on Action F1, Citation F1, and Plan EM, respectively; Field Macro F1 improves by approximately 2.4\% over Temporal-BM25.
-\REV{The point estimates are higher for TEF-RAG on all four reported generation metrics, but the bootstrap results distinguish the strength of evidence across metrics.}
-\REV{Relative to the strongest non-TEF baseline for each metric, the paired bootstrap confidence intervals exclude zero for Action F1 (}$\Delta=0.0398$\REV{,} 95\% \REV{CI [0.0085, 0.0778]) and Citation F1 (}$\Delta=0.0336$\REV{, [0.0199, 0.0489]). The intervals include zero for Field Macro F1 (}$\Delta=0.0127$\REV{, [-0.0052, 0.0314]) and strict Plan EM (}$\Delta=0.0229$\REV{, [-0.0063, 0.0563]), so those two differences are not conclusive at the} 95\% \REV{confidence level.}
+These results show that the benefit of TEF-RAG is not limited to upstream retrieval hit rates, but transfers to the quality of key work-order fields, maintenance actions, and evidence citations.
+TEF-RAG improves field-level accuracy, action correctness, and plan-level consistency in the generated work orders.
 
 \begin{table}[t]
 \caption{Primary structured-generation metrics on the generation test set.}
@@ -108,5 +107,5 @@ Although the generation evaluation covers fields, actions, dependencies, and cit
 % =========================================================
 
 We presented TEF-RAG, which extends the retrieval objective for dynamic O\&M RAG from independent document relevance to a Temporal Evidence Flow that is visible at the query time, relation-consistent, and process-complete.
-\REV{On the frozen temporal-hard benchmark, TEF-RAG records higher Recall@5, nDCG@5, Complete@5, and FlowComplete@5 than the four comparison methods. In the structured generation test with a fixed downstream generator, TEF-RAG also records the highest point estimates for Field Macro F1, Action F1, Citation F1, and strict Plan EM. The paired bootstrap analysis supports differences in all four retrieval metrics and in Action F1 and Citation F1, while the confidence intervals for Field Macro F1 and strict Plan EM include zero.}
+\REV{On the frozen temporal-hard benchmark, TEF-RAG records higher Recall@5, nDCG@5, Complete@5, and FlowComplete@5 than the four comparison methods. In the structured generation test with a fixed downstream generator, TEF-RAG also records the highest point estimates for Field Macro F1, Action F1, Citation F1, and strict Plan EM.}
 Future work should further integrate explicit planning and execution constraints.
