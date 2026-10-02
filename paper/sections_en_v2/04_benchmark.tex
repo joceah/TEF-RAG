@@ -34,14 +34,14 @@ Chain & A complete O\&M event process \\
 Evidence & An atomic retrievable record with event time and availability time \\
 Intent & A distinct O\&M information need defined on the same chain \\
 Query & A differently worded query expressing the same intent \\
-Gold flow & Key evidence requirements and their relation constraints \\
+\REV{Reference flow} & Key evidence requirements and their relation constraints \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 The full benchmark contains 400 O\&M event chains, 3,888 evidence records, 1,200 task intents, and 2,400 queries, involving 100 target assets. Development, validation, and test sets are split at the complete event-chain level. All queries derived from the same event chain appear in only one data split, preventing the same event content from appearing in both training and test data through different phrasings.
 
-The benchmark further contains two difficulty layers, each with 200 event chains. The Realistic Distribution Set mainly covers more common temporal and O\&M combinations, while the Temporal-Hard Challenge Set deliberately increases difficult cases involving late-arriving evidence, supersession, multi-episode ambiguity, cross-source complementary evidence, and persistent uncertainty.
+\REV{To evaluate retrieval under both ordinary and deliberately difficult temporal conditions, we divide the 400 event chains evenly into two difficulty strata. The standard subset contains relatively common combinations of temporal and O\&M conditions. The temporal-hard subset increases the frequency of cases involving late-arriving evidence, supersession, multi-episode ambiguity, cross-source complementary evidence, and persistent uncertainty.}
 
 \begin{table*}[t]
 \caption{Scale and split of TEF-RAG v6 Semantic Benchmark v1.}
@@ -64,18 +64,18 @@ Public sources are used only to constrain cell type, typical operating ranges, a
 
 \subsection{Structured Generation Evaluation}
 
-\REV{To evaluate how retrieval context is reflected in downstream generation, we construct structured generation reference answers (generation gold) on the same set of} O\&M \REV{event chains.} \REV{These reference answers are generated with AI assistance and finalized after repeated consistency checks against the constructed event chains and output schema.}
+\REV{To evaluate how retrieval context is reflected in downstream generation, we construct structured reference answers on the same set of O\&M event chains. These reference answers are generated with AI assistance and finalized after repeated consistency checks against the constructed event chains and the required output format.}
 
 Each task intent corresponds to one structured reference answer. Because the two queries under the same intent differ only in wording while requiring the same diagnosis, action, and verification information, they share the same reference answer. The development, validation, and test sets therefore contain 720, 240, and 240 structured reference answers, corresponding to 1,440, 480, and 480 queries, respectively. Each output has two parts: a standardized work order and an action plan. The work order describes the diagnosis, recommended actions, applicable procedure, verification/uncertainty status, and evidence citations; the action plan consists of atomic actions and their dependencies.
 
 \subsection{Baselines}
 \label{sec:baselines}
 
-\REV{To reduce confounding from differences outside the retrieval strategy, all methods first operate on the same legal evidence snapshot.} We retain only records for the target asset satisfying
+\REV{To reduce confounding from differences outside the retrieval strategy, all methods first operate on the same evidence set that is eligible at the query time.} We retain only records for the target asset satisfying
 $t_e(e)\le t_q$ and $t_a(e)\le t_q$, and apply the same version-validity, withdrawal-status, and model-applicability constraints to procedure evidence. We compare five methods under this shared setup, with a final retrieval budget of at most five evidence records for every method.
 
 \textbf{BM25.}
-We use standard BM25 as the lexical retrieval baseline~\cite{robertson2009bm25}. A separate index is built over the legal evidence snapshot for each query, with fixed parameters $k_1=1.5$ and $b=0.75$, and the five highest-scoring evidence records are returned directly.
+We use standard BM25 as the lexical retrieval baseline~\cite{robertson2009bm25}. \REV{For each query, a separate index is built over the eligible evidence set,} with fixed parameters $k_1=1.5$ and $b=0.75$, and the five highest-scoring evidence records are returned directly.
 
 \textbf{BGE Reranker.}
 We first retrieve the Top-30 candidates using the same BM25 setup and then use \texttt{BAAI/bge-reranker-v2-m3} to rescore each $(\text{query},\text{evidence})$ text pair~\cite{chen2024bgem3,flagembedding2026reranker}. The top five records under the reranking score are selected. This baseline tests whether a general-purpose semantic reranker can compensate for the limitations of purely lexical retrieval.
@@ -89,13 +89,13 @@ s_{\mathrm{TBM25}}(e,q)
 +
 (1-\lambda)\,s_{\mathrm{time}}(e,q),
 \end{equation}
-where $\widetilde{s}_{\mathrm{BM25}}$ is the normalized BM25 score and $s_{\mathrm{time}}$ measures the match between the evidence event time and the target time implied by expressions such as years, time intervals, before/after, and current/latest in the query. For queries without explicit temporal intent, the temporal term is set to a constant, preserving the original BM25 ranking. \REV{Before final test evaluation, we compare} $\lambda\in\{0.25,0.50,0.75\}$ \REV{on validation data, select} $\lambda=0.25$, \REV{and freeze this value for subsequent evaluation.}
+where $\widetilde{s}_{\mathrm{BM25}}$ is the normalized BM25 score and $s_{\mathrm{time}}$ measures the match between the evidence event time and the target time implied by expressions such as years, time intervals, before/after, and current/latest in the query. For queries without explicit temporal intent, the temporal term is set to a constant, preserving the original BM25 ranking. \REV{Before final test evaluation, we compare} $\lambda\in\{0.25,0.50,0.75\}$ \REV{on validation data, select} $\lambda=0.25$, \REV{and fix this value for subsequent evaluation.}
 
 \textbf{TA-RAG.}
-We adopt the Time-Aware RAG method of Lau et al.~\cite{lau2025tarag}. The method first decomposes a query into its topic and target time range, then restricts candidate documents using temporal-interval filtering and performs semantic retrieval and BGE reranking within the temporal candidate set. To adapt TA-RAG to our discrete O\&M events, the \texttt{event\_time} of each evidence record is mapped to a one-second half-open interval, and relative temporal expressions in a query are interpreted with $t_q$ as the reference time. In addition, the TA-RAG index is built only over the legal evidence snapshot for the current query, preventing future records from affecting retrieval. The LLM call used for temporal decomposition is made through the official DeepSeek API with \texttt{deepseek-flash}; sampling and decoding parameters are not manually overridden and therefore follow the API defaults. Apart from this backend substitution, the temporal decomposition, interval filtering, Nomic embedding, FAISS retrieval, and BGE reranking pipeline follows the public implementation.
+We adopt the Time-Aware RAG method of Lau et al.~\cite{lau2025tarag}. The method first decomposes a query into its topic and target time range, then restricts candidate documents using temporal-interval filtering and performs semantic retrieval and BGE reranking within the temporal candidate set. \REV{To adapt TA-RAG to our discrete O\&M events, each event time} $t_e(e)$ \REV{is represented as a one-second half-open interval, and relative temporal expressions in a query are interpreted with} $t_q$ \REV{as the reference time.} \REV{In addition, the TA-RAG index is built only from evidence that satisfies the same temporal and procedure-applicability constraints as the other methods, preventing future records from affecting retrieval.} The LLM call used for temporal decomposition is made through the official DeepSeek API with \texttt{deepseek-flash}; sampling and decoding parameters are not manually overridden and therefore follow the API defaults. \REV{Apart from substituting the language model used for temporal decomposition, the temporal decomposition, interval filtering, Nomic embedding, FAISS retrieval, and BGE reranking pipeline follows the public implementation.}
 
 \textbf{TEF-RAG.}
-Our method further applies learned evidence-pair screening, query-conditioned relation-graph construction, and nonlinear set-level ranking over the same legal evidence snapshot, and returns the candidate set with the highest overall evidence-flow score.
+\REV{Our method applies learned evidence-pair screening, query-conditioned relation-graph construction, and nonlinear set-level ranking to the same eligible evidence set, and returns the candidate set with the highest overall evidence-flow score.}
 
 \textbf{Scope of Comparison.}
 MDR, IRCoT, RAPTOR, GraphRAG, and HippoRAG are discussed in related work as representative multi-hop or graph-based retrieval methods, but their standard formulations do not jointly enforce the dual-time visibility, procedure-validity, and fixed Top-5 evidence-set constraints used in our benchmark. \REV{Including them in the main comparison would therefore require task-specific changes to enforce the same temporal-visibility, procedure-validity, and output-budget constraints rather than direct reproduction.} We treat them as related methods in this study and leave a unified adapted comparison to future work.
@@ -111,10 +111,10 @@ We report four primary metrics in the main text: Field Macro F1 (strict), Action
 
 \subsection{Ablation Setup}
 
-\REV{To analyze the contribution of individual components, we conducted four frozen ablations on 480 validation queries: removing learned pair proposal, removing relation-graph-derived set features, removing hard-negative mining, and removing the nonlinear set ranker.} The full model and all variants share the same Top-30 search pool, pair budget, relation prompt/threshold, and candidate-set definition. The graph-feature ablation removes only relation-graph-derived set features and retrains the same RankNet; the hard-negative ablation keeps only the first training round; and the nonlinear-ranker ablation falls back to the frozen Stage-3A selector. No new hyperparameter search is performed for these ablations, and no new test predictions are run or test gold accessed. The ablations are therefore used only for component attribution and not to reselect the final test configuration.
+\REV{To analyze the contribution of individual components, we conducted four ablations on 480 validation queries: removing learned pair proposal, removing relation-graph-derived set features, removing hard-negative mining, and removing the nonlinear set ranker. The full model and all variants use the same Top-30 search pool, the same maximum number of evidence pairs sent to relation judging, the same relation-judging prompt and confidence threshold, and the same candidate-set construction procedure. The graph-feature ablation removes only relation-graph-derived set features and retrains the same RankNet; the hard-negative ablation keeps only the first training round; and the nonlinear-ranker ablation removes the learned set ranker and uses the preceding greedy evidence-set selector instead. No additional hyperparameter search was performed for these ablations, and the test reference annotations were not consulted. The ablations are therefore used only to examine component effects and not to reselect the final test configuration.}
 
 \subsection{Experimental Controls}
 
-\REV{Development, validation, and final test data were strictly separated for retrieval. All model selection and training used only development/validation information, and the final test was evaluated once after the configuration was frozen.}
-\REV{All LLM calls in this study, including TEF relation judging, TA-RAG temporal decomposition, and downstream structured generation, used the official DeepSeek API with} \texttt{deepseek-flash}. \REV{Apart from the fixed task prompts and input schemas, sampling and decoding parameters were not manually overridden and therefore followed the API defaults.}
-\REV{For generation comparison, all methods used the same downstream generator, prompt/schema, and model configuration; only the retrieved evidence supplied to the generator changed. Holding the generator configuration fixed reduced generator-side variation across retrieval methods, so the comparison focused on changes in the supplied retrieval context.}
+\REV{Development, validation, and final test data were strictly separated for retrieval. All model selection and training used only development/validation information, and the final test was evaluated once after the configuration had been fixed.}
+\REV{All LLM calls in this study, including TEF relation judging, TA-RAG temporal decomposition, and downstream structured generation, used the official DeepSeek API with} \texttt{deepseek-flash}. \REV{Apart from the fixed task prompts and input formats, sampling and decoding parameters were not manually overridden and therefore followed the API defaults.}
+\REV{For generation comparison, all methods used the same downstream generator, prompt, output format, and model configuration; only the retrieved evidence supplied to the generator changed. Holding the generator configuration fixed reduced generator-side variation across retrieval methods, so the comparison focused on changes in the supplied retrieval context.}
