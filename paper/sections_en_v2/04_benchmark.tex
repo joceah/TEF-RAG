@@ -34,14 +34,14 @@ Chain & A complete O\&M event process \\
 Evidence & An atomic retrievable record with event time and availability time \\
 Intent & A distinct O\&M information need defined on the same chain \\
 Query & A differently worded query expressing the same intent \\
-\REV{Reference flow} & Key evidence requirements and their relation constraints \\
+Reference flow & Key evidence requirements and their relation constraints \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 The full benchmark contains 400 O\&M event chains, 3,888 evidence records, 1,200 task intents, and 2,400 queries, involving 100 target assets. Development, validation, and test sets are split at the complete event-chain level. All queries derived from the same event chain appear in only one data split, preventing the same event content from appearing in both training and test data through different phrasings.
 
-\REV{To evaluate retrieval under both ordinary and deliberately difficult temporal conditions, we divide the 400 event chains evenly into two difficulty strata. The standard subset contains relatively common combinations of temporal and O\&M conditions. The temporal-hard subset increases the frequency of cases involving late-arriving evidence, supersession, multi-episode ambiguity, cross-source complementary evidence, and persistent uncertainty.}
+To evaluate retrieval under both ordinary and deliberately difficult temporal conditions, we divide the 400 event chains evenly into two difficulty strata. The standard subset contains relatively common combinations of temporal and O\&M conditions. The temporal-hard subset increases the frequency of cases involving late-arriving evidence, supersession, multi-episode ambiguity, cross-source complementary evidence, and persistent uncertainty.
 
 \begin{table*}[t]
 \caption{Scale and split of TEF-RAG v6 Semantic Benchmark v1.}
@@ -64,18 +64,18 @@ Public sources are used only to constrain cell type, typical operating ranges, a
 
 \subsection{Structured Generation Evaluation}
 
-\REV{To evaluate how retrieval context is reflected in downstream generation, we construct structured reference answers on the same set of O\&M event chains. These reference answers are generated with AI assistance and finalized after repeated consistency checks against the constructed event chains and the required output format.}
+To evaluate how retrieval context is reflected in downstream generation, we construct structured reference answers on the same set of O\&M event chains. These reference answers are generated with AI assistance and finalized after repeated consistency checks against the constructed event chains and the required output format.
 
 Each task intent corresponds to one structured reference answer. Because the two queries under the same intent differ only in wording while requiring the same diagnosis, action, and verification information, they share the same reference answer. The development, validation, and test sets therefore contain 720, 240, and 240 structured reference answers, corresponding to 1,440, 480, and 480 queries, respectively. Each output has two parts: a standardized work order and an action plan. The work order describes the diagnosis, recommended actions, applicable procedure, verification/uncertainty status, and evidence citations; the action plan consists of atomic actions and their dependencies.
 
 \subsection{Baselines}
 \label{sec:baselines}
 
-\REV{To reduce confounding from differences outside the retrieval strategy, all methods first operate on the same evidence set that is eligible at the query time.} We retain only records for the target asset satisfying
+To reduce confounding from differences outside the retrieval strategy, all methods first operate on the same evidence set that is eligible at the query time. We retain only records for the target asset satisfying
 $t_e(e)\le t_q$ and $t_a(e)\le t_q$, and apply the same version-validity, withdrawal-status, and model-applicability constraints to procedure evidence. We compare five methods under this shared setup, with a final retrieval budget of at most five evidence records for every method.
 
 \textbf{BM25.}
-We use standard BM25 as the lexical retrieval baseline~\cite{robertson2009bm25}. \REV{For each query, a separate index is built over the eligible evidence set,} with fixed parameters $k_1=1.5$ and $b=0.75$, and the five highest-scoring evidence records are returned directly.
+We use standard BM25 as the lexical retrieval baseline~\cite{robertson2009bm25}. For each query, a separate index is built over the eligible evidence set, with fixed parameters $k_1=1.5$ and $b=0.75$, and the five highest-scoring evidence records are returned directly.
 
 \textbf{BGE Reranker.}
 We first retrieve the Top-30 candidates using the same BM25 setup and then use \texttt{BAAI/bge-reranker-v2-m3} to rescore each $(\text{query},\text{evidence})$ text pair~\cite{chen2024bgem3,flagembedding2026reranker}. The top five records under the reranking score are selected. This baseline tests whether a general-purpose semantic reranker can compensate for the limitations of purely lexical retrieval.
@@ -89,14 +89,14 @@ s_{\mathrm{TBM25}}(e,q)
 +
 (1-\lambda)\,s_{\mathrm{time}}(e,q),
 \end{equation}
-where $\widetilde{s}_{\mathrm{BM25}}$ is the normalized BM25 score and $s_{\mathrm{time}}$ measures the match between the evidence event time and the target time implied by expressions such as years, time intervals, before/after, and current/latest in the query. For queries without explicit temporal intent, the temporal term is set to a constant, preserving the original BM25 ranking. \REV{Before final test evaluation, we compare} $\lambda\in\{0.25,0.50,0.75\}$ \REV{on validation data, select} $\lambda=0.25$, \REV{and fix this value for subsequent evaluation.}
+where $\widetilde{s}_{\mathrm{BM25}}$ is the normalized BM25 score and $s_{\mathrm{time}}$ measures the match between the evidence event time and the target time implied by expressions such as years, time intervals, before/after, and current/latest in the query. For queries without explicit temporal intent, the temporal term is set to a constant, preserving the original BM25 ranking. Before final test evaluation, we compare $\lambda\in\{0.25,0.50,0.75\}$ on validation data, select $\lambda=0.25$, and fix this value for subsequent evaluation.
 
 \textbf{TA-RAG.}
-We adopt the Time-Aware RAG method of Lau et al.~\cite{lau2025tarag}. The method first decomposes a query into its topic and target time range, then restricts candidate documents using temporal-interval filtering and performs semantic retrieval and BGE reranking within the temporal candidate set. \REV{To adapt TA-RAG to our discrete O\&M events, each event time} $t_e(e)$ \REV{is represented as a one-second half-open interval, and relative temporal expressions in a query are interpreted with} $t_q$ \REV{as the reference time.} \REV{In addition, the TA-RAG index is built only from evidence that satisfies the same temporal and procedure-applicability constraints as the other methods, preventing future records from affecting retrieval.} 
-\REV{Apart from substituting the language model used for temporal decomposition, the temporal decomposition, interval filtering, Nomic embedding, FAISS retrieval, and BGE reranking pipeline follows the public implementation.}
+We adopt the Time-Aware RAG method of Lau et al.~\cite{lau2025tarag}. The method first decomposes a query into its topic and target time range, then restricts candidate documents using temporal-interval filtering and performs semantic retrieval and BGE reranking within the temporal candidate set. To adapt TA-RAG to our discrete O\&M events, each event time $t_e(e)$ is represented as a one-second half-open interval, and relative temporal expressions in a query are interpreted with $t_q$ as the reference time. In addition, the TA-RAG index is built only from evidence that satisfies the same temporal and procedure-applicability constraints as the other methods, preventing future records from affecting retrieval. 
+Apart from substituting the language model used for temporal decomposition, the temporal decomposition, interval filtering, Nomic embedding, FAISS retrieval, and BGE reranking pipeline follows the public implementation.
 
 \textbf{TEF-RAG.}
-\REV{Our method applies learned evidence-pair screening, query-conditioned relation-graph construction, and nonlinear set-level ranking to the same eligible evidence set, and returns the candidate set with the highest overall evidence-flow score.}
+Our method applies learned evidence-pair screening, query-conditioned relation-graph construction, and nonlinear set-level ranking to the same eligible evidence set, and returns the candidate set with the highest overall evidence-flow score.
 
 \subsection{Evaluation Metrics}
 \label{sec:metrics}
@@ -109,4 +109,4 @@ We report four primary metrics in the main text: Field Macro F1 (strict), Action
 
 \subsection{Ablation Setup}
 
-\REV{To analyze the contribution of individual components, we conducted four ablations on 480 validation queries: removing learned pair proposal, removing relation-graph-derived set features, removing hard-negative mining, and removing the nonlinear set ranker. The full model and all variants use the same Top-30 search pool, the same maximum number of evidence pairs sent to relation judging, the same relation-judging prompt and confidence threshold, and the same candidate-set construction procedure. The graph-feature ablation removes only relation-graph-derived set features and retrains the same RankNet; the hard-negative ablation keeps only the first training round; and the nonlinear-ranker ablation removes the learned set ranker and uses the preceding greedy evidence-set selector instead. }
+To analyze the contribution of individual components, we conducted four ablations on 480 validation queries: removing learned pair proposal, removing relation-graph-derived set features, removing hard-negative mining, and removing the nonlinear set ranker. The full model and all variants use the same Top-30 search pool, the same maximum number of evidence pairs sent to relation judging, the same relation-judging prompt and confidence threshold, and the same candidate-set construction procedure. The graph-feature ablation removes only relation-graph-derived set features and retrains the same RankNet; the hard-negative ablation keeps only the first training round; and the nonlinear-ranker ablation removes the learned set ranker and uses the preceding greedy evidence-set selector instead. 
