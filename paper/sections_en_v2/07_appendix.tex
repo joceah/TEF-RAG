@@ -10,8 +10,6 @@ All LLM calls in this work, including Temporal Evidence Flow relation judging,
 TA-RAG temporal decomposition, and downstream structured generation, directly use the official DeepSeek API with \texttt{deepseek-flash}.
 Apart from the frozen system/user prompts and input schemas for each task,
 sampling and decoding parameters are not manually overridden; all remaining API parameters follow the provider defaults.
-The relation-judging prompt version is \texttt{tef-v6-stage2a-relation-v7},
-and the downstream generation prompt version is \texttt{tef-v6-generation-eval-v1.3}.
 
 
 \subsection{Rule-Based Set Score for First-Round Hard Negatives}
@@ -84,7 +82,7 @@ During the first training round, candidate sets with high $H(\Selected)$ but inc
 \subsection{Prompt for Temporal Evidence Flow Relation Judging}
 \label{app:relation_prompt}
 
-The relation judge uses a fixed system prompt (version \texttt{tef-v6-stage2a-relation-v7}).
+The relation judge uses a fixed system prompt.
 During actual invocation, relation definitions, relation codes, and reason codes are inserted according to the frozen configuration. The system prompt is:
 
 \begin{lstlisting}
@@ -224,5 +222,5 @@ This is the single allowed structural/evidence-grounding repair.
 Correct only the listed validation failures.
 \end{lstlisting}
 
-The user input additionally contains \texttt{previous\_output} and
-\texttt{validation\_errors}; the query, retrieved evidence, and output schema remain unchanged.
+The user input additionally contains previous output and
+validation errors; the query, retrieved evidence, and output schema remain unchanged.
