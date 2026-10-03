@@ -3,6 +3,11 @@ name: Build paper
 on:
   push:
     branches: [main]
+    paths:
+      - .github/workflows/build-paper.yml
+
+permissions:
+  contents: write
 
 jobs:
   paper:
@@ -14,6 +19,12 @@ jobs:
           ref: release/tef-rag-v6-paper
           path: source
 
+      - name: Check out release branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: release
+
       - name: Install TeX
         run: |
           sudo apt-get update
@@ -23,11 +34,14 @@ jobs:
         working-directory: source/paper
         run: |
           latexmk -xelatex -interaction=nonstopmode -halt-on-error TEF_RAG_ICRA_style_en_v2.tex
-          cp TEF_RAG_ICRA_style_en_v2.pdf "$GITHUB_WORKSPACE/TEF-RAG.pdf"
 
-      - name: Upload paper
-        uses: actions/upload-artifact@v4
-        with:
-          name: paper
-          path: TEF-RAG.pdf
-          if-no-files-found: error
+      - name: Publish compiled PDF
+        run: |
+          mkdir -p release/paper
+          cp source/paper/TEF_RAG_ICRA_style_en_v2.pdf release/paper/TEF-RAG.pdf
+          cd release
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add paper/TEF-RAG.pdf
+          git commit -m "paper: publish compiled PDF" || exit 0
+          git push origin HEAD:main
