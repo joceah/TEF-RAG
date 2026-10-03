@@ -1,0 +1,28 @@
+{
+  "name": "TEF-RAG Temporal Evidence Benchmark",
+  "positioning": "public-source-grounded, AI-assisted synthetic benchmark",
+  "counts": {
+    "assets": 100,
+    "chains": 400,
+    "evidence_records": 3888,
+    "task_intents": 1200,
+    "queries": 2400
+  },
+  "split_chain_counts": {
+    "standard": {
+      "development": 120,
+      "validation": 40,
+      "test": 40
+    },
+    "temporal_hard": {
+      "development": 120,
+      "validation": 40,
+      "test": 40
+    }
+  },
+  "test_evaluator": {
+    "rows": 480,
+    "sha256": "477bb709f3dfdb672ce5a7f5c93168e0791c7a90cb247c62a6072bd8dee7c9f3",
+    "released_after_reported_evaluation": true
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "test_query_count": 480,
+  "predictions": {
+    "bm25": {
+      "file": "bm25.json",
+      "sha256": "e3fda5e21a2a43a1a7411fcdfd5e793c23b8da2474e78506f8257e1998ec681e"
+    },
+    "bge_reranker": {
+      "file": "bge_reranker.json",
+      "sha256": "a26acd912729a1a2aeff14c8334e78d4f84826cb19f5d22f5e22287fa8089c9a"
+    },
+    "temporal_bm25": {
+      "file": "temporal_bm25.json",
+      "sha256": "9dee0253619896e50e2f6d7e74209b70733090366d816347702a5820912b7ba9"
+    },
+    "ta_rag": {
+      "file": "ta_rag.json",
+      "sha256": "c35b66edfc94e0ea901368be899b77850af34cfd23ee9027423e5452b103fcc8"
+    },
+    "tef_rag": {
+      "file": "tef_rag.json",
+      "sha256": "b7d02bf95cdbe522a667e7e7772ec72f3925761f76157c3fa3c421896c383e76"
+    }
+  }
+}

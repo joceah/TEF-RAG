@@ -4,32 +4,12 @@ __pycache__/
 .coverage
 htmlcov/
 .venv/
-.deps/
 local.env
 .env
 .env.*
-!.env.example
 api_cache/
-.local_sealed/
-**/graph/
+.cache/
 tmp/
 dist/
 build/
 *.egg-info/
-.cache/tef_rag_v6_llm_relation/
-# Formal runner materializations are reproducible local inputs, not release
-# predictions or result artifacts.
-results/v6/
-# Third-party baseline checkouts and downloaded models stay local.
-experiments/runtime/
-# Deterministically materialized benchmark transport outputs (never commit).
-data/generated/tef_v6_temporal_hard_benchmark_v1/public/
-data/generated/tef_v6_temporal_hard_benchmark_v1/metadata/first_pass_review_development_validation.jsonl
-# LaTeX build artifacts
-*.aux
-*.log
-*.out
-*.toc
-*.fls
-*.fdb_latexmk
-*.synctex.gz
