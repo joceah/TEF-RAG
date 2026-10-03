@@ -42,7 +42,7 @@ All subsequent retrieval, relation reasoning, and set ranking operate only withi
 
 \subsection{Retrieval Objective}
 
-A base retriever obtains a candidate node set $V_q$ from $\Candidates_q$. We use $k=5$ as the retrieval upper bound. Let $k_q=\min(5,|V_q|)$; the system selects at most five evidence records to form $\hat{\Selected}_q$. If fewer than five legal candidates exist, the system directly returns the available legal evidence without padding or backfilling. \REV{The selected evidence should be relevant to the query, cover the task-required evidence roles, and form a temporally and semantically consistent structure.}
+A base retriever obtains a candidate node set $V_q$ from $\Candidates_q$. We use $k=5$ as the retrieval upper bound. Let $k_q=\min(5,|V_q|)$; the system selects at most five evidence records to form $\hat{\Selected}_q$. If fewer than five legal candidates exist, the system directly returns the available legal evidence without padding or backfilling. The selected evidence should be relevant to the query, cover the task-required evidence roles, and form a temporally and semantically consistent structure.
 
 Accordingly, we do not define the retrieval objective as the sum of five independent document scores. Instead, we define a set-level utility:
 \begin{equation}
@@ -62,7 +62,7 @@ The retrieval result is used as controlled context for a structured generator, w
 (\hat W_q,\hat A_q)=g_{\psi}(x_q,\hat{\Selected}_q).
 \label{eq:downstream_generation}
 \end{equation}
-\REV{The primary algorithmic contribution of this paper is the retrieval stage that constructs and ranks Temporal Evidence Flows. Structured generation experiments evaluate whether differences in retrieved evidence are reflected in work-order fields, actions, dependencies, and evidence citations.}
+The primary algorithmic contribution of this paper is the retrieval stage that constructs and ranks Temporal Evidence Flows. Structured generation experiments evaluate whether differences in retrieved evidence are reflected in work-order fields, actions, dependencies, and evidence citations.
 
 \begin{table}[t]
 \caption{Main notation.}
