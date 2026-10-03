@@ -17,7 +17,7 @@ jobs:
       - name: Install TeX
         run: |
           sudo apt-get update
-          sudo apt-get install -y latexmk texlive-xetex texlive-latex-extra texlive-fonts-recommended
+          sudo apt-get install -y latexmk texlive-xetex texlive-latex-extra texlive-fonts-recommended texlive-publishers
 
       - name: Compile paper
         working-directory: source/paper
