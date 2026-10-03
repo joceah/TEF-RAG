@@ -1,0 +1,33 @@
+name: Build paper
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  paper:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out paper source
+        uses: actions/checkout@v4
+        with:
+          ref: release/tef-rag-v6-paper
+          path: source
+
+      - name: Install TeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y latexmk texlive-xetex texlive-latex-extra texlive-fonts-recommended
+
+      - name: Compile paper
+        working-directory: source/paper
+        run: |
+          latexmk -xelatex -interaction=nonstopmode -halt-on-error TEF_RAG_ICRA_style_en_v2.tex
+          cp TEF_RAG_ICRA_style_en_v2.pdf "$GITHUB_WORKSPACE/TEF-RAG.pdf"
+
+      - name: Upload paper
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper
+          path: TEF-RAG.pdf
+          if-no-files-found: error
