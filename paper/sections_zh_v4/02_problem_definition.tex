@@ -1,0 +1,86 @@
+% =========================================================
+\section{问题定义}
+\label{sec:problem}
+% =========================================================
+
+\subsection{查询与时间可见证据}
+
+给定一个运维查询
+\begin{equation}
+Q_q=(x_q,u_q,m_q,t_q),
+\end{equation}
+其中，$x_q$ 为查询文本，$u_q$ 为目标资产，$m_q$ 表示资产型号或上下文，$t_q$ 为知识截止时间。全局证据库记为 $\Evidence=\{e_1,\ldots,e_N\}$。每条证据至少包含其内容、资产标识、事件类型、来源类型、事件时间 $t_e(e)$ 与可用时间 $t_a(e)$。
+
+我们显式区分事件发生的时间与系统获得该信息的时间。当且仅当满足下式时，证据 $e$ 对查询 $q$ 可见：
+\begin{equation}
+\operatorname{Visible}(e,q)
+=
+\mathbb{I}\!\left[
+t_e(e)\le t_q \land t_a(e)\le t_q
+\right].
+\label{eq:visible}
+\end{equation}
+因此，即使一条记录描述的是更早发生的事件，只要它在查询时刻之后才录入系统，该查询就不能使用这条记录。
+
+对于规程类证据，我们还要求其资产型号匹配、在查询时刻处于有效期内，且尚未被撤回。我们将这些确定性条件统一写为
+\begin{equation}
+\operatorname{Legal}(e,Q_q)
+=
+\operatorname{Visible}(e,q)
+\land
+\operatorname{ScopeOK}(e,Q_q),
+\label{eq:legal}
+\end{equation}
+其中，$\operatorname{ScopeOK}$ 概括了资产一致性，以及在适用时对规程型号范围、有效时间区间和撤回状态的约束。因此，查询时刻的合法证据集合为
+\begin{equation}
+\Candidates_q
+=
+\{e\in\Evidence:\operatorname{Legal}(e,Q_q)=1\}.
+\label{eq:candidate}
+\end{equation}
+后续所有检索、关系推理与集合排序都只在 $\Candidates_q$ 内进行。
+
+\subsection{检索目标}
+
+基础检索器从 $\Candidates_q$ 中获得候选节点集合 $V_q$。本文将 $k=5$ 作为检索数量上限，并令 $k_q=\min(5,|V_q|)$；系统最多选择五条证据构成 $\hat{\Selected}_q$。若合法候选少于五条，则系统直接返回现有合法证据，不进行人为填充或回补。所选证据应与查询相关，覆盖任务要求的证据角色，并形成时间与语义上相互一致的结构。
+
+因此，我们不将检索目标定义为五个独立文档分数的简单求和，而是定义集合级效用：
+\begin{equation}
+\hat{\Selected}_q
+=
+\arg\max_{\Selected\in\SetBank_q}
+F_{\theta}(Q_q,\Selected,\FlowGraph_q),
+\quad |\Selected|=k_q,
+\label{eq:set_selection}
+\end{equation}
+其中，$\SetBank_q$ 是满足 $|\Selected|=k_q$ 的候选证据集合空间，$\FlowGraph_q$ 为查询条件化的时序证据图，$F_{\theta}$ 为学习得到的集合级排序函数。
+
+\subsection{下游任务}
+
+检索结果作为受控上下文输入结构化生成器，生成标准化工单 $W_q$ 与动作计划 $A_q$：
+\begin{equation}
+(\hat W_q,\hat A_q)=g_{\psi}(x_q,\hat{\Selected}_q).
+\label{eq:downstream_generation}
+\end{equation}
+本文的主要算法贡献是用于构造并排序时序证据流的检索阶段。结构化生成实验用于评估检索证据的差异是否会反映到工单字段、动作、依赖关系与证据引用中。
+
+\begin{table}[t]
+\caption{主要符号。}
+\label{tab:symbols}
+\centering
+\small
+\begin{tabular}{@{}p{0.28\columnwidth}p{0.65\columnwidth}@{}}
+\toprule
+符号 & 含义 \\
+\midrule
+$Q_q=(x_q,u_q,m_q,t_q)$ & 查询文本、资产、上下文与知识截止时间 \\
+$e,t_e(e),t_a(e)$ & 证据记录、事件时间与首次可用时间 \\
+$\Evidence$ & 全局证据库 \\
+$\Candidates_q$ & 查询时刻合法且可见的证据集合 \\
+$\FlowGraph_q$ & 查询条件化的时序证据流图 \\
+$\SetBank_q$ & 至多包含五条记录的候选证据集合空间 \\
+$\hat{\Selected}_q$ & 最终选出的证据流（最多 5 条记录） \\
+$W_q,A_q$ & 标准化工单与动作计划 \\
+\bottomrule
+\end{tabular}
+\end{table}
