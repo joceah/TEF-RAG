@@ -39,7 +39,7 @@ MRAG 和 TA-RAG 将时间条件显式纳入检索过程~\cite{zhang2025mrag,lau2
 RAPTOR、GraphRAG 和 HippoRAG 利用层次化或图结构组织跨文档信息~\cite{sarthi2024raptor,edge2024graphrag,gutierrez2024hipporag}。与通常从文档层次或实体关系构图的方法不同，TEF-RAG 的边由当前查询与当前可见的运维记录共同决定，其语义直接对应运维证据之间的支持、更新、限定和验证等关系。
 
 \textbf{具身运维与电池智能。}
-RAG 也开始用于现场机器人和专业设备操作。SayComply 研究现场机器人对操作合规知识的检索，RAGLRO 则将检索增强语言模型应用于机器人操作任务~\cite{ginting2025saycomply,wang2026raglro}。在电池领域，LiBrain 与 TimeSeries2Report 探索了将时间序列信息、检索知识与语言模型结合用于电池诊断和管理~\cite{li2026librain,yang2026timeseries2report}。这些研究将检索到的操作知识或时间序列信息连接到机器人或电池管理任务。本文聚焦其前置的证据选择环节，使下游工单和动作计划所使用的证据在查询时刻可见，并覆盖任务所需的过程角色。
+RAG 也开始用于现场机器人和专业设备操作。SayComply 研究现场机器人对操作合规知识的检索，RAGLRO 则将检索增强语言模型应用于机器人操作任务~\cite{ginting2025saycomply,wang2026raglro}。在电池领域，LiBrain 探索了将时间序列信息、检索知识与语言模型结合用于电池诊断和管理~\cite{li2026librain}。这些研究将检索到的操作知识或时间序列信息连接到机器人或电池管理任务。本文聚焦其前置的证据选择环节，使下游工单和动作计划所使用的证据在查询时刻可见，并覆盖任务所需的过程角色。
 
 \textbf{学习排序。}
 TEF-RAG 的最终选择阶段是查询级学习排序问题。RankNet 从成对偏好中学习相对排序函数~\cite{burges2005ranknet}，ANCE 等工作则表明，难负样本对学习有效的检索边界十分重要~\cite{xiong2021ance}。我们将这一思想应用到证据集合而非单条文档：训练目标在同一查询下直接比较完整集合与高分但不完整的难负集合。
