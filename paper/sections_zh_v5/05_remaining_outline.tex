@@ -62,7 +62,7 @@ TA-RAG & 0.2769 & 0.2907 & 0.0375 & 0.0375 \\
 \subsection{下游结构化生成结果}
 \label{sec:generation_results}
 
-\REV{表~\ref{tab:generation_results} 给出了四个互补的生成指标，用于比较不同检索证据所产生的结构化输出。在生成器、提示词、输出格式和解码设置均相同的情况下，TEF-RAG 在四个展示指标上均取得最高值：Field Macro F1 为 0.5345，Action F1 为 0.2035，Citation F1 为 0.1585，Evidence Support Recall 为 0.2253。对 BGE 进行任务内微调后，其结果相比预训练版本明显提高，但 TEF-RAG 在这四项指标上仍保持更高值。结果表明，TEF-RAG 所检索的证据不仅反映到字段级与动作级输出质量上，也反映到 claim--evidence 引用质量，以及参考 claim 被可接受支撑证据覆盖的程度上。}
+表~\ref{tab:generation_results} \REV{给出了四个互补的生成指标，用于比较不同检索证据所产生的结构化输出。在生成器、提示词、输出格式和解码设置均相同的情况下，TEF-RAG 在四个展示指标上均取得最高值：Field Macro F1 为 0.5345，Action F1 为 0.2035，Citation F1 为 0.1585，Evidence Support Recall 为 0.2253。对 BGE 进行任务内微调后，其结果相比预训练版本明显提高，但 TEF-RAG 在这四项指标上仍保持更高值。结果表明，TEF-RAG 所检索的证据不仅反映到字段级与动作级输出质量上，也反映到 claim--evidence 引用质量，以及参考 claim 被可接受支撑证据覆盖的程度上。}
 
 \begin{table}[t]
 \caption{生成测试集上的主要结构化生成指标。}
