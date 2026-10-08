@@ -1,0 +1,53 @@
+{
+  "model": "BAAI/bge-reranker-v2-m3",
+  "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+  "model_path": "D:\\electric-project\\.github_export\\TEF-RAG\\experiments\\runtime\\models\\bge-reranker-v2-m3",
+  "model_config_sha256": "13dcd6c31d9fec9d1d8e158702072f62d7fa7d312a64b9fe057bec9a08cfe41a",
+  "model_weights_sha256": "d9e3e081faff1eefb84019509b2f5558fd74c1a05a2c7db22f74174fcedb5286",
+  "split_counts": {
+    "development": {
+      "queries": 1440,
+      "chains": 240
+    },
+    "validation": {
+      "queries": 480,
+      "chains": 80
+    },
+    "test": {
+      "queries": 480,
+      "chains": 80
+    }
+  },
+  "seed": 20261008,
+  "training": {
+    "epochs": 2,
+    "learning_rate": 0.0002,
+    "batch_size": 8,
+    "max_length": 512,
+    "lora_rank": 8,
+    "lora_alpha": 16,
+    "loss": "BCEWithLogits",
+    "negative_sampling": "top BM25 false positives in eligible Top-30",
+    "negatives_per_query": 4,
+    "positive": 6116,
+    "negative": 5482,
+    "queries_without_eligible_positive": 0
+  },
+  "selected_checkpoint": {
+    "epoch": 2,
+    "training_loss": 0.27225077487046606,
+    "validation_metrics": {
+      "recall_at_5": 0.8678819444444447,
+      "hit_at_5": 0.9916666666666667,
+      "ndcg_at_5": 0.8649980709225833,
+      "complete_at_5": 0.675,
+      "flow_complete_at_5": 0.6729166666666667,
+      "edge_recall": 0.0,
+      "uncertainty_accuracy": 0.8875
+    },
+    "checkpoint": "checkpoint_epoch_2.pt",
+    "checkpoint_sha256": "3e0e7afb5b36238cd81b2f2a8eab72796bdc39439c1ce000fa6eda3034af782b"
+  },
+  "selection_criterion": "validation nDCG@5, Recall@5 tie-breaker",
+  "test_gold_accessed_before_selection": false
+}

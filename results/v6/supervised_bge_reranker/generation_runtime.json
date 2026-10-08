@@ -1,0 +1,16 @@
+{
+  "rows": 480,
+  "client_stats": {
+    "requests": 507,
+    "cache_hits": 0,
+    "retries": 0,
+    "failures": 0,
+    "prompt_tokens": 933389,
+    "completion_tokens": 171249,
+    "total_tokens": 1104638,
+    "reasoning_tokens": 0
+  },
+  "prediction_sha256": "cc9c2cd9741e1ce3fdd76a916a7aa1cbea03f4ab721a3db4670fa7904ccabf2b",
+  "retrieval_sha256": "108fad4ee8bdb3f6961a6daef523afe1c40230ae88d5285de55f57bb052953fd",
+  "session_fingerprint": "573ffbb0cf5464cc147374ca614ab0ca8063752c744401f510c3c9afd43a26da"
+}

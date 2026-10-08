@@ -18,3 +18,7 @@ data/generation/gold_test.jsonl binary
 data/retrieval/tef_v6_temporal_hard_benchmark_v1/public/test_evaluator.jsonl binary
 # Frozen retrieval prediction bytes are part of the published provenance.
 data/retrieval/frozen_test_predictions/*.json binary
+
+# Preserve exact generated-result bytes referenced by SHA-256 manifests.
+results/v6/supervised_bge_reranker/*.json binary
+results/v6/supervised_bge_reranker/*.jsonl binary

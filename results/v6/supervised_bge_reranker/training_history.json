@@ -1,0 +1,32 @@
+[
+  {
+    "epoch": 1,
+    "training_loss": 0.5299638497957896,
+    "validation_metrics": {
+      "recall_at_5": 0.8401388888888892,
+      "hit_at_5": 0.975,
+      "ndcg_at_5": 0.8388919906572074,
+      "complete_at_5": 0.6145833333333334,
+      "flow_complete_at_5": 0.6125,
+      "edge_recall": 0.0,
+      "uncertainty_accuracy": 0.8875
+    },
+    "checkpoint": "checkpoint_epoch_1.pt",
+    "checkpoint_sha256": "3269cf3669f8b465a5f9a4351b0c0170736003e43cc05f18d3660aacccf06e2f"
+  },
+  {
+    "epoch": 2,
+    "training_loss": 0.27225077487046606,
+    "validation_metrics": {
+      "recall_at_5": 0.8678819444444447,
+      "hit_at_5": 0.9916666666666667,
+      "ndcg_at_5": 0.8649980709225833,
+      "complete_at_5": 0.675,
+      "flow_complete_at_5": 0.6729166666666667,
+      "edge_recall": 0.0,
+      "uncertainty_accuracy": 0.8875
+    },
+    "checkpoint": "checkpoint_epoch_2.pt",
+    "checkpoint_sha256": "3e0e7afb5b36238cd81b2f2a8eab72796bdc39439c1ce000fa6eda3034af782b"
+  }
+]

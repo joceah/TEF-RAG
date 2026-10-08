@@ -1,0 +1,23 @@
+{
+  "metrics": {
+    "schema_validity": 0.9958333333333333,
+    "field_macro_f1_strict": 0.4818452380952381,
+    "work_order_em_strict": 0.0,
+    "action_precision": 0.2,
+    "action_recall": 0.19305555555555556,
+    "action_f1": 0.19097222222222224,
+    "dependency_precision": 0.3770833333333333,
+    "dependency_recall": 0.37569444444444444,
+    "dependency_f1": 0.37604166666666666,
+    "order_validity": 0.43333333333333335,
+    "plan_em_strict": 0.04375,
+    "citation_precision": 0.10990693419461801,
+    "citation_recall": 0.09088354932104932,
+    "citation_f1": 0.09539383206517353,
+    "evidence_support_recall": 0.1328125,
+    "end_to_end_em_strict": 0.0,
+    "task_success": 0.0
+  },
+  "prediction_sha256": "cc9c2cd9741e1ce3fdd76a916a7aa1cbea03f4ab721a3db4670fa7904ccabf2b",
+  "retrieval_sha256": "108fad4ee8bdb3f6961a6daef523afe1c40230ae88d5285de55f57bb052953fd"
+}

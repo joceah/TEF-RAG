@@ -1,0 +1,13 @@
+{
+  "metrics": {
+    "recall_at_5": 0.6649652777777779,
+    "hit_at_5": 0.9833333333333333,
+    "ndcg_at_5": 0.6501210477836253,
+    "complete_at_5": 0.28541666666666665,
+    "flow_complete_at_5": 0.2833333333333333,
+    "edge_recall": 0.0,
+    "uncertainty_accuracy": 0.8875
+  },
+  "test_evaluator_sha256": "477bb709f3dfdb672ce5a7f5c93168e0791c7a90cb247c62a6072bd8dee7c9f3",
+  "prediction_sha256": "108fad4ee8bdb3f6961a6daef523afe1c40230ae88d5285de55f57bb052953fd"
+}
