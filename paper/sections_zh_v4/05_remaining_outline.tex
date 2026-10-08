@@ -1,0 +1,111 @@
+% =========================================================
+\section{实验结果}
+\label{sec:results}
+% =========================================================
+
+\subsection{主要检索结果}
+
+表~\ref{tab:retrieval_results} 给出了测试集上的检索性能。
+TEF-RAG 在四个主要指标 Recall@5、nDCG@5、Complete@5 和 FlowComplete@5 上均取得最高值。
+在这些指标上，最强的非 TEF 基线均为 Temporal-BM25；与其相比，
+TEF-RAG 将 Recall@5 从 0.4591 提升至 0.7228，将 nDCG@5 从 0.4955 提升至 0.6231。
+集合级完整性指标上的差异更大：Complete@5 从 0.0792 提升至 0.3188，FlowComplete@5 从 0.0792 提升至 0.3146。
+Complete@5 与 FlowComplete@5 上更大的差异与 TEF-RAG 的集合级目标一致，因为该方法直接对证据组合而非仅对单条记录进行排序。
+
+\begin{table}[t]
+\caption{测试集上的主要检索结果（Top-5）。}
+\label{tab:retrieval_results}
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lrrrr}
+\toprule
+方法 & Recall & nDCG & Complete & FlowComplete \\
+\midrule
+BM25 & 0.3791 & 0.3915 & 0.0563 & 0.0563 \\
+BGE Reranker & 0.2916 & 0.3070 & 0.0417 & 0.0417 \\
+Temporal-BM25 & 0.4591 & 0.4955 & 0.0792 & 0.0792 \\
+TA-RAG & 0.2769 & 0.2907 & 0.0375 & 0.0375 \\
+\textbf{TEF-RAG} & \textbf{0.7228} & \textbf{0.6231} & \textbf{0.3188} & \textbf{0.3146} \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\subsection{验证集消融实验}
+\label{sec:ablation_results}
+
+表~\ref{tab:ablation_results} 给出了验证集上的四组消融结果。完整 TEF-RAG 的 FlowComplete@5 为 0.4042。移除学习式证据对提议后，该指标仅下降至 0.4021。在送入关系判断的证据对数量保持不变的条件下，这一较小变化表明，证据对提议器主要决定哪些证据对接受关系分析，而不是直接决定最终证据集合。相比之下，移除由关系图导出的特征后，FlowComplete@5 降至 0.3667；这一下降与图结构特征对集合排序存在贡献的预期一致。
+
+训练目标与排序器本身的影响更大。移除难负样本挖掘后，FlowComplete@5 从 0.4042 降至 0.2833；移除非线性集合排序器、改用前序贪心证据集合选择器后，该指标降至 0.3125。在这一固定验证设置下，移除难负样本与移除非线性排序器所造成的 FlowComplete@5 下降均大于移除证据对提议的影响。值得注意的是，相比完整模型，移除非线性排序器后 nDCG@5 略有上升（0.6965 对 0.6885），但 Complete@5 与 FlowComplete@5 明显下降。nDCG@5 上升而 Complete@5 与 FlowComplete@5 下降也说明，传统排序质量与集合级过程完整性并不一定沿同一方向变化。
+
+\begin{table}[t]
+\caption{TEF-RAG 在验证集上的消融结果。}
+\label{tab:ablation_results}
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lrrrr}
+\toprule
+变体 & Recall & nDCG & Complete & FlowComplete \\
+\midrule
+完整 TEF-RAG & 0.7567 & 0.6885 & 0.4063 & 0.4042 \\
+移除 Pair Proposal & 0.7494 & 0.6832 & 0.4063 & 0.4021 \\
+移除 Graph Features & 0.7184 & 0.6601 & 0.3750 & 0.3667 \\
+移除 Hard Negatives & 0.6748 & 0.6042 & 0.2875 & 0.2833 \\
+移除 Nonlinear Ranker & 0.7070 & 0.6965 & 0.3188 & 0.3125 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\subsection{下游结构化生成结果}
+\label{sec:generation_results}
+
+表~\ref{tab:generation_results} 给出了用于比较不同检索证据所生成结构化输出的四个生成指标。
+在生成器、提示词、输出格式和解码设置均相同的情况下，TEF-RAG 在四个指标上均取得最高值：
+Field Macro F1 为 0.5345，Action F1 为 0.2035，Citation F1 为 0.1585，Plan EM（strict）为 0.0417。
+与各指标上最强的非 TEF 基线相比，TEF-RAG 在 Action F1、Citation F1 和 Plan EM 上的相对提升分别约为 24.3\%、26.9\% 和 121.8\%；Field Macro F1 相比 Temporal-BM25 约提升 2.4\%。
+这些结果表明，TEF-RAG 的收益并不限于上游检索命中率，也反映到关键工单字段、维护动作和证据引用的质量上。
+TEF-RAG 提高了生成工单中的字段级准确性、动作正确性以及计划级一致性。
+
+\begin{table}[t]
+\caption{生成测试集上的主要结构化生成指标。}
+\label{tab:generation_results}
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lrrrr}
+\toprule
+方法 & Field F1 & Action F1 & Citation F1 & Plan EM \\
+\midrule
+BM25 & 0.4715 & 0.1372 & 0.0813 & 0.0167 \\
+BGE Reranker & 0.4129 & 0.1198 & 0.0405 & 0.0146 \\
+Temporal-BM25 & 0.5218 & 0.1637 & 0.1249 & 0.0167 \\
+TA-RAG & 0.4059 & 0.1115 & 0.0379 & 0.0188 \\
+\textbf{TEF-RAG} & \textbf{0.5345} & \textbf{0.2035} & \textbf{0.1585} & \textbf{0.0417} \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+% =========================================================
+\section{局限性与有效性威胁}
+\label{sec:limitations}
+% =========================================================
+
+本文基准是一个以公开资料为依据、由 AI 辅助构建的合成基准，而不是真实电站工单集合，也不是领域专家人工标注的数据集。
+因此，其主要价值在于对时序证据检索机制进行受控比较；实验结果不应被直接外推为真实电站的故障频率或现场机器人的安全性结论。
+尽管生成评估覆盖了字段、动作、依赖关系与引用，但并未模拟真实机器人执行、环境反馈或安全联锁。
+
+% =========================================================
+\section{结论}
+\label{sec:conclusion}
+% =========================================================
+
+本文提出 TEF-RAG，将动态运维 RAG 的检索目标从独立文档相关性扩展为在查询时刻可见、关系一致且过程完整的时序证据流。
+在测试集上，与四种对比方法相比，TEF-RAG 在 Recall@5、nDCG@5、Complete@5 和 FlowComplete@5 上均取得更高结果。在固定下游生成器的结构化生成测试中，TEF-RAG 在 Field Macro F1、Action F1、Citation F1 与严格 Plan EM 上也均取得最高值。
+未来工作应进一步整合显式的规划与执行约束。
