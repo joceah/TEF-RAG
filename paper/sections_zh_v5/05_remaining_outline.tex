@@ -6,7 +6,7 @@
 \subsection{主要检索结果}
 
 表~\ref{tab:retrieval_results} 给出了测试集上的检索性能。
-\REV{TEF-RAG 在 Recall@5、Complete@5 和 FlowComplete@5 上取得最高值，而 Fine-tuned BGE Reranker 在 nDCG@5 上取得最高值。与 Fine-tuned BGE 相比，TEF-RAG 将 Recall@5 从 0.6650 提升至 0.7228，将 Complete@5 从 0.2854 提升至 0.3188，并将 FlowComplete@5 从 0.2833 提升至 0.3146；另一方面，Fine-tuned BGE 的 nDCG@5 更高（0.6501 对 0.6231）。这一现象与单条证据排序质量和完整证据集合恢复能力之间的区别一致。}
+TEF-RAG 在 Recall@5、Complete@5 和 FlowComplete@5 上取得最高值，而 Fine-tuned BGE Reranker 在 nDCG@5 上取得最高值。与 Fine-tuned BGE 相比，TEF-RAG 将 Recall@5 从 0.6650 提升至 0.7228，将 Complete@5 从 0.2854 提升至 0.3188，并将 FlowComplete@5 从 0.2833 提升至 0.3146；另一方面，Fine-tuned BGE 的 nDCG@5 更高（0.6501 对 0.6231）。这一现象与单条证据排序质量和完整证据集合恢复能力之间的区别一致。
 
 \begin{table}[t]
 \caption{测试集上的主要检索结果（Top-5）。}
@@ -21,11 +21,10 @@
 \midrule
 BM25 & 0.3791 & 0.3915 & 0.0563 & 0.0563 \\
 BGE Reranker & 0.2916 & 0.3070 & 0.0417 & 0.0417 \\
-\rowcolor{yellow}
 Fine-tuned BGE & 0.6650 & \textbf{0.6501} & 0.2854 & 0.2833 \\
 Temporal-BM25 & 0.4591 & 0.4955 & 0.0792 & 0.0792 \\
 TA-RAG & 0.2769 & 0.2907 & 0.0375 & 0.0375 \\
-\textbf{TEF-RAG} & \textbf{0.7228} & \cellcolor{yellow}0.6231 & \textbf{0.3188} & \textbf{0.3146} \\
+\textbf{TEF-RAG} & \textbf{0.7228} & 0.6231 & \textbf{0.3188} & \textbf{0.3146} \\
 \bottomrule
 \end{tabular}%
 }
@@ -62,7 +61,7 @@ TA-RAG & 0.2769 & 0.2907 & 0.0375 & 0.0375 \\
 \subsection{下游结构化生成结果}
 \label{sec:generation_results}
 
-表~\ref{tab:generation_results} \REV{给出了四个互补的生成指标，用于比较不同检索证据所产生的结构化输出。在生成器、提示词、输出格式和解码设置均相同的情况下，TEF-RAG 在四个展示指标上均取得最高值：Field Macro F1 为 0.5345，Action F1 为 0.2035，Citation F1 为 0.1585，Evidence Support Recall 为 0.2253。对 BGE 进行任务内微调后，其结果相比预训练版本明显提高，但 TEF-RAG 在这四项指标上仍保持更高值。结果表明，TEF-RAG 所检索的证据不仅反映到字段级与动作级输出质量上，也反映到 claim--evidence 引用质量，以及参考 claim 被可接受支撑证据覆盖的程度上。}
+表~\ref{tab:generation_results} 给出了四个互补的生成指标，用于比较不同检索证据所产生的结构化输出。在生成器、提示词、输出格式和解码设置均相同的情况下，TEF-RAG 在四个展示指标上均取得最高值：Field Macro F1 为 0.5345，Action F1 为 0.2035，Citation F1 为 0.1585，Evidence Support Recall 为 0.2253。对 BGE 进行任务内微调后，其结果相比预训练版本明显提高，但 TEF-RAG 在这四项指标上仍保持更高值。结果表明，TEF-RAG 所检索的证据不仅反映到字段级与动作级输出质量上，也反映到 claim--evidence 引用质量，以及参考 claim 被可接受支撑证据覆盖的程度上。
 
 \begin{table}[t]
 \caption{生成测试集上的主要结构化生成指标。}
@@ -73,15 +72,14 @@ TA-RAG & 0.2769 & 0.2907 & 0.0375 & 0.0375 \\
 \resizebox{\columnwidth}{!}{%
 \begin{tabular}{lrrrr}
 \toprule
-方法 & Field F1 & Action F1 & Citation F1 & \cellcolor{yellow}Evidence Support Recall \\
+方法 & Field F1 & Action F1 & Citation F1 & Evidence Support Recall \\
 \midrule
-BM25 & 0.4715 & 0.1372 & 0.0813 & \cellcolor{yellow}0.1258 \\
-BGE Reranker & 0.4129 & 0.1198 & 0.0405 & \cellcolor{yellow}0.0614 \\
-\rowcolor{yellow}
+BM25 & 0.4715 & 0.1372 & 0.0813 & 0.1258 \\
+BGE Reranker & 0.4129 & 0.1198 & 0.0405 & 0.0614 \\
 Fine-tuned BGE & 0.4818 & 0.1910 & 0.0954 & 0.1328 \\
-Temporal-BM25 & 0.5218 & 0.1637 & 0.1249 & \cellcolor{yellow}0.1871 \\
-TA-RAG & 0.4059 & 0.1115 & 0.0379 & \cellcolor{yellow}0.0570 \\
-\textbf{TEF-RAG} & \textbf{0.5345} & \textbf{0.2035} & \textbf{0.1585} & \cellcolor{yellow}\textbf{0.2253} \\
+Temporal-BM25 & 0.5218 & 0.1637 & 0.1249 & 0.1871 \\
+TA-RAG & 0.4059 & 0.1115 & 0.0379 & 0.0570 \\
+\textbf{TEF-RAG} & \textbf{0.5345} & \textbf{0.2035} & \textbf{0.1585} & \textbf{0.2253} \\
 \bottomrule
 \end{tabular}%
 }
@@ -102,5 +100,5 @@ TA-RAG & 0.4059 & 0.1115 & 0.0379 & \cellcolor{yellow}0.0570 \\
 % =========================================================
 
 本文提出 TEF-RAG，将动态运维 RAG 的检索目标从独立文档相关性扩展为在查询时刻可见、关系一致且过程完整的时序证据流。
-\REV{在测试集上，六种对比方法中，TEF-RAG 在 Recall@5、Complete@5 与 FlowComplete@5 上取得最高值，而 Fine-tuned BGE 在 nDCG@5 上取得最高值。在固定下游生成器的结构化生成测试中，TEF-RAG 在 Field Macro F1、Action F1、Citation F1 与 Evidence Support Recall 上均取得最高值。}
+在测试集上，六种对比方法中，TEF-RAG 在 Recall@5、Complete@5 与 FlowComplete@5 上取得最高值，而 Fine-tuned BGE 在 nDCG@5 上取得最高值。在固定下游生成器的结构化生成测试中，TEF-RAG 在 Field Macro F1、Action F1、Citation F1 与 Evidence Support Recall 上均取得最高值。
 未来工作应进一步整合显式的规划与执行约束。
