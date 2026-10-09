@@ -61,19 +61,21 @@ Juxian Yin
 | --- | ---: | ---: | ---: | ---: |
 | BM25 | 0.3791 | 0.3915 | 0.0563 | 0.0563 |
 | BGE Reranker | 0.2916 | 0.3070 | 0.0417 | 0.0417 |
+| Fine-tuned BGE | 0.6650 | **0.6501** | 0.2854 | 0.2833 |
 | Temporal-BM25 | 0.4591 | 0.4955 | 0.0792 | 0.0792 |
 | TA-RAG | 0.2769 | 0.2907 | 0.0375 | 0.0375 |
-| **TEF-RAG** | **0.7228** | **0.6231** | **0.3188** | **0.3146** |
+| **TEF-RAG** | **0.7228** | 0.6231 | **0.3188** | **0.3146** |
 
 ### Structured generation
 
-| Method | Field F1 | Action F1 | Citation F1 | Plan EM |
+| Method | Field F1 | Action F1 | Citation F1 | Evidence Support Recall |
 | --- | ---: | ---: | ---: | ---: |
-| BM25 | 0.4715 | 0.1372 | 0.0813 | 0.0167 |
-| BGE Reranker | 0.4129 | 0.1198 | 0.0405 | 0.0146 |
-| Temporal-BM25 | 0.5218 | 0.1637 | 0.1249 | 0.0167 |
-| TA-RAG | 0.4059 | 0.1115 | 0.0379 | 0.0188 |
-| **TEF-RAG** | **0.5345** | **0.2035** | **0.1585** | **0.0417** |
+| BM25 | 0.4715 | 0.1372 | 0.0813 | 0.1258 |
+| BGE Reranker | 0.4129 | 0.1198 | 0.0405 | 0.0614 |
+| Fine-tuned BGE | 0.4818 | 0.1910 | 0.0954 | 0.1328 |
+| Temporal-BM25 | 0.5218 | 0.1637 | 0.1249 | 0.1871 |
+| TA-RAG | 0.4059 | 0.1115 | 0.0379 | 0.0570 |
+| **TEF-RAG** | **0.5345** | **0.2035** | **0.1585** | **0.2253** |
 
 机器可读的汇总结果见 [results/](results/)。
 
@@ -84,11 +86,8 @@ git clone https://github.com/joceah/TEF-RAG.git
 cd TEF-RAG
 
 python -m venv .venv
-# Linux/macOS
-source .venv/bin/activate
-# Windows
-# .venv\Scripts\activate
-
+source .venv/bin/activate  # Linux/macOS
+# .venv\Scripts\activate  # Windows
 python -m pip install -e .
 ~~~
 
@@ -99,15 +98,17 @@ python -m scripts.validate_public_retrieval
 python -m scripts.evaluate_public_retrieval
 ~~~
 
-验证 structured-generation benchmark：
+仓库也包含 Fine-tuned BGE 的训练代码；运行时需要本地 `BAAI/bge-reranker-v2-m3` 模型快照：
+
+~~~bash
+python -m scripts.run_fine_tuned_bge train --model-path /path/to/bge-reranker-v2-m3
+python -m scripts.run_fine_tuned_bge test --model-path /path/to/bge-reranker-v2-m3
+~~~
+
+验证 structured-generation benchmark 或评估自己的预测：
 
 ~~~bash
 python -m scripts.validate_public_generation
-~~~
-
-评估你自己的 structured-generation 预测：
-
-~~~bash
 python -m scripts.evaluate_public_generation --predictions /path/to/predictions
 ~~~
 
@@ -123,13 +124,14 @@ TEF-RAG/
 ├── paper/
 │   └── TEF-RAG.pdf      # 论文
 ├── results/             # 汇总实验结果
-├── scripts/             # 公开验证与评估入口
+├── scripts/             # 验证、评估与 baseline 训练入口
+├── tests/               # 轻量回归测试
 └── tef_rag/             # 核心实现
 ~~~
 
 ## 数据与复现
 
-仓库包含公开测试 evaluator 和对应预测，可以在本地复现论文中的 retrieval 结果表。公开 manifest 保留关键测试文件的稳定哈希。API key、本地缓存、私有审核材料以及开发阶段的实验文件不包含在本分支中。
+公开 test evaluator 与 predictions 已包含 Fine-tuned BGE，因此无需外部模型调用即可在本地复现上面的 retrieval 表。仓库同时保留 Fine-tuned BGE 的训练代码与生成端汇总结果；大型 adapter checkpoint 和 API cache 不提交到公开分支。
 
 ## Citation
 

@@ -4,31 +4,37 @@
       "field_macro_f1_strict": 0.47150793650793654,
       "action_f1": 0.13715277777777776,
       "citation_f1": 0.08133023230991077,
-      "plan_em_strict": 0.016666666666666666
+      "evidence_support_recall": 0.1257638888888889
     },
     "bge_reranker": {
       "field_macro_f1_strict": 0.4128769841269841,
       "action_f1": 0.11979166666666667,
       "citation_f1": 0.04050138326221497,
-      "plan_em_strict": 0.014583333333333334
+      "evidence_support_recall": 0.06135416666666667
+    },
+    "fine_tuned_bge": {
+      "field_macro_f1_strict": 0.4818452380952381,
+      "action_f1": 0.19097222222222224,
+      "citation_f1": 0.09539383206517353,
+      "evidence_support_recall": 0.1328125
     },
     "temporal_bm25": {
       "field_macro_f1_strict": 0.5218055555555555,
       "action_f1": 0.16368055555555555,
       "citation_f1": 0.12487881947266201,
-      "plan_em_strict": 0.016666666666666666
+      "evidence_support_recall": 0.18708333333333332
     },
     "ta_rag": {
       "field_macro_f1_strict": 0.40588293650793644,
       "action_f1": 0.11145833333333334,
       "citation_f1": 0.03793905894437595,
-      "plan_em_strict": 0.01875
+      "evidence_support_recall": 0.05697916666666667
     },
     "tef_rag": {
       "field_macro_f1_strict": 0.5345238095238095,
       "action_f1": 0.20347222222222222,
       "citation_f1": 0.15845989060519952,
-      "plan_em_strict": 0.041666666666666664
+      "evidence_support_recall": 0.2252777777777778
     }
   }
 }

@@ -1,0 +1,30 @@
+{
+  "model": "BAAI/bge-reranker-v2-m3",
+  "adaptation": {
+    "method": "rank-8 low-rank adapters on attention query/value projections plus classification head",
+    "development_queries": 1440,
+    "positive_training_pairs": 6116,
+    "negative_training_pairs": 5482,
+    "epochs": 2,
+    "learning_rate": 0.0002,
+    "batch_size": 8,
+    "seed": 20261008,
+    "selection": "validation nDCG@5, Recall@5 tie-breaker",
+    "selected_validation_ndcg_at_5": 0.8649980709225833,
+    "selected_validation_recall_at_5": 0.8678819444444447
+  },
+  "retrieval_test": {
+    "recall_at_5": 0.6649652777777779,
+    "ndcg_at_5": 0.6501210477836253,
+    "complete_at_5": 0.28541666666666665,
+    "flow_complete_at_5": 0.2833333333333333,
+    "prediction_sha256": "108fad4ee8bdb3f6961a6daef523afe1c40230ae88d5285de55f57bb052953fd",
+    "test_evaluator_sha256": "477bb709f3dfdb672ce5a7f5c93168e0791c7a90cb247c62a6072bd8dee7c9f3"
+  },
+  "generation_test": {
+    "field_macro_f1_strict": 0.4818452380952381,
+    "action_f1": 0.19097222222222224,
+    "citation_f1": 0.09539383206517353,
+    "evidence_support_recall": 0.1328125
+  }
+}

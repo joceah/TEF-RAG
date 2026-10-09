@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 BENCHMARK = ROOT / "data/retrieval/benchmark"
 PREDICTIONS = ROOT / "data/retrieval/predictions"
 TEST_EVALUATOR_SHA256 = "477bb709f3dfdb672ce5a7f5c93168e0791c7a90cb247c62a6072bd8dee7c9f3"
-METHODS = ("bm25", "bge_reranker", "temporal_bm25", "ta_rag", "tef_rag")
+METHODS = ("bm25", "bge_reranker", "fine_tuned_bge", "temporal_bm25", "ta_rag", "tef_rag")
 
 
 def sha256(path: Path) -> str:

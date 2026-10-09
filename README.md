@@ -61,19 +61,21 @@ The benchmark is **public-source-grounded and AI-assisted synthetic data**. Publ
 | --- | ---: | ---: | ---: | ---: |
 | BM25 | 0.3791 | 0.3915 | 0.0563 | 0.0563 |
 | BGE Reranker | 0.2916 | 0.3070 | 0.0417 | 0.0417 |
+| Fine-tuned BGE | 0.6650 | **0.6501** | 0.2854 | 0.2833 |
 | Temporal-BM25 | 0.4591 | 0.4955 | 0.0792 | 0.0792 |
 | TA-RAG | 0.2769 | 0.2907 | 0.0375 | 0.0375 |
-| **TEF-RAG** | **0.7228** | **0.6231** | **0.3188** | **0.3146** |
+| **TEF-RAG** | **0.7228** | 0.6231 | **0.3188** | **0.3146** |
 
 ### Structured generation
 
-| Method | Field F1 | Action F1 | Citation F1 | Plan EM |
+| Method | Field F1 | Action F1 | Citation F1 | Evidence Support Recall |
 | --- | ---: | ---: | ---: | ---: |
-| BM25 | 0.4715 | 0.1372 | 0.0813 | 0.0167 |
-| BGE Reranker | 0.4129 | 0.1198 | 0.0405 | 0.0146 |
-| Temporal-BM25 | 0.5218 | 0.1637 | 0.1249 | 0.0167 |
-| TA-RAG | 0.4059 | 0.1115 | 0.0379 | 0.0188 |
-| **TEF-RAG** | **0.5345** | **0.2035** | **0.1585** | **0.0417** |
+| BM25 | 0.4715 | 0.1372 | 0.0813 | 0.1258 |
+| BGE Reranker | 0.4129 | 0.1198 | 0.0405 | 0.0614 |
+| Fine-tuned BGE | 0.4818 | 0.1910 | 0.0954 | 0.1328 |
+| Temporal-BM25 | 0.5218 | 0.1637 | 0.1249 | 0.1871 |
+| TA-RAG | 0.4059 | 0.1115 | 0.0379 | 0.0570 |
+| **TEF-RAG** | **0.5345** | **0.2035** | **0.1585** | **0.2253** |
 
 Machine-readable aggregate results are available in [results/](results/).
 
@@ -84,11 +86,8 @@ git clone https://github.com/joceah/TEF-RAG.git
 cd TEF-RAG
 
 python -m venv .venv
-# Linux/macOS
-source .venv/bin/activate
-# Windows
-# .venv\Scripts\activate
-
+source .venv/bin/activate  # Linux/macOS
+# .venv\Scripts\activate  # Windows
 python -m pip install -e .
 ~~~
 
@@ -99,15 +98,17 @@ python -m scripts.validate_public_retrieval
 python -m scripts.evaluate_public_retrieval
 ~~~
 
-Validate the structured-generation benchmark:
+The task-adapted BGE training code is also included. It requires a local snapshot of `BAAI/bge-reranker-v2-m3`:
+
+~~~bash
+python -m scripts.run_fine_tuned_bge train --model-path /path/to/bge-reranker-v2-m3
+python -m scripts.run_fine_tuned_bge test --model-path /path/to/bge-reranker-v2-m3
+~~~
+
+Validate the structured-generation benchmark or score your own predictions:
 
 ~~~bash
 python -m scripts.validate_public_generation
-~~~
-
-To score your own structured-generation predictions:
-
-~~~bash
 python -m scripts.evaluate_public_generation --predictions /path/to/predictions
 ~~~
 
@@ -123,13 +124,14 @@ TEF-RAG/
 ├── paper/
 │   └── TEF-RAG.pdf      # Paper
 ├── results/             # Aggregate reference metrics
-├── scripts/             # Public validation and evaluation entry points
+├── scripts/             # Validation, evaluation, and baseline training entry points
+├── tests/               # Lightweight regression tests
 └── tef_rag/             # Core implementation
 ~~~
 
 ## Data and reproducibility
 
-The test evaluator and published predictions are included so that the reported retrieval table can be reproduced locally. Stable hashes for the released test artifacts are retained in the public manifests. API keys, local caches, private review material, and development-only experiment files are not included.
+The released test evaluator and predictions include the Fine-tuned BGE baseline, so the retrieval table above can be reproduced locally without external model calls. Fine-tuned BGE training code and its aggregate downstream-generation result are included; large intermediate adapter checkpoints and API caches are not committed.
 
 ## Citation
 

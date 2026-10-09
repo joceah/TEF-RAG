@@ -9,6 +9,10 @@
       "file": "bge_reranker.json",
       "sha256": "a26acd912729a1a2aeff14c8334e78d4f84826cb19f5d22f5e22287fa8089c9a"
     },
+    "fine_tuned_bge": {
+      "file": "fine_tuned_bge.json",
+      "sha256": "108fad4ee8bdb3f6961a6daef523afe1c40230ae88d5285de55f57bb052953fd"
+    },
     "temporal_bm25": {
       "file": "temporal_bm25.json",
       "sha256": "9dee0253619896e50e2f6d7e74209b70733090366d816347702a5820912b7ba9"
