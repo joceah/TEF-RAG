@@ -1,0 +1,49 @@
+{
+  "name": "w/o Pair Proposal + Nonlinear Ranker",
+  "base_release_commit": "7521229b20e0fa70d4cb42b16f32ebea01778364",
+  "split": "test",
+  "query_count": 480,
+  "test_split_run": true,
+  "pair_selection": "existing improved rule prefilter",
+  "pair_proposer_loaded": false,
+  "set_selection": "existing greedy evidence-set selector",
+  "nonlinear_ranknet_loaded": false,
+  "candidate_set_construction": "existing stage3b.context/candidate_bank",
+  "search_pool_k": 30,
+  "final_k": 5,
+  "configured_pair_budget": 32,
+  "improved_prefilter_effective_limit": 24,
+  "relation_prompt_version": "tef-v6-stage2a-relation-v7",
+  "relation_confidence_threshold": 0.6,
+  "relation_model": "deepseek-chat",
+  "relation_temperature": 0.0,
+  "stage2a_config_sha256": "21a8b8ad6f1752fa21a5b38d904ec0c663adce0b4f703346afad7a6a824bb33f",
+  "stage2b1_config_sha256": "4798fbae6b2b9f530dac07cba44dfdff28c116e661f94f5a01d53c2fa5cdc5bf",
+  "evidence_sha256": "201577c8c7786f2e3aac8ac5f3fee3937cd9746bce47f88d97efae7f1e98b80c",
+  "test_queries_sha256": "9044c29a0ba531ba26c579c5aac467b80786185da06801d9f7aee653f0f23898",
+  "legacy_cache_checked": true,
+  "cache_hits_before_run": 10879,
+  "cache_preflight": {
+    "lookups": 11098,
+    "cache_misses": 219
+  },
+  "initial_cache_preflight": {
+    "lookups": 11098,
+    "cache_misses": 5117
+  },
+  "runtime_diagnostics_scope": "successful second attempt only; first attempt stopped after incomplete API JSON and its request count was not recorded",
+  "runtime_diagnostics": {
+    "cache_lookups": 11098,
+    "cache_hits": 10879,
+    "llm_pairs": 219,
+    "requests": 38,
+    "retries": 1,
+    "pair_count": 11098
+  },
+  "candidate_bank_total": 1326888,
+  "prediction_sha256": "d2780c66f2bdf01901c0f6eb0d5e2a6bf1fa4d6af7ec763a8c6421a3d212235d",
+  "test_evaluator_accessed_before_prediction_freeze": false,
+  "test_evaluator_sha256": "477bb709f3dfdb672ce5a7f5c93168e0791c7a90cb247c62a6072bd8dee7c9f3",
+  "test_evaluator_accessed_after_prediction_freeze": true,
+  "test_metrics_sha256": "881275f6ca4adb5d0008b2a6ad49010ac0676b14d2664512f7b51723ce38d5da"
+}

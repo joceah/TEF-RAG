@@ -1,4 +1,4 @@
-"""Validation-only joint ablation: rule pair prefilter plus frozen greedy set selector."""
+"""Joint ablation: rule pair prefilter plus frozen greedy set selector."""
 from __future__ import annotations
 
 import argparse
@@ -20,6 +20,8 @@ NAME = "w/o Pair Proposal + Nonlinear Ranker"
 PUBLIC = ROOT / "data/retrieval/tef_v6_temporal_hard_benchmark_v1/public"
 OUT = ROOT / "results/v6/ablation_no_pair_no_ranknet"
 LEGACY_CACHE = ROOT.parent / ".github_export/TEF-RAG/.cache/tef_rag_v6_llm_relation"
+TEST_CACHE = ROOT.parent / ".github_export/TEF-RAG/.cache/tef_rag_v6_test_relation"
+TEST_EVALUATOR_SHA256 = "477bb709f3dfdb672ce5a7f5c93168e0791c7a90cb247c62a6072bd8dee7c9f3"
 
 
 def read_json(path: Path):
@@ -106,6 +108,15 @@ def validation_queries():
     return queries
 
 
+def split_queries(split: str):
+    if split == "validation":
+        return validation_queries()
+    queries = load_jsonl(PUBLIC / "queries_test.jsonl")
+    if len(queries) != 480 or len({q["query_id"] for q in queries}) != 480:
+        raise RuntimeError("test must have exactly 480 unique queries")
+    return queries
+
+
 def pair_cache_preflight(queries, retriever, client):
     missing = lookups = 0
     for query in queries:
@@ -126,27 +137,47 @@ def pair_cache_preflight(queries, retriever, client):
     return {"lookups": lookups, "cache_misses": missing}
 
 
-def run(legacy_cache: Path, allow_api: bool):
-    queries = validation_queries()
+def run(legacy_cache: Path, allow_api: bool, split: str = "validation"):
+    queries = split_queries(split)
+    prediction_path = OUT / f"{split}_predictions.json"
+    if split == "test" and prediction_path.exists():
+        raise RuntimeError("test predictions already exist; refusing to overwrite frozen output")
     client, retriever, stage2a_path, b1_path = runtime(legacy_cache)
     preflight = pair_cache_preflight(queries, retriever, client)
-    write_json(OUT / "cache_preflight.json", preflight)
+    write_json(OUT / ("cache_preflight.json" if split == "validation" else "test_cache_preflight.json"), preflight)
     if preflight["cache_misses"] and not allow_api:
         raise RuntimeError(f"{preflight['cache_misses']} relation judgments are absent from cache; rerun with --allow-api")
     if not allow_api:
         client.transport = lambda *_: (_ for _ in ()).throw(RuntimeError("unexpected relation cache miss"))
-    gold = {row["query_id"]: row for row in load_jsonl(PUBLIC / "gold_validation.jsonl")}
-    if set(gold) != {q["query_id"] for q in queries}:
+    # Test predictions are frozen before the test evaluator is read.
+    gold = {row["query_id"]: row for row in load_jsonl(PUBLIC / "gold_validation.jsonl")} if split == "validation" else None
+    if gold is not None and set(gold) != {q["query_id"] for q in queries}:
         raise RuntimeError("validation query/gold mismatch")
-    predictions, scored, diagnostics = [], [], Counter()
-    bank_sizes = []
-    for index, query in enumerate(queries, 1):
+    predictions, scored, diagnostics, bank_sizes = [], [], Counter(), []
+    progress_path = OUT / "test_progress.json"
+    if split == "test" and progress_path.exists():
+        progress = read_json(progress_path)
+        predictions = progress["predictions"]
+        bank_sizes = progress["bank_sizes"]
+        diagnostics = Counter(progress["diagnostics"])
+        if (len(predictions) != len(bank_sizes) or
+                [row["query_id"] for row in predictions] != [q["query_id"] for q in queries[:len(predictions)]]):
+            raise RuntimeError("test progress query order mismatch")
+
+    def save_progress():
+        if split == "test":
+            write_json(progress_path, {"predictions": predictions, "bank_sizes": bank_sizes,
+                                       "diagnostics": dict(diagnostics)})
+
+    for index in range(len(predictions), len(queries)):
+        query = queries[index]
         public, prediction, _, _, bank = context(query, retriever, prefilter_mode="improved",
                                                   require_cache=not allow_api)
         if retriever.relation_scorer.pair_proposer is not None:
             raise RuntimeError("learned pair proposer was enabled")
         rd = prediction["relation_diagnostics"]
         if rd["client_failure_pair_count"]:
+            save_progress()
             raise RuntimeError(f"relation judging failed for {query['query_id']}")
         if rd["prefilter_mode"] != "improved" or prediction["search_diagnostics"]["mode"] != "greedy":
             raise RuntimeError("joint ablation mode mismatch")
@@ -162,19 +193,23 @@ def run(legacy_cache: Path, allow_api: bool):
                             "relation_graph": prediction["relation_graph"],
                             "relation_diagnostics": rd, "search_diagnostics": prediction["search_diagnostics"],
                             "candidate_bank_size": len(bank)})
-        scored.append(evaluate_prediction(prediction, gold[query["query_id"]], 5))
+        if gold is not None:
+            scored.append(evaluate_prediction(prediction, gold[query["query_id"]], 5))
         bank_sizes.append(len(bank))
         diagnostics.update(cache_lookups=rd["cache_lookup_count"], cache_hits=rd["cache_hit_count"],
                            llm_pairs=rd["llm_called_pair_count"], requests=rd["request_count"],
                            retries=rd["retry_count"], pair_count=rd["prefiltered_pair_count"])
-        if index % 40 == 0:
-            print(f"joint ablation: {index}/480", flush=True)
-    metrics = average(scored)
-    write_json(OUT / "validation_predictions.json", predictions)
-    write_json(OUT / "validation_metrics.json", metrics)
+        if (index + 1) % 40 == 0:
+            save_progress()
+            print(f"joint ablation {split}: {index + 1}/480", flush=True)
+    save_progress()
+    write_json(prediction_path, predictions)
+    metrics = average(scored) if gold is not None else None
+    if metrics is not None:
+        write_json(OUT / "validation_metrics.json", metrics)
     manifest = {
         "name": NAME, "base_release_commit": "7521229b20e0fa70d4cb42b16f32ebea01778364",
-        "split": "validation", "query_count": 480, "test_split_run": False,
+        "split": split, "query_count": 480, "test_split_run": split == "test",
         "pair_selection": "existing improved rule prefilter", "pair_proposer_loaded": False,
         "set_selection": "existing greedy evidence-set selector", "nonlinear_ranknet_loaded": False,
         "candidate_set_construction": "existing stage3b.context/candidate_bank",
@@ -186,29 +221,97 @@ def run(legacy_cache: Path, allow_api: bool):
         "relation_model": client.config.model, "relation_temperature": client.config.temperature,
         "stage2a_config_sha256": sha256(stage2a_path), "stage2b1_config_sha256": sha256(b1_path),
         "evidence_sha256": sha256(PUBLIC / "evidence.jsonl"),
-        "validation_queries_sha256": sha256(PUBLIC / "queries_validation.jsonl"),
-        "validation_gold_sha256": sha256(PUBLIC / "gold_validation.jsonl"),
+        f"{split}_queries_sha256": sha256(PUBLIC / f"queries_{split}.jsonl"),
         "legacy_cache_checked": legacy_cache.exists(), "cache_hits_before_run":
             preflight["lookups"] - preflight["cache_misses"], "cache_preflight": preflight,
         "runtime_diagnostics": dict(diagnostics), "candidate_bank_total": sum(bank_sizes),
-        "prediction_sha256": sha256(OUT / "validation_predictions.json"),
+        "prediction_sha256": sha256(prediction_path),
     }
-    write_json(OUT / "manifest.json", manifest)
+    if split == "validation":
+        manifest["validation_gold_sha256"] = sha256(PUBLIC / "gold_validation.jsonl")
+    else:
+        manifest["test_evaluator_accessed_before_prediction_freeze"] = False
+    write_json(OUT / ("manifest.json" if split == "validation" else "test_manifest.json"), manifest)
     print(json.dumps({"metrics": metrics, "diagnostics": dict(diagnostics)}, indent=2))
+
+
+def evaluate_test():
+    prediction_path = OUT / "test_predictions.json"
+    manifest_path = OUT / "test_manifest.json"
+    manifest = read_json(manifest_path)
+    if sha256(prediction_path) != manifest["prediction_sha256"]:
+        raise RuntimeError("test predictions changed after freeze")
+    evaluator_path = PUBLIC / "test_evaluator.jsonl"
+    if sha256(evaluator_path) != TEST_EVALUATOR_SHA256:
+        raise RuntimeError("test evaluator SHA mismatch")
+    queries = split_queries("test")
+    predictions = read_json(prediction_path)
+    if len(predictions) != 480 or [p["query_id"] for p in predictions] != [q["query_id"] for q in queries]:
+        raise RuntimeError("test prediction query count/order mismatch")
+    sealed = load_jsonl(evaluator_path)
+    gold = {row["query"]["query_id"]: row["gold"] for row in sealed}
+    if len(gold) != 480 or set(gold) != {q["query_id"] for q in queries}:
+        raise RuntimeError("test evaluator query mismatch")
+    metrics = average([evaluate_prediction(row, gold[row["query_id"]], 5) for row in predictions])
+    write_json(OUT / "test_metrics.json", metrics)
+    manifest["test_evaluator_sha256"] = TEST_EVALUATOR_SHA256
+    manifest["test_evaluator_accessed_after_prediction_freeze"] = True
+    manifest["test_metrics_sha256"] = sha256(OUT / "test_metrics.json")
+    write_json(manifest_path, manifest)
+    print(json.dumps(metrics, indent=2))
+
+
+def verify_test():
+    manifest = read_json(OUT / "test_manifest.json")
+    predictions = read_json(OUT / "test_predictions.json")
+    queries = split_queries("test")
+    if sha256(OUT / "test_predictions.json") != manifest["prediction_sha256"]:
+        raise RuntimeError("test prediction hash mismatch")
+    if len(predictions) != 480 or [p["query_id"] for p in predictions] != [q["query_id"] for q in queries]:
+        raise RuntimeError("test prediction count/order mismatch")
+    client, retriever, _, _ = runtime(TEST_CACHE)
+    client.transport = lambda *_: (_ for _ in ()).throw(RuntimeError("verification must be cache-only"))
+    if retriever.relation_scorer.pair_proposer is not None:
+        raise RuntimeError("learned pair proposer was loaded")
+    for query, saved in zip(queries, predictions):
+        public, repeated, _, _, bank = context(query, retriever, prefilter_mode="improved", require_cache=True)
+        ids = saved["selected_evidence_ids"]
+        if (ids != repeated["selected_evidence_ids"] or
+                saved["relation_diagnostics"]["prefilter_pairs"] != repeated["relation_diagnostics"]["prefilter_pairs"] or
+                saved["candidate_bank_size"] != len(bank)):
+            raise RuntimeError(f"test fallback/greedy reproduction mismatch: {query['query_id']}")
+        if (len(ids) > 5 or len(ids) != len(set(ids)) or
+                any(not retriever.temporal_eligibility(retriever.by_id[eid], public)[0] or
+                    retriever.by_id[eid]["asset_id"] != public["asset_id"] for eid in ids)):
+            raise RuntimeError(f"invalid test evidence: {query['query_id']}")
+        rd = repeated["relation_diagnostics"]
+        if (rd["prefilter_mode"] != "improved" or rd["client_failure_pair_count"] or
+                rd["request_count"] or rd["cache_hit_count"] != rd["cache_lookup_count"] or
+                repeated["search_diagnostics"]["mode"] != "greedy"):
+            raise RuntimeError(f"test protocol mismatch: {query['query_id']}")
+    print("verified 480 test predictions, temporal/asset eligibility, rule pair fallback, greedy selection, and cache-only reproduction")
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", choices=("preflight", "run"))
-    parser.add_argument("--reuse-cache", type=Path, default=LEGACY_CACHE)
+    parser.add_argument("action", choices=("preflight", "run", "evaluate-test", "verify-test"))
+    parser.add_argument("--split", choices=("validation", "test"), default="validation")
+    parser.add_argument("--reuse-cache", type=Path)
     parser.add_argument("--allow-api", action="store_true")
     args = parser.parse_args()
-    queries = validation_queries()
+    if args.action == "evaluate-test":
+        evaluate_test()
+        return
+    if args.action == "verify-test":
+        verify_test()
+        return
+    queries = split_queries(args.split)
+    legacy_cache = args.reuse_cache or (TEST_CACHE if args.split == "test" else LEGACY_CACHE)
     if args.action == "preflight":
-        client, retriever, _, _ = runtime(args.reuse_cache)
+        client, retriever, _, _ = runtime(legacy_cache)
         print(json.dumps(pair_cache_preflight(queries, retriever, client), indent=2))
     else:
-        run(args.reuse_cache, args.allow_api)
+        run(legacy_cache, args.allow_api, args.split)
 
 
 if __name__ == "__main__":
