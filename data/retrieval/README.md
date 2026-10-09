@@ -3,10 +3,10 @@
 The retrieval benchmark contains 400 event chains, 3,888 evidence records, 1,200 task intents, and 2,400 queries.
 
 - benchmark/ contains queries, evidence, chain descriptions, development/validation references, and the released 480-query test evaluator.
-- predictions/ contains published test predictions for BM25, BGE Reranker, Temporal-BM25, TA-RAG, and TEF-RAG.
+- predictions/ contains published test predictions for BM25, BGE Reranker, Fine-tuned BGE, Temporal-BM25, TA-RAG, and TEF-RAG.
 - benchmark/metadata/ contains the relation taxonomy, source registry, and split summary.
 
-The test evaluator was withheld during model development and released after the reported evaluation.
+The test evaluator was withheld during model development and released after the reported evaluation. Fine-tuned BGE was trained only on development document-level relevance labels and selected on validation nDCG@5 before test evaluation.
 
 ~~~bash
 python -m scripts.validate_public_retrieval
