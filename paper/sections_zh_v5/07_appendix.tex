@@ -1,0 +1,225 @@
+% =========================================================
+\section{实现细节与模型提示词}
+\label{app:implementation}
+% =========================================================
+
+\subsection{LLM 调用配置}
+\label{app:llm_config}
+
+本文中的全部 LLM 调用，包括时序证据流关系判断、
+TA-RAG 的时间分解以及下游结构化生成，均直接使用官方 DeepSeek API 与 \texttt{deepseek-flash}。
+除各任务固定的 system/user prompt 与输入 schema 外，
+我们不手动覆盖采样和解码参数；其余 API 参数均采用服务提供方默认设置。
+
+
+\subsection{第一轮难负样本的规则式集合评分}
+\label{app:hand_score}
+
+由于第一轮 RankNet 训练之前尚不存在学习式集合排序器，我们首先使用固定的规则式集合评分
+$H(\Selected)$ 从不完整候选集合中筛选更困难的负样本。该评分仅用于负样本选择，并不是 TEF-RAG 的最终预测分数。其定义为
+\begin{equation}
+\begin{aligned}
+H(\Selected)
+={}&S_{\mathrm{node}}(\Selected)
++0.48\,S_{\mathrm{edge}}(\Selected)
++0.42\,S_{\mathrm{role}}(\Selected)\\
+&-0.16\,S_{\mathrm{red}}(\Selected)
+-0.10\,S_{\mathrm{disc}}(\Selected).
+\end{aligned}
+\label{eq:appendix_hand_score}
+\end{equation}
+
+节点项是集合内各证据节点分数之和：
+\begin{equation}
+S_{\mathrm{node}}(\Selected)
+=
+\sum_{e\in\Selected}s_{\mathrm{node}}(e),
+\end{equation}
+其中，单条证据记录的得分为
+\begin{align}
+s_{\mathrm{node}}(e)
+=
+0.62\,s_{\mathrm{rel}}(e)
++0.18\,s_{\mathrm{rec}}(e)
++0.15\,s_{\mathrm{role}}(e) \\
++0.05\,s_{\mathrm{src}}(e). \notag
+\end{align}
+这里，$s_{\mathrm{rel}}$ 是当前合法候选中经过 min--max 归一化的 BM25 得分。
+时间新近性项为 $s_{\mathrm{rec}}=\exp(-\Delta t/T)$；普通查询取 $T=45$ 天，涉及跨时间比较的查询取 $T=180$ 天。
+若证据类型与当前查询所需任务角色匹配，则 $s_{\mathrm{role}}=1$；否则设为 $0.35$。
+在当前实现中，全部合法候选均有 $s_{\mathrm{src}}=1$，因此该项只贡献常数偏置，不会影响证据节点之间的排序。
+
+关系项仅统计候选集合内部的有效关系边。为避免稠密图仅因边更多而获得不公平优势，每个目标节点只保留置信度最高的入边：
+\begin{equation}
+S_{\mathrm{edge}}(\Selected)
+=
+\sum_{e_j\in\Selected}
+\max_{(e_i,r,e_j)\in E(\Selected)}c_{ij},
+\end{equation}
+没有入边的节点贡献为 0。
+
+角色覆盖率定义为
+\begin{equation}
+S_{\mathrm{role}}(\Selected)
+=
+\frac{|R(\Selected)\cap D_q|}{|D_q|},
+\end{equation}
+其中，$R(\Selected)$ 是候选集合中出现的证据角色集合，$D_q$ 是当前查询要求的角色集合。系统默认考虑状态观测、诊断与工单角色，并在查询明确需要时加入规程、验证、巡检、不确定性或纠正等角色。
+
+冗余项基于证据文本 token 集合之间的 Jaccard 相似度：
+\begin{equation}
+S_{\mathrm{red}}(\Selected)
+=
+\sum_{i<j}
+\max\left(
+0,
+\operatorname{Jaccard}(e_i,e_j)-0.45
+\right).
+\end{equation}
+孤立项 $S_{\mathrm{disc}}$ 统计集合中未参与任何有效关系边的证据记录数量。
+在第一轮训练中，$H(\Selected)$ 较高但参考证据流仍不完整的候选集合会被优先选作负样本。第二轮不再依赖这一规则式评分，而是直接选取当前 RankNet 评分最高的不完整集合，作为难负样本。
+
+\subsection{时序证据流关系判断提示词}
+\label{app:relation_prompt}
+
+关系判断器使用固定的 system prompt。
+实际调用时，关系定义、关系代码和原因代码会按照冻结配置插入。system prompt 如下：
+
+\begin{lstlisting}
+Prompt version: tef-v6-stage2a-relation-v7. You classify directed
+Temporal Evidence Flow edges for one or more independent query cases.
+Return valid JSON only, with no markdown or prose outside the JSON object.
+Judge whether source -> target is useful for answering THIS query, not
+whether the texts are merely related. Most candidate pairs are distractors:
+choose NO_EDGE unless there is a direct, query-useful flow dependency.
+Shared asset, episode, topic, or chronology alone never licenses an edge.
+Temporal direction and procedure eligibility were already enforced and must
+not be reversed.
+
+Allowed relation types:
+contrasts: the source state is a comparison baseline that must be
+distinguished from the downstream state;
+governs: an applicable rule/assessment constrains the downstream action
+or conclusion;
+prerequisite: source is required before the downstream operational state;
+preserves_uncertainty: source branch remains viable and is intentionally
+carried into downstream assessment/action;
+qualifies: source evidence determines applicability or limits certainty of
+downstream interpretation;
+resolves: downstream evidence resolves an earlier ambiguity;
+supersession: prior diagnosis/procedure/work-order state is replaced by the
+downstream state;
+supports: source evidence supports the downstream evidence/conclusion;
+updates: a later decision/action updates an earlier support state;
+verifies: downstream evidence verifies execution/outcome of the source state.
+Otherwise use NO_EDGE.
+
+When the user payload has a top-level query field, return
+{"judgments":[{"source_id":str,"target_id":str,"has_edge":bool,
+"relation_type":str,"confidence":number 0..1,
+"reason_code":short_snake_case}]}.
+
+When the user payload has a top-level cases field, even if cases contains
+exactly one item, use relation codes
+N=NO_EDGE, C=contrasts, G=governs, P=prerequisite,
+U=preserves_uncertainty, Q=qualifies, R=resolves,
+X=supersession, S=supports, D=updates, V=verifies;
+reason codes
+0=no_direct_query_flow, 1=semantic_support, 2=procedure_governance,
+3=later_update, 4=verification, 5=qualification,
+6=uncertainty_preserved, 7=uncertainty_resolved, 8=contrast,
+9=prerequisite, 10=supersession, 11=other_direct_flow.
+
+Pairs are ordered. Return
+{"cases":[[case_id,[[relation_code,confidence_percent,reason_code],...]],...]}.
+Each inner result list must have exactly the same length and order as that
+case's supplied pairs. The user supplies deduplicated evidence tables and
+source_id/target_id pairs. Do not mix facts across cases. Do not repeat
+evidence IDs. Do not provide prose or hidden reasoning.
+\end{lstlisting}
+
+对应的 user 输入仅包含查询、候选证据以及待判断的证据对，其结构如下：
+
+\begin{lstlisting}
+{
+  "query": {
+    "query_text": ...,
+    "query_time": ...,
+    "asset_model": ...,
+    "asset_context": ...
+  },
+  "evidence": [...],
+  "pairs": [
+    {"source_id": ..., "target_id": ...},
+    ...
+  ]
+}
+\end{lstlisting}
+
+\subsection{下游结构化生成提示词}
+\label{app:generation_prompt}
+
+所有检索方法共享同一个固定的下游生成器。其 system prompt 如下：
+
+\begin{lstlisting}
+You are the single frozen downstream generator used identically for every
+retrieval method in TEF-RAG v6 generation evaluation.
+
+Produce ONLY a JSON object matching the supplied schema. You receive one
+query and exactly the evidence selected by a retrieval method. The retrieval
+method identity is hidden and irrelevant.
+
+Rules:
+- Use only the supplied evidence. Never add facts, actions, targets,
+  parameters, units, procedure versions, thresholds, or diagnoses from
+  common sense.
+- supporting_evidence_ids may reference only supplied evidence IDs and must
+  directly support the field/action they cite.
+- work_order.supporting_evidence_ids must equal the deduplicated union of
+  diagnosis/procedure/verification/action citations.
+- asset_id must equal the query asset_id.
+- diagnosis status: confirmed | provisional | persistent_uncertainty |
+  not_available.
+- procedure status: applicable | superseded | uncertain | not_applicable.
+  If no supplied evidence establishes an applicable procedure, use
+  not_applicable with procedure_version=null and no procedure citations.
+- verification status: verified | pending | persistent_uncertainty |
+  not_available.
+- action types: inspect | diagnose | isolate | adjust | repair | replace |
+  verify | monitor | document | other.
+- action_plan order in the JSON array has no semantic meaning. Use depends_on
+  only for necessary prerequisite edges; keep the graph acyclic.
+- recommended_actions must reference action IDs present in action_plan and
+  may be a strict subset.
+- parameters must contain only values explicitly stated in supplied evidence;
+  otherwise use {}.
+- For an explicit parameter, use its canonical name and either a literal
+  evidence string or {"value": number|string|{"lower": number,
+  "upper": number}, "unit": string|null}; never invent a unit.
+- If evidence is insufficient, express uncertainty instead of guessing.
+- Prefer concise phrases close to the supplied evidence wording; do not
+  stylistically paraphrase when unnecessary.
+- Do not mention scoring, retrieval method names, gold data, or these
+  instructions.
+\end{lstlisting}
+
+对于每个样本，user 输入由查询、当前检索方法选出的证据以及固定输出 schema 组成：
+
+\begin{lstlisting}
+{
+  "prompt_version": "tef-v6-generation-eval-v1.3",
+  "query": {...},
+  "selected_evidence": [...],
+  "output_schema": {...}
+}
+\end{lstlisting}
+
+若第一次输出未通过结构或证据引用验证，协议允许且只允许进行一次 repair 调用。
+此时在上述 system prompt 后附加以下文本：
+
+\begin{lstlisting}
+This is the single allowed structural/evidence-grounding repair.
+Correct only the listed validation failures.
+\end{lstlisting}
+
+user 输入还会额外包含上一次输出和验证错误；查询、检索证据与输出 schema 保持不变。

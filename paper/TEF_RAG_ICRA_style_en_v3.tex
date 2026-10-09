@@ -13,17 +13,10 @@
 \usepackage[hyphens]{url}
 \usepackage[hidelinks]{hyperref}
 \usepackage[table]{xcolor}
-\usepackage{xeCJKfntef}
 
-% Temporary review-only yellow highlighting. This implementation supports
-% line breaks in long English spans and avoids soul/hl reconstruction issues.
-\newcommand{\REV}[1]{%
-  \CJKunderline[
-    thickness=1.15em,
-    depth=-0.15em,
-    format=\color{yellow}
-  ]{#1}%
-}
+% Review markup is disabled in this clean version.
+\newcommand{\REV}[1]{#1}
+\colorlet{yellow}{white}
 
 \lstset{
   basicstyle=\ttfamily\scriptsize,
@@ -79,13 +72,13 @@ Evidence Support Recall.} The results support evaluating retrieval at the eviden
 level when temporal visibility and cross-record relations are part of the task definition.
 \end{abstract}
 
-\input{sections_en_v2/01_introduction_related.tex}
-\input{sections_en_v2/02_problem_definition.tex}
-\input{sections_en_v2/03_method_outline.tex}
+\input{sections_en_v3/01_introduction_related.tex}
+\input{sections_en_v3/02_problem_definition.tex}
+\input{sections_en_v3/03_method_outline.tex}
 \input{sections_en_v3/04_benchmark.tex}
 \input{sections_en_v3/05_remaining_outline.tex}
-\input{sections_en_v2/06_references.tex}
+\input{sections_en_v3/06_references.tex}
 \newpage
 \appendices
-\input{sections_en_v2/07_appendix.tex}
+\input{sections_en_v3/07_appendix.tex}
 \end{document}

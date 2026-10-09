@@ -14,16 +14,10 @@
 \usepackage[hyphens]{url}
 \usepackage[hidelinks]{hyperref}
 \usepackage[table]{xcolor}
-\usepackage{xeCJKfntef}
 
-% 临时审阅高亮：支持中文长段落自动换行，并避免 soul/soulutf8 的重构错误。
-\newcommand{\REV}[1]{%
-  \CJKunderline[
-    thickness=1.2em,
-    depth=-0.15em,
-    format=\color{yellow}
-  ]{#1}%
-}
+% 本版本关闭审阅高亮并按正常样式显示。
+\newcommand{\REV}[1]{#1}
+\colorlet{yellow}{white}
 
 \lstset{
   basicstyle=\ttfamily\scriptsize,
@@ -59,13 +53,13 @@
 面向储能电站具身运维的检索增强生成不能只检索与查询语义相关的记录。系统还必须保证这些证据在查询时刻确实已经可用，并且检索到的记录能够共同支撑从状态观测、诊断到处置与验证的完整过程。本文提出 TEF-RAG（Temporal Evidence Flow Retrieval-Augmented Generation），将动态运维环境中的检索表述为查询条件化的时序证据流选择问题。TEF-RAG 首先对资产标识、事件时间、可用时间和规程适用性施加确定性约束；随后，学习式证据对提议模块筛选值得进行语义关系推理的证据对，并利用支持、更新、限定、替代和验证等关系构建有向图；最后，非线性 RankNet 在候选证据集合上学习集合级相对效用，选择至多五条角色互补、关系连贯的记录构成证据流。我们构建了一个以公开资料为依据的基准，其中包含双时间戳、版本替代、跨来源互补证据与持续不确定性，并在共享下游生成器下比较不同检索上下文。\REV{在测试集上，六种对比方法中，TEF-RAG 在 Recall@5、Complete@5 和 FlowComplete@5 上取得最高值，而 Fine-tuned BGE 在 nDCG@5 上取得最高值。在共享生成器下，TEF-RAG 在 Field Macro F1、Action F1、Citation F1 与 Evidence Support Recall 上均取得最高值。}实验结果支持这样一种评估方式：当时间可见性与跨记录关系属于任务定义的一部分时，应在证据集合层面而非仅在单条记录层面评估检索。
 \end{abstract}
 
-\input{sections_zh_v4/01_introduction_related.tex}
-\input{sections_zh_v4/02_problem_definition.tex}
-\input{sections_zh_v4/03_method_outline.tex}
+\input{sections_zh_v5/01_introduction_related.tex}
+\input{sections_zh_v5/02_problem_definition.tex}
+\input{sections_zh_v5/03_method_outline.tex}
 \input{sections_zh_v5/04_benchmark.tex}
 \input{sections_zh_v5/05_remaining_outline.tex}
-\input{sections_zh_v4/06_references.tex}
+\input{sections_zh_v5/06_references.tex}
 \newpage
 \appendices
-\input{sections_zh_v4/07_appendix.tex}
+\input{sections_zh_v5/07_appendix.tex}
 \end{document}
