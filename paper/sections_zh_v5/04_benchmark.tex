@@ -72,7 +72,7 @@
 \label{sec:baselines}
 
 为减少检索策略之外的差异造成的混杂因素，所有方法首先都在查询时刻可用的同一证据集合上运行。我们只保留目标资产中满足
-$t_e(e)\le t_q$ 且 $t_a(e)\le t_q$ 的记录，并对规程证据施加相同的版本有效性、撤回状态和型号适用性约束。\REV{在这一共享设置下，我们比较六种方法；每种方法最终最多返回五条证据记录。}
+$t_e(e)\le t_q$ 且 $t_a(e)\le t_q$ 的记录，并对规程证据施加相同的版本有效性、撤回状态和型号适用性约束。在这一共享设置下，我们比较六种方法；每种方法最终最多返回五条证据记录。
 
 \textbf{BM25。}
 我们采用标准 BM25 作为词法检索基线~\cite{robertson2009bm25}。对于每个查询，分别在合法证据集合上建立索引，固定参数为 $k_1=1.5$、$b=0.75$，并直接返回得分最高的五条证据。
@@ -80,8 +80,8 @@ $t_e(e)\le t_q$ 且 $t_a(e)\le t_q$ 的记录，并对规程证据施加相同�
 \textbf{BGE Reranker。}
 首先使用相同的 BM25 设置检索 Top-30 候选，然后使用 \texttt{BAAI/bge-reranker-v2-m3} 对每个 $(\text{query},\text{evidence})$ 文本对重新打分~\cite{chen2024bgem3,flagembedding2026reranker}，并选取重排序得分最高的五条记录。该基线用于检验通用语义重排序器能否弥补纯词法检索的局限。
 
-\textbf{\REV{Fine-tuned BGE Reranker。}}
-\REV{为控制任务内监督带来的影响，我们进一步使用仅来自开发集的文档级相关性标签对同一 BGE 重排序器进行任务适配。凡出现在任一必需证据组可接受证据集合中的记录均视为正样本，高排名且符合约束的 BM25 非正样本作为负样本；训练过程中不使用关系标签或证据流标签。我们在注意力 query/value 投影上训练 rank-8 低秩适配器，并同时训练分类头，共训练两个 epoch；模型选择仅依据验证集 nDCG@5，并以 Recall@5 作为并列情况下的次级标准。测试时，该基线仍使用与原始 BGE 完全相同的 BM25 Top-30 候选池和 Top-5 输出预算。}
+\textbf{Fine-tuned BGE Reranker。}
+为控制任务内监督带来的影响，我们进一步使用仅来自开发集的文档级相关性标签对同一 BGE 重排序器进行任务适配。凡出现在任一必需证据组可接受证据集合中的记录均视为正样本，高排名且符合约束的 BM25 非正样本作为负样本；训练过程中不使用关系标签或证据流标签。我们在注意力 query/value 投影上训练 rank-8 低秩适配器，并同时训练分类头，共训练两个 epoch；模型选择仅依据验证集 nDCG@5，并以 Recall@5 作为并列情况下的次级标准。测试时，该基线仍使用与原始 BGE 完全相同的 BM25 Top-30 候选池和 Top-5 输出预算。
 
 \textbf{Temporal-BM25。}
 该基线在 BM25 相关性之外显式加入时间匹配项，其排序得分为
@@ -108,7 +108,7 @@ s_{\mathrm{TBM25}}(e,q)
 Recall@5 与 nDCG@5 衡量传统检索相关性。Complete@5 衡量检索集合是否包含完成任务所需的全部关键证据类别。FlowComplete@5 进一步检查这些记录能否形成正确且相互一致的证据关系，从而构成完整的时序证据流。
 
 \textbf{生成。}
-\REV{正文报告四个主要指标：Field Macro F1（strict）、Action F1、Citation F1 和 Evidence Support Recall。Field Macro F1 衡量关键工单字段的严格匹配情况，Action F1 衡量归一化维护动作，Citation F1 衡量 claim--evidence 引用对；Evidence Support Recall 则衡量需要证据支撑的参考工单字段与动作中，有多大比例能够在生成结果中找到至少一条可接受的支撑证据引用。}
+正文报告四个主要指标：Field Macro F1（strict）、Action F1、Citation F1 和 Evidence Support Recall。Field Macro F1 衡量关键工单字段的严格匹配情况，Action F1 衡量归一化维护动作，Citation F1 衡量 claim--evidence 引用对；Evidence Support Recall 则衡量需要证据支撑的参考工单字段与动作中，有多大比例能够在生成结果中找到至少一条可接受的支撑证据引用。
 
 \subsection{消融实验设置}
 
