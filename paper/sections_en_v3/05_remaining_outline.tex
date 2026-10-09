@@ -6,7 +6,7 @@
 \subsection{Main Retrieval Results}
 
 Table~\ref{tab:retrieval_results} reports retrieval performance on the test split.
-\REV{TEF-RAG records the highest Recall@5, Complete@5, and FlowComplete@5, while the Fine-tuned BGE Reranker obtains the highest nDCG@5. Compared with Fine-tuned BGE, TEF-RAG increases Recall@5 from 0.6650 to 0.7228, Complete@5 from 0.2854 to 0.3188, and FlowComplete@5 from 0.2833 to 0.3146, whereas Fine-tuned BGE has higher nDCG@5 (0.6501 versus 0.6231). This pattern is consistent with the distinction between ranking individual evidence records and recovering a complete evidence set.}
+TEF-RAG records the highest Recall@5, Complete@5, and FlowComplete@5, while the Fine-tuned BGE Reranker obtains the highest nDCG@5. Compared with Fine-tuned BGE, TEF-RAG increases Recall@5 from 0.6650 to 0.7228, Complete@5 from 0.2854 to 0.3188, and FlowComplete@5 from 0.2833 to 0.3146, whereas Fine-tuned BGE has higher nDCG@5 (0.6501 versus 0.6231). This pattern is consistent with the distinction between ranking individual evidence records and recovering a complete evidence set.
 
 \begin{table}[t]
 \caption{Main retrieval results on the test split (Top-5).}
@@ -21,11 +21,10 @@ Method & Recall & nDCG & Complete & FlowComplete \\
 \midrule
 BM25 & 0.3791 & 0.3915 & 0.0563 & 0.0563 \\
 BGE Reranker & 0.2916 & 0.3070 & 0.0417 & 0.0417 \\
-\rowcolor{yellow}
 Fine-tuned BGE & 0.6650 & \textbf{0.6501} & 0.2854 & 0.2833 \\
 Temporal-BM25 & 0.4591 & 0.4955 & 0.0792 & 0.0792 \\
 TA-RAG & 0.2769 & 0.2907 & 0.0375 & 0.0375 \\
-\textbf{TEF-RAG} & \textbf{0.7228} & \cellcolor{yellow}0.6231 & \textbf{0.3188} & \textbf{0.3146} \\
+\textbf{TEF-RAG} & \textbf{0.7228} & 0.6231 & \textbf{0.3188} & \textbf{0.3146} \\
 \bottomrule
 \end{tabular}%
 }
@@ -62,7 +61,7 @@ w/o Nonlinear Ranker & 0.7070 & 0.6965 & 0.3188 & 0.3125 \\
 \subsection{Downstream Structured Generation Results}
 \label{sec:generation_results}
 
-Table~\ref{tab:generation_results} \REV{reports four complementary generation metrics used to compare structured outputs produced from each method's retrieved evidence. Under the same generator, prompt, output format, and decoding settings, TEF-RAG records the highest value on all four displayed metrics: Field Macro F1 of 0.5345, Action F1 of 0.2035, Citation F1 of 0.1585, and Evidence Support Recall of 0.2253. Fine-tuning BGE substantially improves the pretrained reranker, but TEF-RAG remains higher on these four measures. The results indicate that the retrieved evidence from TEF-RAG is reflected not only in field- and action-level output quality, but also in claim--evidence citation quality and the coverage of reference claims by acceptable supporting evidence.}
+Table~\ref{tab:generation_results} reports four complementary generation metrics used to compare structured outputs produced from each method's retrieved evidence. Under the same generator, prompt, output format, and decoding settings, TEF-RAG records the highest value on all four displayed metrics: Field Macro F1 of 0.5345, Action F1 of 0.2035, Citation F1 of 0.1585, and Evidence Support Recall of 0.2253. Fine-tuning BGE substantially improves the pretrained reranker, but TEF-RAG remains higher on these four measures. The results indicate that the retrieved evidence from TEF-RAG is reflected not only in field- and action-level output quality, but also in claim--evidence citation quality and the coverage of reference claims by acceptable supporting evidence.
 
 \begin{table}[t]
 \caption{Primary structured-generation metrics on the generation test set.}
@@ -73,15 +72,14 @@ Table~\ref{tab:generation_results} \REV{reports four complementary generation me
 \resizebox{\columnwidth}{!}{%
 \begin{tabular}{lrrrr}
 \toprule
-Method & Field F1 & Action F1 & Citation F1 & \cellcolor{yellow}Evidence Support Recall \\
+Method & Field F1 & Action F1 & Citation F1 & Evidence Support Recall \\
 \midrule
-BM25 & 0.4715 & 0.1372 & 0.0813 & \cellcolor{yellow}0.1258 \\
-BGE Reranker & 0.4129 & 0.1198 & 0.0405 & \cellcolor{yellow}0.0614 \\
-\rowcolor{yellow}
+BM25 & 0.4715 & 0.1372 & 0.0813 & 0.1258 \\
+BGE Reranker & 0.4129 & 0.1198 & 0.0405 & 0.0614 \\
 Fine-tuned BGE & 0.4818 & 0.1910 & 0.0954 & 0.1328 \\
-Temporal-BM25 & 0.5218 & 0.1637 & 0.1249 & \cellcolor{yellow}0.1871 \\
-TA-RAG & 0.4059 & 0.1115 & 0.0379 & \cellcolor{yellow}0.0570 \\
-\textbf{TEF-RAG} & \textbf{0.5345} & \textbf{0.2035} & \textbf{0.1585} & \cellcolor{yellow}\textbf{0.2253} \\
+Temporal-BM25 & 0.5218 & 0.1637 & 0.1249 & 0.1871 \\
+TA-RAG & 0.4059 & 0.1115 & 0.0379 & 0.0570 \\
+\textbf{TEF-RAG} & \textbf{0.5345} & \textbf{0.2035} & \textbf{0.1585} & \textbf{0.2253} \\
 \bottomrule
 \end{tabular}%
 }
@@ -102,5 +100,5 @@ Although the generation evaluation covers fields, actions, dependencies, and cit
 % =========================================================
 
 We presented TEF-RAG, which extends the retrieval objective for dynamic O\&M RAG from independent document relevance to a Temporal Evidence Flow that is visible at the query time, relation-consistent, and process-complete.
-\REV{On the test split, TEF-RAG records the highest Recall@5, Complete@5, and FlowComplete@5 among the six compared methods, while Fine-tuned BGE records the highest nDCG@5. In the structured generation test with a fixed downstream generator, TEF-RAG records the highest Field Macro F1, Action F1, Citation F1, and Evidence Support Recall.}
+On the test split, TEF-RAG records the highest Recall@5, Complete@5, and FlowComplete@5 among the six compared methods, while Fine-tuned BGE records the highest nDCG@5. In the structured generation test with a fixed downstream generator, TEF-RAG records the highest Field Macro F1, Action F1, Citation F1, and Evidence Support Recall.
 Future work should further integrate explicit planning and execution constraints.
