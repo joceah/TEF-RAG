@@ -15,9 +15,9 @@ TEF-RAG 在 Recall@5、Complete@5 和 FlowComplete@5 上取得最高值，而 Fi
 \small
 \setlength{\tabcolsep}{3pt}
 \resizebox{\columnwidth}{!}{%
-\begin{tabular}{lrrrr}
+\begin{tabular}{ccccc}
 \toprule
-方法 & Recall & nDCG & Complete & FlowComplete \\
+方法 & Recall@5 & nDCG@5 & Complete@5 & FlowComplete@5 \\
 \midrule
 BM25 & 0.3791 & 0.3915 & 0.0563 & 0.0563 \\
 BGE Reranker & 0.2916 & 0.3070 & 0.0417 & 0.0417 \\
@@ -33,9 +33,9 @@ TA-RAG & 0.2769 & 0.2907 & 0.0375 & 0.0375 \\
 \subsection{验证集消融实验}
 \label{sec:ablation_results}
 
-表~\ref{tab:ablation_results} 给出了验证集上的四组消融结果。完整 TEF-RAG 的 FlowComplete@5 为 0.4042。移除学习式证据对提议后，该指标仅下降至 0.4021。在送入关系判断的证据对数量保持不变的条件下，这一较小变化表明，证据对提议器主要决定哪些证据对接受关系分析，而不是直接决定最终证据集合。相比之下，移除由关系图导出的特征后，FlowComplete@5 降至 0.3667；这一下降与图结构特征对集合排序存在贡献的预期一致。
+表~\ref{tab:ablation_results} 给出了验证集上的五组消融结果。完整 TEF-RAG 的 FlowComplete@5 为 0.4042。移除学习式证据对提议后，该指标仅下降至 0.4021，绝对差值为 0.0021。由于这些数值是单次运行的点估计，我们不将如此小的差异解释为稳定的准确率效应；这一结果更符合证据对提议器主要决定哪些证据对进入关系分析并控制计算开销，而不是直接决定最终证据集合的作用。相比之下，移除由关系图导出的特征后，FlowComplete@5 降至 0.3667；这一下降与图结构特征对集合排序存在贡献的预期一致。
 
-训练目标与排序器本身的影响更大。移除难负样本挖掘后，FlowComplete@5 从 0.4042 降至 0.2833；移除非线性集合排序器、改用前序贪心证据集合选择器后，该指标降至 0.3125。在这一固定验证设置下，移除难负样本与移除非线性排序器所造成的 FlowComplete@5 下降均大于移除证据对提议的影响。值得注意的是，相比完整模型，移除非线性排序器后 nDCG@5 略有上升（0.6965 对 0.6885），但 Complete@5 与 FlowComplete@5 明显下降。nDCG@5 上升而 Complete@5 与 FlowComplete@5 下降也说明，传统排序质量与集合级过程完整性并不一定沿同一方向变化。
+训练目标与排序器本身的影响更大。移除难负样本挖掘后，FlowComplete@5 从 0.4042 降至 0.2833；移除非线性集合排序器、改用前序贪心证据集合选择器后，该指标降至 0.3125。同时移除学习式证据对提议与非线性排序器时，FlowComplete@5 为 0.2875，Recall@5 为 0.6873，nDCG@5 为 0.6860，Complete@5 为 0.2958。该联合变体同时采用非学习式证据对预筛策略和贪心证据集合选择器，但保留关系判断、关系图构建与候选集合构造。值得注意的是，相比完整模型，单独移除非线性排序器后 nDCG@5 略有上升（0.6965 对 0.6885），但 Complete@5 与 FlowComplete@5 明显下降。nDCG@5 上升而 Complete@5 与 FlowComplete@5 下降说明，传统排序质量与集合级过程完整性并不一定沿同一方向变化。
 
 \begin{table}[t]
 \caption{TEF-RAG 在验证集上的消融结果。}
@@ -44,19 +44,22 @@ TA-RAG & 0.2769 & 0.2907 & 0.0375 & 0.0375 \\
 \small
 \setlength{\tabcolsep}{3pt}
 \resizebox{\columnwidth}{!}{%
-\begin{tabular}{lrrrr}
+\begin{tabular}{ccccc}
 \toprule
-变体 & Recall & nDCG & Complete & FlowComplete \\
+变体 & Recall@5 & nDCG@5 & Complete@5 & FlowComplete@5 \\
 \midrule
 完整 TEF-RAG & 0.7567 & 0.6885 & 0.4063 & 0.4042 \\
 移除 Pair Proposal & 0.7494 & 0.6832 & 0.4063 & 0.4021 \\
 移除 Graph Features & 0.7184 & 0.6601 & 0.3750 & 0.3667 \\
 移除 Hard Negatives & 0.6748 & 0.6042 & 0.2875 & 0.2833 \\
 移除 Nonlinear Ranker & 0.7070 & 0.6965 & 0.3188 & 0.3125 \\
+移除 Pair Proposal + Nonlinear Ranker & 0.6873 & 0.6860 & 0.2958 & 0.2875 \\
 \bottomrule
 \end{tabular}%
 }
 \end{table}
+
+由于联合消融同时移除了两个基于本基准训练的选择模块，我们还在读取测试集 evaluator 之前先冻结了该联合变体的测试预测。其 Recall@5、nDCG@5、Complete@5 与 FlowComplete@5 分别为 0.5835、0.6034、0.1625 和 0.1521。这四项指标均高于 BM25、预训练 BGE Reranker、Temporal-BM25 与 TA-RAG，而 Fine-tuned BGE 和完整 TEF-RAG 仍保持更高结果。这一检查表明，即使不使用学习式证据对提议器与非线性 RankNet，时间合法性、关系推理与证据集合构造仍能保留较强的检索效果。
 
 \subsection{下游结构化生成结果}
 \label{sec:generation_results}
@@ -70,9 +73,9 @@ TA-RAG & 0.2769 & 0.2907 & 0.0375 & 0.0375 \\
 \small
 \setlength{\tabcolsep}{3pt}
 \resizebox{\columnwidth}{!}{%
-\begin{tabular}{lrrrr}
+\begin{tabular}{ccccc}
 \toprule
-方法 & Field F1 & Action F1 & Citation F1 & Evidence Support Recall \\
+方法 & Field Macro F1 & Action F1 & Citation F1 & Evidence Support Recall \\
 \midrule
 BM25 & 0.4715 & 0.1372 & 0.0813 & 0.1258 \\
 BGE Reranker & 0.4129 & 0.1198 & 0.0405 & 0.0614 \\
@@ -100,5 +103,5 @@ TA-RAG & 0.4059 & 0.1115 & 0.0379 & 0.0570 \\
 % =========================================================
 
 本文提出 TEF-RAG，将动态运维 RAG 的检索目标从独立文档相关性扩展为在查询时刻可见、关系一致且过程完整的时序证据流。
-在测试集上，六种对比方法中，TEF-RAG 在 Recall@5、Complete@5 与 FlowComplete@5 上取得最高值，而 Fine-tuned BGE 在 nDCG@5 上取得最高值。在固定下游生成器的结构化生成测试中，TEF-RAG 在 Field Macro F1、Action F1、Citation F1 与 Evidence Support Recall 上均取得最高值。
+在测试集上，六种对比方法中，TEF-RAG 在 Recall@5、Complete@5 与 FlowComplete@5 上取得最高值，而 Fine-tuned BGE 在 nDCG@5 上取得最高值。在固定下游生成器的结构化生成测试中，TEF-RAG 在 Field Macro F1、Action F1、Citation F1 与 Evidence Support Recall 上均取得最高值。联合消融进一步表明，在移除学习式证据对提议器与非线性排序器后，该变体在四项测试检索指标上仍高于所有未进行任务内适配的对比方法。
 未来工作应进一步整合显式的规划与执行约束。
