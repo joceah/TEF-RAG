@@ -14,10 +14,6 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage[table]{xcolor}
 
-% Review markup is disabled in this clean version.
-\newcommand{\REV}[1]{#1}
-\colorlet{yellow}{white}
-
 \lstset{
   basicstyle=\ttfamily\scriptsize,
   breaklines=true,
@@ -65,10 +61,10 @@ evidence sets and selects an evidence flow of at most five records with compleme
 roles and coherent relations. We construct a public-source-grounded benchmark with 
 dual timestamps, supersession, cross-source complementary evidence, and persistent 
 uncertainty, and compare different retrieval contexts under a shared downstream generator. 
-\REV{On the test split, TEF-RAG records the highest Recall@5, Complete@5, and FlowComplete@5 
+On the test split, TEF-RAG records the highest Recall@5, Complete@5, and FlowComplete@5 
 among the six compared methods. Under the 
 shared generator, TEF-RAG records the highest Field Macro F1, Action F1, Citation F1, and 
-Evidence Support Recall.} The results support evaluating retrieval at the evidence-set 
+Evidence Support Recall. The results support evaluating retrieval at the evidence-set 
 level when temporal visibility and cross-record relations are part of the task definition.
 \end{abstract}
 
