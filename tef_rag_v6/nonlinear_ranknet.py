@@ -1,4 +1,4 @@
-"""Fixed small nonlinear RankNet used by TEF-RAG v6 Stage 3D."""
+"""Nonlinear RankNet used by TEF-RAG v6 Stage 3D."""
 from __future__ import annotations
 
 import json
@@ -10,10 +10,18 @@ from torch import nn
 
 
 class RankNetMLP(nn.Module):
-    def __init__(self, input_dim):
+    def __init__(self, input_dim, hidden_sizes=(64, 32)):
         super().__init__()
-        self.network = nn.Sequential(nn.Linear(input_dim, 64), nn.ReLU(),
-                                     nn.Linear(64, 32), nn.ReLU(), nn.Linear(32, 1))
+        hidden_sizes = tuple(hidden_sizes)
+        if not hidden_sizes or any(not isinstance(size, int) or size <= 0 for size in hidden_sizes):
+            raise ValueError("hidden_sizes must contain positive integers")
+        layers = []
+        width = input_dim
+        for size in hidden_sizes:
+            layers.extend((nn.Linear(width, size), nn.ReLU()))
+            width = size
+        layers.append(nn.Linear(width, 1))
+        self.network = nn.Sequential(*layers)
 
     def forward(self, values):
         return self.network(values).squeeze(-1)
@@ -73,9 +81,14 @@ class NonlinearSetRanker:
         norm = json.loads(Path(normalization_path).read_text(encoding="utf-8"))
         if payload["feature_names"] != norm["feature_names"]:
             raise RuntimeError("model/normalization feature schema mismatch")
-        model = RankNetMLP(len(payload["feature_names"]))
+        metadata = payload.get("metadata") or {}
+        hidden_sizes = metadata.get("hidden_sizes")
+        if hidden_sizes is None:
+            architecture = metadata.get("architecture")
+            hidden_sizes = architecture[1:-1] if architecture else (64, 32)
+        model = RankNetMLP(len(payload["feature_names"]), hidden_sizes)
         model.load_state_dict(payload["state_dict"])
-        return cls(payload["feature_names"], norm["mean"], norm["std"], model, payload["metadata"])
+        return cls(payload["feature_names"], norm["mean"], norm["std"], model, metadata)
 
 
 def rank_items(items, scorer):

@@ -21,6 +21,31 @@ def test_pairwise_loss_prefers_positive_direction():
     assert improved < base
 
 
+def test_hidden_sizes_config_and_legacy_checkpoint_compatibility(tmp_path):
+    torch.manual_seed(123)
+    default = RankNetMLP(3)
+    torch.manual_seed(123)
+    explicit = RankNetMLP(3, [64, 32])
+    assert list(default.state_dict()) == list(explicit.state_dict())
+    assert all(torch.equal(default.state_dict()[key], explicit.state_dict()[key])
+               for key in default.state_dict())
+    assert RankNetMLP(3, [128, 64, 32])(torch.zeros(2, 3)).shape == (2,)
+    norm = tmp_path / "normalization.json"
+    norm.write_text(json.dumps({"feature_names": ["a", "b", "c"],
+                                "mean": [0, 0, 0], "std": [1, 1, 1]}))
+    for hidden_sizes, metadata in (([64, 32], {"architecture": [3, 64, 32, 1]}),
+                                   ([128, 64, 32], {"hidden_sizes": [128, 64, 32]})):
+        path = tmp_path / f"model-{len(hidden_sizes)}.pt"
+        original = RankNetMLP(3, hidden_sizes)
+        NonlinearSetRanker(["a", "b", "c"], [0, 0, 0], [1, 1, 1],
+                           original, metadata).save(path)
+        loaded = NonlinearSetRanker.load(path, norm)
+        assert list(loaded.model.state_dict()) == list(original.state_dict())
+        assert loaded.utility({"a": 1.0}) == pytest.approx(
+            NonlinearSetRanker(["a", "b", "c"], [0, 0, 0], [1, 1, 1],
+                               original).utility({"a": 1.0}))
+
+
 def test_normalization_uses_only_supplied_train_rows():
     train = np.asarray([[0.0, 2.0], [2.0, 4.0]], dtype=np.float32)
     mean, std = normalization_from_train(train)

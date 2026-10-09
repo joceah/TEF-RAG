@@ -101,7 +101,8 @@ def fit(pairs, feature_names, mean, std, raw, round_name, scope):
     negatives = normalize(vectorize([pair[1] for pair in pairs], feature_names), mean, std)
     dataset = TensorDataset(torch.from_numpy(positives), torch.from_numpy(negatives))
     seed_everything(raw["seed"])
-    model = RankNetMLP(len(feature_names))
+    hidden_sizes = raw.get("hidden_sizes", [64, 32])
+    model = RankNetMLP(len(feature_names), hidden_sizes)
     optimizer = torch.optim.Adam(model.parameters(), lr=raw["learning_rate"], weight_decay=raw["weight_decay"])
     best_loss, best_state, stale, history = float("inf"), None, 0, []
     for epoch in range(raw["max_epochs"]):
@@ -119,7 +120,8 @@ def fit(pairs, feature_names, mean, std, raw, round_name, scope):
             stale += 1
             if stale >= raw["early_stopping_patience"]: break
     model.load_state_dict(best_state)
-    metadata = {"architecture": [len(feature_names), 64, 32, 1], "objective": "BCEWithLogits(score_positive-score_negative,1)",
+    metadata = {"architecture": [len(feature_names), *hidden_sizes, 1], "hidden_sizes": list(hidden_sizes),
+        "objective": "BCEWithLogits(score_positive-score_negative,1)",
         "optimizer": "Adam", "round": round_name, "scope": scope, "epochs": len(history),
         "best_train_loss": best_loss, "train_loss_history": history, "pair_count": len(pairs), "seed": raw["seed"]}
     return NonlinearSetRanker(feature_names, mean, std, model, metadata)
