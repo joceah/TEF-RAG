@@ -6,7 +6,7 @@
 \subsection{Temporal O\&M Benchmark}
 \label{sec:dataset}
 
-We construct a semantic benchmark for controlled evaluation of temporal evidence retrieval in dynamic O\&M scenarios. The dataset is constrained by public-source background information and constructed with AI assistance; it is not derived from real power-station fault logs and is not a real O\&M dataset manually annotated by domain experts. Public product documents and research datasets are used primarily to constrain cell type, typical physical ranges, and sampling background, whereas specific O\&M event processes, diagnostic changes, procedure contexts, and query tasks are produced through a controlled synthetic construction process. This design allows us to deliberately introduce late-arriving records, supersession, cross-source complementary evidence, multi-episode ambiguity, and persistent uncertainty, and to compare how different retrieval methods handle these factors.
+We construct a semantic benchmark for controlled evaluation of temporal evidence retrieval in dynamic O\&M scenarios. The dataset is constrained by public-source background information and constructed with artificial intelligence (AI) assistance; it is not derived from real power-station fault logs and is not a real O\&M dataset manually annotated by domain experts. Public product documents and research datasets are used primarily to constrain cell type, typical physical ranges, and sampling background, whereas specific O\&M event processes, diagnostic changes, procedure contexts, and query tasks are produced through a controlled synthetic construction process. This design allows us to deliberately introduce late-arriving records, supersession, cross-source complementary evidence, multi-episode ambiguity, and persistent uncertainty, and to compare how different retrieval methods handle these factors.
 
 The overall benchmark construction process is illustrated in Fig.~\ref{fig:benchmark_design}. Public sources first provide constraints on the physical and sampling background. Synthetic O\&M event chains are then constructed under these constraints, from which retrievable evidence records and different task queries are derived. For each query, we separately construct a reference evidence flow for retrieval and a structured reference answer for generation.
 
@@ -26,7 +26,7 @@ For each query, we further provide a set of reference annotations that specifies
 \label{tab:dataset_structure}
 \centering
 \small
-\begin{tabular}{@{}p{0.24\columnwidth}p{0.69\columnwidth}@{}}
+\begin{tabular}{@{}>{\centering\arraybackslash}p{0.24\columnwidth}>{\centering\arraybackslash}p{0.69\columnwidth}@{}}
 \toprule
 Level & Meaning \\
 \midrule
@@ -48,7 +48,7 @@ To evaluate retrieval under both ordinary and deliberately difficult temporal co
 \label{tab:dataset_stats}
 \centering
 \small
-\begin{tabular}{lrrrr}
+\begin{tabular}{ccccc}
 \toprule
 Statistic & Development & Validation & Test & Total \\
 \midrule
@@ -81,7 +81,7 @@ We use standard BM25 as the lexical retrieval baseline~\cite{robertson2009bm25}.
 We first retrieve the Top-30 candidates using the same BM25 setup and then use \texttt{BAAI/bge-reranker-v2-m3} to rescore each $(\text{query},\text{evidence})$ text pair~\cite{chen2024bgem3,flagembedding2026reranker}. The top five records under the reranking score are selected. This baseline tests whether a general-purpose semantic reranker can compensate for the limitations of purely lexical retrieval.
 
 \textbf{Fine-tuned BGE Reranker.}
-To control for task-specific supervision, we additionally adapt the same BGE reranker using only development-split document-level relevance labels. Evidence records listed as acceptable for any required evidence group are treated as positives, while high-ranked eligible BM25 nonpositives are used as negatives; no relation or evidence-flow labels are used. We train rank-8 low-rank adapters on the attention query/value projections together with the classification head for two epochs, and select the checkpoint by validation nDCG@5 with Recall@5 as a tie-breaker. At inference, this baseline uses the same BM25 Top-30 candidate pool and Top-5 output budget as the pretrained BGE reranker.
+To control for task-specific supervision, we additionally adapt the same BGE reranker using only development-split document-level relevance labels. Evidence records listed as acceptable for any required evidence group are treated as positives, while high-ranked eligible BM25 nonpositives are used as negatives; no relation or evidence-flow labels are used. We train rank-8 low-rank adapters on the attention query/value projections together with the classification head for two epochs, and select the checkpoint by validation normalized discounted cumulative gain at 5 (nDCG@5), with Recall@5 as a tie-breaker. At inference, this baseline uses the same BM25 Top-30 candidate pool and Top-5 output budget as the pretrained BGE reranker.
 
 \textbf{Temporal-BM25.}
 This baseline explicitly adds temporal matching to BM25 relevance. Its ranking score is
@@ -108,8 +108,12 @@ Our method applies learned evidence-pair screening, query-conditioned relation-g
 Recall@5 and nDCG@5 measure conventional retrieval relevance. Complete@5 measures whether the retrieved set contains all categories of key evidence required to complete the task. FlowComplete@5 further checks whether those records can form correct and mutually consistent evidence relations, thereby constituting a complete Temporal Evidence Flow.
 
 \textbf{Generation.}
-We report four primary metrics in the main text: Field Macro F1 (strict), Action F1, Citation F1, and Evidence Support Recall. Field Macro F1 measures strict matching of key work-order fields, Action F1 measures normalized maintenance actions, and Citation F1 evaluates claim--evidence citation pairs. Evidence Support Recall measures the fraction of reference work-order and action claims requiring evidence support for which the generated output provides at least one acceptable supporting-evidence citation.
+We report four primary metrics in the main text: Field Macro F1 (strict), Action F1, Citation F1, and Evidence Support Recall. For the F1 measures, F1 denotes the harmonic mean of precision and recall. Field Macro F1 measures strict matching of key work-order fields, Action F1 measures normalized maintenance actions, and Citation F1 evaluates claim--evidence citation pairs. Evidence Support Recall measures the fraction of reference work-order and action claims requiring evidence support for which the generated output provides at least one acceptable supporting-evidence citation.
+
+\subsection{Run Protocol}
+
+All values reported in Tables~\ref{tab:retrieval_results}--\ref{tab:generation_results} are point estimates from one frozen run on the stated split rather than averages over repeated runs. The learned pair proposer and nonlinear RankNet use random seed 20260916, while Fine-tuned BGE uses seed 20261008. Generation metrics are likewise computed once from a fixed set of 480 outputs under the shared generator configuration. Because the full training and generation pipelines were not repeated across multiple seeds, we do not report run-to-run standard deviations.
 
 \subsection{Ablation Setup}
 
-To analyze the contribution of individual components, we conducted four ablations on 480 validation queries: removing learned pair proposal, removing relation-graph-derived set features, removing hard-negative mining, and removing the nonlinear set ranker. The full model and all variants use the same Top-30 search pool, the same maximum number of evidence pairs sent to relation judging, the same relation-judging prompt and confidence threshold, and the same candidate-set construction procedure. The graph-feature ablation removes only relation-graph-derived set features and retrains the same RankNet; the hard-negative ablation keeps only the first training round; and the nonlinear-ranker ablation removes the learned set ranker and uses the preceding greedy evidence-set selector instead. 
+To analyze the contribution of individual components, we conducted five ablations on 480 validation queries: removing learned pair proposal, removing relation-graph-derived set features, removing hard-negative mining, removing the nonlinear set ranker, and jointly removing both learned pair proposal and the nonlinear set ranker. The full model and all variants use the same Top-30 search pool, the same maximum number of evidence pairs sent to relation judging, the same relation-judging prompt and confidence threshold, and the same candidate-set construction procedure. The graph-feature ablation removes only relation-graph-derived set features and retrains the same RankNet; the hard-negative ablation keeps only the first training round; and the nonlinear-ranker ablation removes the learned set ranker and uses the preceding greedy evidence-set selector instead. The joint ablation combines the same nonlearned pair-prefilter replacement used when pair proposal is removed with the same greedy evidence-set selector used when the nonlinear ranker is removed, while retaining relation judging, relation-graph construction, and candidate-set construction.
