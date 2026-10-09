@@ -35,6 +35,14 @@
     "used_for_training_or_evaluation": false,
     "note": "This is outside the configured checkout cache path; its exact fingerprint coverage was not established."
   },
+  "checked_historical_results_v6": {
+    "path": "D:\\electric-project\\.tef_v6_clean_baseline_935832\\results\\v6",
+    "file_count": 150,
+    "bytes": 11227620,
+    "relation_judgment_fingerprint_files": 0,
+    "candidate_bank_files_are_aggregate_statistics_only": true,
+    "finding": "Cache diagnostics record previous hits, but the underlying per-pair judgment cache is absent."
+  },
   "local_env_read": false,
   "development_training_started": false,
   "validation_tuning_started": false,

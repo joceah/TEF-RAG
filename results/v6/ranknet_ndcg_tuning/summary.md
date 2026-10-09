@@ -6,6 +6,8 @@ The configured relation cache at `D:\electric-project\ranknet-ndcg-tuning\.cache
 
 A separate historical cache exists under `.github_export/TEF-RAG/.cache/tef_rag_v6_llm_relation` (81,641 files; 20,543,180 bytes), but it is outside the configured path and exact fingerprint coverage for this checkout was not established. It was not used for training or evaluation.
 
+The suggested `D:\electric-project\.tef_v6_clean_baseline_935832\results\v6` directory was also checked. Its 150 files (11,227,620 bytes) include historical predictions and cache *diagnostics*, but no per-pair files containing relation judgment fingerprints. The Stage3B/Stage3C `candidate_bank_*.json` files contain only aggregate bank statistics, not materialized candidate sets or feature vectors. Thus these results cannot replace the frozen relation cache for ranker tuning.
+
 Following the cache-miss stop rule, no ranker training, validation tuning, or test evaluation occurred. No test gold or generation was used; `local.env` was not read; new LLM calls and HTTP requests were both zero. Therefore there are no selected validation metrics, tuned checkpoint, test predictions, or test metrics to report.
 
 The independent RankNet architecture fix was completed: `hidden_sizes` now controls the MLP layers, with the default `[64, 32]` retaining the original parameter layout and seeded initialization. Stage3D training now passes its config value to `RankNetMLP`; the checkpoint loader supports existing metadata and configurable architectures. The Stage3D tests pass. Architecture, objective, optimizer, and model selection sweeps remain unrun until the frozen cache is restored.
