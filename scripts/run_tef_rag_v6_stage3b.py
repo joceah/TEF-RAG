@@ -35,10 +35,10 @@ def runtime(raw):
                                                               proposer,freeze["pair_budget"])
     return stage3a,freeze,client,retriever
 
-def context(query,retriever):
-    prediction=retriever.retrieve(query,relation_mode="llm",search_mode="greedy",prefilter_mode="learned")
+def context(query,retriever,prefilter_mode="learned",require_cache=True):
+    prediction=retriever.retrieve(query,relation_mode="llm",search_mode="greedy",prefilter_mode=prefilter_mode)
     diag=prediction["relation_diagnostics"]
-    if diag["llm_called_pair_count"] or diag["request_count"] or diag["cache_hit_count"]!=diag["cache_lookup_count"]:
+    if require_cache and (diag["llm_called_pair_count"] or diag["request_count"] or diag["cache_hit_count"]!=diag["cache_lookup_count"]):
         raise RuntimeError("Stage3B requires 100% Stage3A cache hits")
     public=retriever._public_query(query)
     eligible=[x for x in retriever.candidate_retrieval(public)
