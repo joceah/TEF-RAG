@@ -20,6 +20,7 @@ build/
 # Formal runner materializations are reproducible local inputs, not release
 # predictions or result artifacts.
 results/v6/
+artifacts/v6/ranknet_ndcg_tuning/trials/
 # Third-party baseline checkouts and downloaded models stay local.
 experiments/runtime/
 # Deterministically materialized benchmark transport outputs (never commit).

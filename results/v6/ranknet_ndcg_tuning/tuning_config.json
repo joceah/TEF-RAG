@@ -1,0 +1,123 @@
+{
+  "seed": 20260916,
+  "max_epochs": 12,
+  "patience": 3,
+  "primary": "validation nDCG@5",
+  "set_metric_floor": {
+    "recall_at_5": 0.7266666666666666,
+    "complete_at_5": 0.37625,
+    "flow_complete_at_5": 0.37416666666666665
+  },
+  "objectives": {
+    "flow_pairs": "existing Stage3D flow-complete positive versus negative",
+    "flow_then_ndcg": "75 original flow pairs plus up to 75 same-flow/same-complete nDCG-separated pairs per development query"
+  },
+  "trials": [
+    {
+      "id": "b64_adam_1e3",
+      "objective": "flow_pairs",
+      "hidden_sizes": [
+        64,
+        32
+      ],
+      "optimizer": "Adam",
+      "learning_rate": 0.001,
+      "weight_decay": 0.0001,
+      "batch_size": 512
+    },
+    {
+      "id": "b128_adam_3e4",
+      "objective": "flow_pairs",
+      "hidden_sizes": [
+        128,
+        64
+      ],
+      "optimizer": "Adam",
+      "learning_rate": 0.0003,
+      "weight_decay": 0,
+      "batch_size": 256
+    },
+    {
+      "id": "b128deep_adamw_3e4",
+      "objective": "flow_pairs",
+      "hidden_sizes": [
+        128,
+        64,
+        32
+      ],
+      "optimizer": "AdamW",
+      "learning_rate": 0.0003,
+      "weight_decay": 1e-05,
+      "batch_size": 256
+    },
+    {
+      "id": "b256_adamw_1e4",
+      "objective": "flow_pairs",
+      "hidden_sizes": [
+        256,
+        128,
+        64
+      ],
+      "optimizer": "AdamW",
+      "learning_rate": 0.0001,
+      "weight_decay": 0.0001,
+      "batch_size": 128
+    },
+    {
+      "id": "r64_adamw_1e3",
+      "objective": "flow_then_ndcg",
+      "hidden_sizes": [
+        64,
+        32
+      ],
+      "optimizer": "AdamW",
+      "learning_rate": 0.001,
+      "weight_decay": 1e-05,
+      "batch_size": 512
+    },
+    {
+      "id": "r128_adam_3e4",
+      "objective": "flow_then_ndcg",
+      "hidden_sizes": [
+        128,
+        64
+      ],
+      "optimizer": "Adam",
+      "learning_rate": 0.0003,
+      "weight_decay": 0,
+      "batch_size": 256
+    },
+    {
+      "id": "r128deep_adamw_3e4",
+      "objective": "flow_then_ndcg",
+      "hidden_sizes": [
+        128,
+        64,
+        32
+      ],
+      "optimizer": "AdamW",
+      "learning_rate": 0.0003,
+      "weight_decay": 0.0001,
+      "batch_size": 256
+    },
+    {
+      "id": "r256_adamw_1e4",
+      "objective": "flow_then_ndcg",
+      "hidden_sizes": [
+        256,
+        128,
+        64
+      ],
+      "optimizer": "AdamW",
+      "learning_rate": 0.0001,
+      "weight_decay": 1e-05,
+      "batch_size": 128
+    }
+  ],
+  "baseline_validation": {
+    "recall_at_5": 0.7566666704292099,
+    "ndcg_at_5": 0.6885479557948808,
+    "complete_at_5": 0.40625,
+    "flow_complete_at_5": 0.4041666666666667
+  }
+}

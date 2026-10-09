@@ -1,0 +1,10 @@
+{
+  "cache_path": "D:\\electric-project\\.github_export\\TEF-RAG\\.cache\\tef_rag_v6_test_relation",
+  "query_count": 480,
+  "lookups": 14862,
+  "hits": 14862,
+  "misses": 0,
+  "missing_examples": [],
+  "new_llm_calls": 0,
+  "new_http_requests": 0
+}

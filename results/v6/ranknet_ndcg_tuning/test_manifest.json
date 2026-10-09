@@ -1,0 +1,19 @@
+{
+  "selected_model": "r256_adamw_1e4",
+  "query_count": 480,
+  "relation_cache_path": "D:\\electric-project\\.github_export\\TEF-RAG\\.cache\\tef_rag_v6_test_relation",
+  "relation_cache_lookups": 14862,
+  "relation_cache_hits": 14862,
+  "cache_misses": 0,
+  "new_llm_calls": 0,
+  "new_http_requests": 0,
+  "prediction_sha256": "9c86acf2245f9f66d568cf92bb4e4021363eabeacd29dfb998e9455feb6fd928",
+  "sealed_evaluator_sha256": "477bb709f3dfdb672ce5a7f5c93168e0791c7a90cb247c62a6072bd8dee7c9f3",
+  "fine_tuned_bge_ndcg_at_5": 0.6501,
+  "original_tef_test": {
+    "recall_at_5": 0.7228,
+    "ndcg_at_5": 0.6231,
+    "complete_at_5": 0.3188,
+    "flow_complete_at_5": 0.3146
+  }
+}

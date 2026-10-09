@@ -1,52 +1,30 @@
 {
-  "status": "BLOCKED_MISSING_RELATION_CACHE",
+  "status": "COMPLETE_CACHE_ONLY_EXPERIMENT",
   "base_release_commit": "7521229b20e0fa70d4cb42b16f32ebea01778364",
-  "configured_cache_path": "D:\\electric-project\\ranknet-ndcg-tuning\\.cache\\tef_rag_v6_llm_relation",
-  "configured_cache_exists": false,
-  "configured_cache_file_count": 0,
-  "configured_cache_bytes": 0,
-  "development": {
-    "query_count": 1440,
-    "required_pair_lookups": 43746,
-    "cache_hits": 0,
-    "cache_misses": 43746,
-    "missing_examples": [
-      ["TEFV6-C0001-I01-current_cause_action-P1", "TEFV6-C0001-E07", "TEFV6-C0001-E08"],
-      ["TEFV6-C0001-I01-current_cause_action-P1", "TEFV6-C0001-E05", "TEFV6-C0001-E08"],
-      ["TEFV6-C0001-I01-current_cause_action-P1", "TEFV6-C0001-E06", "TEFV6-C0001-E08"]
-    ]
-  },
-  "validation": {
-    "query_count": 480,
-    "required_pair_lookups": 13030,
-    "cache_hits": 0,
-    "cache_misses": 13030,
-    "missing_examples": [
-      ["TEFV6-C0013-I01-current_cause_action-P1", "TEFV6-C0013-E07", "TEFV6-C0013-E08"],
-      ["TEFV6-C0013-I01-current_cause_action-P1", "TEFV6-C0013-E05", "TEFV6-C0013-E08"],
-      ["TEFV6-C0013-I01-current_cause_action-P1", "TEFV6-C0013-E06", "TEFV6-C0013-E08"]
-    ]
-  },
-  "separate_historical_cache": {
+  "configured_default_cache_path": "D:\\electric-project\\ranknet-ndcg-tuning\\.cache\\tef_rag_v6_llm_relation",
+  "reused_development_validation_cache": {
     "path": "D:\\electric-project\\.github_export\\TEF-RAG\\.cache\\tef_rag_v6_llm_relation",
     "file_count": 81641,
     "json_file_count": 81640,
     "bytes": 20543180,
-    "used_for_training_or_evaluation": false,
-    "note": "This is outside the configured checkout cache path; its exact fingerprint coverage was not established."
+    "frozen_model": "deepseek-v4-flash",
+    "thinking": "disabled",
+    "prompt_version": "tef-v6-stage2a-relation-v7",
+    "temperature": 0.0,
+    "max_tokens": 3500,
+    "development": {"queries": 1440, "lookups": 43746, "hits": 43746, "misses": 0},
+    "validation": {"queries": 480, "lookups": 13030, "hits": 13030, "misses": 0}
   },
-  "checked_historical_results_v6": {
-    "path": "D:\\electric-project\\.tef_v6_clean_baseline_935832\\results\\v6",
-    "file_count": 150,
-    "bytes": 11227620,
-    "relation_judgment_fingerprint_files": 0,
-    "candidate_bank_files_are_aggregate_statistics_only": true,
-    "finding": "Cache diagnostics record previous hits, but the underlying per-pair judgment cache is absent."
+  "reused_test_cache": {
+    "path": "D:\\electric-project\\.github_export\\TEF-RAG\\.cache\\tef_rag_v6_test_relation",
+    "file_count": 14863,
+    "bytes": 3735521,
+    "frozen_model": "deepseek-chat",
+    "thinking": null,
+    "test": {"queries": 480, "lookups": 14862, "hits": 14862, "misses": 0}
   },
-  "local_env_read": false,
-  "development_training_started": false,
-  "validation_tuning_started": false,
-  "test_run": false,
+  "http_transport": "forbidden_http",
   "new_llm_calls": 0,
-  "new_http_requests": 0
+  "new_http_requests": 0,
+  "note": "The paper-release results tree held aggregate diagnostics, while the matching per-pair judgments were in the adjacent TEF-RAG export cache. The original validation and sealed-test protocols used different frozen relation model identities."
 }

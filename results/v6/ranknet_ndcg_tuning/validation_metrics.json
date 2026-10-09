@@ -1,0 +1,15 @@
+{
+  "original_stage3d": {
+    "recall_at_5": 0.7566666666666666,
+    "ndcg_at_5": 0.6885479556270926,
+    "complete_at_5": 0.40625,
+    "flow_complete_at_5": 0.4041666666666667
+  },
+  "selected_ranker": {
+    "id": "r256_adamw_1e4",
+    "recall_at_5": 0.7669791708079478,
+    "ndcg_at_5": 0.7268965460980932,
+    "complete_at_5": 0.40625,
+    "flow_complete_at_5": 0.40625
+  }
+}
