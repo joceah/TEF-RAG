@@ -118,21 +118,5 @@ We report four primary metrics in the main text: Field Macro F1 (strict), Action
 
 \subsection{Ablation Setup}
 
-To analyze the contribution of individual components, 
-we conducted five ablations on 480 validation queries: 
-removing learned pair proposal, removing relation-graph-derived 
-set features, removing hard-negative mining, removing the 
-nonlinear set ranker, and jointly removing both learned pair 
-proposal and the nonlinear set ranker. The full model and all 
-variants use the same Top-30 search pool, the same maximum number 
-of evidence pairs sent to relation judging, the same relation-judging 
-prompt and confidence threshold, and the same candidate-set 
-construction procedure. The graph-feature ablation removes only 
-relation-graph-derived set features and retrains the same RankNet; 
-the hard-negative ablation keeps only the first training round; 
-and the nonlinear-ranker ablation removes the learned set ranker 
-and uses the preceding greedy evidence-set selector instead. 
-The joint ablation removes both learned components: the pair proposer 
-is replaced by the nonlearned pair prefilter, and the nonlinear ranker 
-is replaced by the greedy evidence-set selector. Relation judging, 
-relation-graph construction, and candidate-set construction remain unchanged.
+% BEFORE: To analyze the contribution of individual components, we conducted five ablations on 480 validation queries.
+To analyze the contribution of individual components, we define five ablation variants and evaluate their frozen retrieval outputs on the same 480-query test split used for the main retrieval comparison. The ablations remove learned pair proposal, relation-graph-derived set features, hard-negative mining, the nonlinear set ranker, or both learned pair proposal and the nonlinear set ranker. The full model and all variants use the same Top-30 search pool, the same maximum number of evidence pairs sent to relation judging, the same relation-judging prompt and confidence threshold, and the same candidate-set construction procedure. The graph-feature ablation removes only relation-graph-derived set features and retrains the same RankNet; the hard-negative ablation keeps only the first training round; and the nonlinear-ranker ablation removes the learned set ranker and uses the preceding greedy evidence-set selector instead. The joint ablation removes both learned components: the pair proposer is replaced by the nonlearned pair prefilter, and the nonlinear ranker is replaced by the greedy evidence-set selector. Relation judging, relation-graph construction, and candidate-set construction remain unchanged. For the test evaluation, predictions are frozen before the test evaluator is accessed.
