@@ -5,7 +5,7 @@
 % The joint ablation 这句附近验证集和测试集的描述是不是有点不清晰？应该是测试比测试、验证比验证
 %  substantial  这一句好像有点没理解，要重新组织一下 
 % 检查一下The joint ablation这一句和下一句的逻辑和内容
-=========================================================
+% =========================================================
 
 \subsection{Main Retrieval Results}
 
@@ -37,33 +37,11 @@ TA-RAG & 0.2769 & 0.2907 & 0.0375 & 0.0375 \\
 \subsection{Validation Ablation Study}
 \label{sec:ablation_results}
 
-Table~\ref{tab:ablation_results} reports the five ablations on 
-the validation split. Full TEF-RAG achieves a FlowComplete@5 of 
-0.4042. Removing learned pair proposal reduces it only to 0.4021, 
-an absolute difference of 0.0021.
-It is consistent with the pair proposer primarily determining 
-which pairs receive relation analysis and controlling computational 
-cost rather than directly determining the final evidence set. 
-In contrast, removing relation-graph-derived features reduces 
-FlowComplete@5 to 0.3667; this decrease is consistent with 
-graph-derived features contributing to set ranking.
+% BEFORE: Table~\ref{tab:ablation_results} reports the five ablations on the validation split. Full TEF-RAG achieves a FlowComplete@5 of 0.4042. Removing learned pair proposal reduces it only to 0.4021, an absolute difference of 0.0021. It is consistent with the pair proposer primarily determining which pairs receive relation analysis and controlling computational cost rather than directly determining the final evidence set. In contrast, removing relation-graph-derived features reduces FlowComplete@5 to 0.3667; this decrease is consistent with graph-derived features contributing to set ranking.
+Table~\ref{tab:ablation_results} reports all five ablations on the validation split. Full TEF-RAG achieves a FlowComplete@5 of 0.4042, while removing learned pair proposal gives 0.4021, an absolute difference of 0.0021. Because this is a single-run point estimate, we do not treat such a small difference as evidence of a stable accuracy effect. Instead, the result is consistent with the pair proposer serving mainly to allocate the relation-judging budget. In contrast, removing relation-graph-derived features lowers FlowComplete@5 to 0.3667, indicating a larger validation-set effect from the graph-derived set features.
 
-The training objective and the ranker itself have a larger effect. 
-Removing hard-negative mining reduces FlowComplete@5 from 0.4042 to 
-0.2833, while removing the nonlinear set ranker and using the 
-preceding greedy evidence-set selector reduces it to 0.3125. 
-Jointly removing learned pair proposal and the nonlinear ranker
- yields 0.2875 FlowComplete@5, with Recall@5 of 0.6873, nDCG@5 of
-  0.6860, and Complete@5 of 0.2958. This joint variant uses the 
-  nonlearned pair prefilter together with the greedy evidence-set 
-  selector while retaining relation judging, relation-graph construction, 
-  and candidate-set construction. Notably, removing the nonlinear ranker 
-  alone slightly increases nDCG@5 relative to the full model 
-  (0.6965 vs.\ 0.6885), while substantially decreasing Complete@5 
-  and FlowComplete@5. The increase in nDCG@5 together with lower 
-  Complete@5 and FlowComplete@5 indicates that conventional 
-  ranking quality and set-level process completeness need not 
-  change in the same direction.
+% BEFORE: The training objective and the ranker itself have a larger effect. Removing hard-negative mining reduces FlowComplete@5 from 0.4042 to 0.2833, while removing the nonlinear set ranker and using the preceding greedy evidence-set selector reduces it to 0.3125. Jointly removing learned pair proposal and the nonlinear ranker yields 0.2875 FlowComplete@5, with Recall@5 of 0.6873, nDCG@5 of 0.6860, and Complete@5 of 0.2958. This joint variant uses the nonlearned pair prefilter together with the greedy evidence-set selector while retaining relation judging, relation-graph construction, and candidate-set construction. Notably, removing the nonlinear ranker alone slightly increases nDCG@5 relative to the full model (0.6965 vs.\ 0.6885), while substantially decreasing Complete@5 and FlowComplete@5. The increase in nDCG@5 together with lower Complete@5 and FlowComplete@5 indicates that conventional ranking quality and set-level process completeness need not change in the same direction.
+The nonlinear ranker and its training strategy have larger effects on the validation split. Removing hard-negative mining lowers FlowComplete@5 from 0.4042 to 0.2833, while replacing the nonlinear set ranker with the greedy evidence-set selector gives 0.3125. Jointly removing the learned pair proposer and nonlinear ranker yields Recall@5 of 0.6873, nDCG@5 of 0.6860, Complete@5 of 0.2958, and FlowComplete@5 of 0.2875. These values are all validation results and correspond to the joint configuration defined in Section~\ref{sec:experiments}. Removing the nonlinear ranker alone slightly increases nDCG@5 relative to the full model (0.6965 vs.\ 0.6885), while lowering Complete@5 and FlowComplete@5. Thus, better conventional ranking quality does not necessarily imply better evidence-set completeness.
 
 \begin{table}[t]
 \caption{TEF-RAG ablation results on the validation split.}
@@ -87,17 +65,14 @@ w/o Pair Proposal + Nonlinear Ranker & 0.6873 & 0.6860 & 0.2958 & 0.2875 \\
 }
 \end{table}
 
-The joint ablation obtains Recall@5 of 0.5835, nDCG@5 of 0.6034, Complete@5 of 0.1625, 
-and FlowComplete@5 of 0.1521. These values are higher than BM25, 
-the pretrained BGE Reranker, Temporal-BM25, and TA-RAG on all four retrieval metrics, 
-while Fine-tuned BGE and the full TEF-RAG remain higher. This check indicates that 
-temporal eligibility, relation reasoning, and evidence-set construction retain 
-substantial retrieval value even without the learned pair proposer and nonlinear ranker.
+% BEFORE: The joint ablation obtains Recall@5 of 0.5835, nDCG@5 of 0.6034, Complete@5 of 0.1625, and FlowComplete@5 of 0.1521. These values are higher than BM25, the pretrained BGE Reranker, Temporal-BM25, and TA-RAG on all four retrieval metrics, while Fine-tuned BGE and the full TEF-RAG remain higher. This check indicates that temporal eligibility, relation reasoning, and evidence-set construction retain substantial retrieval value even without the learned pair proposer and nonlinear ranker.
+As a separate test-set check, we froze the joint-ablation configuration before evaluating it on the same test split used in Table~\ref{tab:retrieval_results}. It obtains Recall@5 of 0.5835, nDCG@5 of 0.6034, Complete@5 of 0.1625, and FlowComplete@5 of 0.1521. On that test split, these values are higher than BM25, the pretrained BGE Reranker, Temporal-BM25, and TA-RAG on all four retrieval metrics; Fine-tuned BGE and the full TEF-RAG remain higher on all four. The comparison therefore shows that, even without the two benchmark-trained selection modules, the remaining temporal eligibility, relation reasoning, and candidate-set construction outperform the non-task-adapted comparison methods in this test setting.
 
 \subsection{Downstream Structured Generation Results}
 \label{sec:generation_results}
 
-Table~\ref{tab:generation_results} reports four complementary generation metrics used to compare structured outputs produced from each method's retrieved evidence. Under the same generator, prompt, output format, and decoding settings, TEF-RAG records the highest value on all four displayed metrics: Field Macro F1 of 0.5345, Action F1 of 0.2035, Citation F1 of 0.1585, and Evidence Support Recall of 0.2253. Fine-tuning BGE substantially improves the pretrained reranker, but TEF-RAG remains higher on these four measures. The results indicate that the retrieved evidence from TEF-RAG is reflected not only in field- and action-level output quality, but also in claim--evidence citation quality and the coverage of reference claims by acceptable supporting evidence.
+% BEFORE: Table~\ref{tab:generation_results} reports four complementary generation metrics used to compare structured outputs produced from each method's retrieved evidence. Under the same generator, prompt, output format, and decoding settings, TEF-RAG records the highest value on all four displayed metrics: Field Macro F1 of 0.5345, Action F1 of 0.2035, Citation F1 of 0.1585, and Evidence Support Recall of 0.2253. Fine-tuning BGE substantially improves the pretrained reranker, but TEF-RAG remains higher on these four measures. The results indicate that the retrieved evidence from TEF-RAG is reflected not only in field- and action-level output quality, but also in claim--evidence citation quality and the coverage of reference claims by acceptable supporting evidence.
+Table~\ref{tab:generation_results} reports four complementary generation metrics used to compare structured outputs produced from each method's retrieved evidence. Under the same generator, prompt, output format, and decoding settings, TEF-RAG records the highest value on all four displayed metrics: Field Macro F1 of 0.5345, Action F1 of 0.2035, Citation F1 of 0.1585, and Evidence Support Recall of 0.2253. Fine-tuning BGE improves all four displayed metrics relative to the pretrained BGE reranker, but TEF-RAG remains higher on each. Under the shared generator, the TEF-RAG retrieval context therefore yields the strongest field-level, action-level, citation, and evidence-support results among the compared methods.
 
 \begin{table}[t]
 \caption{Primary structured-generation metrics on the generation test set.}
