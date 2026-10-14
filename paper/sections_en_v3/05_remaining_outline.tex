@@ -44,7 +44,7 @@ Table~\ref{tab:ablation_results} reports all five ablations on the validation sp
 The nonlinear ranker and its training strategy have larger effects on the validation split. Removing hard-negative mining lowers FlowComplete@5 from 0.4042 to 0.2833, while replacing the nonlinear set ranker with the greedy evidence-set selector gives 0.3125. Jointly removing the learned pair proposer and nonlinear ranker yields Recall@5 of 0.6873, nDCG@5 of 0.6860, Complete@5 of 0.2958, and FlowComplete@5 of 0.2875. These values are all validation results and correspond to the joint configuration defined in Section~\ref{sec:experiments}. Removing the nonlinear ranker alone slightly increases nDCG@5 relative to the full model (0.6965 vs.\ 0.6885), while lowering Complete@5 and FlowComplete@5. Thus, better conventional ranking quality does not necessarily imply better evidence-set completeness.
 
 \begin{table}[t]
-\caption{TEF-RAG ablation results on the validation split.}
+\caption{TEF-RAG ablation results on the test split.}
 \label{tab:ablation_results}
 \centering
 \small
@@ -54,12 +54,12 @@ The nonlinear ranker and its training strategy have larger effects on the valida
 \toprule
 Variant & Recall@5 & nDCG@5 & Complete@5 & FlowComplete@5 \\
 \midrule
-Full TEF-RAG & 0.7567 & 0.6885 & 0.4063 & 0.4042 \\
-w/o Pair Proposal & 0.7494 & 0.6832 & 0.4063 & 0.4021 \\
-w/o Graph Features & 0.7184 & 0.6601 & 0.3750 & 0.3667 \\
-w/o Hard Negatives & 0.6748 & 0.6042 & 0.2875 & 0.2833 \\
-w/o Nonlinear Ranker & 0.7070 & 0.6965 & 0.3188 & 0.3125 \\
-w/o Pair Proposal + Nonlinear Ranker & 0.6873 & 0.6860 & 0.2958 & 0.2875 \\
+Full TEF-RAG & 0.7228 & 0.6231 & 0.3188 & 0.3146 \\
+w/o Pair Proposal & 0.6829 & 0.5870 & 0.2667 & 0.2604 \\
+w/o Graph Features & 0.6558 & 0.5723 & 0.2375 & 0.2354 \\
+w/o Hard Negatives & 0.6540 & 0.5557 & 0.1979 & 0.1917 \\
+w/o Nonlinear Ranker & 0.6242 & 0.6324 & 0.2042 & 0.1938 \\
+w/o Pair Proposal + Nonlinear Ranker & 0.5835 & 0.6034 & 0.1625 & 0.1521 \\
 \bottomrule
 \end{tabular}%
 }
