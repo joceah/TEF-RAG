@@ -7,7 +7,7 @@
 \label{sec:dataset}
 
 % BEFORE: We construct a semantic benchmark for controlled evaluation of temporal evidence retrieval in dynamic O\&M scenarios.
-We construct a public-source-grounded, AI-assisted synthetic Temporal O\&M benchmark for controlled evaluation of temporal evidence retrieval in dynamic O\&M scenarios. The dataset is constrained by public-source background information and constructed with artificial intelligence (AI) assistance; it is not derived from real power-station fault logs and is not a real O\&M dataset manually annotated by domain experts. Public product documents and research datasets are used primarily to constrain cell type, typical physical ranges, and sampling background, whereas specific O\&M event processes, diagnostic changes, procedure contexts, and query tasks are produced through a controlled synthetic construction process. This design allows us to deliberately introduce late-arriving records, supersession, cross-source complementary evidence, multi-episode ambiguity, and persistent uncertainty, and to compare how different retrieval methods handle these factors.
+We construct a public-source-grounded synthetic temporal O\&M benchmark for controlled evaluation of temporal evidence retrieval in dynamic O\&M scenarios. The dataset is constrained by public-source background information and constructed with artificial intelligence (AI) assistance; it is not derived from real power-station fault logs and is not a real O\&M dataset manually annotated by domain experts. Public product documents and research datasets are used primarily to constrain cell type, typical physical ranges, and sampling background, whereas specific O\&M event processes, diagnostic changes, procedure contexts, and query tasks are produced through a controlled synthetic construction process. This design allows us to deliberately introduce late-arriving records, supersession, cross-source complementary evidence, multi-episode ambiguity, and persistent uncertainty, and to compare how different retrieval methods handle these factors.
 
 The overall benchmark construction process is illustrated in Fig.~\ref{fig:benchmark_design}. Public sources first provide constraints on the physical and sampling background. Synthetic O\&M event chains are then constructed under these constraints, from which retrievable evidence records and different task queries are derived. For each query, we separately construct a reference evidence flow for retrieval and a structured reference answer for generation.
 
@@ -15,7 +15,7 @@ The overall benchmark construction process is illustrated in Fig.~\ref{fig:bench
     \centering
     \includegraphics[width=0.98\textwidth]{figures/benchmark_design.png}
     % BEFORE: \caption{Construction pipeline and example for TEF-RAG v6 Semantic Benchmark v1. Public sources constrain the equipment and data background; an O\&M event chain $c$ is then constructed and used to derive evidence records $e_i$, task intents $I_j$, and queries $q_{j,p}$. Retrieval reference evidence flows and structured generation reference answers are subsequently created for each query to support retrieval and downstream generation evaluation.}
-    \caption{Construction pipeline and example for the Temporal O\&M benchmark. Public sources constrain the equipment and data background; an O\&M event chain $c$ is then constructed and used to derive evidence records $e_i$, task intents $I_j$, and queries $q_{j,p}$. Retrieval reference evidence flows and structured generation reference answers are subsequently created for each query to support retrieval and downstream generation evaluation.}
+    \caption{Construction pipeline and example for the temporal O\&M benchmark. Public sources constrain the equipment and data background; an O\&M event chain $c$ is then constructed and used to derive evidence records $e_i$, task intents $I_j$, and queries $q_{j,p}$. Retrieval reference evidence flows and structured generation reference answers are subsequently created for each query to support retrieval and downstream generation evaluation.}
     \label{fig:benchmark_design}
 \end{figure*}
 
@@ -47,7 +47,7 @@ To evaluate retrieval under both ordinary and deliberately difficult temporal co
 
 \begin{table*}[t]
 % BEFORE: \caption{Scale and split of TEF-RAG v6 Semantic Benchmark v1.}
-\caption{Scale and split of the Temporal O\&M benchmark.}
+\caption{Scale and split of the temporal O\&M benchmark.}
 \label{tab:dataset_stats}
 \centering
 \small
