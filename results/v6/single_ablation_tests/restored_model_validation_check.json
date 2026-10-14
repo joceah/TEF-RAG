@@ -1,0 +1,29 @@
+{
+  "stage3a_greedy": {
+    "recall_at_5": 0.7069791666666667,
+    "hit_at_5": 0.9604166666666667,
+    "ndcg_at_5": 0.6964698776521627,
+    "complete_at_5": 0.31875,
+    "flow_complete_at_5": 0.3125,
+    "edge_recall": 0.42569444444444443,
+    "uncertainty_accuracy": 0.9541666666666667
+  },
+  "round0": {
+    "recall_at_5": 0.6747916666666666,
+    "hit_at_5": 0.9479166666666666,
+    "ndcg_at_5": 0.6042098249662983,
+    "complete_at_5": 0.2875,
+    "flow_complete_at_5": 0.2833333333333333,
+    "edge_recall": 0.3909722222222222,
+    "uncertainty_accuracy": 0.9354166666666667
+  },
+  "graph_free": {
+    "recall_at_5": 0.7183680555555555,
+    "hit_at_5": 0.9875,
+    "ndcg_at_5": 0.6600509952986466,
+    "complete_at_5": 0.375,
+    "flow_complete_at_5": 0.36666666666666664,
+    "edge_recall": 0.42135416666666664,
+    "uncertainty_accuracy": 0.95
+  }
+}
