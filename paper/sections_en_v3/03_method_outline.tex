@@ -15,6 +15,7 @@ Figure~\ref{fig:tef_overview} presents the overall TEF-RAG pipeline. The method 
 \begin{figure*}[t]
     \centering
     \includegraphics[width=0.96\textwidth]{figures/tef_rag_overview.png}
+    % BEFORE: \caption{Overview of TEF-RAG. The system first selects candidate evidence pairs from records that are legal at the query time, then constructs a query-conditioned Temporal Evidence Flow. A nonlinear pairwise ranker selects at most five records from the candidate-set space as the evidence flow, which is then used as controlled context for a shared downstream generator.}
     \caption{Overview of TEF-RAG. The system first selects candidate evidence pairs from records that are legal at the query time, then constructs a query-conditioned Temporal Evidence Flow. Candidate evidence sets are constructed from the resulting retrieval and graph signals, and a nonlinear pairwise ranker selects at most five records as the final evidence set for a shared downstream generator.}
     \label{fig:tef_overview}
 \end{figure*}
@@ -73,13 +74,16 @@ After the relation graph is built, TEF-RAG compares different evidence combinati
 
 Specifically, we enumerate five-record combinations from the highest-scoring evidence nodes to cover different combinations of highly relevant records. We also retain sets produced by the preceding retrieval steps and perform single-record replacements around them, allowing lower-ranked evidence that fills a required task role to enter the candidate-set collection.
 
-For each set $\Selected$, we extract a set-level representation $\phi_s(q,\Selected,\FlowGraph_q)$. The final model uses 62 features covering:
+For each set $\Selected$, we extract a set-level representation $\phi_s(q,\Selected,\FlowGraph_q)$. The frozen feature schema used by the final model contains 62 dimensions.
+% BEFORE: The final model uses 62 features covering statistics of node relevance, temporal scores, and role compatibility; coverage of event types and source types; the number of valid internal edges, edge confidence, connected components, and the longest directed path; temporal span, average event gap, and source/text diversity; and penalty signals for redundancy, missing roles, and isolated nodes.
+These dimensions cover:
 \begin{itemize}
-    \item statistics of node relevance, temporal scores, and role compatibility;
-    \item coverage of event types and source types;
-    \item the number of valid internal edges, edge confidence, connected components, and the longest directed path;
-    \item temporal span, average event gap, and source/text diversity;
-    \item penalty signals for redundancy, missing roles, and isolated nodes.
+    \item statistics of node relevance, recency, role compatibility, and aggregate node scores;
+    \item pairwise lexical similarity, event/availability spans, and event-gap statistics;
+    \item event-type and source-type counts and diversity;
+    \item task-role coverage, missing-demand counts, and query/set uncertainty indicators;
+    \item graph structure, including active edges, edge confidence and density, node degrees, connected components, and directed-path statistics;
+    \item the rule-based node, edge, role-coverage, redundancy, connectivity, and uncertainty-consistency terms used during first-round hard-negative selection.
 \end{itemize}
 Together, these features describe whether the selected evidence forms a complete task-support structure as a whole rather than merely repeating individual node scores.
 
