@@ -11,11 +11,12 @@
 % $m_q$是什么
 % Temporal Evidence Flow 是不是有大小写和单复数的问题
 
-Given an O\&M query
+% BEFORE: Given an O\&M query
+We represent an O\&M query as
 \begin{equation}
 Q_q=(x_q,u_q,m_q,t_q),
 \end{equation}
-where $x_q$ is the query text, $u_q$ is the target asset, $m_q$ denotes the asset model or context, and $t_q$ is the knowledge cutoff time. The global evidence repository is denoted by $\Evidence=\{e_1,\ldots,e_N\}$. Each evidence record contains at least its content, asset identifier, event type, source type, event time $t_e(e)$, and availability time $t_a(e)$.
+where $x_q$ is the query text, $u_q$ is the target asset, $m_q$ denotes the asset-model/context metadata used for scope checks, and $t_q$ is the knowledge cutoff time. The global evidence repository is denoted by $\Evidence=\{e_1,\ldots,e_N\}$. Each evidence record contains at least its content, asset identifier, event type, source type, event time $t_e(e)$, and availability time $t_a(e)$.
 
 We explicitly distinguish between when an event happened and when the system knew about it. Evidence $e$ is visible to query $q$ if and only if
 \begin{equation}
@@ -46,9 +47,12 @@ where $\operatorname{ScopeOK}$ summarizes asset consistency and, when applicable
 \end{equation}
 All subsequent retrieval, relation reasoning, and set ranking operate only within $\Candidates_q$.
 
+To distinguish the levels used below, an \emph{evidence record} refers to one retrievable item, an \emph{evidence set} refers to a selected collection of records, and a \emph{Temporal Evidence Flow} refers to such a set together with the directed relations among its records.
+
 \subsection{Retrieval Objective}
 
-A base retriever obtains a candidate node set $V_q$ from $\Candidates_q$. We use $k=5$ as the retrieval upper bound. Let $k_q=\min(5,|V_q|)$; the system selects at most five evidence records to form $\hat{\Selected}_q$. If fewer than five legal candidates exist, the system directly returns the available legal evidence without padding or backfilling. The selected evidence should be relevant to the query, cover the task-required evidence roles, and form a temporally and semantically consistent structure.
+% BEFORE: A base retriever obtains a candidate node set $V_q$ from $\Candidates_q$. We use $k=5$ as the retrieval upper bound. Let $k_q=\min(5,|V_q|)$; the system selects at most five evidence records to form $\hat{\Selected}_q$. If fewer than five legal candidates exist, the system directly returns the available legal evidence without padding or backfilling. The selected evidence should be relevant to the query, cover the task-required evidence roles, and form a temporally and semantically consistent structure.
+A base retriever obtains a candidate node pool $V_q\subseteq\Candidates_q$; in our implementation, $V_q$ is the Top-30 search pool when at least 30 legal records are available. We use $k=5$ as the retrieval upper bound and define $k_q=\min(5,|V_q|)$. Every candidate set considered by the final selector therefore contains exactly $k_q$ records, so the final output contains at most five evidence records. If fewer than five legal records exist, the system returns the available legal evidence without padding or backfilling. The selected evidence should be relevant to the query, cover the task-required evidence roles, and form a temporally and semantically consistent structure.
 
 Accordingly, we do not define the retrieval objective as the sum of five independent document scores. Instead, we define a set-level utility:
 \begin{equation}
@@ -59,7 +63,7 @@ F_{\theta}(Q_q,\Selected,\FlowGraph_q),
 \quad |\Selected|=k_q,
 \label{eq:set_selection}
 \end{equation}
-where $\SetBank_q$ is the candidate space of evidence sets satisfying $|\Selected|=k_q$, $\FlowGraph_q$ is the query-conditioned temporal evidence graph, and $F_{\theta}$ is a learned set-level ranking function.
+where $\SetBank_q$ is the candidate space of evidence sets of size $k_q$, $\FlowGraph_q$ is the query-conditioned Temporal Evidence Flow graph, and $F_{\theta}$ is a learned set-level ranking function.
 
 \subsection{Downstream Task}
 
@@ -68,7 +72,7 @@ The retrieval result is used as controlled context for a structured generator, w
 (\hat W_q,\hat A_q)=g_{\psi}(x_q,\hat{\Selected}_q).
 \label{eq:downstream_generation}
 \end{equation}
-The primary algorithmic contribution of this paper is the retrieval stage that constructs and ranks Temporal Evidence Flows. Structured generation experiments evaluate whether differences in retrieved evidence are reflected in work-order fields, actions, dependencies, and evidence citations.
+The evidence records in $\hat{\Selected}_q$ are passed to the generator as the retrieved context; retrieval scores and Temporal Evidence Flow graph features are not exposed to the generator. The primary algorithmic contribution of this paper is the retrieval stage that constructs and ranks Temporal Evidence Flows. Structured generation experiments evaluate whether differences in retrieved evidence are reflected in work-order fields, actions, dependencies, and evidence citations.
 
 \begin{table}[t]
 \caption{Main notation.}
@@ -79,13 +83,14 @@ The primary algorithmic contribution of this paper is the retrieval stage that c
 \toprule
 Symbol & Meaning \\
 \midrule
-$Q_q=(x_q,u_q,m_q,t_q)$ & Query text, asset, context, and knowledge cutoff time \\
+$Q_q=(x_q,u_q,m_q,t_q)$ & Query text, asset, asset-model/context metadata, and knowledge cutoff time \\
 $e,t_e(e),t_a(e)$ & Evidence record, event time, and first availability time \\
 $\Evidence$ & Global evidence repository \\
 $\Candidates_q$ & Legal and visible evidence set at query time \\
+$V_q$ & Candidate node pool returned by the base retrieval stage \\
 $\FlowGraph_q$ & Query-conditioned Temporal Evidence Flow graph \\
-$\SetBank_q$ & Candidate space of evidence sets containing at most five records \\
-$\hat{\Selected}_q$ & Final selected evidence flow (at most 5 records) \\
+$\SetBank_q$ & Candidate space of evidence sets of size $k_q\leq 5$ \\
+$\hat{\Selected}_q$ & Final selected evidence set (at most 5 records) \\
 $W_q,A_q$ & Standardized work order and action plan \\
 \bottomrule
 \end{tabular}
