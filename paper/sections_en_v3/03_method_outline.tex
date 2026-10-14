@@ -2,6 +2,13 @@
 \section{TEF-RAG Method}
 \label{sec:method}
 % =========================================================
+% Candidate Evidence-Set Construction 算不算方法的一个小节
+% 维度特征全局检查一下是否有对应补上/无解释的
+% temporally ordered 与 3.1 的 temporally valid 用词不同，类似要检查一下是不是全文同一个概念一直用的一个词（这个要全局检查）
+% V_q 这个符号是什么意思
+% Relation 有几种？全文检查一下
+% 训练过程加个过度词
+
 
 Figure~\ref{fig:tef_overview} presents the overall TEF-RAG pipeline. The method consists of four connected stages: legal-candidate retrieval, learned evidence-pair proposal, query-conditioned relation graph construction, and nonlinear set ranking. The first two stages control candidate size, the relation graph represents process structure among evidence records, and the final ranker directly compares the overall utility of candidate evidence sets.
 

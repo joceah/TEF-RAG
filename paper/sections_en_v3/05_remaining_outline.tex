@@ -1,7 +1,11 @@
 % =========================================================
 \section{Experimental Results}
 \label{sec:results}
-% =========================================================
+% 联合消融实验部分，文字和表格好像有出入
+% The joint ablation 这句附近验证集和测试集的描述是不是有点不清晰？应该是测试比测试、验证比验证
+%  substantial  这一句好像有点没理解，要重新组织一下 
+% 检查一下The joint ablation这一句和下一句的逻辑和内容
+=========================================================
 
 \subsection{Main Retrieval Results}
 
@@ -33,9 +37,33 @@ TA-RAG & 0.2769 & 0.2907 & 0.0375 & 0.0375 \\
 \subsection{Validation Ablation Study}
 \label{sec:ablation_results}
 
-Table~\ref{tab:ablation_results} reports the five ablations on the validation split. Full TEF-RAG achieves a FlowComplete@5 of 0.4042. Removing learned pair proposal reduces it only to 0.4021, an absolute difference of 0.0021. Because these values are single-run point estimates, we do not interpret such a small difference as evidence of a stable accuracy effect. Instead, it is consistent with the pair proposer primarily determining which pairs receive relation analysis and controlling computational cost rather than directly determining the final evidence set. In contrast, removing relation-graph-derived features reduces FlowComplete@5 to 0.3667; this decrease is consistent with graph-derived features contributing to set ranking.
+Table~\ref{tab:ablation_results} reports the five ablations on 
+the validation split. Full TEF-RAG achieves a FlowComplete@5 of 
+0.4042. Removing learned pair proposal reduces it only to 0.4021, 
+an absolute difference of 0.0021.
+It is consistent with the pair proposer primarily determining 
+which pairs receive relation analysis and controlling computational 
+cost rather than directly determining the final evidence set. 
+In contrast, removing relation-graph-derived features reduces 
+FlowComplete@5 to 0.3667; this decrease is consistent with 
+graph-derived features contributing to set ranking.
 
-The training objective and the ranker itself have a larger effect. Removing hard-negative mining reduces FlowComplete@5 from 0.4042 to 0.2833, while removing the nonlinear set ranker and using the preceding greedy evidence-set selector reduces it to 0.3125. Jointly removing learned pair proposal and the nonlinear ranker yields 0.2875 FlowComplete@5, with Recall@5 of 0.6873, nDCG@5 of 0.6860, and Complete@5 of 0.2958. This joint variant uses the nonlearned pair prefilter together with the greedy evidence-set selector while retaining relation judging, relation-graph construction, and candidate-set construction. Notably, removing the nonlinear ranker alone slightly increases nDCG@5 relative to the full model (0.6965 vs.\ 0.6885), while substantially decreasing Complete@5 and FlowComplete@5. The increase in nDCG@5 together with lower Complete@5 and FlowComplete@5 indicates that conventional ranking quality and set-level process completeness need not change in the same direction.
+The training objective and the ranker itself have a larger effect. 
+Removing hard-negative mining reduces FlowComplete@5 from 0.4042 to 
+0.2833, while removing the nonlinear set ranker and using the 
+preceding greedy evidence-set selector reduces it to 0.3125. 
+Jointly removing learned pair proposal and the nonlinear ranker
+ yields 0.2875 FlowComplete@5, with Recall@5 of 0.6873, nDCG@5 of
+  0.6860, and Complete@5 of 0.2958. This joint variant uses the 
+  nonlearned pair prefilter together with the greedy evidence-set 
+  selector while retaining relation judging, relation-graph construction, 
+  and candidate-set construction. Notably, removing the nonlinear ranker 
+  alone slightly increases nDCG@5 relative to the full model 
+  (0.6965 vs.\ 0.6885), while substantially decreasing Complete@5 
+  and FlowComplete@5. The increase in nDCG@5 together with lower 
+  Complete@5 and FlowComplete@5 indicates that conventional 
+  ranking quality and set-level process completeness need not 
+  change in the same direction.
 
 \begin{table}[t]
 \caption{TEF-RAG ablation results on the validation split.}
@@ -59,7 +87,12 @@ w/o Pair Proposal + Nonlinear Ranker & 0.6873 & 0.6860 & 0.2958 & 0.2875 \\
 }
 \end{table}
 
-Because the joint ablation removes both benchmark-trained selection modules, we also froze its predictions on the test split before accessing the test evaluator. It obtains Recall@5 of 0.5835, nDCG@5 of 0.6034, Complete@5 of 0.1625, and FlowComplete@5 of 0.1521. These values are higher than BM25, the pretrained BGE Reranker, Temporal-BM25, and TA-RAG on all four retrieval metrics, while Fine-tuned BGE and the full TEF-RAG remain higher. This check indicates that temporal eligibility, relation reasoning, and evidence-set construction retain substantial retrieval value even without the learned pair proposer and nonlinear ranker.
+The joint ablation obtains Recall@5 of 0.5835, nDCG@5 of 0.6034, Complete@5 of 0.1625, 
+and FlowComplete@5 of 0.1521. These values are higher than BM25, 
+the pretrained BGE Reranker, Temporal-BM25, and TA-RAG on all four retrieval metrics, 
+while Fine-tuned BGE and the full TEF-RAG remain higher. This check indicates that 
+temporal eligibility, relation reasoning, and evidence-set construction retain 
+substantial retrieval value even without the learned pair proposer and nonlinear ranker.
 
 \subsection{Downstream Structured Generation Results}
 \label{sec:generation_results}
@@ -93,7 +126,9 @@ TA-RAG & 0.4059 & 0.1115 & 0.0379 & 0.0570 \\
 \label{sec:limitations}
 % =========================================================
 
-The benchmark in this work is a public-source-grounded, AI-assisted synthetic benchmark rather than a collection of real power-station work orders or domain-expert annotations.
+The benchmark in this work is a public-source-grounded, 
+synthetic benchmark rather than a collection of real 
+power-station work orders or domain-expert annotations.
 Its primary value therefore lies in controlled comparison of temporal evidence-retrieval mechanisms; the results should not be directly extrapolated to real-world power-station fault frequencies or field robotic safety.
 Although the generation evaluation covers fields, actions, dependencies, and citations, it does not simulate actual robotic execution, environmental feedback, or safety interlocks.
 

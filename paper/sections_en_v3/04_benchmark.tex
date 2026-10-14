@@ -2,7 +2,7 @@
 \section{Experimental Design}
 \label{sec:experiments}
 % =========================================================
-
+% 重点检查一下benchmark前面的形容词，感觉好几个地方不一样
 \subsection{Temporal O\&M Benchmark}
 \label{sec:dataset}
 
@@ -64,7 +64,10 @@ Public sources are used only to constrain cell type, typical operating ranges, a
 
 \subsection{Structured Generation Evaluation}
 
-To evaluate how retrieval context is reflected in downstream generation, we construct structured reference answers on the same set of O\&M event chains. These reference answers are generated with AI assistance and finalized after repeated consistency checks against the constructed event chains and the required output format.
+To evaluate how retrieval context is reflected in downstream generation, 
+we construct structured reference answers on the same set of O\&M event 
+chains. These reference answers are generated and 
+finalized after repeated consistency checks against the constructed event chains and the required output format.
 
 Each task intent corresponds to one structured reference answer. Because the two queries under the same intent differ only in wording while requiring the same diagnosis, action, and verification information, they share the same reference answer. The development, validation, and test sets therefore contain 720, 240, and 240 structured reference answers, corresponding to 1,440, 480, and 480 queries, respectively. Each output has two parts: a standardized work order and an action plan. The work order describes the diagnosis, recommended actions, applicable procedure, verification/uncertainty status, and evidence citations; the action plan consists of atomic actions and their dependencies.
 
@@ -110,10 +113,23 @@ Recall@5 and nDCG@5 measure conventional retrieval relevance. Complete@5 measure
 \textbf{Generation.}
 We report four primary metrics in the main text: Field Macro F1 (strict), Action F1, Citation F1, and Evidence Support Recall. For the F1 measures, F1 denotes the harmonic mean of precision and recall. Field Macro F1 measures strict matching of key work-order fields, Action F1 measures normalized maintenance actions, and Citation F1 evaluates claim--evidence citation pairs. Evidence Support Recall measures the fraction of reference work-order and action claims requiring evidence support for which the generated output provides at least one acceptable supporting-evidence citation.
 
-\subsection{Run Protocol}
-
-All values reported in Tables~\ref{tab:retrieval_results}--\ref{tab:generation_results} are point estimates from one frozen run on the stated split rather than averages over repeated runs. The learned pair proposer and nonlinear RankNet use random seed 20260916, while Fine-tuned BGE uses seed 20261008. Generation metrics are likewise computed once from a fixed set of 480 outputs under the shared generator configuration. Because the full training and generation pipelines were not repeated across multiple seeds, we do not report run-to-run standard deviations.
-
 \subsection{Ablation Setup}
 
-To analyze the contribution of individual components, we conducted five ablations on 480 validation queries: removing learned pair proposal, removing relation-graph-derived set features, removing hard-negative mining, removing the nonlinear set ranker, and jointly removing both learned pair proposal and the nonlinear set ranker. The full model and all variants use the same Top-30 search pool, the same maximum number of evidence pairs sent to relation judging, the same relation-judging prompt and confidence threshold, and the same candidate-set construction procedure. The graph-feature ablation removes only relation-graph-derived set features and retrains the same RankNet; the hard-negative ablation keeps only the first training round; and the nonlinear-ranker ablation removes the learned set ranker and uses the preceding greedy evidence-set selector instead. The joint ablation combines the same nonlearned pair-prefilter replacement used when pair proposal is removed with the same greedy evidence-set selector used when the nonlinear ranker is removed, while retaining relation judging, relation-graph construction, and candidate-set construction.
+To analyze the contribution of individual components, 
+we conducted five ablations on 480 validation queries: 
+removing learned pair proposal, removing relation-graph-derived 
+set features, removing hard-negative mining, removing the 
+nonlinear set ranker, and jointly removing both learned pair 
+proposal and the nonlinear set ranker. The full model and all 
+variants use the same Top-30 search pool, the same maximum number 
+of evidence pairs sent to relation judging, the same relation-judging 
+prompt and confidence threshold, and the same candidate-set 
+construction procedure. The graph-feature ablation removes only 
+relation-graph-derived set features and retrains the same RankNet; 
+the hard-negative ablation keeps only the first training round; 
+and the nonlinear-ranker ablation removes the learned set ranker 
+and uses the preceding greedy evidence-set selector instead. 
+The joint ablation removes both learned components: the pair proposer 
+is replaced by the nonlearned pair prefilter, and the nonlinear ranker 
+is replaced by the greedy evidence-set selector. Relation judging, 
+relation-graph construction, and candidate-set construction remain unchanged.
