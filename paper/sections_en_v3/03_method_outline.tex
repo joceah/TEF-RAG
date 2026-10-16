@@ -16,7 +16,7 @@ Figure~\ref{fig:tef_overview} presents the overall TEF-RAG pipeline. The method 
     \centering
     \includegraphics[width=0.96\textwidth]{figures/tef_rag_overview.png}
     % BEFORE: \caption{Overview of TEF-RAG. The system first selects candidate evidence pairs from records that are legal at the query time, then constructs a query-conditioned Temporal Evidence Flow. A nonlinear pairwise ranker selects at most five records from the candidate-set space as the evidence flow, which is then used as controlled context for a shared downstream generator.}
-    \caption{Overview of TEF-RAG. The system first selects candidate evidence pairs from records that are legal at the query time, then constructs a query-conditioned Temporal Evidence Flow. Candidate evidence sets are constructed from the resulting retrieval and graph signals, and a nonlinear pairwise ranker selects at most five records as the final evidence set for a shared downstream generator.}
+    \caption{Overview of TEF-RAG. The system first selects candidate evidence pairs from records that are legal at the query time, then constructs a query-conditioned temporal evidence flow. Candidate evidence sets are constructed from the resulting retrieval and graph signals, and a nonlinear pairwise ranker selects at most five records as the final evidence set for a shared downstream generator.}
     \label{fig:tef_overview}
 \end{figure*}
 
@@ -25,8 +25,7 @@ Figure~\ref{fig:tef_overview} presents the overall TEF-RAG pipeline. The method 
 TEF-RAG first applies a unified legality check to heterogeneous raw records. Records are directly excluded if they refer to the wrong asset, describe events after the query time, become available only after the query time, or correspond to procedures that are inapplicable to the current model or time period. This stage does not learn relevance; instead, it establishes a knowledge boundary that subsequent models cannot override.
 
 % BEFORE: Within the legal set $\Candidates_q$, BM25 produces a broad candidate pool. A Top-30 search pool is then formed using features available at retrieval time, including lexical relevance, temporal recency, and compatibility with the roles required by the query. This pool is intended to preserve recall rather than determine the final output directly. If fewer than five legal candidates exist, the system keeps the shorter output without artificial padding.
-Within the legal set $\Candidates_q$, BM25 produces a broad candidate pool. The candidate node pool $V_q$ defined in Section~\ref{sec:problem} is then formed as the Top-30 search pool using features available at retrieval time, including lexical relevance, temporal recency, and compatibility with the roles required by the query. This pool is intended to preserve recall rather than determine the final output directly. If fewer than five legal candidates exist, the system keeps the shorter output without artificial padding.
-
+Within the legal set $\Candidates_q$, BM25 produces a broad candidate pool. The candidate records are assigned an initial node score based on lexical relevance, temporal recency, and compatibility with the evidence roles implied by the query. The 30 highest-scoring legal records form the candidate node pool $V_q$ defined in Section~\ref{sec:problem}. This pool is designed to preserve potentially useful evidence for subsequent relation reasoning and evidence-set selection rather than to determine the final output directly.
 \subsection{Learned Pair Proposal}
 
 % BEFORE: Applying semantic relation reasoning to every ordered pair in the search pool would incur quadratic cost in the number of candidates. TEF-RAG therefore first learns a lightweight pair proposer that estimates, for each temporally valid evidence pair $(e_i,e_j)$, the probability that the pair is worth passing to the relation-reasoning stage:
@@ -57,7 +56,7 @@ h_{\eta}(q,e_i,e_j)
 \end{equation}
 where $r_{ij}\in\Rels$ and $c_{ij}\in[0,1]$ is the relation confidence. Only pairs predicted to have a valid relation and exceeding the confidence threshold are added to the graph. Pairs assigned no valid relation or a confidence below the threshold are discarded. The fixed prompt used by the relation judge is provided in Appendix~\ref{app:relation_prompt}.
 
-Candidate evidence records are treated as graph nodes, and identified semantic relations between two records are represented as directed edges. For query $q$, the Temporal Evidence Flow graph is
+Candidate evidence records are treated as graph nodes, and identified semantic relations between two records are represented as directed edges. For query $q$, the temporal evidence flow graph is
 \begin{equation}
 \FlowGraph_q=(V_q,E_q),
 \end{equation}

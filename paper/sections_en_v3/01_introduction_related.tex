@@ -23,14 +23,14 @@ In the embodied O\&M setting considered in this work, retrieval is not the endpo
 
 Our contributions are threefold:
 \begin{enumerate}
-    \item We formulate Temporal Evidence Flow retrieval for dynamic O\&M knowledge, unifying temporal visibility and evidence-set completeness within a single retrieval framework.
+    \item We formulate temporal evidence flow retrieval for dynamic O\&M knowledge, unifying temporal visibility and evidence-set completeness within a single retrieval framework.
     \item We propose a method that combines learned evidence-pair proposal, query-conditioned relation graphs, and nonlinear set ranking, shifting the retrieval objective from independent document relevance to set-level process utility.
     % BEFORE: \item We construct a controlled temporal O\&M benchmark and evaluate whether evidence-flow quality transfers to downstream work orders and action plans using both retrieval metrics and structured generation metrics under a shared generator.
     \item We construct a controlled Temporal O\&M benchmark and evaluate retrieval together with downstream structured generation under a shared generator, using both retrieval and evidence-grounded generation metrics.
 \end{enumerate}
 
 % =========================================================
-\subsection{Related Work}
+\section{Related Work}
 \label{sec:related_work}
 % =========================================================
 % Neural Retrieval 似乎没有特意讲到？
@@ -40,13 +40,12 @@ Classical RAG combines an external retriever with a generator~\cite{lewis2020rag
 
 % 时间/多跳之间有无关系？ 类似方法/目的相同的方法介绍的时候最好要有一句话连接起来
 \textbf{Time-Aware and Multi-Hop Retrieval.}
-Time-aware and multi-hop retrieval address different constraints on multi-evidence retrieval: the former models when evidence is relevant, whereas the latter models how multiple pieces of evidence are gathered across steps.
-MRAG and TA-RAG explicitly incorporate temporal conditions into retrieval~\cite{zhang2025mrag,lau2025tarag}; MDR and IRCoT find multi-piece evidence through stepwise retrieval or interleaved retrieval and reasoning~\cite{xiong2021mdr,trivedi2023ircot}. TEF-RAG similarly emphasizes complementary evidence, but further distinguishes event time from availability time and allows evidence structures to contain updates, supersession, verification, and uncertainty propagation.
+Time-aware retrieval and multi-hop retrieval address two complementary aspects of multi-evidence retrieval. Time-aware methods determine which evidence is relevant under a given temporal condition, while multi-hop methods retrieve multiple pieces of evidence whose usefulness depends on one another. MRAG and TA-RAG explicitly incorporate temporal conditions into retrieval~\cite{zhang2025mrag,lau2025tarag}, whereas MDR and IRCoT retrieve complementary evidence through sequential retrieval or interleaved retrieval and reasoning~\cite{xiong2021mdr,trivedi2023ircot}. TEF-RAG shares both concerns: it enforces temporal validity and seeks multiple complementary records for the same task. It further distinguishes event time from availability time and models explicit relations among the retrieved evidence rather than treating the evidence as a simple linear chain.
 
 % 同上，另可以加一句引导性的话，不同RAG之间的关系
 \textbf{Structured and Graph-Based RAG.}
 A complementary line of work changes how retrieved knowledge is organized across documents rather than focusing primarily on temporal filtering or iterative retrieval.
-RAPTOR, GraphRAG, and HippoRAG organize cross-document information using hierarchical or graph-based structures~\cite{sarthi2024raptor,edge2024graphrag,gutierrez2024hipporag}. Unlike methods that typically construct graphs from document hierarchies or entity relations, TEF-RAG defines edges jointly from the current query and the currently visible O\&M records; their semantics directly correspond to support, update, qualification, and verification relations among maintenance evidence.
+RAPTOR, GraphRAG, and HippoRAG organize cross-document information using hierarchical or graph-based structures~\cite{sarthi2024raptor,edge2024graphrag,gutierrez2024hipporag}. Unlike methods that typically construct graphs from document hierarchies or entity relations, TEF-RAG defines edges jointly from the current query and the currently visible O\&M records with rich process semantics.
 
 % embodied 要有就都要有
 \textbf{Embodied O\&M and Battery Intelligence.}

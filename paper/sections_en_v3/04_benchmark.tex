@@ -111,7 +111,7 @@ Our method applies learned evidence-pair screening, query-conditioned relation-g
 \label{sec:metrics}
 
 \textbf{Retrieval.}
-Recall@5 and nDCG@5 measure conventional retrieval relevance. Complete@5 measures whether the retrieved set contains all categories of key evidence required to complete the task. FlowComplete@5 further checks whether those records can form correct and mutually consistent evidence relations, thereby constituting a complete Temporal Evidence Flow.
+Recall@5 and nDCG@5 measure conventional retrieval relevance. Complete@5 measures whether the retrieved set contains all categories of key evidence required to complete the task. FlowComplete@5 further checks whether those records can form correct and mutually consistent evidence relations, thereby constituting a complete temporal evidence flow.
 
 \textbf{Generation.}
 We report four primary metrics in the main text: Field Macro F1 (strict), Action F1, Citation F1, and Evidence Support Recall. For the F1 measures, F1 denotes the harmonic mean of precision and recall. Field Macro F1 measures strict matching of key work-order fields, Action F1 measures normalized maintenance actions, and Citation F1 evaluates claim--evidence citation pairs. Evidence Support Recall measures the fraction of reference work-order and action claims requiring evidence support for which the generated output provides at least one acceptable supporting-evidence citation.
