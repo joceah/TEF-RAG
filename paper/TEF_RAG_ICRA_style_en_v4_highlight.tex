@@ -1,0 +1,96 @@
+% !TeX program = pdflatex
+
+\documentclass[letterpaper,10pt,conference]{IEEEtran}
+
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage{cite}
+\usepackage[hyphens]{url}
+\usepackage[hidelinks]{hyperref}
+\usepackage[table]{xcolor}
+
+\lstset{
+  basicstyle=\ttfamily\scriptsize,
+  breaklines=true,
+  breakatwhitespace=false,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false
+}
+
+\title{TEF-RAG: Temporal Evidence Flow Retrieval-Augmented Generation for Energy Storage Station Operation and Maintenance}
+\author{Juxian Yin}
+
+\newcommand{\ind}{\mathbb{I}}
+\newcommand{\Rels}{\mathcal{R}}
+\newcommand{\Evidence}{\mathcal{K}}
+\newcommand{\Candidates}{\mathcal{C}}
+\newcommand{\FlowGraph}{\mathcal{G}}
+\newcommand{\SetBank}{\mathcal{B}}
+\newcommand{\Selected}{\mathcal{S}}
+\newcommand{\placeholderfigure}[1]{%
+  \fbox{\parbox{0.94\linewidth}{\vspace{0.8in}\centering\textit{#1}\par\vspace{0.8in}}}%
+}
+
+
+% Yellow passages are the 38 prose edits in v4 relative to v3.
+% Review copy only; the clean v4 sources remain unchanged.
+\usepackage{soul}
+\sethlcolor{yellow}
+\soulregister\ref7
+\newcommand{\revhl}[1]{\hl{#1}}
+
+\begin{document}
+
+\maketitle
+
+% =========================================================
+% Abstract
+% =========================================================
+\begin{abstract}
+% 储能站运维 RAG 不能只做语义检索。 —— 补：为什么储能站运维需要RAG
+% BEFORE: Retrieval-augmented generation for embodied operation and maintenance (O\&M) in energy-storage stations must do more than retrieve records that are semantically relevant to a query.
+\revhl{An embodied operation and maintenance (O\&M) system for an energy-storage station must consult records from different stages of a maintenance process. Alarms and inspections document the observed condition; work orders and procedures specify actions; post-action checks record their outcomes. Retrieval-augmented generation (RAG) supplies these records as context for work-order and action-plan generation.}
+% 还要保证时间可用性与完整过程支持 - 补：这两项在储能的重要性
+% BEFORE: It must also ensure that the evidence was actually available at the query time and that the retrieved records can jointly support a complete process from state observation and diagnosis to action and verification.
+\revhl{For a query issued at a given time, the retrieved records must already have been available and must jointly supply the evidence needed for diagnosis, action, and verification.} Otherwise, the system may use retrospective information or provide an incomplete decision context.
+% 补：针对这一特点，因此我们提出....
+% BEFORE: We propose TEF-RAG (Temporal Evidence Flow Retrieval-Augmented Generation), which formulates retrieval in dynamic O\&M environments as query-conditioned temporal evidence-flow selection.
+To address these requirements, we propose TEF-RAG (Temporal Evidence Flow Retrieval-Augmented Generation), which formulates retrieval in dynamic O\&M environments as query-conditioned temporal evidence flow selection.
+% 
+TEF-RAG first applies deterministic constraints on asset identity, event time, availability time, 
+and procedure applicability. 
+% 
+A learned pair proposal module then selects evidence pairs worth semantic relation reasoning, and a directed graph is constructed with relations such as support, update, qualification, supersession, and verification. 
+% 
+Finally, candidate evidence sets are constructed from the resulting graph, and a nonlinear RankNet learns their set-level relative utility to select an evidence flow of at most five records with complementary roles and coherent relations.
+% 需要过渡，为了验证我们的方法，我们建立了...
+% BEFORE: We construct a public-source-grounded benchmark with dual timestamps, supersession, cross-source complementary evidence, and persistent uncertainty, and compare different retrieval contexts under a shared downstream generator.
+To evaluate these temporal and cross-record requirements under controlled conditions, we construct a public-source-grounded, AI-assisted synthetic Temporal O\&M benchmark with dual timestamps, supersession, cross-source complementary evidence, and persistent uncertainty, and compare different retrieval contexts under a shared downstream generator.
+% 我们在这个benchmark上验证了我们的想法，其中在测试集上
+% BEFORE: On the test split, TEF-RAG records the highest Recall@5, Complete@5, and FlowComplete@5 among the six compared methods.
+On this benchmark, TEF-RAG records the highest Recall@5, Complete@5, and FlowComplete@5 among the six compared methods, while Fine-tuned BGE records the highest nDCG@5.
+Under the shared generator, TEF-RAG records the highest Field Macro F1 score, Action F1 score, Citation F1 score, and Evidence Support Recall. 
+% The results support 这说法太像AI了，不要用这种说法
+% BEFORE: The results support evaluating retrieval at the evidence-set level when temporal visibility and cross-record relations are part of the task definition.
+Thus, the comparison distinguishes individual-record ranking quality from the recovery of temporally valid and process-complete evidence sets.
+\end{abstract}
+
+\begin{IEEEkeywords}
+retrieval-augmented generation, temporal retrieval, evidence flow, learning to rank, operation and maintenance, energy storage
+\end{IEEEkeywords}
+
+\input{sections_en_v4_highlight/01_introduction_related.tex}
+\input{sections_en_v4_highlight/02_problem_definition.tex}
+\input{sections_en_v4_highlight/03_method_outline.tex}
+\input{sections_en_v4_highlight/04_benchmark.tex}
+\input{sections_en_v4_highlight/05_remaining_outline.tex}
+\input{sections_en_v4_highlight/06_references.tex}
+\appendices
+\input{sections_en_v4_highlight/07_appendix.tex}
+\end{document}

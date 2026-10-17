@@ -1,0 +1,98 @@
+% =========================================================
+\section{Problem Definition}
+\label{sec:problem}
+% =========================================================
+
+\subsection{Queries and Temporally Visible Evidence}
+
+% at most 检查一下说法和公式对的上不
+% 生成输入和检索输出一致吗
+% evidence records / evidence flow 是一回事吗，abstract里似乎也有类似情况
+% $m_q$是什么
+% Temporal Evidence Flow 是不是有大小写和单复数的问题
+
+% BEFORE: Given an O\&M query
+We represent an O\&M query as
+\begin{equation}
+Q_q=(x_q,u_q,m_q,t_q),
+\end{equation}
+
+where $x_q$ is the query text, $u_q$ is the target asset, $m_q$ denotes the asset-model/context metadata used for scope checks, and $t_q$ is the knowledge cutoff time. The global evidence repository is denoted by $\Evidence=\{e_1,\ldots,e_N\}$. Each evidence record contains at least its content, asset identifier, event type, source type, event time $t_e(e)$, and availability time $t_a(e)$.
+
+We explicitly distinguish between when an event happened and when the system knew about it. Evidence $e$ is visible to query $q$ if and only if
+\begin{equation}
+\operatorname{Visible}(e,q)
+=
+\mathbb{I}\!\left[
+t_e(e)\le t_q \land t_a(e)\le t_q
+\right].
+\label{eq:visible}
+\end{equation}
+Thus, a record describing an earlier event but entered into the system only after the query time cannot be used by that query.
+
+For procedure evidence, we additionally require a matching asset model, validity at the query time, and that the procedure has not been withdrawn. We write these deterministic conditions collectively as
+\begin{equation}
+\operatorname{Legal}(e,Q_q)
+=
+\operatorname{Visible}(e,q)
+\land
+\operatorname{ScopeOK}(e,Q_q),
+\label{eq:legal}
+\end{equation}
+where $\operatorname{ScopeOK}$ summarizes asset consistency and, when applicable, procedure model scope, validity interval, and withdrawal constraints. The legal evidence set at query time is therefore
+\begin{equation}
+\Candidates_q
+=
+\{e\in\Evidence:\operatorname{Legal}(e,Q_q)=1\}.
+\label{eq:candidate}
+\end{equation}
+All subsequent retrieval, relation reasoning, and set ranking operate only within $\Candidates_q$.
+
+To distinguish the levels used below, an \emph{evidence record} refers to one retrievable item, an \emph{evidence set} refers to a selected collection of records, and a \emph{temporal evidence flow} refers to such a set together with the directed relations among its records.
+
+\subsection{Retrieval Objective}
+
+% BEFORE: A base retriever obtains a candidate node set $V_q$ from $\Candidates_q$. We use $k=5$ as the retrieval upper bound. Let $k_q=\min(5,|V_q|)$; the system selects at most five evidence records to form $\hat{\Selected}_q$. If fewer than five legal candidates exist, the system directly returns the available legal evidence without padding or backfilling. The selected evidence should be relevant to the query, cover the task-required evidence roles, and form a temporally and semantically consistent structure.
+A base retrieval stage produces a candidate node pool \(V_q\subseteq\Candidates_q\) from the legal evidence. \revhl{For a pool $V_q$, the selector compares sets of $k_q=\min(5,|V_q|)$ records, with $k=5$ as the retrieval upper bound. When fewer than five legal records exist, it returns those records without padding or backfilling. Within this budget, a useful set must cover the roles needed by the query and retain consistent temporal and semantic relations among its records.}
+
+\revhl{The ranker scores each candidate set jointly:}
+\begin{equation}
+\hat{\Selected}_q
+=
+\arg\max_{\Selected\in\SetBank_q}
+F_{\theta}(Q_q,\Selected,\FlowGraph_q),
+\quad |\Selected|=k_q,
+\label{eq:set_selection}
+\end{equation}
+\revhl{Here $F_{\theta}$ ranks the sets of size $k_q$ in $\SetBank_q$, using the query-conditioned temporal evidence flow graph $\FlowGraph_q$.}
+
+\subsection{Downstream Task}
+
+The retrieval result is used as controlled context for a structured generator, which produces a standardized work order $W_q$ and an action plan $A_q$:
+\begin{equation}
+(\hat W_q,\hat A_q)=g_{\psi}(x_q,\hat{\Selected}_q).
+\label{eq:downstream_generation}
+\end{equation}
+The evidence records in $\hat{\Selected}_q$ are passed to the generator as the retrieved context; retrieval scores and temporal evidence flow graph features are not exposed to the generator. The primary algorithmic contribution of this paper is the retrieval stage that constructs and ranks temporal evidence flows. Structured generation experiments evaluate whether differences in retrieved evidence are reflected in work-order fields, actions, dependencies, and evidence citations.
+
+\begin{table}[t]
+\caption{Main notation.}
+\label{tab:symbols}
+\centering
+\small
+\begin{tabular}{@{}p{0.28\columnwidth}p{0.65\columnwidth}@{}}
+\toprule
+Symbol & Meaning \\
+\midrule
+$Q_q=(x_q,u_q,m_q,t_q)$ & Query text, asset, asset-model/context metadata, and knowledge cutoff time \\
+$e,t_e(e),t_a(e)$ & Evidence record, event time, and first availability time \\
+$\Evidence$ & Global evidence repository \\
+$\Candidates_q$ & Legal and visible evidence set at query time \\
+$V_q$ & Candidate node pool returned by the base retrieval stage \\
+$\FlowGraph_q$ & Query-conditioned temporal evidence flow graph \\
+$\SetBank_q$ & Candidate space of evidence sets of size $k_q\leq 5$ \\
+$\hat{\Selected}_q$ & Final selected evidence set (at most 5 records) \\
+$W_q,A_q$ & Standardized work order and action plan \\
+\bottomrule
+\end{tabular}
+\end{table}
