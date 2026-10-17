@@ -6,7 +6,7 @@
 \subsection{LLM Invocation Configuration}
 \label{app:llm_config}
 
-All LLM calls in this work, including Temporal Evidence Flow relation judging,
+All LLM calls in this work, including temporal evidence flow relation judging,
 TA-RAG temporal decomposition, and downstream structured generation, directly use the official DeepSeek API with \texttt{deepseek-flash}.
 Apart from the frozen system/user prompts and input schemas for each task,
 sampling and decoding parameters are not manually overridden; all remaining API parameters follow the provider defaults.
@@ -85,7 +85,7 @@ During the first training round, candidate sets with high $H(\Selected)$ but inc
 We keep the relation-judging prompt fixed and fill in its relation definitions, relation codes, and reason codes from the frozen configuration at invocation. The prompt reads:
 
 \begin{lstlisting}
-Prompt version: tef-v6-stage2a-relation-v7. You classify directed
+You classify directed
 Temporal Evidence Flow edges for one or more independent query cases.
 Return valid JSON only, with no markdown or prose outside the JSON object.
 Judge whether source -> target is useful for answering THIS query, not
@@ -162,7 +162,7 @@ For every retrieval method, downstream generation uses this fixed system prompt:
 
 \begin{lstlisting}
 You are the single frozen downstream generator used identically for every
-retrieval method in TEF-RAG v6 generation evaluation.
+retrieval method in TEF-RAG generation evaluation.
 
 Produce ONLY a JSON object matching the supplied schema. You receive one
 query and exactly the evidence selected by a retrieval method. The retrieval
@@ -206,7 +206,6 @@ The generation payload contains the query, the selected records, and the output 
 
 \begin{lstlisting}
 {
-  "prompt_version": "tef-v6-generation-eval-v1.3",
   "query": {...},
   "selected_evidence": [...],
   "output_schema": {...}
